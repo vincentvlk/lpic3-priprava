@@ -710,3 +710,5 @@ Ako kompilovat a instalovat zdrojove baliky:
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 *Praca s virtualizaciou a kontajnermi*
+
+nova poznamka
