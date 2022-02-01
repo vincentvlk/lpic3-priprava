@@ -707,3 +707,6 @@ Ako kompilovat a instalovat zdrojove baliky:
  - na Debian-based distr. je nastroj na nastavenie parametrov ".deb" balickov "checkinstall": # apt install checkinstall
  - POZOR, na nasej testovacej instalacii mozeme spustit tvorbu balicka: # checkinstall make install
  - ^^^ uvedenym prikazom si mozeme rozbit system, tak doporucujem si na test VM spravit snapshot a opatrne...
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+*Praca s virtualizaciou a kontajnermi*
