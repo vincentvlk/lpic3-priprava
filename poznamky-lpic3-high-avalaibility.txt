@@ -1,0 +1,709 @@
+*** Poznamky k priprave na LPIC3-High Availability ***
+
+Ako na linuxe vypnut PC-speaker: #rmmod pcspkr
+
+- na virtualne masiny som si porobil po zaciatocnom setupe Snapshoty vo VMW
+
+- dobra stranaka na zaciatocnu konfiguraciu znamych distribucii:
+https://www.server-world.info/en/note?os=Ubuntu_20.04&p=initial_conf&f=3
+ - nevedno do kedy bude online :-/
+
+- nastavenie siete v systeme Debian11:
+
+	- edituje sa /etc/network/interfaces
+	- a potom nieco taketo:
+
+-=-=-=-=-=-=-=-=-
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+allow-hotplug ens33
+#iface ens33 inet dhcp
+# add static settings
+iface ens33 inet static
+# IP address
+address 192.168.1.242
+# network address
+network 192.168.1.0
+# subnet mask
+netmask 255.255.255.0
+# broadcast address
+broadcast 192.168.1.255
+# default gateway
+gateway 192.168.1.1
+# name server
+dns-nameservers 193.17.47.1 185.43.135.1
+
+a nasledne aplikujeme config:
+# systemctl restart ifup@ens33 
+
+Dodatok k nastaveniu statickej IPv6 addr.:
+ - bolo potrebne do suboru "/etc/sysctl.conf" vlozit riadky:
+
+net.ipv6.conf.ens37.autoconf = 0
+net.ipv6.conf.ens37.accept_ra = 0
+
+ - ulozit, nasledne treba reboot alebo prikaz: # sysctl -p
+
+Nasledne do suboru /etc/network/interfaces pridat riadky napr.:
+
+# The secondary network interface
+auto ens37
+allow-hotplug ens37
+iface ens37 inet6 static
+    address 2001:db8:cafe::242/64
+    gateway 2001:db8:cafe::42
+    dns-nameservers 2001:db8:7ea::1 2001:db8:7ea::2
+-=-=-=-=-=-=-=-=-
+
+- nastavenie siete na CentOS:
+
+	- pouzil som nejake hanbate GNOME GUI, neviem preco sa to hned neaplikovalo
+
+- nastavenie siete na Fedora 35 Server:
+
+	- pouzil som cli nastroj "nmcli" z balika "NetworkManager"
+	
+- syntax je takto nejako:
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-	 
+# if you did not set HostName, set it like follows
+
+[root@localhost ~]# hostnamectl set-hostname dlp.srv.world
+
+# display devices
+
+[root@localhost ~]# nmcli device
+
+DEVICE  TYPE      STATE      CONNECTION
+ens33  ethernet  connected  ens33
+lo      loopback  unmanaged  --
+
+# set IPv4 address
+
+[root@localhost ~]# nmcli connection modify ens33 ipv4.addresses 10.0.0.30/24
+
+# set default gateway
+
+[root@localhost ~]# nmcli connection modify ens33 ipv4.gateway 10.0.0.1
+
+# set DNS
+
+# if set multiple DNS, specify with space separated ipv4.dns "10.0.0.10 10.0.0.11 10.0.0.12"
+
+[root@localhost ~]# nmcli connection modify ens33 ipv4.dns 10.0.0.10
+
+# set DNS search base (your domain name)
+
+[root@localhost ~]# nmcli connection modify ens33 ipv4.dns-search srv.world
+
+# set manual for static setting (it's [auto] for DHCP)
+
+[root@localhost ~]# nmcli connection modify ens33 ipv4.method manual
+
+# restart the interface to reload settings
+
+[root@localhost ~]# nmcli connection down ens33; nmcli connection up ens33 
+
+Nasledne overime config:
+
+# nmcli device show ens33 
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+Ako  v unix-like systemoch konvertovat video:
+
+1. nainstalujeme ffmpeg (apt install ffmpeg, yum isntall ffmpeg, brew install ffmpeg a pod.)
+
+2. podla tohto popisu dame konvertovat:
+
+ Update 2020: This answer was written in 2009. 
+ Since 2013 a video format much better than H.264 is widely available, 
+ namely H.265 (better in that it compresses more for the same quality, or 
+ gives higher quality for the same size). 
+ To use it, replace the libx264 codec with libx265, and push the compression lever further 
+ by increasing the CRF value — add, say, 4 or 6, since
+ a reasonable range for H.265 may be 24 to 30. Note that lower CRF values correspond to 
+ higher bitrates, and hence produce higher quality videos.
+
+ $ ffmpeg -i input.mp4 -vcodec libx265 -crf 28 output.mp4
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+Ako v Ubuntu 20.04 konfigurovat siet:
+
+Treba "vypnut" povodny config file:
+
+# mv /etc/netplan/00-installer-config.yaml /etc/netplan/00-installer-config.yaml.disabled
+
+Treba vytvorit novy config file:
+
+# vim /etc/netplan/00-installer-config.yaml
+
+A nasledne pridat nieco taketo:
+
+network:
+  ethernets:
+    # interface name
+    ens33:
+      dhcp4: no
+      # IP address/subnet mask
+      addresses: [192.168.1.244/24]
+      # default gateway
+      gateway4: 192.168.1.1
+      nameservers:
+        # name server to bind
+        addresses: [193.17.47.1, 185.43.135.1]
+      dhcp6: yes
+  version: 2
+
+Ulozit subor a potom zadat (prikaz spravi aj syntax check):
+
+# netplan try
+
+alebo:
+
+# netplan apply
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Sprava diskov:
+
+Prikaz vypise blokove zariadenia: # lsblk
+Prikaz vypise UUID aktivnych particii: # blkid
+Prikaz vytvori Ext4 particiu: # mkfs.ext4 /dev/sdb1
+
+Ako vytvorit Swap subor, nie particiu: 
+
+Prikaz vypise stav Swap-u:
+# free -m
+
+# dd if=/dev/zero of=swap_file bs=1024k count=pocet_MB
+# mkswap swap_file
+# swapon swap_file
+# swapoff swap_file	<< pozor treba mat nahradnu Swap kapacitu
+ 
+V kontexte Swap-u existuje v kerneli tzv. OOM-killer, ktory pri nedostatku pamate zabija procesy
+
+**Praca s LVM:**
+Aktualna verzia LVM2.
+
+Prikaz na interaktivne CLI: # lvm
+- nasledne: lvm> help
+
+Prikaz vypise Physical Volumes: pvs
+Prikaz detailne vypise Physical Volumes: pvdisplay
+Prikaz vypise Volume Groups: vgs
+Prikaz detailne vypise Volume Groups: vgdispaly
+Prikaz vipise Logical Volumes: lvs
+Prikaz detailne vypise Logical Volumes: lvdisplay
+
+Na pracu s LVM vytvorime jednu alebo viac PV particii na realnych diskoch s cfdisk/fdisk/parted a potom mkfs.XYZ
+
+Prikaz vytvori VG s nazvom "vg-nas" a pouzije prve PV (particiu): # vgcreate vg-nas /dev/sdb1   
+- nasledne rozsirime tuto VG (pool) o dalsiu PV particiu: #vgextend vg-nas /dev/sdc1
+
+Prikaz vytvori LV particiu "lvnas1" z danej VG "vg-nas": # lvcreate --size 15g --type linear -n lvnas1 vg-nas 
+
+Prikaz naformatuje LV particu na Ext4-FS: # mkfs.ext4 /dev/mapper/vg--nas-lvnas1
+
+Prikaz rucne namountuje LV "lvnas1" do adresara "/mnt/lvnas1": # mount /dev/mapper/vg--nas-lvnas1 lvnas1 
+Nasledne upravou suboru "/etc/fstab" pridame riadok, ktory zabezpeci mount po boot-e: 
+- pomoze prikaz "blkid"
+
+/dev/disk/by-uuid/20067ff2-0599-4fd3-9cfc-dbbd6aa07aec /mnt/lvnas1 ext4 defaults 0 1
+/dev/disk/by-uuid/4c1d7f90-0dcb-4ed1-acce-0062c2c8c186 /mnt/lvnas2 ext4 defaults 0 1
+
+Potom si uz napr. v $HOME mozeme vytvorit link na svoju NAS particiu: $ ln -s /mnt/lvnas1 nas
+
+Ako ostranit LV z VG: # lvremove vg-nas/lvnas3
+
+Ako zvacsit nejake LV z VG poolu (moze byt mounted): # lvresize -r -L +5g vg-nas/lvnas1
+Overime s: df -h /mnt/lvnas1
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+**Praca s inode-ami:**
+
+Prikaz vypise prava a inode informacie o subore: $ stat subor.xyz
+- da sa pouzit aj prikaz:  $ ls -li
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Ako pridat uzivatela do dalsej group: # usermod -a -G examplegroup exampleusername
+
+Ako zmenit vlastnikov na adresary alebo subore: # chown -R root:vgnas /mnt/lvnas1
+
+Ako nastavit prava na subore alebo adresary: # chmod g+w /mnt/lvnas1
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Ako vypisat parametre kernelu, s ktorymi nabootoval: $ cat /proc/cmdline
+
+Ako zistit ake KILL signaly system podporuje: $ kill -l
+
+Dobry nastroj na kontrolu syntaxe BASH skriptov: shellcheck
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Praca s GRUB2:
+
+Ulahcene konfiguracne moznosti su v subore: /etc/default/grub
+- da sa precitat manual pre vsetky moznosti: $ info -f grub -n 'Simple configuration' 
+
+Zakladny konfig. subor pre GRUB2, ktory je vygenerovany, nema sa upravovat: /boot/grub/grub.cfg
+
+Skripty, ktore podla poradia generuju konfig. subor GRUB2: $ ls /etc/grub.d/* 
+
+Ako nainstalovat GRUB2 v MBR mode: # grub-install --boot-directory=/mnt/boot /dev/sdc
+
+Ako zistit s akymi parametrami bol nacitany kernel: $ cat /proc/cmdline
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Praca s init systemom "systemd":
+
+Ako vypisat logy pre proces podla urciteho string patternu: $ journalctl --unit=ssh
+Ako vypisat status nejakeho spusteneho daemona: $ systemctl status sshd.service
+Ako zabezpecit, aby si beziaci proces nacital novy config: # systemctl reload sshd.service
+Ako restartovat nejaky proces: # systemctl restart sshd.service
+Ako vypisat vsetky systemd unit-y, ktore su nacitane v RAM: # systemctl list-units
+ - ako vypisat vsetky unit-y, ktore su nacitane ale neaktivne: # systemctl list-units --all  
+Ako vypisat vsetky unit subory pre systemd: # systemctl list-unit-files --all
+
+Ako vyipsat, na com zavisy dany proces a co vyzaduje: 
+# systemctl show -p Requires sshd.service
+# systemctl show -p Wants sshd.service
+
+Nastroj na spustanie viacerych programov/skriptov v jednom adresary: run-parts(8)
+ - v suvislosti so starsim init-om podla "System V Init" 
+Ako zistit v akom run-level-y bezi system: $ who -r
+
+V akom adresary sa nachadzaju system V init skripty: $ cd /etc/rc5.d/ 
+Ako prepnut rn-level do single-user modu: # telinit -s
+
+Ako restartovat system: # shutdown -r now
+ - pripadne za 10 min.: # shutdown -r +10
+
+Ako zabezpecit, aby sa do systemu mohol prihlasit len superuser, vytvorime subor: /etc/nologin 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Logovanie a diasgnostika user-space nastrojov:
+
+Ako vypisat od zaciatku log z bootovania: $ journalctl -b
+ - pripadne v od konca do zaciatku: $ journalctl -b -r
+ - pripadne vypisanie logu z predoslych bootov: $ journalctl -b -1
+ - overenie, ze dany shutdown/reboot bol cisty: $ journalctl -r -b -1
+
+Ako vypisat vsetky ID jednotlivych boot-ov: $ journalctl --list-boots
+
+Alternativy pre logovanie v Linuxe: syslog-ng (/etc/syslog-ng) a rsyslogd /etc/rsyslog.cfg)
+  
+Ako vypisat, kto bol kedy bnaposledy prihlaseny: $ lastlog *alebo* $ last
+
+Ako vypisat log pre konkretne Process ID: $ journalctl _PID=XYZ
+
+Ako vypisat log spred 4 hodin: $ journalctl -S -4h
+ - dalsi priklad presne zadaneho casu: $ journalctl -S 06:00:00 
+ - dalsi priklad presne zadaneho datumu: $ journalctl -S 2022-01-10
+
+Ako vypisat logy pre konkretny proces/program/daemon/unit: $ journalctl -u ssh
+ - pripadne prikaz vypise vsetky logovacie unit-y: $ journalctl -F _SYSTEMD_UNIT
+
+Vypisovanie logov podla string match patternu: $ journalctl -g 'kernel.'
+ - da sa skombinovat, ked chceme hladat ine logy v case okolo hladaneho stringu s: $ journalctl -S 
+
+Ako vypisat logy podla Severity level: $ journalctl -p 3
+ - pripadne s rozsahom: $ journalctl -p 2..3
+
+Ako sledovat real-time priebeh systemoveho logu: $ journalctl -f
+ - logy sa daju vypisovat a sledovat napr. aj v json formate: $ journalctl -f -o json-pretty
+
+Ako ulozit urcite logy v text formate: $ journalctl -u ssh -o old > sshd.log
+ - ako ulozit rovnaky log napr. vo formate "json": $ journalctl -u ssh -o json > sshd.log.json
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Praca s zivatelskymi uctami:
+
+Ako zmenit default shell uzivatela: $ chsh vlkv -s /bin/bash
+ - dany SHELL by mal byt v subore: /etc/shells
+
+Ako zistit s akymi argumentami je spusteny program/daemon: $ ps aux | grep getty
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Ako zabezpecit, aby sa na Ubuntu 20.04 systemovy log neplnil hlaskami:
+	
+	Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: add missing path
+	Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: failed to get udev uid: Invalid argument
+	Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: failed to get sysfs uid: Invalid argument
+	Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: failed to get sgio uid: No such file or directory
+
+- obsah suboru sa moze prepisat nasledovne:
+
+$ sudo vim /etc/multipath.conf
+
+tam vlozit: 
+---------------------
+defaults {
+    user_friendly_names yes
+}
+blacklist {
+    devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st|sda)[0-9]*"
+}
+---------------------
+
+Po ulozeni, treba restartovat proces multipathd:
+
+$ sudo systemctl restart multipathd.service
+ 
+- dodatocne mozeme skontrolovat stav procesu: $ systemctl status multipathd.service
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Cron a planovanie v kratkosti:
+
+Ako vytvorit cron job, aby sa vystup aj err presmerovali do /dev/null: 10 5 * * * /usr/bin/xyz > /dev/null 2>&1
+
+Ako spustit jednorazovo nejaky prikaz: $ at 15:00
+- nasledne do promptu zadame prikaz, ukoncime s Ctrl-d
+- naplanovane ulohy si mozeme vypisat s: $ atq
+- tretiu ulohu mozeme vymazat s: $ atrm 3
+
+Ako zadat ulohu pre systemd: $ systemd-run --on-calendar='2022-01-12 16:00' /bin/echo testovacie-echo
+- tieto docasne (transient) unit-y mozeme vypisat s: $ systemctl list-units | grep timer 
+
+Ako vypisat cron ulohy pre daneho uzivatela: $ crontab -l
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Praca s monitorovanim procesov:
+
+Ako ovladat program "top":
+
+- medzernik obnovuje stav okamzite
+- "M" usporiada procesy podla rezidentnej pamate (case sensitive)
+- "T" usporiada podla celkoveho kumulativneho procesoroveho casu
+- "P" default nastavenie podla aktualnej CPU zataze
+- "u" zobrazi len procesy daneho uzivatela
+- "?" zobrazi pomoc s interaktivnymi prikazmi
+
+Dalsie monitorovacie alternativy su: "atop" a "htop"
+
+Ako mozeme vypisat otvorene subory, napr. pre 1 uzivatela: $ lsof | grep vlkv
+- vhodne pozriet $ man 8 lsof
+- napr. prikaz, ktory vypise otvorene subory, pre dany PID: $ lsof -p 1234
+- prikaz vypise otvorene sietove sockety: $ sudo lsof -i
+- pripadne bez reverzneho prekladu DNS (da sa filtrovat s grep-om): $ sudo lsof -n -i
+- vypisat pouzitie vsetkych suborov v danom adresary: # lsof +D /usr/
+
+Ako mozeme vypisat systemove volania nejakeho programu, napr.: $ strace cat /dev/null
+ - na presmerovanie do suboru treba pouzit err redirect: 2>
+
+Ako mozem vypisat nacitane kniznice nejakeho programu: $ man 1 ltrace 
+ - da sa pozriet aj program "ldd": $ man 8 ldd
+
+Ako vypisat vsetky vlakna spustenych procesov: $ ps m
+ - vypis sa da vylepsit s: $ ps m -o pid,tid,command  
+
+Ako zmerat cas trvania nejakeho spusteneho programu/ulohy: $ time <uloha>
+ - priklad: $ time lsof +D /usr/
+
+Ako vypisat strom spustenych procesov: $ ps axjf
+
+Ako vypisat CPU prioritu (tzv. Niceness, stlpec "NI") spustenych procesov: $ ps al
+ - vhodne pozriet $ man ps
+
+Ako zmenit CPU prioritu (Niceness, zhovievavost k inym procsesom) daneho procesu: # renice 20 <PID>
+ - default hodnota je "0", rozsah je -20 az 20. Hodnota "-20" sa NEDOPORUCUJE.
+ - najvyssiu prioritu, teda najnizsiu zhovievavost (NEDOPORUCUJE SA) nastavime s: # renice -20 <PID> 
+
+Ako vypisat stav operacnej pamate: $ free -m
+ - je dobre si uvedomit, co je realna spotreba a co je file cashe/buffer
+
+Ako vypisat, ake parametre ma nastaveny kernel a system: $ getconf -a
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+*Praca so sietou (IPv4, IPv6, WiFi)*
+
+Ako vypisat sietove rozhrania a ich parametre: $ ip address show
+ - prikaz sa da skracovat napr.: $ ip a s
+
+Ako vypisat smerovaciu tabulku systemu: $ ip route show
+ - podobne sa da skracovat: $ ip r s
+ - smerovacuiu tab. pre IPv6 vypiseme s: $ ip -6 route show
+
+Ako vypisat, akym rozhranim bude smerovany paket s danou cielovou adresou: $ ip route get 9.9.9.9
+ - resp. pre ipv6: $ ip -6 route get 2620:fe::9 
+
+Ako nastavit predvolenu branu: # ip route add default via 192.168.100.1
+ - predvolenu branu vymazeme s: # ip route del default
+ - staticku cestu nastavime s: # ip route add 192.168.16.0/24 via 10.1.2.3
+ - staticku cestu vymazeme s: # ip route del 192.168.16.0/24
+
+Ako overit konektivitu sietoveho zariadenia: $ ping 9.9.9.9
+ - ekvivalent pre IPv6: $ ping6 2620:fe::9
+
+Ako vypisat vsetky TCP a UDP sockety: $ ss -tupa
+ - vhodne pozriet: $ man 8 ss
+
+Ako vypisat reverzny PTR zaznam pre danu IP adresu: $ host 9.9.9.9
+ - pre IPv6: $ host 2620:fe::9
+ - pripadne detailna diagnostika: $ dig -x 9.9.9.9
+
+Pozriet nastroje NetworkManager a systemd.networkd(5)
+
+Konfiguracne subory, ktore zabezpecuju DNS preklad: /etc/nsswitch.conf , /etc/hosts , /etc/resolv.conf
+ - zvycajne vsak konfigurovane s inymi nastrojmi ako Networkmanager alebo Netplan
+
+Ako overit ze na DNS preklady sa pouziva Cache: $ nslookup -debug quad9.net
+ - vo vypise vidime riadky: "Server: 127.0.0.53" a "Address: 127.0.0.53#53"
+
+Ako overit nastavenia DNS v systeme: $ resolvectl status
+
+Ako vypisat vsetky sietove sockety v systeme: # netstat -tunap
+
+Cisla TCP/UDP portov sa daju zistit z referencneho .txt suboru: /etc/services
+
+Ako rucne spustit DHCP klienta: # dhclient ens33
+
+Ako overit, ci je v kerneli zapnuty packet routing: $ sysctl net.ipv4.ip_forward
+ - smerovanie IPv4 paketov zapneme s: # sysctl -w net.ipv4.ip_forward=1
+ - smerovanie IPv6 paketov zapneme s: # sysctl -w net.ipv6.conf.all.forwarding=1
+ - perzistentne nastavenie co prezije reboot je v subore: /etc/sysctl.conf
+   - do suboru vlozime riadky "net.ipv4.ip_forward=1" alebo/aj "net.ipv6.conf.all.forwarding=1" 
+   - zmeny v subore ulozime a aplikujeme s: # sysctl -p
+
+Ako vypisat pravidla firewallu IPtables: $ iptables -L
+
+Ako si vytvorime pravidla firewallu: vytvorime subor /etc/network/iptables.up.rules
+ - do suboru mozeme pisat riadky napr.:
+
+*filter
+:INPUT ACCEPT [8:631]
+:FORWARD DROP [0:0]
+:OUTPUT ACCEPT [5:576]
+-A INPUT -s 192.168.1.242/32 -j DROP
+COMMIT
+
+Nasledne aplikujeme zmeny tak, ze ak sa "odrezeme", konfiguracia sa obnovi po 20 sek: # iptables-apply -t 20
+
+Je dobre si uvedomit, ze IPtables su nahradene nastrojom NFtables, vid.: www.netfilter.org/projects/nftables/index.html 
+
+Ako vypisat IPv4 ARP tabulku a zaroven aj IPv6 ND tabulku: $ ip neigh
+ - opat sa da skratit na: $ ip n
+ - stary prikaz pre IPv4: $ arp -an
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+*Praca s TCP/UDP aplikaciami, socketmi*
+
+Ako vytvorit testovaci TCP socket co pocuva na danom porte: # nc -l 23
+ - na socket sa so vzdialenej stanice pripojime napr.: $ telnet A.B.C.D 23
+ - pripadne opat s programom "nc": $ nc A.B.C.D 23
+
+Ako "stopovat" pripojenie programu "curl" k TCP HTTP socketu: $ curl --trace-ascii tracelog.txt http://example.com
+ - nasledne si pozrieme zaznam v subore "tracelog.txt"
+
+Ako si vygenerovat PKi par klucov na asymetricke syfrovanie a auth.: $ ssh-keygen -t rsa -N '' -f /home/user1/.ssh/id_rsa
+ - podobne pre DSA par klucov: $ ssh-keygen -t dsa -N '' -f /home/user1/.ssh/id_dsa
+
+Pozriet si projekt/program "fail2ban", pripadne "sshguard" alebo "denyhosts".
+
+Ako pomocou protokolu SCP kopirovat z jednej vzdialenej IP na inu vzdialenu IP: $ scp user1@host1:file user2@host2:file
+
+Ako vypisat vsetky TCP sockety, bez bez DNS prekladu adries: # lsof -i -n
+
+Ako vypisat aktivne procesy pre konkretny TCP/UDP port: # lsof -i:22
+ - daju sa pouzit aj nazvy protokolov podla suboru "/etc/services", teda: # lsof -i:ssh
+ - ked chceme spcifikovat len TCP sockety: # lsof -iTCP:22
+ - ked chceme este presnejsie specifikovat pre IPv6: # lsof -i6TCP:22
+ - este napr. bez prekladu na PTR DNS: # lsof -n -i6:22
+ - vypise aktivne a pocuvajuce UDP "streamy": # lsof -n -iUDP
+ - vypise stav pre konkretny protokol:port a IP adresu servera (nie klienta): # lsof -iTCP@192.168.1.240:22
+
+Pozriet si nastroj "tcpdump", velmi vela moznosti.
+ - da sa napr. zacat s manualom: $ man tcpdump
+ - napr. packet sniffing len ICMP paketov z/na konkretnu IPv4 adresu: # tcpdump -nv icmp and host 192.168.1.240
+ - napr. komunikaciu na IPv6 TCP socket na porte 22, pre interface "ens38": # tcpdump -nv -i ens38 ip6 and port 22
+
+Pozriet si nastroj "nmap", velmi vela moznosti.
+ - POZOR na legislativne dosledky skenovania sieti, ktore nevlastnim/nespravujem, bez povolenia spravcu/majitela.
+ - napr. sa da zacat s manualom: $ man nmap
+
+Ako vypisat lokalne Unix Domain sockety, pre aktualneho uzivatela: $ lsof -U
+ - vypisanie vsetkych Unix Domain socketov (ako root): # lsof -U
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+*Praca s BASH skriptami*
+
+Ako zabezpecit, aby sa skript spustal aj na inych systemoch (portability), skript zacina s: #!/usr/bin/env bash
+ - nevyhoda je, ze skript je spustany s prvym najdenym interpretom (BASH, Python, etc.)
+
+V BASHi sa rozlisuje "Quoting" alebo 'Literals'.
+ - teda je rozdiel v prikaze: $ echo "$100" ... a v prikaze: $ echo '$100'
+ - treba si vsak davat pozor na pouzitie s inymi programami, napr.: $ grep 'r.*t' /etc/passwd
+   - napr. uvedeny prikaz dava neocakavany vysledok: $ grep 'r.*t /etc/passwd'
+ - avsak pre porovnanie tieto dva prikazy:
+   - prikaz 1: $ echo "I don't like unexpected bahavior in /etc/ directory." 
+   - prikaz 2: $ echo 'I don't like unexpected bahavior in /etc/ directory.'
+
+Dalsi priklad rozvijania specialnych znakov v BASHi: $ echo "Nemam ziadnu * v mojich cestach: $PATH" 
+ - porovnat s prikazom: $ echo 'Nemam ziadnu * v mojich cestach: $PATH'
+
+Prikazovy interpret BASH ma specialne premenne pre argumenty, napr. skript "ashow.sh":
+
+#!/usr/bin/env bash
+#
+# jednoduchy BASH skript demonstruje specialne premenne
+#
+echo Vypisujem prvy argument: $1
+echo Vypisujem druhy argument: $2
+echo Vypisujem treti argument: $3
+echo Vypisujem nazov skriptu: $0
+echo Vypisujem process ID skriptu: $$
+echo Vypisujem pocet odovzdanych argumentov: $#
+echo Vypisujem vsetky argumenty: $@
+#
+# koniec skriptu
+#
+
+ - ulozime do suboru "ashow.sh" a nastavime prava, napr.: $ chmod u+rx ashow.sh
+ - nasledne mozeme skript spustit: $ ./ashow.sh raz dva tri
+
+Presmerovanie diagnostickych vypisov/vystupov:
+ - Chybovy vypis/vystup mozeme presmerovat do standardneho vypisu/vystupu s: 2>&1
+ - Opacny postup: 1>&2
+
+Pozriet riadenie toku BASH skriptu, resp. rozhodovanie s:"if", "then", "else", "elif" "while", "until", "case".
+ - zakladny rozcestnik $ man bash
+ - dalsi uzitocny manual: $ man test 
+
+Priklad na riadenie toku v BASH skripte s "if", vytvorime si skript "ifPriklad.sh":
+
+#!/usr/bin/env bash
+#
+# jednoduchy BASH skript demonstruje riadenie toku s "if"
+#
+# testujeme obsah prveho argumentu:
+if [ "$1" = ahoj ]
+then
+    echo 'Zadany argument bol ahoj.'
+#
+# testujeme pocet zadanych argumentov:
+elif [ "$#" = 0  ]
+then
+    echo "Nezadal si ziaden argument."
+#
+# pokrocilejsie testovanie regularneho vyrazu (regexp):
+elif [[ "$1" =~ a.*j  ]]
+then
+    echo "Skoro dobre, zadal si argument: $1"
+#
+# posledna moznost, ked nic ine nevyhovie podmienkam:
+else
+    echo "Sme vedla od slova ahoj, zadal si argument $1"
+fi
+#
+echo "Koniec skriptu, exit code: $?"
+#
+# konie skriptu
+
+Dalej doporucujem pozriet zaklady BASH skriptovania, napr. v knihe: https://www.root.cz/knihy/bash-ocima-bohdana-milara/
+ - pokrocilejsie skriptovanie, napr. v knihe: https://tldp.org/LDP/abs/abs-guide.pdf
+ - pripadne pozriet 11. kapitolu v knihe "How Linux Works by Brian Ward" ISBN-13: 9781718500402
+
+Ako pomocou jazyka Awk vypisat deviaty stlpec z vypisu: $ ls -l | awk '{print $9}'
+
+Pozriet dalsi program na spracovanie textu: $ man sed
+
+Pozriet tematiku "BASH Subshell"
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+*Praca s prenosom suborov po sieti*
+
+Ako spustit jednoduchy HTTP server (Python modul) v danom adresary: $ python3 -m http.server
+ - standardne spusteny na TCP porte 8000, mozeme zmenit s : $ python3 -m http.server 5000
+ - na TCP porty nizsie ako 1024 su potrebne prava "root", cize napr.: $ sudo python3 -m http.server 80
+ - na starsich instalaciach sa da pouzit Python2 modul: $ python -m SimpleHTTPServer
+
+Na transfer suborov pomocou prgramu "rsync", musi byt program na "oboch stranach"
+ - pre Debian based systemy $ sudo apt install rsync
+ - alebo pre Fedora Server: # dnf install rsync 
+
+Zakladne pouzitie, skopirujeme 3 sobory s diagnostikou: $ rsync -v ifPriklad.sh casePriklad.sh ashow.sh 192.168.1.245:
+
+Ako skopirovat vsetky adresare s nazvom "dirX" na stroj s DNS nazvom "ubu2.lab" do vzdiualeneho adresara "nas":
+ - parameter "-a" umoznuje skopirovat nastavenia suborovych prav, nastavenie UID bitov a pod.
+ - teda pouzijeme: $ rsync -va dir* ubu2.lab:nas
+ - aby netrebalo zadavat SSH heslo, moze sa nahrat verejny kluc PKI: $ ssh-copy-id userXYZ@ubu2.lab
+ - ked chceme transfer/zalohu len otestovat, pouzijeme parameter "-n": $ rsync -n -va dir* ubu2.lab:nas
+
+POZOR, ked chceme v cieli vytvorit EXAKTNU kopiu lokalneho(ych) adresara(ov), ktora ZMAZE nove subory v cieli:
+ - pouzijeme: $ rsync -va --delete dir* ubu2.lab:nas
+ - diagnosticky parameter "-v" vypise, ktore subory v cieli boli vymazane
+
+Ked chceme vykopirovat LEN obsah lokalneho adresara po sieti, dolezity znak "/": $ rsync -av dir1/ ubu2.lab:
+Ked chceme vynechat subor, specifikujeme absolutnu cestu: $ rsync -av --exclude=dir1/junk.txt dir1 ubu2.lab:
+Ked chceme prenos overit kontrolnym suctom, pouzijeme parameter "-c" alebo "--checksum"
+Pozriet v "$ man 1 rsync" dalsie parametre ohladom zalohovania: "-b" a "--suffix=.old" a "-u" 
+
+Ako obmedzit BW, napr. na 50MBytes/s (cca 400Mbit/s): rsync -a --bwlimit=50000 same_nuly.txt ubu2.lab: 
+ - priklad ako vytvorit testovaci 1GiB subor: $ dd if=/dev/zero of=same_nuly.txt bs=1024 count=1M
+  
+*Dalej pozriet dokumentaciu a manualy k projektu "Samba File/Printer Sharing"*
+
+*Praca s SSHFS*
+
+Ako si pripojit vzdialny adresar cez SSH, napr.: $ sshfs userABC@ubu2.lab:/mnt/lvnas1 sshnas.d/
+ - kombinovatelne s PKI auth (prihlasovanie verejnym klucom)
+ - ako vykonat u-mount pripojeneho disku: $ fusermount -u sshnas.d/
+
+*Praca s premennymi prostredia*
+
+Premenne prostredia pre interpret BASH su definovane v "skrytych" suboroch: ".bash_profile" alebo ".profile"
+ - priklad na definiciu premennej shellu: $ TEST=123 
+ - priklad na definiciu premennej prostredia: $ export TESTENV=567 
+
+Dolezite adresare na spustanie bin. aplikacii, v premennej $PATH: "/usr/local/bin" a "/usr/bin" a "/bin"
+ - overime s prikazom: $ echo $PATH
+
+V definicii promptu, teda v premennej $PS1 by sme sa mali vyhnut znakom: { } = & < >
+ - dalsie detaily najdeme v manualy, v sekcii "PROMPTING" vid.: $ man bash
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+*Praca s vyvojarskymi nastrojmi*
+
+Jednoduchy priklad na kompilaciu zdrojoveho kodu v jazyku "C", vytvorime subor "pokus.c":
+
+#include <stdio.h>
+
+int main(void) {
+
+    printf("Hello, World.\n");
+}
+
+- nasledne mozeme skompilovat, je potrebne nainstalovat dev. nastroje: # apt install build-essential
+- na kompilaciu pouzijeme program "cc", teda "C Compiler": $ cc pokus.c
+- vystupom bude spustitelny binarny subor "a.out": $ ./a.out
+- pri kompilacii mozeme specifikovat nazov vystupneho suboru: $ cc -o pokus pokus.c 
+
+Ako, ake zdielane kniznice ma nalinkovane dany program: $ sudo ldd /usr/bin/bash
+
+Ako kompilovat zdrojove subory v kazyku "Java":
+ - je potrebne nainstalovat vyvojarske nastroje: # apt install default-jdk-headless
+ - vytvorime jednoduchy cvicny zdrojovy subor "pokus.java":
+
+class MyFirstProgram {
+
+    public static void main(String args[]){
+        System.out.println("Hello World!");
+    }
+}
+
+ - nasledne program skompilujeme do tzv. "byte code" formatu s priponou ".class": $ javac pokus.java
+ - vznikne bytecode subor "MyFirstProgram.class", ktory spustime (bez pripony): $ java MyFirstProgram
+
+Ako kompilovat a instalovat zdrojove baliky:
+ - na test si vytvorime adresar "test_coreutils": $ mkdir test_coreutils 
+ - do vytvoreneho adresara stiahneme zdrojovy balik: $ wget https://ftp.gnu.org/gnu/coreutils/coreutils-9.0.tar.gz  
+ - rozbalime zdrojovy archiv: $ tar -xvzf coreutils-9.0.tar.gz
+ - v rozbalenom adresary "coreutils-9.0" spustime konfiguracny "GNU Autoconf" (Shell) skript "configure"...
+ - tento skript konfiguruje parametre kompilacie a naslednej instalacie...
+ - skript spustime s parametrom cieloveho adresara kompilacie a instalacie: $ ./configure --prefix=$HOME/test_coreutils
+ - nasledne po konfiguracii spustime kompilaciu: $ make
+ - skompilovane programy a binarne objekty najdeme v adresary "coreutils-9.0/src/"
+ - po kompilacii mozeme spustit rozsiahle overenie kompilacie: $ make check
+ - po kompilacii mozeme "na sucho / dry run" spustit test instalacie: $ make -n install
+ - po overeni mozeme spustit samotnu instalaciu: $ make install
+ - po instalacii v adresary "test_coreutils" vzniknu adresare "bin", "libexec", "share"
+ - na Debian-based distr. je nastroj na nastavenie parametrov ".deb" balickov "checkinstall": # apt install checkinstall
+ - POZOR, na nasej testovacej instalacii mozeme spustit tvorbu balicka: # checkinstall make install
+ - ^^^ uvedenym prikazom si mozeme rozbit system, tak doporucujem si na test VM spravit snapshot a opatrne...
