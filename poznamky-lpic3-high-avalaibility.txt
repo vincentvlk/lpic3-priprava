@@ -709,6 +709,9 @@ Ako kompilovat a instalovat zdrojove baliky:
  - ^^^ uvedenym prikazom si mozeme rozbit system, tak doporucujem si na test VM spravit snapshot a opatrne...
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-*Praca s virtualizaciou a kontajnermi*
+*Praca s kontajnermi, zaklady*
 
-nova poznamka
+Na zakladne vytvorenie docket kontajneru je potrebne definovat Docker file, s nazvom "Dockerfile":
+
+  
+
