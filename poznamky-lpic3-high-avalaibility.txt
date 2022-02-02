@@ -711,7 +711,18 @@ Ako kompilovat a instalovat zdrojove baliky:
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 *Praca s kontajnermi, zaklady*
 
-Na zakladne vytvorenie docket kontajneru je potrebne definovat Docker file, s nazvom "Dockerfile":
+Instalacia najznamejsieho nastroja Docker nie je trivialna, pouzil som postup napr.:
+
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04
+
+Na zakladne vytvorenie Docker kontajneru je potrebne definovat Docker file, s nazvom "Dockerfile":
+- obsah suboru, moze byt podla jednoducheho prikladu, kedy definujeme kontajner Alpine Linux:
+
+FROM alpine:latest
+RUN apk add bash
+CMD ["/bin/bash"]
+
+- po ulozeni suboru, mozeme zostavit kontajner nasledovne: $ docker build -t alpine_test1 .
 
   
 
