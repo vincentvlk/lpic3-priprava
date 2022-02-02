@@ -711,18 +711,34 @@ Ako kompilovat a instalovat zdrojove baliky:
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 *Praca s kontajnermi, zaklady*
 
-Instalacia najznamejsieho nastroja Docker nie je trivialna, pouzil som postup napr.:
+Instalacia najznamejsieho nastroja Docker nie je zlozita, ale ani trivialna, pouzil som postup napr.:
 
 https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04
 
+Ako otestovat, instalaciu Docker-a a jeho pripojenie na Docker Hub: $ docker run hello-world 
 Na zakladne vytvorenie Docker kontajneru je potrebne definovat Docker file, s nazvom "Dockerfile":
+- tento Docker file je vhodne umiestnit do oddeleneho adresara
 - obsah suboru, moze byt podla jednoducheho prikladu, kedy definujeme kontajner Alpine Linux:
 
 FROM alpine:latest
 RUN apk add bash
 CMD ["/bin/bash"]
 
-- po ulozeni suboru, mozeme zostavit kontajner nasledovne: $ docker build -t alpine_test1 .
+- po ulozeni suboru, mozeme zostavit image nasledovne: $ docker build -t alpine_test1 .
 
-  
+Ako vypisat zakladne informacie o instalacii Docker a o systeme, na ktorom bezi: $ docker info
+Ako vypisat vytvorene Docker image: $ docker images
+Ako spustit kontajner (z image) a pripojit sa na jeho "konzolu": $ docker run -it alpine_test1
+Ako sledovat aktualnu alokaciu zdrojov: $ docker stats
+
+Ako vypisat zoznam aktivnych kontajnerov: $ docker ps
+Ako vypisat aktivne aj neaktivne kontajnery: $ docker ps -a
+Ako vypisat posledny vytvoreny kontajner: $ docker ps -l
+
+Ako zmazat neaktivny kontajner: $ docker rm 
+Ako zmazat Docker image: $ docker rmi alpine_test2:latest
+
+Ako hladat image na Docker Hub-e: $ docker search ubuntu
+Ako stiahnut image z Docker Hub-u: $ docker pull ubuntu
+
 
