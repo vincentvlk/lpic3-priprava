@@ -2,16 +2,15 @@
 
 Ako na linuxe vypnut PC-speaker: #rmmod pcspkr
 
-- na virtualne masiny som si porobil po zaciatocnom setupe Snapshoty vo VMW
+- dobra stranka na zaciatocnu konfiguraciu znamych distribucii:
 
-- dobra stranaka na zaciatocnu konfiguraciu znamych distribucii:
 https://www.server-world.info/en/note?os=Ubuntu_20.04&p=initial_conf&f=3
- - nevedno do kedy bude online :-/
+
+- ^^^ nevedno do kedy bude online a chyba tam IPv6 :-/
 
 - nastavenie siete v systeme Debian11:
-
-	- edituje sa /etc/network/interfaces
-	- a potom nieco taketo:
+ - edituje sa /etc/network/interfaces
+ - a potom nieco taketo:
 
 -=-=-=-=-=-=-=-=-
 # The loopback network interface
@@ -60,11 +59,11 @@ iface ens37 inet6 static
 
 - nastavenie siete na CentOS:
 
-	- pouzil som nejake hanbate GNOME GUI, neviem preco sa to hned neaplikovalo
+- pouzil som nejake hanbate GNOME GUI, neviem preco sa to hned neaplikovalo
 
 - nastavenie siete na Fedora 35 Server:
 
-	- pouzil som cli nastroj "nmcli" z balika "NetworkManager"
+- pouzil som cli nastroj "nmcli" z balika "NetworkManager"
 	
 - syntax je takto nejako:
 
@@ -115,7 +114,7 @@ Nasledne overime config:
 
 Ako  v unix-like systemoch konvertovat video:
 
-1. nainstalujeme ffmpeg (apt install ffmpeg, yum isntall ffmpeg, brew install ffmpeg a pod.)
+1. nainstalujeme ffmpeg (apt install ffmpeg, yum install ffmpeg, brew install ffmpeg a pod.)
 
 2. podla tohto popisu dame konvertovat:
 
@@ -749,8 +748,6 @@ Ako sa odpojit od konzoly, v terminale za sebou skratky: "Ctrl+p a Ctrl+q"
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 *Praca s nastrojom Git a platformou GitHub*
 
-
-
 Vytvorime si pracovny adresar "git_ucenie", v ktorom inicializujeme *lokalny* Git repozitar: $ git init
  - aktualny stav repozitara overime s: $ git status
  - nastavime identitu uzivatela na pridavanie zmien: $ git config --global --edit
@@ -805,4 +802,3 @@ $ git s
 $ git save
 $ git lg
 $ git strom
-
