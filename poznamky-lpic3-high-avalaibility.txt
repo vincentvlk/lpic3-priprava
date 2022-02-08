@@ -807,3 +807,12 @@ $ git strom
 Ako vykonat upgrade balikov (Deb/Ubu): $ sudo apt update && sudo apt upgrade
 
 Ako vymazat nepotrebne baliky (Deb/Ubu), po overeni funkcnosti: $ sudo apt autoclean && sudo apt autoremove 
+
+ - pozriet distribucie MX Linux, Rocks Clusters, Pop!_OS, Lakka Gaming Distro
+
+Prikazy ako "cd", alebo "umask" su Shell BuiltIn, nemaju manpage, preto: $ help cd
+ - dalsi priklad :): $ help help
+ - priklad: $ help if
+ - priklad: $ help jobs
+
+
