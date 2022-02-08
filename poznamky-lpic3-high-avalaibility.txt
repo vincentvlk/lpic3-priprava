@@ -815,4 +815,16 @@ Prikazy ako "cd", alebo "umask" su Shell BuiltIn, nemaju manpage, preto: $ help 
  - priklad: $ help if
  - priklad: $ help jobs
 
+Ako prehladat manualove stranky: $ man -k "copy files"
+ - podobne mozeme pouzit: $ apropos "copy files"
+
+Ako nastavit velkost historie BASH interpretu (v RAM): $ export HISTSIZE=2000
+ - pre subor ".bash_history" nastavime napr.: $ export HISTFILESIZE=2000
+ 
+Ako nastavit do BASH historie, datum a cas: $ export HISTTIMEFORMAT="%d/%m/%y %T "
+ - overime s prikazom: $ history
+
+Ako spustit prikaz, aby sa neulozil do historie, prefixujeme ho medzerou: $  prikaz
+ - napr. prikaz "$ ping linux.com" sa ulozi do historie, ale prikaz "$  ping linux.com" nie 
+ - da sa nastavit premenna, aby hist. ignorovala duplicity a " ": $ export HISTCONTROL=ignoreboth  
 
