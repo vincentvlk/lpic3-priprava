@@ -802,3 +802,8 @@ $ git s
 $ git save
 $ git lg
 $ git strom
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Ako vykonat upgrade balikov (Deb/Ubu): $ sudo apt update && sudo apt upgrade
+
+Ako vymazat nepotrebne baliky (Deb/Ubu), po overeni funkcnosti: $ sudo apt autoclean && sudo apt autoremove 
