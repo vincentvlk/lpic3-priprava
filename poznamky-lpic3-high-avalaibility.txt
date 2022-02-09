@@ -831,4 +831,4 @@ Ako spustit prikaz, aby sa neulozil do historie, prefixujeme ho medzerou: $  pri
 Ako vypisat stromovu strukturu suborov, napr.: $ tree /home/student1 > strom.fs.student1.txt
  - je potrebne nainstalovat balicek "tree", dalsie informacie v: $ man tree
 
-
+Ako vypisat (priblizne) podla velkosti adresare a subory: $ du -hd 1 | sort 
