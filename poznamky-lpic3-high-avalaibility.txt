@@ -804,6 +804,8 @@ $ git lg
 $ git strom
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+*Zaklady prace v terminale*
+
 Ako vykonat upgrade balikov (Deb/Ubu): $ sudo apt update && sudo apt upgrade
 
 Ako vymazat nepotrebne baliky (Deb/Ubu), po overeni funkcnosti: $ sudo apt autoclean && sudo apt autoremove 
@@ -832,3 +834,16 @@ Ako vypisat stromovu strukturu suborov, napr.: $ tree /home/student1 > strom.fs.
  - je potrebne nainstalovat balicek "tree", dalsie informacie v: $ man tree
 
 Ako vypisat (priblizne) podla velkosti adresare a subory: $ du -hd 1 | sort 
+
+Ako vyfiltrovat MAC adresy z vypisu a ulozit ich zaroven do suboru: $ ip a s | grep ether | cut -d" " -f6 | tee mac-adresy.txt 
+
+Ako porovnat dva subory s detailnejsim rozpisom: $ diff -c a b
+ - dva subory mmozeme porovnat vedla seba: $ diff -y a b
+ - dalsie info v: $ man diff
+
+Ako vytvorit komprimovany (BZip2) archiv: $ tar -cvjf subory.tar.bz2 a.txt b.txt c.txt 
+ - ekvivalent pre GNUzip kompresiu: $ tar -cvzf subory.tar.gz a.txt b.txt c.txt
+ - mozeme kombinovat subory/adresare: $ tar -cvzf dalsie_subory.tgz dir1/ dir2/ a.txt b.txt
+ - extrakcia do vopred vytvoreneho adresara: $ tar -xvjf subory.tar.bz2 -C zaloha.d/
+ 
+
