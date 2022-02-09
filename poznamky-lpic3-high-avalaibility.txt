@@ -828,3 +828,7 @@ Ako spustit prikaz, aby sa neulozil do historie, prefixujeme ho medzerou: $  pri
  - napr. prikaz "$ ping linux.com" sa ulozi do historie, ale prikaz "$  ping linux.com" nie 
  - da sa nastavit premenna, aby hist. ignorovala duplicity a " ": $ export HISTCONTROL=ignoreboth  
 
+Ako vypisat stromovu strukturu suborov, napr.: $ tree /home/student1 > strom.fs.student1.txt
+ - je potrebne nainstalovat balicek "tree", dalsie informacie v: $ man tree
+
+
