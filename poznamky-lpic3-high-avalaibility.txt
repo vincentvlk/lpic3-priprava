@@ -845,5 +845,9 @@ Ako vytvorit komprimovany (BZip2) archiv: $ tar -cvjf subory.tar.bz2 a.txt b.txt
  - ekvivalent pre GNUzip kompresiu: $ tar -cvzf subory.tar.gz a.txt b.txt c.txt
  - mozeme kombinovat subory/adresare: $ tar -cvzf dalsie_subory.tgz dir1/ dir2/ a.txt b.txt
  - extrakcia do vopred vytvoreneho adresara: $ tar -xvjf subory.tar.bz2 -C zaloha.d/
- 
+
+Ako vytvorit adresarovu strukturu huerarchiu jednym prikazom: $ mkdir -p prvy/druhy/treti
+
+Ako vypisat konf. subory, ktore boli zmenene za posledny den: $ sudo find /etc -type f -mtime 0
+
 
