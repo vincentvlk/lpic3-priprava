@@ -848,6 +848,7 @@ Ako vytvorit komprimovany (BZip2) archiv: $ tar -cvjf subory.tar.bz2 a.txt b.txt
 
 Ako vytvorit adresarovu strukturu huerarchiu jednym prikazom: $ mkdir -p prvy/druhy/treti
 
-Ako vypisat konf. subory, ktore boli zmenene za posledny den: $ sudo find /etc -type f -mtime 0
-
-
+Ako vypisat konf. subory, zmenene za posledny den: $ sudo find /etc -type f -mtime 0 -exec ls -l {} \;
+ - zaloha suborov, zmenenych za poslednych 7 dni: $ sudo find /etc -type f -mtime -7 -exec cp {} /root/backup \;
+ - aby sa "find" pytal, ci chceme napr. zmazat stare subory: $ find . -type f -mtime +30 -ok rm {} \;  
+ - ^ pripadne mozeme najskor (30 dni stare) subory len VYPISAT: $ find . -type f -mtime +30 -print
