@@ -868,4 +868,11 @@ Prikaz najde, spocita adresare v "/etc", hlbka 3 adresarov s pravami "755": $ su
 Ako vypisat subory s velkostou medzi 3G a 4G: $ find /home/nas/ -type f -size +3G -size -4G
  - da sa doplnit det. vypis do suboru: $ find /home/nas/ -type f -size +3G -size -4G -ls > zoznam.txt
 
+Asociacia medzi suborovou strukturou a nazvom suboru sa nazyva tzv. "hardlink"
+ - pocet asosiacii overime s: $ stat subor.txt
+ - ako hladat hardlink-y podla cisla "inode" (index node): $ find . -inum 12345
+ - pozor, hardlink nemoze opustit hranice suboroveho systemu
+ - koncept hardlink je napr. uzitocny pre "nadradeny" adresar, oznaceny ".."
+
+Ako naist a vypisat objekty s viac ako 1 hardlinkom: $ find /var/ -links +1 -ls
 
