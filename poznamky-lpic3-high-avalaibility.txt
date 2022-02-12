@@ -888,3 +888,14 @@ Ako naist v kernel ring buffery "error" a vypisat 3 riadky pred a za nim: # dmes
 Zaujimavost, ako vypisat citatelne znaky v aktualnom image RAM: $ sudo strings /dev/mem
  - dalsie informacie v "man mem" a v "man strings"
 
+Ako vo Vim-e spravit undo: ":e!" , alebo "command-mode" stlacime "u"
+ - vo Vim-e vlozime novy riadok s: "o"
+ - ak chceme rychlo ulozit subor a ukoncit Vim, stlacime: "Shift+zz"
+ - cisla riadkov zapneme s: ":set nu"
+ - text oznacime v command mode s "V" + sipky, nasledne "y", potom vlozime pod kurzor s "p"
+   - alebo mozeme vystrihnut s "dd"
+ - na konkretne cislo riadka sa prepneme s: ":<cislo>"
+ - dva sposoby ako otvorit 2 subory: "vim -o a.txt b.txt" alebo "vim -d a.txt b.txt"
+   - medzi oknami sa prepiname s "Ctrl+ww"  
+
+Ako v realnom case sledovat prihlasovanie uzivatelov: $ tail -f /var/log/auth.log
