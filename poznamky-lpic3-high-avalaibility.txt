@@ -898,4 +898,19 @@ Ako vo Vim-e spravit undo: ":e!" , alebo "command-mode" stlacime "u"
  - dva sposoby ako otvorit 2 subory: "vim -o a.txt b.txt" alebo "vim -d a.txt b.txt"
    - medzi oknami sa prepiname s "Ctrl+ww"  
 
-Ako v realnom case sledovat prihlasovanie uzivatelov: $ tail -f /var/log/auth.log
+Ako v realnom case sledovat prihlasovanie uzivatelov: $ sudo tail -f /var/log/auth.log
+
+Ako vytvorit uzivatela, ktoreho ucet exspiruje v urcity datum: # useradd -e 2022-2-13 u2
+ - prikazom "chage" mozeme zadefinovat, kedy exspiruje heslo uzivatela
+
+Ako pridat uzivatela "u1" do skupiny "sudo": # usermod -G sudo u1
+ - uziv. skupina sa neda vymazat, pokial sluzi ako primarna skupina uzivatela
+
+POZOR, ako vymazat uzivatela "u1" aj s jeho "home" adresarom: $ sudo userdel -r u1
+
+Ako premenovat uziv. skupinu: $ sudo groupmod -n <novy_nazov> <povodna_skupina>
+
+Jednoduchym prikazom "w" vypiseme zakladny stav systemu a prihlasenych uzivatelov: $ w
+ - historicky zaznam prihlasovania uzivatelov vypiseme napr. s: $ sudo last
+   - mozeme specifikovat aj konkretneho uzivatela "u1": $ sudo last u1
+
