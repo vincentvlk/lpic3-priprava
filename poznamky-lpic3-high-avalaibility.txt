@@ -876,3 +876,15 @@ Asociacia medzi suborovou strukturou a nazvom suboru sa nazyva tzv. "hardlink"
 
 Ako naist a vypisat objekty s viac ako 1 hardlinkom: $ find /var/ -links +1 -ls
 
+Ako presuvat subory len aktualnejsie alebo chybajuce subory: $ mv -u <zdroj> <ciel>
+
+V adresary /home/student/ vytvori uzivatel "root" subor "a.txt", moze ho uzivatel "student" vymazat?
+
+Prikaz najde "chybove" hlasky v Syslogu: $ grep -win error /var/log/syslog
+ - param. "-w" hlada presne slovo, param. "-i" nerozlisuje A/a, param. "-n" vypise c. riadku 
+
+Ako naist v kernel ring buffery "error" a vypisat 3 riadky pred a za nim: # dmesg | grep -C 3 error
+
+Zaujimavost, ako vypisat citatelne znaky v aktualnom image RAM: $ sudo strings /dev/mem
+ - dalsie informacie v "man mem" a v "man strings"
+
