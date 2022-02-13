@@ -914,3 +914,7 @@ Jednoduchym prikazom "w" vypiseme zakladny stav systemu a prihlasenych uzivatelo
  - historicky zaznam prihlasovania uzivatelov vypiseme napr. s: $ sudo last
    - mozeme specifikovat aj konkretneho uzivatela "u1": $ sudo last u1
 
+Nastroj "nstat" doplna sietovu diagnostiku kernelu, je z balika "iproute2"
+ - dalsie informacie "man ncast", je dobre spustat takto: $ nastat -s
+
+Ako overit, ci kernel kvoli teplote nepodtaktoval jadra CPU: $ sudo dmesg | grep "cpu clock" 
