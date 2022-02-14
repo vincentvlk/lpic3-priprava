@@ -921,8 +921,18 @@ Ako overit, ci kernel kvoli teplote nepodtaktoval jadra CPU: $ sudo dmesg | grep
 
 Ak nastavime na subor prava "$ chmod 000 subor.txt", moze ho niekto citat/upravovat?
 
+Hesla ulozene (Ubu 20.04) v subore "/etc/shadow" su vo formate: "$id$salt$hash"
+ - napr. identifikator (id) "6" znamena "SHA-512"
+
 Ako vypisat atriburty (nie prava) konkretneho suboru: $ lsattr subor.txt
  - vyznam atributov najdeme napr. v: $ man chattr
  - napr. mozeme na subor nastavit tzv. "no append" atribut: $ chattr +a subor.txt
- - dalej mozeme nastavit tzv. "immutable" atribut, ktory "zmrazi" upravy: $ chattr +i subor.txt
+ - napr. mozeme nastavit tzv. "immutable" atribut, ktory "zmrazi" upravy: $ chattr +i subor.txt
+ - atributy mozeme nastavit aj rekurzivne, pre obsah adresara: $ sudo chattr -R dir1/
+
+Ako nastavit "SET UID bit", absolutny mod "$ chmod 4XXX a.bin", relativny mod "chmod u+s a.bin" 
+ - overime napr. prikazom: $ stat a.bin
+ - program/skript je spustany s pravami vlastnika, nie s pravami zadavatela prikazu
+   - typicky priklad napr.: $ cat /etc/shadow
+
 
