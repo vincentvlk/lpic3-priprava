@@ -963,4 +963,8 @@ Ako nastavovat prava suborov/adresarov napr. v skripte: $ chmod ug=rw,o=r subor.
 
 Ako hromadne nastavovat prava suborov, napr.: $ find $HOME -type f -exec chmod 640 {} \;
 
- 
+Ako nastavit predvolene prava na vytvorene subory na "0640": $ umask 0026 subor.txt
+ - overime s "$ ls -l subor.txt" alebo "$ stat subor.txt"
+ - je dobre si uvedomit, ze pri prikaze "umask" odpocitavame od 0666, teda (0666 - 0026) = 0640
+ - pre perzistentne nastavenie vlozime do suborov ".profile" alebo ".bashrc" riadok "umask 0026" 
+
