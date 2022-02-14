@@ -958,4 +958,5 @@ Ako nastavit "Sticky bit", absolutny mod "$ chmod 1XXX dir1/", relativny mod "ch
  - zmena zabezpeci, ze sa v (zdielanom) adresary na novy subor "nalepia" prava tvorcu, nie adresara
  - typicky priklad je systemovy adresar "/tmp", aby si v nom zuivatelia navzajom nemazali subory
 
-
+Ako nastavovat prava suborov/adresarov  napr.v skripte: $ chmod ug=rw,o=r subor.txt
+ - ako nastavit prava, podla nejakeho vzoroveho suboru: $ chmod --reference=prvy.txt druhy.txt
