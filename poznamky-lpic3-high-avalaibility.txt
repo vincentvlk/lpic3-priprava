@@ -968,3 +968,4 @@ Ako nastavit predvolene prava na vytvorene subory na "0640": $ umask 0026 subor.
  - je dobre si uvedomit, ze pri prikaze "umask" odpocitavame od 0666, teda (0666 - 0026) = 0640
  - pre perzistentne nastavenie vlozime do suborov ".profile" alebo ".bashrc" riadok "umask 0026" 
 
+
