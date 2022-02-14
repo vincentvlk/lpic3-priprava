@@ -942,12 +942,20 @@ Ako nastavit "SET GID bit", absolutny mod "$ chmod 2XXX dir1/", relativny mod "c
  - uzitocne pre vytvaranie zdielanych adresarov
  - ako priklad mozeme vytvorit dedikovany adresar pre dvoch vyvojarov:
 
-   # adduser dev1
-   # adduser dev2
-   # usermod -aG developers dev1
-   # usermod -aG developers dev2
-   # mkdir /repo.d
-   # chown pr1:developers /repo.d/
-   # chown dev1:developers /repo.d/
-   # chmod o-rx /repo.d/
-   # chmod g+s /repo.d/
+ # adduser dev1                       <-- vytvorime uzivatelov   
+ # adduser dev2
+ # usermod -aG developers dev1        <-- vytvorime skupinu a zaradime uzivatelov
+ # usermod -aG developers dev2
+ # mkdir /repo.d                      <-- vytvorime zdielany adresar
+ # chown dev1:developers /repo.d/     <-- nastavime vlastnika/skupinu
+ # chmod o-rx /repo.d/                <-- nastavome prava
+ # chmod g+s /repo.d/                 <-- nastavime "SGID" bit
+
+ - nasledne overime tak, ze uziv. "dev1" vytvori subor: $ touch program.c
+ - so spravnym nastavenim ma editovaci pristup aj uzivatel "dev2"
+
+Ako nastavit "Sticky bit", absolutny mod "$ chmod 1XXX dir1/", relativny mod "chmod o+t dir1/"
+ - zmena zabezpeci, ze sa v (zdielanom) adresary na novy subor "nalepia" prava tvorcu, nie adresara
+ - typicky priklad je systemovy adresar "/tmp", aby si v nom zuivatelia navzajom nemazali subory
+
+
