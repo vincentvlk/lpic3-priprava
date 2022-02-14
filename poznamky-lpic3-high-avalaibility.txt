@@ -970,4 +970,7 @@ Ako nastavit predvolene prava na vytvorene subory na "0640": $ umask 0026 subor.
 
 Pozriet nastroje eBPF zo sady "BCC Tools" a "BPF trace tools", napr: # apt install bpfcc-tools
  - napr.: "opensnoop-bpfcc", "execsnoop-bpfcc", "tcplife-bpfcc", "ext4slower-bpfcc", "biosnoop-bpfcc"
- - dalsie informacie, odkaz: https://brendangregg.com/linuxperf.html
+ - ohladom disk-IO je este uzitocny nastroj "biotop-bpfcc"
+ - dalsie info (ktovie do kedy online): https://github.com/iovisor/bcc/blob/master/INSTALL.md
+ - dalsie nastroje od Brendana Gregga: https://brendangregg.com/linuxperf.html
+
