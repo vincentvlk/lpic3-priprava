@@ -919,10 +919,10 @@ Nastroj "nstat" doplna sietovu diagnostiku kernelu, je z balika "iproute2"
 
 Ako overit, ci kernel kvoli teplote nepodtaktoval jadra CPU: $ sudo dmesg | grep "cpu clock" 
 
-Ak nastavime na subor prava "$ chmod 000 subor.txt", moze ho niekto citat/upravovat?
+Ked na subor nastavime prava "$ chmod 000 subor.txt", moze ho niekto citat/upravovat?
 
-Ako vypisat atriburty (nie prava) konkretneho suboru: $ lsattr subor.txt
- - vyznam atributov najdeme napr. v: $ man chattr
- - napr. mozeme na subor nastavit tzv. "no append" atribut: $ chattr +a subor.txt
- - dalej mozeme nastavit tzv. "immutable" atribut, ktory "zmrazi" upravy: $ chattr +i subor.txt
-
+Ako vypisat atributy (nie prava) suboru: $ lsattr subor.txt
+ - informacie o atributoch: $ man chattr
+   - napr. mozeme na subor "subor.txt" nastavit atribut "append only": $ chattr +a subor.txt
+   - overime s: $ lsattr subor.txt
+  
