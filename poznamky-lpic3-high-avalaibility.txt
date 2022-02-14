@@ -935,4 +935,19 @@ Ako nastavit "SET UID bit", absolutny mod "$ chmod 4XXX a.bin", relativny mod "c
  - program/skript je spustany s pravami vlastnika, nie s pravami zadavatela prikazu
    - typicky priklad napr.: $ cat /etc/shadow
 
+Ako naist subory, ktore maju "aspon" prava "4000": $ find /usr/bin/ -perm -4000 -ls
 
+Ako nastavit "SET GID bit", absolutny mod "$ chmod 2XXX dir1/", relativny mod "chmod g+s dir1/"
+ - subory vytvorene v adresary s "SGID" bitom budu mat vlastnika podla skupiny adresara "dir1/"
+ - uzitocne pre vytvaranie zdielanych adresarov
+ - ako priklad mozeme vytvorit dedikovany adresar pre dvoch vyvojarov:
+
+   # adduser dev1
+   # adduser dev2
+   # usermod -aG developers dev1
+   # usermod -aG developers dev2
+   # mkdir /repo.d
+   # chown pr1:developers /repo.d/
+   # chown dev1:developers /repo.d/
+   # chmod o-rx /repo.d/
+   # chmod g+s /repo.d/
