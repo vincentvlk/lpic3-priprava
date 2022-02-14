@@ -968,4 +968,6 @@ Ako nastavit predvolene prava na vytvorene subory na "0640": $ umask 0026 subor.
  - je dobre si uvedomit, ze pri prikaze "umask" odpocitavame od 0666, teda (0666 - 0026) = 0640
  - pre perzistentne nastavenie vlozime do suborov ".profile" alebo ".bashrc" riadok "umask 0026" 
 
-
+Pozriet nastroje eBPF zo sady "BCC Tools" a "BPF trace tools", napr: # apt install bpfcc-tools
+ - napr.: "opensnoop-bpfcc", "execsnoop-bpfcc", "tcplife-bpfcc", "ext4slower-bpfcc", "biosnoop-bpfcc"
+ - dalsie informacie, odkaz: https://brendangregg.com/linuxperf.html
