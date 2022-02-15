@@ -593,7 +593,6 @@ fi
 #
 echo "Koniec skriptu, exit code: $?"
 #
-# konie skriptu
 
 Dalej doporucujem pozriet zaklady BASH skriptovania, napr. v knihe: https://www.root.cz/knihy/bash-ocima-bohdana-milara/
  - pokrocilejsie skriptovanie, napr. v knihe: https://tldp.org/LDP/abs/abs-guide.pdf
@@ -973,4 +972,14 @@ Pozriet nastroje eBPF zo sady "BCC Tools" a "BPF trace tools", napr: # apt insta
  - ohladom disk-IO je este uzitocny nastroj "biotop-bpfcc"
  - dalsie info (ktovie do kedy online): https://github.com/iovisor/bcc/blob/master/INSTALL.md
  - dalsie nastroje od Brendana Gregga: https://brendangregg.com/linuxperf.html
+
+Typy procesov v operacnom systeme GNU/Linux: Parent, Child, Daemon, Zombie (defunct), Orphan
+
+Ako vypisat 3 iteracie programu "top" s oneskorenim 2 s. do suboru: $ top -d 2 -n 3 -b > stav.txt  
+ 
+Klavesy v "top": "d" oneskorenie, "e" jednotky RAM, "M" podla RAM, "P" podla CPU, "1" zob. CPU jadra
+
+Ako spustit proces/program, aby ho nezabilo zatvorenie/odpojenie BASH session: $ nohup <prikaz> &
+
+
 
