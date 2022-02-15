@@ -970,7 +970,7 @@ Ako nastavit predvolene prava na vytvorene subory na "0640": $ umask 0026 subor.
 Pozriet nastroje eBPF zo sady "BCC Tools" a "BPF trace tools", napr: # apt install bpfcc-tools
  - napr.: "opensnoop-bpfcc", "execsnoop-bpfcc", "tcplife-bpfcc", "ext4slower-bpfcc", "biosnoop-bpfcc"
  - ohladom disk-IO je este uzitocny nastroj "biotop-bpfcc"
- - dalsie info (ktovie do kedy online): https://github.com/iovisor/bcc/blob/master/INSTALL.md
+ - dalsie info (kto vie do kedy online): https://github.com/iovisor/bcc/blob/master/INSTALL.md
  - dalsie nastroje od Brendana Gregga: https://brendangregg.com/linuxperf.html
 
 Typy procesov v operacnom systeme GNU/Linux: Parent, Child, Daemon, Zombie (defunct), Orphan
@@ -981,8 +981,22 @@ Klavesy v "top": "d" oneskorenie, "e" jednotky RAM, "M" podla RAM, "P" podla CPU
 
 Ako spustit proces/program, aby ho nezabilo zatvorenie/odpojenie BASH session: $ nohup <prikaz> &
 
-Zakladne programy na spravu procesov: "ps", "pgrep", "pstree", "pkill"
+Zakladne programy na spravu procesov: "ps", "pgrep", "pstree", "pkill", "pidof", "kill", "killall"
+ - dalsie informacie v: $ man <nazov>
 
 Ako v (hanbatom) MacOS Big Sur zistit presny typ CPU: $ sysctl -a | grep brand
 
+Ako zmenit MAC adresu na Eth. rozhrani: $ sudo ip link set dev ens33 address 12:34:56:78:9a:bc
 
+Ako zistit, ake DNS servery pouzivaju distribucie so SystemD: $ systemd-resolve --status
+ - alebo alternativne: $ resolvectl status
+ 
+Ako zadat, uzivatelov, ktory maju povoleny SSH login, do suboru "/etc/ssh/sshd_config" vlozime:
+
+"AllowUsers student1 user1 developer1" 
+
+ - nasledne upravu ulozime a restartujeme SSH server: $ sudo systemctl restart ssh
+ - overime s: $ sudo systemctl status ssh
+
+Ako overit, ci sa proces/program spusti po restarte systemu: $ sudo systemctl is-enabled <nazov>
+ - napr.: $ sudo systemctl is-enabled ssh 
