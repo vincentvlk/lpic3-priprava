@@ -981,5 +981,8 @@ Klavesy v "top": "d" oneskorenie, "e" jednotky RAM, "M" podla RAM, "P" podla CPU
 
 Ako spustit proces/program, aby ho nezabilo zatvorenie/odpojenie BASH session: $ nohup <prikaz> &
 
+Zakladne programy na spravu procesov: "ps", "pgrep", "pstree", "pkill"
+
+Ako v (hanbatom) MacOS Big Sur zistit presny typ CPU: $ sysctl -a | grep brand
 
 
