@@ -1000,3 +1000,12 @@ Ako zadat, uzivatelov, ktory maju povoleny SSH login, do suboru "/etc/ssh/sshd_c
 
 Ako overit, ci sa proces/program spusti po restarte systemu: $ sudo systemctl is-enabled <nazov>
  - napr.: $ sudo systemctl is-enabled ssh 
+
+Ako na jednoduchu zalohu adresara "/etc" pomocou "rsync": # rsync -av /etc/ /media/USBdisk1/zaloha/
+
+Tri divne sposoby, ako generovat 16 znakove heslo:
+
+$ openssl rand -base64 12
+$ head /dev/urandom | base64 | cut -b 1-16
+$ echo $(head /dev/urandom | shasum | base64 | cut -b 1-11).$(date +%Y)
+
