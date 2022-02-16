@@ -1020,3 +1020,23 @@ Ako nainstalovat zakladne vyvojarske nastroje: $ sudo apt install build-essentia
 Poznamka, adresar "/opt" znamena "Optional Software", sluzi zvycajne na kompilaciu programov
  - napr. kompilacia programu "ProFTPD", pouzijeme nastavenie: $ ./configure --prefix=/opt/proftpd
 
+Ako prehladavat lokalnu DPKG databazu (Debu/Ubu): $ dpkg-query -l | grep ssh
+ - dalej napr. mozeme vypisat obsah balicka: $ dpkg -L openssh-server
+
+Ako zistit, do akeho balika patri program "ls", najskor "$ which ls", nasledne: $ dpkg -L /bin/ls
+ - znova mozeme prezriet obsah balika: $ dpkg -L coreutils | less
+ 
+Ako overit obsah lokalnej "APT cache" (Deb/Ubu): $ ls -l /var/cache/apt/archives/
+ - aka je jej velkost: $ sudo du -sh /var/cache/apt/archives/ 
+ - mozeme vycistit pomocou: $ sudo apt clean
+
+Ako zistit, ake su nainstalovane baliky: $ apt list --installed
+
+Ako vypisat info. o HW pod nainstalovanym systemom: $ sudo lshw > hw.txt
+ - mozeme vypisat JSON resp. HTML format: "# lshw --json > hw.json" resp. "# lshw -html > hw.html"
+ - uspornejsi vypis ziskame s: $ sudo lshw -short 
+
+Podrobne informacie o CPU ziskame s: $ lscpu
+ - dalej ziskame informacie o RAM: $ sudo dmidecode -t memory
+ - podobne ziskame informacie o zakladnej doske: $ sudo dmidecode -t baseboard
+
