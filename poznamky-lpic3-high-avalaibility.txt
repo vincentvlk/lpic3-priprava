@@ -1014,3 +1014,9 @@ Ako vytvorit/stiahnut kompletnu kopiu/mirror nejakeho webu, pouzijeme program "w
 $ wget --mirror --convert-links --adjust-extension --page-requisites --no-parent http://example.com
  - alebo skratene: $ wget -mkEpnp http://example.com
 
+Ako nainstalovat zakladne vyvojarske nastroje: $ sudo apt install build-essential
+ - RedHat-based distribucie (Fedora/CentOS) napr.: $ sudo dnf group install "Development Tools" 
+
+Poznamka, adresar "/opt" znamena "Optional Software", sluzi zvycajne na kompilaciu programov
+ - napr. kompilacia programu "ProFTPD", pouzijeme nastavenie: $ ./configure --prefix=/opt/proftpd
+
