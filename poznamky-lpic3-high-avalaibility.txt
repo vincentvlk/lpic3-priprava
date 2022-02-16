@@ -1043,7 +1043,12 @@ Podrobne informacie o CPU ziskame s: $ lscpu
  - dalsie moznosti zistime s: $ sudo dmidecode -t
  - informacie o zberniciach PCI a USB ziskame s  "$ lscpi" resp. "$ lsusb"
  - informacie o HDD/SSD: $ sudo lshw -C disk 
- - ako obvykle dalsie informacie: $ man <lshw/lscpu/dmidecode/lspci/lsusb>
+ - ako obvykle dalsie informacie: $ man <lshw/lscpu/dmidecode/lspci/lsusb/hdparm/iw>
  - ako ziskat detailne informacie o konkretnom SATA zariadeni: $ sudo hdparm -I /dev/sda
  - POZOR, test rychlosti citania SATA, bez cache (raw I/O): $ sudo hdparm -t --direct /dev/sda
+ - informacie o Wireless zariadeniahc ziskame s: $ sudo iw list | less
+
+Ako zistit kolko trvalo bootovanie pomocou "SystemD": $ systemd-analyze
+ - ak je to mozne, snaha "SystemD" je spustat jednotlive procesy/sluzby paralelne
+ - da sa detailne vypisat, na com sa travilo najviac casu: $ systemd-analyze blame
 
