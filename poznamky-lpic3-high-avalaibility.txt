@@ -1038,5 +1038,12 @@ Ako vypisat info. o HW pod nainstalovanym systemom: $ sudo lshw > hw.txt
 
 Podrobne informacie o CPU ziskame s: $ lscpu
  - dalej ziskame informacie o RAM: $ sudo dmidecode -t memory
+ - informacie o velkosti modulov a max. kapacite: $ sudo dmidecode -t memory | grep -i size
  - podobne ziskame informacie o zakladnej doske: $ sudo dmidecode -t baseboard
+ - dalsie moznosti zistime s: $ sudo dmidecode -t
+ - informacie o zberniciach PCI a USB ziskame s  "$ lscpi" resp. "$ lsusb"
+ - informacie o HDD/SSD: $ sudo lshw -C disk 
+ - ako obvykle dalsie informacie: $ man <lshw/lscpu/dmidecode/lspci/lsusb>
+ - ako ziskat detailne informacie o konkretnom SATA zariadeni: $ sudo hdparm -I /dev/sda
+ - POZOR, test rychlosti citania SATA, bez cache (raw I/O): $ sudo hdparm -t --direct /dev/sda
 
