@@ -1033,7 +1033,7 @@ Ako overit obsah lokalnej "APT cache" (Deb/Ubu): $ ls -l /var/cache/apt/archives
 Ako zistit, ake su nainstalovane baliky: $ apt list --installed
 
 Ako vypisat info. o HW pod nainstalovanym systemom: $ sudo lshw > hw.txt
- - mozeme vypisat JSON resp. HTML format: "# lshw --json > hw.json" resp. "# lshw -html > hw.html"
+ - mozeme vypisat JSON resp. HTML format: "# lshw -json > hw.json" resp. "# lshw -html > hw.html"
  - uspornejsi vypis ziskame s: $ sudo lshw -short 
 
 Podrobne informacie o CPU ziskame s: $ lscpu
@@ -1043,12 +1043,17 @@ Podrobne informacie o CPU ziskame s: $ lscpu
  - dalsie moznosti zistime s: $ sudo dmidecode -t
  - informacie o zberniciach PCI a USB ziskame s  "$ lscpi" resp. "$ lsusb"
  - informacie o HDD/SSD: $ sudo lshw -C disk 
- - ako obvykle dalsie informacie: $ man <lshw/lscpu/dmidecode/lspci/lsusb/hdparm/iw>
  - ako ziskat detailne informacie o konkretnom SATA zariadeni: $ sudo hdparm -I /dev/sda
  - POZOR, test rychlosti citania SATA, bez cache (raw I/O): $ sudo hdparm -t --direct /dev/sda
  - informacie o Wireless zariadeniahc ziskame s: $ sudo iw list | less
+ - ako obvykle dalsie informacie: $ man <lshw/lscpu/dmidecode/lspci/lsusb/hdparm/iw>
 
 Ako zistit kolko trvalo bootovanie pomocou "SystemD": $ systemd-analyze
  - ak je to mozne, snaha "SystemD" je spustat jednotlive procesy/sluzby paralelne
  - da sa detailne vypisat, na com sa travilo najviac casu: $ systemd-analyze blame
 
+Ako vypisat len "EXT4-FS" mount-pointy: $ mount -l -t ext4
+ - dalsi priklad pre VFAT-FS, ktory byva na USB "klucoch": $ mount -l -t vfat
+
+Ako vytvorit bitovu kopiu USB disku: # dd status=progress if=/dev/sdb of=/home/user1/usb-backup.img 
+ - nasledne obnova z image-file: # dd status=progress if=/home/user1/usb-backup.img of=/dev/sdb
