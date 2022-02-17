@@ -1057,3 +1057,15 @@ Ako vypisat len "EXT4-FS" mount-pointy: $ mount -l -t ext4
 
 Ako vytvorit bitovu kopiu USB disku: # dd status=progress if=/dev/sdb of=/home/user1/usb-backup.img 
  - nasledne obnova z image-file: # dd status=progress if=/home/user1/usb-backup.img of=/dev/sdb
+
+Ako vytvorit premennu prostredia (Env. var.) pre cely system, upravime subor "/etc/bash.bashrc"
+ - alternativne mozeme pouzit subor "/etc/profile"
+
+Ako zadefinovat konstantu: $ declare -r nemenna="/var/log"
+
+Ako v BASH skripte zadefinovat lokalnu (len vo funkcii) premennu: "local var1=len_vo_funkcii"
+
+Ako ulozit vystup zlozeneho prikazu do premennej: $ output="$(ps -ef | grep ssh)"
+ - nasledne vypiseme (so zachovanym formatovanim) ako retazec/string: $ echo "$output" 
+
+
