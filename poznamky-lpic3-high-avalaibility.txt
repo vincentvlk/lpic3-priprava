@@ -1068,4 +1068,24 @@ Ako v BASH skripte zadefinovat lokalnu (len vo funkcii) premennu: "local var1=le
 Ako ulozit vystup zlozeneho prikazu do premennej: $ output="$(ps -ef | grep ssh)"
  - nasledne vypiseme (so zachovanym formatovanim) ako retazec/string: $ echo "$output" 
 
+Ako v BASH skripte testujeme, ze premenna obsahuje dany substring: if [[ "$str" == *"Linux"* ]]
+
+Testovanie BASH premennej s logickymi operatormi: if [[ $vek -ge 0 ]] && [[ $vek -le 18 ]]
+
+Priklad na primitivny input error handling (osetrenie chybneho vstupu) v jazyku BASH:
+
+#!/bin/bash
+#
+vek=0
+set -e
+#
+while [[ $vek -le 0 ]] || [[ $vek -ge 121 ]]; do
+    read -p "Zadajte vek (rozsah 1 az 120): " vek
+        if [[ $vek -le 0 ]] || [[ $vek -ge 120 ]] || [[ $vek != [0-9]* ]]; then
+            echo "Zadany vek je mimo rozsah"
+            vek=0
+        fi
+done
+
+echo "Zadali ste vek $vek roky/rokov."
 
