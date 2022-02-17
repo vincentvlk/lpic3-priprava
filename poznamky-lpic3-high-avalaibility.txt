@@ -1095,4 +1095,14 @@ echo "Zadali ste vek $vek roky/rokov."
 
 # koniec skriptu
 
-Priklad na 
+Priklad nacita vo "for" slucke hodnoty z .txt suboru do premennej $ip: 
+
+#!/bin/bash
+for ip in $(cat /home/dev1/ip_adresy.txt)
+do
+    echo "Nacital som zo suboru IP adresu: $ip"
+    sleep 1
+done
+
+# koniec skriptu
+
