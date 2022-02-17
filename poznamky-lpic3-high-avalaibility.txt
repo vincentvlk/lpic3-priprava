@@ -1068,24 +1068,31 @@ Ako v BASH skripte zadefinovat lokalnu (len vo funkcii) premennu: "local var1=le
 Ako ulozit vystup zlozeneho prikazu do premennej: $ output="$(ps -ef | grep ssh)"
  - nasledne vypiseme (so zachovanym formatovanim) ako retazec/string: $ echo "$output" 
 
-Ako v BASH skripte testujeme, ze premenna obsahuje dany substring: if [[ "$str" == *"Linux"* ]]
+Ako v BASH skripte testujeme, ze premenna obsahuje substring: if [[ "$str1" == *[lL]inux"* ]]
 
 Testovanie BASH premennej s logickymi operatormi: if [[ $vek -ge 0 ]] && [[ $vek -le 18 ]]
 
-Priklad na primitivny input error handling (osetrenie chybneho vstupu) v jazyku BASH:
+Priklad na cvicny input error handling (osetrenie chybneho vstupu) v jazyku BASH:
 
 #!/bin/bash
 #
-vek=0
-set -e
+# Cvicny skript ocakava cele cislo v ramci vymedzenych hodnot, 17.2.2022 by vlkv
 #
-while [[ $vek -le 0 ]] || [[ $vek -ge 121 ]]; do
-    read -p "Zadajte vek (rozsah 1 az 120): " vek
-        if [[ $vek -le 0 ]] || [[ $vek -ge 120 ]] || [[ $vek != [0-9]* ]]; then
-            echo "Zadany vek je mimo rozsah"
-            vek=0
+vek=-1
+set -e
+echo
+
+while [[ $vek == -1 ]]; do
+    read -p "Zadajte vek (rozsah 0 az 120): " vek
+        if [[ $vek -le -1 ]] || [[ $vek -ge 120 ]] || ! [[ $vek =~ ^[1-9][0-9]*$ ]]; then
+            echo
+            echo "CHYBA: Zadany vek \"$vek\" je mimo povolenych hodnot"
+            vek=-1
         fi
 done
 
 echo "Zadali ste vek $vek roky/rokov."
 
+# koniec skriptu
+
+Priklad na 
