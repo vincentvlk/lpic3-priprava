@@ -1106,3 +1106,63 @@ done
 
 # koniec skriptu
 
+Ako vytvorit priklad na jednoduche menu v BASH skripte:
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+#!/bin/bash
+#
+#priklad na menu selection v jazyku BASH
+echo
+echo "Zakladna administraciu systemu:"
+echo
+PS3="Zvolte moznost (Enter vypise moznosti): "
+select ITEM in "Pridaj uzivatela" "Vypis procesy" "Zabi proces" "Nainstaluj program" "Koniec"
+do
+
+	if [[ $REPLY -eq 1 ]]
+	then
+		read -p "Zadajte uzivatelske meno: " username
+		buffer="$(grep -w $username /etc/passwd)"
+		if [[ -n "$buffer"  ]]
+		then
+			echo "Uzivatel \"$username\" uz existuje"
+		else
+			sudo adduser $username
+			if [[ $? -eq 0 ]]
+			then
+				echo "Uzivatel \"$username\" uspesne vytvoreny."
+				tail -n 1 /etc/passwd
+			else
+				echo "Nastala chyba pri vytvarani uzvatela \"$username\""
+			fi
+		fi
+
+	elif [[ $REPLY -eq 2 ]]
+	then
+		echo "Vypisujem vsetky procesy..."
+		sleep 1
+		ps -ef
+
+        elif [[ $REPLY -eq 3 ]]
+	then
+		read -p "Zadajte nazov procesu: " proces
+		pkill $proces
+
+	elif [[ $REPLY -eq 4 ]]
+	then
+		read -p "Zadajte nazov balika: " balik
+		sudo apt update && sudo apt install $balik
+
+	elif [[ $REPLY -eq 5 ]]
+	then
+		echo "Koniec administracie."
+		sleep 1
+		exit
+
+        else
+		echo "Neplatna volba."
+        fi
+done
+
+#koniec skriptu
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
