@@ -1074,6 +1074,7 @@ Testovanie BASH premennej s logickymi operatormi: if [[ $vek -ge 0 ]] && [[ $vek
 
 Priklad na cvicny input error handling (osetrenie chybneho vstupu) v jazyku BASH:
 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 #!/bin/bash
 #
 # Cvicny skript ocakava cele cislo v ramci vymedzenych hodnot, 17.2.2022 by vlkv
@@ -1094,6 +1095,7 @@ done
 echo "Zadali ste vek $vek roky/rokov."
 
 # koniec skriptu
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 Priklad nacita vo "for" slucke hodnoty z .txt suboru do premennej $ip: 
 
@@ -1106,7 +1108,7 @@ done
 
 # koniec skriptu
 
-Ako vytvorit priklad na jednoduche menu v BASH skripte:
+Ako vytvorit skript s jednoduchym menu v jazyku BASH:
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 #!/bin/bash
@@ -1166,3 +1168,4 @@ done
 
 #koniec skriptu
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
