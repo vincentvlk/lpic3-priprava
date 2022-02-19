@@ -1242,4 +1242,9 @@ $ docker run -d --name moja_web_app -p 80:80 -v <nazov_vol>:/usr/share/nginx/htm
 - priklad: $ sudo cp /etc/services /var/lib/docker/volumes/mojvol/_data/index.html
 - overime napr. s: $ curl localhost:80
 
+Poznamka, ak chceme vymazat Docker image, treba nasjkor pomazat z neho vytvorene kontajnery
+
+POZOR, automaticky nastroj na cistenie tzv. "dangling" Docker images: $ docker system prune
+ - dalsie informacie: $ docker system prune --help
+ - celkom uzitocna diagnostika zabrateho miesta: $ docker system df
 
