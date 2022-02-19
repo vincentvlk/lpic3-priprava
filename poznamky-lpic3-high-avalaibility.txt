@@ -1204,7 +1204,7 @@ Priklad ako vytvorit zmenu v Docker image a commitovat ju:
  - mozeme napr. z noveho image spustit container s: $ docker container run -it ddnovak/moje-ubu
 
 POZOR, prikaz vymaze *vsetky nebeziace* kontajnery: $ docker container rm $(docker container ls -a -q)
- - pripadne na vlastne riziko, mozeme spustit s paramentrom "rm -f"
+ - pripadne, na VLASTNE RIZIKO, mozeme spustit s paramentrom "rm -f"
 
 Ako spustit testovaci webserver v kontajnery s nazvom "moj_lab" (vonkajsi port je TCP/8080):
 
@@ -1212,6 +1212,8 @@ $ docker container run -d -p 8080:80 --name=moj_lab nginx
 
  - overime s: $ docker ps
  - nasledne otestujeme pripojenie s browserom, alebo napr. $ curl localhost:8080
+ - dalsie infromacie: $ docker container run --help
+ - alternativne, image s web serverom Apache2: "httpd"
 
 Ako vypisat otvorene TCP porty kontajnera: $ docker container port <contID/contNAME>
 Ako vypisat logy z kontajnera (napr. server nginx): $ docker container logs <contID/contNAME>
@@ -1225,4 +1227,19 @@ Ako spustit kontajner, hned s prikazovym riadkom:
 $ docker container run --name=ubu-con1 -it ubuntu
  - alebo, spustime interaktivny BASH na uz vytvorenom kontajnery: $ docker exec -it ubu-con1 bash 
  - alebo, spustime (zastaveny) kontajner v interaktivnom mode: $ docker start -i ubu-con1
+
+Ako vypisat kolko miesta na disku zaberaju kontajnery: $ docker ps -as
+
+Ako vytvorit perzistentne ulozisko pre kontajner "Docker Volume": $ docker volume create <nazov>
+ - overime s $ docker volume ls
+ - dalsie informacie: $ docker volume --help
+
+Ako vytvorit "nginx" kontajner s namapovanyn volume:
+
+$ docker run -d --name moja_web_app -p 80:80 -v <nazov_vol>:/usr/share/nginx/html nginx
+ 
+- mozeme napr. manipulovat s obsahom "web root" adresara, teda: /var/lib/docker/volumes/mojvol/_data/
+- priklad: $ sudo cp /etc/services /var/lib/docker/volumes/mojvol/_data/index.html
+- overime napr. s: $ curl localhost:80
+
 
