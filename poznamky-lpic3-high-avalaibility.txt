@@ -1217,5 +1217,12 @@ Ako vypisat otvorene TCP porty kontajnera: $ docker container port <contID/contN
 Ako vypisat logy z kontajnera (napr. server nginx): $ docker container logs <contID/contNAME>
  - sledovanie v realnom case, parameter: "logs -f"
 
+Ako sledovat zdroje konkretneho kontajnera: $ docker container stats <contID/contNAME>
+Ako vypisat detailne informacie o kontajnery: $ docker container inspect <contID/contNAME>
 
- 
+Ako spustit kontajner, hned s prikazovym riadkom: 
+
+$ docker container run --name=ubu-con1 -it ubuntu
+ - alebo, spustime interaktivny BASH na uz vytvorenom kontajnery: $ docker exec -it ubu-con1 bash 
+ - alebo, spustime (zastaveny) kontajner v interaktivnom mode: $ docker start -i ubu-con1
+
