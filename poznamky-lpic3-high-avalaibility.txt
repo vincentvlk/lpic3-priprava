@@ -1097,8 +1097,9 @@ echo "Zadali ste vek $vek roky/rokov."
 # koniec skriptu
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-Priklad nacita vo "for" slucke hodnoty z .txt suboru do premennej $ip: 
+Priklad nacita vo "for" slucke hodnoty z .txt suboru do premennej $ip:
 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 #!/bin/bash
 for ip in $(cat /home/dev1/ip_adresy.txt)
 do
@@ -1107,8 +1108,9 @@ do
 done
 
 # koniec skriptu
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-Ako vytvorit skript s jednoduchym menu v jazyku BASH:
+Ako vytvorit skript s jednoduchym "select" menu v jazyku BASH:
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 #!/bin/bash
@@ -1168,4 +1170,32 @@ done
 
 #koniec skriptu
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+Jednoduchy priklad na hladanie substringu zo systemoveho vypisu:
+
+#!/bin/bash
+#
+vystup="$(ping -f -i 0.5 -c 3 $1)"
+#echo "$vystup"
+
+if [[ "$vystup" == *"100% packet loss"*  ]]
+then
+        echo "Internetova konektiva na $1 je nedostupna."
+else
+        echo "Konektiva (ako tak) funguje."
+fi
+
+# koniec skpritu
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+*Pokracovanie prace s Docker-om*
+
+Jednoduche web prostredie na ucenie/testovanie Docker-u: https://labs.play-with-docker.com/
+ - dalsie informacie: https://www.docker.com/play-with-docker
+
+Priklad ako spustit v "sandboxe" web server "nginx": $ docker container run -d -it nginx
+
+Pre pomoc s CLI, staci zadat prikaz bez parametrov, napr.: $ docker container
+
 
