@@ -1248,3 +1248,14 @@ POZOR, automaticky nastroj na cistenie tzv. "dangling" Docker images: $ docker s
  - dalsie informacie: $ docker system prune --help
  - celkom uzitocna diagnostika zabrateho miesta: $ docker system df
 
+Nastroj na ochranu integrity suborov a adresarov "AIDE", instalacia: $ sudp apt install aide
+ - instalacia na Fedora Server: $ sudo dnf install aide
+ - dalsie informacie: https://aide.github.io/
+ - vypiseme verziu a skompilovane moduly: $ aide -v
+ - dalej mozeme vypisat moznosti a parametre: $ aide --help
+ - konfiguracny subor je ulozeny v "/etc/aide/aide.conf"
+ - inicializujeme "AIDE": $ sudo aideinit
+ - inicializacia Fedora Server: $ sudo aide -i 
+ - prikaz bezi nejaku dobu a vytvori (na Ubu) databazu signatur v: "/var/lib/aide/aide.db.new"
+ - 
+
