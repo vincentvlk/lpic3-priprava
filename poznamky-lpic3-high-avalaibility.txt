@@ -1284,4 +1284,19 @@ Na overenie bezpecnosti hesla, mozeme pouzit nastroj "John the Ripper"
    - priebezne vysledky ziskame s: $ sudo john --show unshadow.out.txt
    - prelamovanie mozeme obnovit s: $ sudo john -restore
 
- 
+Politiku systemovyh hesiel najdeme v subore "/etc/login.defs"
+ - dalsie informacie v: $ man login.defs
+
+Ako nastavit cas expiracie hesla na 30 dni: $ sudo chage -M 30 <uzivatel>
+ - overime s: $ sudo chage -l <uzivatel>
+
+Dalsie politiky hesla, ako napr. zlozitost spravuju "PAM - Pluggable Authentification Modules"
+ - treba instalovat balik: $ sudo apt install libpam-pwquality
+ - konfiguracia v subore "/etc/pam.d/common-password"
+ - na upravu politiky hesla pridame do riadku: 
+ - na "RedHat-based" distribuciach sa pouziva: "/etc/pam.d/system-auth"
+ - 
+
+
+
+
