@@ -1293,9 +1293,16 @@ Ako nastavit cas expiracie hesla na 30 dni: $ sudo chage -M 30 <uzivatel>
 Dalsie politiky hesla, ako napr. zlozitost spravuju "PAM - Pluggable Authentification Modules"
  - treba instalovat balik: $ sudo apt install libpam-pwquality
  - konfiguracia v subore "/etc/pam.d/common-password"
- - na upravu politiky hesla pridame do riadku: 
- - na "RedHat-based" distribuciach sa pouziva: "/etc/pam.d/system-auth"
+ - na upravu politiky pridame do riadku dalsie atributy: "password requisite pam_pwquality.so retry=3"
+ - "minlen=8 difok=3 ucredit=-1 lcredit=-1 dcredit=-1 ocredit=-1" kde jednotlive atributy znamenaju:
+ - "retry=" kolko krat sa login process spyta na heslo 
+ - "minlen=" minimalna dzlka hesla
+ - "difok=" minimalny pocet znakov odlisnych od povodneho hesla
+ - "ucredit=" atribut s "-1" vyzaduje aspon jedno velke pismeno
  - 
+
+- na "RedHat-based" distribuciach sa pouziva konf. subor: "/etc/pam.d/system-auth"
+
 
 
 
