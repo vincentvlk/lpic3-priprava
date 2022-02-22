@@ -1321,4 +1321,9 @@ Relacia vytvorena prikazom "sudo" ma pristupove prava v "cache" presne 15 min.
  - cache sa da zmanzat s: $ sudo -k
  - toto nastavenie mozeme zmenit, napr. na 10 min., otvorime konfiguraciu "sudoers": $ sudo visudo
  - nasledne riadok "Defaults env_reset" upravime na: "Defaults env_reset, timestamp_timeout=10" 
- - 
+ - mozeme nadefinovat, povolene prikazy, dopiseme: "user1  ALL=(root)      /usr/bin/ls,/usr/bin/cat"
+
+Poznamka: v oblasti Steganografie sa pouziva nastroj "steghide": $ sudo apt install steghide
+ - dalsie informacie: https://en.wikipedia.org/wiki/Steganography
+ - informacie o programe: $ man steghide
+
