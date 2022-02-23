@@ -1363,6 +1363,17 @@ Nastroj na detekciu tzv. "Rootkit-ov", nainstalujeme: $ sudo apt install rkhunte
  - nasledne aktualizujeme "file-DB": $ sudo rkhunter --propupd
  - dalej spustime samotne skenovanie: $ sudo rkhunter --check
  - vysledok mozeme skontrolovat s: $ sudo less /var/log/rkhunter.log
+ - mozeme spustit len "Warning" reportovanie: $ sudo rkhunter --check --report-warnings-only
+   - log sa da stale sledovat, napr.: $ sudo tail -f /var/log/rkhunter.log
+   - mozeme naist "False-positives", da sa pridat do "/etc/rkhunter.conf", co chceme ignorovat:
+   - pridame napr. riadok: "SCRIPTWHITELIST=/usr/bin/lwp-request"
+   - LEPSIE riesenie moze byt specifikovanie "Package" manazera, pridame: "PKGMGR=DPKG
 
+Dalsi nastroj na "Rootkit" detekciu, instalujeme: $ sudo apt install chkrootkit
+ - jednoduche spustenie: $ sudo chkrootkit
+   - podobne sa da spustit, len vypise "Warnings": $ sudo chkrootkit -q
 
-
+Ako hladat/mazat virusy, pouzijeme nastroj "Clam-AV": $ sudo apt install clamav clamav-daemon
+ - dolezite komponenty: "$ man clamd", "$ man clamdscan", "$ man clamscan" (pouziva vlastnu Virus-DB)
+ - nastroj na aktualizaciu "Virus DB": $ man freshclam
+ - aktivnu aktualizaciu overime s: $ sudo systemctl status clamav-freshclam
