@@ -1394,3 +1394,15 @@ Ako hladat/mazat virusy, pouzijeme nastroj "Clam-AV": $ sudo apt install clamav 
    - POZOR a OPATRNE, automaticke mazanie: $ sudo clamscan --infected --remove --recursive /home
    - pre Linux-ove distribucie existuje aj GUI rozhranie "ClamTk": $ sudo apt install clamtk
 
+Ako na zabezpecnie zavadzaca "GRUB2", vytvorime heslo: $ sudo grub-mkpasswd-pbkdf2
+ - dalej upravime subor "/etc/grub.d/40_custom" pridame riadky, vygenerovany HASH, od slova "grub"
+
+set superusers="root"
+password_pbkdf2 root grub.pbkdf2.sha512.10000.C319ED4060EA...
+
+ - nasledne ulozime a spustime skript na generovanie konfiguracie: $ sudo update-grub2 
+
+Zabezpecie SSHv2 servera "OpenSSH", hlavna konfiguracia je ulozena v subore: "/etc/ssh/sshd_config"
+
+
+  
