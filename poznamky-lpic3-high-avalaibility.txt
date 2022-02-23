@@ -1405,6 +1405,11 @@ password_pbkdf2 root grub.pbkdf2.sha512.10000.C319ED4060EA...
 Zakladne zabezpecie servera "OpenSSH", hlavna konfiguracia je ulozena v subore: "/etc/ssh/sshd_config"
  - rozsiahly zdroj informacii: $ man sshd_config
  - zvazit zmenu pocuvajuceho TCP portu, upravime riadok "#Port 22" na "Port 5022"
- - zadefinujeme povolenych uzivatelov, upravime:  
+ - po zmenach je potrebne: $ sudo systemctl restart ssh
+ - overime s: $ sudo systemctl status ssh
+ - deaktivujeme "root-login", zmena: "#PermitRootLogin prohibit-password" na "#PermitRootLogin no"
+ - odpoji po 5 min. neaktivity, pridame 2 riadky "ClientAliveInterval 300" a "ClientAliveCountMax 0"
+ - maximalny pocet pokusov pri zadavani hesla, zmenime: "#MaxAuthTries 6" na "MaxAuthTries 3"
+
 
 
