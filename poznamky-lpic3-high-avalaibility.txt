@@ -1311,9 +1311,9 @@ Ako vytvorit sifrovanu particiu na HDD/SSD, potrebne nainstalovat: $ sudo apt in
    - vytvori sa symbolicky link "/dev/mapper/crypt1 -> /dev/dm-X"
  - overime s: $ sudo cryptsetup status crypt1
  - po overeni vytvorime particu/FS, napr. Ext4: $ sudo mkfs.ext4 /dev/mapper/crypt1
- - dalej mozeme "namountovat" novu particiu na adresar: $ sudo mount /dev/mapper/crypt1 /mnt/crypt1/
+ - dalej "namountujeme" novu particiu na adresar: $ sudo mount /dev/mapper/crypt1 /mnt/crypt1/
  - volitelne nastavime vlastnika/prava, napr.: $ sudo chown user1:user1 /mnt/crypt1/
- - po ukonceni prace: "$ sudo umount /mnt/crypt1" nasledne: "$ sudo cryptsetup luksClose crypt1"
+ - po ukonceni prace: "$ sudo umount /mnt/crypt1" nasledne: $ sudo cryptsetup luksClose crypt1
  - nova uloha: $ sudo cryptsetup luksOpen /dev/sdb crypt1
    - nasledne: $ sudo mount /dev/mapper/crypt1 /mnt/crypt1/
 
@@ -1322,7 +1322,21 @@ Relacia vytvorena prikazom "sudo" ma pristupove prava v "cache" presne 15 min.
  - toto nastavenie mozeme zmenit, napr. na 10 min., otvorime konfiguraciu "sudoers": $ sudo visudo
  - nasledne riadok "Defaults env_reset" upravime na: "Defaults env_reset, timestamp_timeout=10" 
  - mozeme nadefinovat, povolene prikazy, dopiseme: "user1  ALL=(root)      /usr/bin/ls,/usr/bin/cat"
- - dalsie informacie 
+ - zjednodusenie, definujeme aliasy, priklad v subore "/etc/sudoers" moze cast vyzerat takto:
+   - vytvorime alias uzivatelov "ADMINS" v ktorom su 3 uziv., dalej alias na prikazy "FILE_OPER"
+   - potom aliasu "ADMINS" priradime povoleny prikaz "/user/bin/netstat" + alias prikazov "FILE_OPER"
+
+# User alias specification
+User_Alias ADMINS=user1,user2,dev1
+
+# Cmnd alias specification
+Cmnd_Alias FILE_OPER=/usr/bin/cp,/usr/bin/ls/,/usr/bin/touch/,/usr/bin/rm
+
+# User privilege specification
+root    ALL=(ALL:ALL) ALL
+ADMINS  ALL=(root)      /usr/bin/netstat,FILE_OPER
+
+ - dalsie informacie: $ man sudoers 
 
 Poznamka: v oblasti Steganografie sa pouziva nastroj "steghide": $ sudo apt install steghide
  - dalsie informacie: https://en.wikipedia.org/wiki/Steganography
