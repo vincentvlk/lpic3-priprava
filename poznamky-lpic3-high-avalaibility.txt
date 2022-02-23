@@ -1410,6 +1410,30 @@ Zakladne zabezpecie servera "OpenSSH", hlavna konfiguracia je ulozena v subore: 
  - deaktivujeme "root-login", zmena: "#PermitRootLogin prohibit-password" na "#PermitRootLogin no"
  - odpoji po 5 min. neaktivity, pridame 2 riadky "ClientAliveInterval 300" a "ClientAliveCountMax 0"
  - maximalny pocet pokusov pri zadavani hesla, zmenime: "#MaxAuthTries 6" na "MaxAuthTries 3"
+ - dalej pozriet v "$ man sshd_config" parametre: "MaxStartups" a "LoginGracetime"
 
+Ako zabranit tzv. "Fork bomb-am", je potrebne overit pocet spustitelnych procesov:
+ - skontrolujeme povolnene mznostvo: $ ulimit -u
+ - do suboru "/etc/security/limits.conf" pridame tieto riadky:
 
+student		hard	nproc	1000
+@team1		hard	nproc	4000
 
+ - prvy riadok obmedzi pocet procesov pre daneho uzivatela, druhy pre danu skupinu
+ - POZOR, LEN MIMO PRODUKCIE, priklad na BASH fork-bomb, vytvorime skript s riadkom "$0 && $0 &"
+   - skript do "nekonecna" spusta kopie sameho seba, kym nevycerpa systemove zdroje
+   - ESTE VIAC POZOR, vo forme prikazu: $ :(){ :|:& };:
+   - prikaz na overenie, kolko procesov ma spusteny uzivatel: $ pgrep -wcu <uzivatel>
+ - dalej mozeme obmedzit max. velkost suboru (v kB), ktory moze uziv. vytvorit:
+
+student		hard	fsize	1000
+
+ - dalsie informacie napr. v: $ man limits.conf
+
+Ako zasifrovat subor s citlivymi udajmi pomocou GNU-Pg: $ gpg -c povodny.txt
+ - vznikne sifrovany subor "povodny.txt.gpg", ktory napr. premenujeme na "sprava.dat" a posleme
+ - mozeme aj upresnit sifru a vystup: $ gpg -c --cipher-algo aes256 -o sprava.dat povodny.txt
+ - OPATRNE, ak treba, mozeme spolahlivo "znicit" povodny subor: $ shred -uv -n 100 povodny.txt
+ - v cieli sa subor desifruje: $ gpg -o povodny.txt -d sprava.dat
+
+ - dalsie informacie napr. v "$ man gpg" alebo "$ gpg --help"
