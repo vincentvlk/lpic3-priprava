@@ -993,7 +993,7 @@ Ako zistit, ake DNS servery pouzivaju distribucie so SystemD: $ systemd-resolve 
  
 Ako zadat, uzivatelov, ktory maju povoleny SSH login, do suboru "/etc/ssh/sshd_config" vlozime:
 
-"AllowUsers student1 user1 developer1" 
+AllowUsers student1 user1 developer1
 
  - nasledne upravu ulozime a restartujeme SSH server: $ sudo systemctl restart ssh
  - overime s: $ sudo systemctl status ssh
@@ -1402,7 +1402,9 @@ password_pbkdf2 root grub.pbkdf2.sha512.10000.C319ED4060EA...
 
  - nasledne ulozime a spustime skript na generovanie konfiguracie: $ sudo update-grub2 
 
-Zabezpecie SSHv2 servera "OpenSSH", hlavna konfiguracia je ulozena v subore: "/etc/ssh/sshd_config"
+Zakladne zabezpecie servera "OpenSSH", hlavna konfiguracia je ulozena v subore: "/etc/ssh/sshd_config"
+ - rozsiahly zdroj informacii: $ man sshd_config
+ - zvazit zmenu pocuvajuceho TCP portu, upravime riadok "#Port 22" na "Port 5022"
+ - zadefinujeme povolenych uzivatelov, upravime:  
 
 
-  
