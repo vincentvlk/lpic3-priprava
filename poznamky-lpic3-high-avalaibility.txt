@@ -1496,6 +1496,10 @@ mail    IN	A	192.168.1.244
    - kontrola konf. servera: $ sudo named-checkconf
    - kontrola zonoveho suboru: $ sudo named-checkzone priklad.xyz. /etc/bind/db.priklad.xyz
  - po kontrole restartujeme DNS server: $ sudo systemctl reload-or-restart bind9.service
+ - stav overime s: $ sudo systemctl status bind9.service
+
+Ako zistit, svoju verejnu IP, napr. "$ curl ifconfig.me", "$ curl -4 ident.me", "$ curl -6 ident.me"
+
 
  
 
