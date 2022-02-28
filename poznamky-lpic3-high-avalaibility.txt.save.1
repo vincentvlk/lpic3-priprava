@@ -1519,7 +1519,7 @@ Ako zadefinovat tzv. "Virtual Hosting" pre Web server Apache2:
 </VirtualHost>
  
  - po ulozeni aktivujeme a pridame stranku do "Virtual Hosting": $ sudo a2ensite priklad.xyz
- - vznikne symlink: "/etc/apache2/sites-available/vlkv.name.conf" -> "/etc/apache2/sites-enabled/vlkv.name.conf"
+ - tento skript vytvori symlink: 
  - nasledne znova nacitame konfiguracie: $ sudo systemctl reload apache2
  - mozeme overit s: $ sudo systemctl status apache2
 
