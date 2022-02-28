@@ -1522,4 +1522,21 @@ Ako zadefinovat tzv. "Virtual Hosting" pre Web server Apache2:
  - vznikne symlink: "/etc/apache2/sites-available/vlkv.name.conf" -> "/etc/apache2/sites-enabled/vlkv.name.conf"
  - nasledne znova nacitame konfiguracie: $ sudo systemctl reload apache2
  - mozeme overit s: $ sudo systemctl status apache2
+ - mozeme aj deaktivovat ine Virtual Host stranky, napr.: $ sudo a2dissite 000-default
+ - deaktivujeme predvolenu "Landing Page" pre Apache2 na Debiane
+ - je este potrebne znova nacitat konfigy: $ sudo systemctl reload apache2
+
+Ako instalovat podporu PHP na server Apache2: $ apt install php php-mysql libapache2-mod-php
+ - instalaciu overime napr. s: $ php -v
+ - na otestovanie vo Web prehliadaci mozeme vytvorit jednoduchu stranku
+   - v adresari "/var/www/priklad.xyz/" vytvorime subor "test.php" s obsahom:
+
+<?php
+	phpinfo();
+?>
+
+ - ulozime a otvorime v prehliadaci, napr.: www.priklad.xyz/test.php
+
+
+
 
