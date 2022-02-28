@@ -1,12 +1,18 @@
 *** Poznamky k priprave na LPIC3-High Availability ***
 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+*MOJ skromny nazor*: popriority pri realizacii projektov na OS GNU/Linux:
+
+Bezpecnost + Zalohovanie + Kontrola zaloh + IPv6
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
 Ako na linuxe vypnut PC-speaker: #rmmod pcspkr
 
 - dobra stranka na zaciatocnu konfiguraciu znamych distribucii:
 
 https://www.server-world.info/en/note?os=Ubuntu_20.04&p=initial_conf&f=3
 
-- ^^^ nevedno do kedy bude online a chyba tam IPv6 :-/
+- ^^^ nevedno do kedy bude online a chyba tam IPv6 :-(
 
 - nastavenie siete v systeme Debian11:
  - edituje sa /etc/network/interfaces
@@ -1536,6 +1542,12 @@ Ako instalovat podporu PHP na server Apache2: $ apt install php php-mysql libapa
 ?>
 
  - ulozime a otvorime v prehliadaci, napr.: www.priklad.xyz/test.php
+
+Ako zapnut v Apache2 modul na kompresiu posielaneho obsahu: $ sudo a2enmod deflate
+ - dalej mozeme uprafit konf. subor "/etc/apache2/mods-enabled/deflate.conf":
+ - medzi tag-y "<IfModule mod_filter.c>" a "</IfModule>" vlozime "DeflateCompressionLevel 7"
+   - napr. tato direktiva zvysi uroven kompresie z predvoleneho stupna "6" na "7" 
+   - vyssia kompresia prenasa menej dat, ale zvysuje naroky na CPU, rozsah je 1 az 10
 
 
 
