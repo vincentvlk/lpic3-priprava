@@ -3,7 +3,8 @@
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 *MOJ skromny nazor*: popriority pri realizacii projektov na OS GNU/Linux:
 
-Bezpecnost + Zalohovanie + Kontrola zaloh + IPv6
+Bezpecnost + Zalohovanie + Kontrola pouzitelnosti zaloh + IPv6
+Security + Backups + Backups usability check + IPv6
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 Ako na linuxe vypnut PC-speaker: #rmmod pcspkr
@@ -1548,7 +1549,4 @@ Ako zapnut v Apache2 modul na kompresiu posielaneho obsahu: $ sudo a2enmod defla
  - medzi tag-y "<IfModule mod_filter.c>" a "</IfModule>" vlozime "DeflateCompressionLevel 7"
    - napr. tato direktiva zvysi uroven kompresie z predvoleneho stupna "6" na "7" 
    - vyssia kompresia prenasa menej dat, ale zvysuje naroky na CPU, rozsah je 1 az 10
-
-
-
 
