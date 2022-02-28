@@ -1500,6 +1500,22 @@ mail    IN	A	192.168.1.244
 
 Ako zistit, svoju verejnu IP, napr. "$ curl ifconfig.me", "$ curl -4 ident.me", "$ curl -6 ident.me"
 
+Ako zadefinovat tzv. "Virtual Hosting" pre Web server Apache2:
+ - vytvorime adresar s webom: $ sudo mkdir /var/www/priklad.xyz
+ - nastavime vlastnika: $ sudo chown -R www-data:www-data /var/www/priklad.xyz
+ - nastavime prava: $ sudo chmod 755 /var/www/priklad.xyz
+ - vytvorime konf. subor: $ sudo vim /etc/apache2/sites-available/priklad.xyz.conf
+ - vlozime napr.:
 
+<VirtualHost *:80>
+    ServerName priklad.xyz
+    ServerAlias www.priklad.xyz
+    DocumentRoot "/var/www/priklad.xyz"
+
+    ServerAdmin web@priklad.xyz
+    ErrorLog /var/log/apache2/priklad.xyz.error.log
+    CustomLog /var/log/apache2/priklad.xyz.access.log combined
+
+</VirtualHost>
  
 
