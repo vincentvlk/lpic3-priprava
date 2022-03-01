@@ -1580,7 +1580,25 @@ Ako vypnut "podpis" servera, napr.: "Apache/2.4.41 (Ubuntu) Server at 192.168.1.
  - zmenime na: "ServerSignature Off" potom: $ sudo systemctl reload-or-restart apache2
  - je este vhodne zmenit "ServerTokens OS" na "ServerTokens Prod" a restartovat Apache2
 
+Ako programom "Ansible" nainstalovat program "nmap" pomocou systemu "APT":
+ - instalujeme balik "ansible": $ sudo apt install ansible
+ - vytvorime si "inventar" zariadeni, napr. vytvorime subor "hosts", kde napr. vlozime:
+
+[servers]
+vps1 ansible_host=192.168.1.242 ansible_user=ansmin
+vps2 ansible_host=192.168.1.245 ansible_user=ansmin
+vps3 ansible_host=192.168.1.246 ansible_user=ansmin
+
+ - ulozime subor s nastaveniami, tento priklad pocita s "PKI Auth" prihlasovanim (SSH klucom)
+ - spustime: $ ansible -i hosts servers -m apt -a "name=nmap state=present" --become -K
+   - prikaz vyziada "SUDO" heslo s "--become -K" pre zariadenia zo skupiny "servers"
+   - porikaz vyuziva modul "apt" s nastavenim "name=nmap state=present"
+   - ked chceme balik odstranit zmenime nastavenie modulu: "name=nmap state=absent"
+   - ked chceme spustit "APT full-upgrade" zmenime nastavenie modulu: "upgrade=full"
+   - ked chceme vycistit nepotrebne zavislosti: "autoremove=yes autoclean=yes"
 
 
+
+ 
  
 
