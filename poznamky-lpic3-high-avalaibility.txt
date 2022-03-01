@@ -1557,7 +1557,7 @@ Ako zapnut vstavane monitorovanie servera Apache2, zapneme modul: $ sudo a2enmod
     
     Require ip 192.168.1.0/24 1.2.3.4 192.0.2.150
    
-   - riadok definuje, z ktorych IP adries je mozne otvarat: www.priklad.xyz/server-status
+   - definujeme, z ktorych IP adr. je mozne otvarat: www.priklad.xyz/server-status
  - restartujeme proces: $ sudo systemctl reload apache2
  - nasledne mozeme v prehliadaci otvorit: www.priklad.xyz/server-status?refresh=2
  - na test mozeme pouzit program "Apache Benchmark", z balika "apache2-utils"
@@ -1565,4 +1565,20 @@ Ako zapnut vstavane monitorovanie servera Apache2, zapneme modul: $ sudo a2enmod
    - prikaz vytvori 1000 poziadavok na server, s tym ze sucasnych dovoli max. 100
    - dalsie informacie: $ man ab
 
+Ako blokovat pre Apache2 indexovy vypis suborov, do konf. suboru "vhost" alebo glob. konf.:
+
+<Directory /var/www/html>
+        Options -Indexes
+
+</Directory>
+
+- POZOR, ak pouzijeme v konf. "+" alebo "-" vsetky moznosti "Options" musia obsahovat "+"/"-"
+- nasledne: $ sudo systemctl reload apache2
+
+Ako vypnut "podpis" servera, napr.: "Apache/2.4.41 (Ubuntu) Server at 192.168.1.244 Port 80"
+ - upravime subor: "/etc/apache2/conf-available/security.conf" najdeme "ServerSignature On"
+ - zmenime na: "ServerSignature Off" potom: $ sudo systemctl reload-or-restart apache2
+
+
+ 
 
