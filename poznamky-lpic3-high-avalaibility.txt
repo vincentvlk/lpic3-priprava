@@ -1551,3 +1551,13 @@ Ako zapnut v Apache2 modul na kompresiu posielaneho obsahu: $ sudo a2enmod defla
    - napr. tato direktiva zvysi uroven kompresie z predvoleneho stupna "6" na "7" 
    - vyssia kompresia prenasa menej dat, ale zvysuje naroky na CPU, rozsah je 1 az 10
 
+Ako zapnut vstavane monitorovanie servera Apache2, zapneme modul: $ sudo a2enmod status
+ - dalej upravime konfiguraciu v subore: /etc/apache2/mods-available/status.conf
+   - v sekcii medzi "<Location /server-status>" a "</Location>" pridame napr. riadok:
+    
+    Require ip 192.168.1.0/24 1.2.3.4 192.0.2.150
+   
+   - riadok definuje, z ktorych IP adries je mozne otvarat: www.priklad.xyz/server-status
+ - restartujeme proces: $ sudo systemctl reload apache2
+ - nasledne mozeme v prehliadaci otvorit: www.priklad.xyz/server-status
+ - 
