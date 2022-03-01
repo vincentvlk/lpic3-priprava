@@ -1559,5 +1559,10 @@ Ako zapnut vstavane monitorovanie servera Apache2, zapneme modul: $ sudo a2enmod
    
    - riadok definuje, z ktorych IP adries je mozne otvarat: www.priklad.xyz/server-status
  - restartujeme proces: $ sudo systemctl reload apache2
- - nasledne mozeme v prehliadaci otvorit: www.priklad.xyz/server-status
- - 
+ - nasledne mozeme v prehliadaci otvorit: www.priklad.xyz/server-status?refresh=2
+ - na test mozeme pouzit program "Apache Benchmark", z balika "apache2-utils"
+   - pouzijeme prikaz napr.: $ ab -n 1000 -c 100 http://192.168.1.244/
+   - prikaz vytvori 1000 poziadavok na server, s tym ze sucasnych dovoli max. 100
+   - dalsie informacie: $ man ab
+
+
