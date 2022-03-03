@@ -1597,8 +1597,8 @@ vps3 ansible_host=192.168.1.246 ansible_user=ansmin
    - ked chceme spustit "APT full-upgrade" zmenime nastavenie modulu: "upgrade=full"
    - ked chceme vycistit nepotrebne zavislosti: "autoremove=yes autoclean=yes"
 
+Tip: Ako vypisat dostupne ansible moduly: $ ansible-doc -l
 
-
- 
- 
+Tip: Na privatny SSH kluc mozeme nastavit prava "read-only": $ chmod u-w .ssh/id_rsa
+ - pripadne sa mozu zvazit suborove ACLka
 
