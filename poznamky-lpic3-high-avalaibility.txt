@@ -1604,9 +1604,14 @@ Tip: Na privatny SSH kluc mozeme nastavit prava "read-only": $ chmod u-w .ssh/id
 
 Zakladna praca s balickovacim systemom "Zypper" v OS: "OpenSUSE Leap":
  - aktualizacia DB balickov: $ sudo zypper refresh
+ - instalacia aktualizacii:$ sudo zypper update 
  - instalacia balicka "nmap", bez dotazov: $ sudo zypper install --no-confirm nmap
  - alebo skratena verzia: $ sudo zypper -n in nmap
  - vymazanie balika: $ sudo zypper remove nmap
    - opatrne, bez dotazov, pramater "-n"
  - hladanie balickov v DB: $ sudo zypper search nmap
- 
+ - vypisanie dostupnych softwarovych "zaplat": $ sudo zypper patches
+ - instalacia softwarovych "zaplat": $ sudo zypper patch
+ - dalsie informacie: $ man zypper
+
+
