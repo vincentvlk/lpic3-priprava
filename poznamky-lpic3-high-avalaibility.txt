@@ -1659,7 +1659,12 @@ Volitelne mozeme nasadit filtrovanie podla IP adries/podsieti:
 
 /iscsi/iqn.20...target01/tpg1> cd portals/
 
-/iscsi/iqn.20.../tpg1/portals> delete
+/iscsi/iqn.20.../tpg1/portals> delete 0.0.0.0 3260
+Deleted network portal 0.0.0.0:3260
+
+/iscsi/iqn.20.../tpg1/portals> create 192.168.255.0 3260
+Using default IP port 3260
+Created network portal 192.168.255.0:3260.
 
 /iscsi/iqn.20...t01/tpg1> cd ../acls
 
