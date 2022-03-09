@@ -1734,7 +1734,7 @@ Pripojenie disku overime prikazmi napr. "$ cat /proc/partitions" alebo "$ lsblk"
  - najdeme spravy o pripojeni noveho disku (napr. "/dev/sdb") aj v: $ sudo journalctl -f
 
 Nasledne vytvorime particiu, napr. pomocou nastrojov "fdisk", "cfdisk", "parted", a pod.
- - novu particiu naformatujeme systemom podla poziadavky: $ sudo mkfs.XYZ /dev/sdX
+ - potom novu particiu naformatujeme systemom podla poziadavky: $ sudo mkfs.XYZ /dev/sdX
 
 Ak chceme automaticke pripajanie disku, v subore "/etc/iscsi/iscsid.conf" odkomentujeme riadok:
 "node.startup = automatic"
