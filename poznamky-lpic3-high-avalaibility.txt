@@ -1619,3 +1619,87 @@ Instalacia cluster-a v "OpenSUSE", na vsetkych uzloch: $ sudo zypper in ha-clust
  
 Ako v OS "Fedora Server 35" nainstalovat NetworkManager-TUI: $ sudo dnf install NetworkManager-tui
 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+*Vytvorenie iSCSI targetu ("server") a Initiatora ("klient") v OS "Fedora Server 35"*
+ - *ROZPRACOVANY Status*
+
+=-TARGET:=-
+
+[root@fed-stor1 ~]# targetcli
+targetcli shell version 2.1.54
+Copyright 2011-2013 by Datera, Inc and others.
+For help on commands, type 'help'.
+
+/> cd backstores/fileio
+
+
+/backstores/fileio> create disk01 /var/lib/iscsi_pool1/disk01.img 15G
+Created fileio disk01 with size 16106127360
+
+/backstores/fileio> cd /iscsi
+/iscsi> create iqn.2022-03.lpic3.suse1:www.target01
+Created target iqn.2022-03.lpic3.suse1:www.target01.
+Created TPG 1.
+Global pref auto_add_default_portal=true
+Created default portal listening on all IPs (0.0.0.0), port 3260.
+
+/iscsi> cd iqn.2022-03.lpic3.suse1:www.target01/
+
+
+
+/iscsi> cd iqn.2022-03.lpic3.suse1:www.target01//tpg1/luns
+/iscsi/iqn.20...t01/tpg1/luns> create /backstores/fileio/disk01
+Created LUN 0.
+/iscsi/iqn.20...t01/tpg1/luns> cd ../acls
+
+/iscsi/iqn.20...t01/tpg1/acls> create iqn.2022-03.lpic3.suse1:www.node01.init01
+Created Node ACL for iqn.2022-03.lpic3.suse1:www.node01.init01
+Created mapped LUN 0.
+
+/iscsi/iqn.20...t01/tpg1/acls> cd iqn.2022-03.lpic3.suse1:www.node01.init01/
+
+/iscsi/iqn.20...node01.init01> set auth userid=lpic3iscsi
+Parameter userid is now 'lpic3iscsi'.
+
+/iscsi/iqn.20...node01.init01> set auth password=iscsi.2022
+Parameter password is now 'iscsi.2022'.
+
+/iscsi/iqn.20...node01.init01> exit
+
+Global pref auto_save_on_exit=true
+Configuration saved to /etc/target/saveconfig.json
+
+[root@fed-stor1 ~]# ss -tanp | grep 3260
+LISTEN 0      256            0.0.0.0:3260      0.0.0.0:*
+
+[root@fed-stor1 ~]# systemctl enable target
+Created symlink /etc/systemd/system/multi-user.target.wants/target.service → /usr/lib/systemd/system/target.service.
+[root@fed-stor1 ~]# systemctl status target
+○ target.service - Restore LIO kernel target configuration
+     Loaded: loaded (/usr/lib/systemd/system/target.service; enabled; vendor preset: disabled)
+     Active: inactive (dead)
+
+[root@fed-stor1 ~]# systemctl start target
+
+[root@fed-stor1 ~]# systemctl status target
+● target.service - Restore LIO kernel target configuration
+     Loaded: loaded (/usr/lib/systemd/system/target.service; enabled; vendor preset: disabled)
+     Active: active (exited) since Tue 2022-03-08 15:29:37 CET; 1s ago
+    Process: 933 ExecStart=/usr/bin/targetctl restore (code=exited, status=0/SUCCESS)
+   Main PID: 933 (code=exited, status=0/SUCCESS)
+        CPU: 70ms
+
+Mar 08 15:29:37 fed-stor1 systemd[1]: Starting Restore LIO kernel target configuration...
+Mar 08 15:29:37 fed-stor1 systemd[1]: Finished Restore LIO kernel target configuration.
+
+[root@fed-stor1 ~]# firewall-cmd --add-service=iscsi-target
+success
+
+[root@fed-stor1 ~]# firewall-cmd --runtime-to-permanent
+success
+
+-=INITIATOR:=-
+
+
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
