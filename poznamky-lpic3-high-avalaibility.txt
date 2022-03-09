@@ -1632,11 +1632,11 @@ For help on commands, type 'help'.
 
 /> cd backstores/fileio
 
-
 /backstores/fileio> create disk01 /var/lib/iscsi_pool1/disk01.img 15G
 Created fileio disk01 with size 16106127360
 
 /backstores/fileio> cd /iscsi
+
 /iscsi> create iqn.2022-03.lpic3.suse1:www.target01
 Created target iqn.2022-03.lpic3.suse1:www.target01.
 Created TPG 1.
@@ -1645,12 +1645,23 @@ Created default portal listening on all IPs (0.0.0.0), port 3260.
 
 /iscsi> cd iqn.2022-03.lpic3.suse1:www.target01/
 
-
-
 /iscsi> cd iqn.2022-03.lpic3.suse1:www.target01//tpg1/luns
+
 /iscsi/iqn.20...t01/tpg1/luns> create /backstores/fileio/disk01
 Created LUN 0.
-/iscsi/iqn.20...t01/tpg1/luns> cd ../acls
+
+/iscsi/iqn.20...t01/tpg1/luns> cd /iscsi/iqn.2022-03.lpic3.suse1:www.target01/tpg1
+
+/iscsi/iqn.20...target01/tpg1> set parameter AuthMethod=CHAP
+Parameter AuthMethod is now 'CHAP'.
+
+Volitelne mozeme nasadit filtrovanie podla IP adries/podsieti:
+
+/iscsi/iqn.20...target01/tpg1> cd portals/
+
+/iscsi/iqn.20.../tpg1/portals> delete
+
+/iscsi/iqn.20...t01/tpg1> cd ../acls
 
 /iscsi/iqn.20...t01/tpg1/acls> create iqn.2022-03.lpic3.suse1:www.node01.init01
 Created Node ACL for iqn.2022-03.lpic3.suse1:www.node01.init01
@@ -1664,8 +1675,11 @@ Parameter userid is now 'lpic3iscsi'.
 /iscsi/iqn.20...node01.init01> set auth password=iscsi.2022
 Parameter password is now 'iscsi.2022'.
 
-/iscsi/iqn.20...node01.init01> exit
+Konfiguraciu Overime s:
 
+/iscsi/iqn.20...node01.init01> ls /
+
+/iscsi/iqn.20...node01.init01> exit
 Global pref auto_save_on_exit=true
 Configuration saved to /etc/target/saveconfig.json
 
@@ -1674,6 +1688,7 @@ LISTEN 0      256            0.0.0.0:3260      0.0.0.0:*
 
 [root@fed-stor1 ~]# systemctl enable target
 Created symlink /etc/systemd/system/multi-user.target.wants/target.service → /usr/lib/systemd/system/target.service.
+
 [root@fed-stor1 ~]# systemctl status target
 ○ target.service - Restore LIO kernel target configuration
      Loaded: loaded (/usr/lib/systemd/system/target.service; enabled; vendor preset: disabled)
@@ -1698,8 +1713,9 @@ success
 [root@fed-stor1 ~]# firewall-cmd --runtime-to-permanent
 success
 
--=INITIATOR:=-
+-=INITIATOR na OpenSUSE Leap 15.3:=-
 
 
 
+https://bbs.archlinux.org/viewtopic.php?id=139494
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
