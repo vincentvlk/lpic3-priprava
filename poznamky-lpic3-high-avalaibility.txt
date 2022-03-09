@@ -1655,18 +1655,7 @@ Created LUN 0.
 /iscsi/iqn.20...target01/tpg1> set parameter AuthMethod=CHAP
 Parameter AuthMethod is now 'CHAP'.
 
-Volitelne mozeme nasadit filtrovanie podla IP adries/podsieti:
-
-/iscsi/iqn.20...target01/tpg1> cd portals/
-
-/iscsi/iqn.20.../tpg1/portals> delete 0.0.0.0 3260
-Deleted network portal 0.0.0.0:3260
-
-/iscsi/iqn.20.../tpg1/portals> create 192.168.255.0 3260
-Using default IP port 3260
-Created network portal 192.168.255.0:3260.
-
-/iscsi/iqn.20...t01/tpg1> cd ../acls
+/iscsi/iqn.20...t01/tpg1> cd acls
 
 /iscsi/iqn.20...t01/tpg1/acls> create iqn.2022-03.lpic3.suse1:www.node01.init01
 Created Node ACL for iqn.2022-03.lpic3.suse1:www.node01.init01
@@ -1755,6 +1744,4 @@ Na vytvorenie "mount-pointu" po reboote si zistime UUID particie napr. s: $ sudo
 
 UUID=aa03eabf-10a9-41d9-a1eb-149682d0c44f /mnt/san1d1 btrfs _netdev,x-systemd.automount 0 0
 
-
-https://bbs.archlinux.org/viewtopic.php?id=139494
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
