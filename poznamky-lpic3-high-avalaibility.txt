@@ -1617,3 +1617,5 @@ Zakladna praca s balickovacim systemom "Zypper" v OS: "OpenSUSE Leap":
 Instalacia cluster-a v "OpenSUSE", na vsetkych uzloch: $ sudo zypper in ha-cluster-bootstrap 
  - nasladne na "hlavnom" uzle spustime: $ sudo ha-cluster-init
  
+Ako v OS "Fedora Server 35" nainstalovat NetworkManager-TUI: $ sudo dnf install NetworkManager-tui
+
