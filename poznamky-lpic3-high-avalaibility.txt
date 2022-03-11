@@ -1614,9 +1614,6 @@ Zakladna praca s balickovacim systemom "Zypper" v OS: "OpenSUSE Leap":
  - instalacia softwarovych "zaplat": $ sudo zypper patch
  - dalsie informacie: $ man zypper
 
-Instalacia cluster-a v "OpenSUSE", na vsetkych uzloch: $ sudo zypper in ha-cluster-bootstrap 
- - nasladne na "hlavnom" uzle spustime: $ sudo ha-cluster-init
- 
 Ako v OS "Fedora Server 35" nainstalovat NetworkManager-TUI: $ sudo dnf install NetworkManager-tui
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -1745,3 +1742,7 @@ Na vytvorenie "mount-pointu" po reboote si zistime UUID particie napr. s: $ sudo
 UUID=aa03eabf-10a9-41d9-a1eb-149682d0c44f /mnt/san1d1 btrfs _netdev,x-systemd.automount 0 0
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+Instalacia cluster-a v "OpenSUSE", na vsetkych uzloch: $ sudo zypper in ha-cluster-bootstrap 
+ - nasladne na "hlavnom" uzle spustime: $ sudo ha-cluster-init
+
