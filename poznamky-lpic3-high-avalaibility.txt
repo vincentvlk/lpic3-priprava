@@ -1743,6 +1743,16 @@ UUID=aa03eabf-10a9-41d9-a1eb-149682d0c44f /mnt/san1d1 btrfs _netdev,x-systemd.au
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-Instalacia cluster-a v "OpenSUSE", na vsetkych uzloch: $ sudo zypper in ha-cluster-bootstrap 
- - nasladne na "hlavnom" uzle spustime: $ sudo ha-cluster-init
+Instalacia cluster-a "Corosync" v "OpenSUSE", na uzloch: $ sudo zypper in ha-cluster-bootstrap 
+ - nasladne na "hlavnom" uzle spustime: $ sudo crm cluster init
+ - na dalsich clenoch spustime "join" na "hlavny" uzol: $ sudo crm join -c <hostname>
+   - treba sa pripravit na manazment PKI klucov v SSH pre uzivatela "root", treba uzavretu siet
+ - instalaciu overime s: $ sudo crm status
 
+
+
+
+
+ Hawk cluster interface is now running. To see cluster status, open:
+    https://192.168.255.11:7630/
+  Log in with username 'hacluster', password 'linux'
