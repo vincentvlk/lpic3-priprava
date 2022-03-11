@@ -1747,7 +1747,12 @@ Instalacia cluster-a "Corosync" v "OpenSUSE", na uzloch: $ sudo zypper in ha-clu
  - nasladne na "hlavnom" uzle spustime: $ sudo crm cluster init
  - na dalsich clenoch spustime "join" na "hlavny" uzol: $ sudo crm join -c <hostname>
    - treba sa pripravit na manazment PKI klucov v SSH pre uzivatela "root", treba uzavretu siet
- - instalaciu overime s: $ sudo crm status
+ - instalaciu overime s "$ sudo crm_mon" alebo: $ sudo crm status
+   - dalej mozeme pouzit: $ sudo systemctl status corosync
+
+Instalacia Unicast clustra v CentOS Stream 9, pridame repo.: $ sudo dnf install epel-release
+ - nasledne instalujeme: $ sudo dnf install pcs fence-agents-all
+
 
 
 
