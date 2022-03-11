@@ -1751,9 +1751,9 @@ Instalacia cluster-a "Corosync" v "OpenSUSE", na uzloch: $ sudo zypper in ha-clu
    - dalej mozeme pouzit: $ sudo systemctl status corosync
 
 Instalacia Unicast clustra v CentOS Stream 9, pridame repo.: $ sudo dnf install epel-release
- - aktivujem v "/etc/yum.repos.d/centos-addons.repo" repo. "highavailability" upravime na "enabled=1"
+ - aktivujeme v "/etc/yum.repos.d/centos-addons.repo" repo. "highavailability" uprava na "enabled=1"
  - aktualizujeme repo.: $ sudo dnf update
- - nasledne: $sudo dnf --enablerepo=highavailability -y install pacemaker corosync pcs
+ - instalacia: $ sudo dnf --enablerepo=highavailability -y install pacemaker corosync pcs
 
 
 
