@@ -1742,14 +1742,16 @@ Na vytvorenie "mount-pointu" po reboote si zistime UUID particie napr. s: $ sudo
 UUID=aa03eabf-10a9-41d9-a1eb-149682d0c44f /mnt/san1d1 btrfs _netdev,x-systemd.automount 0 0
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Na pracu s HA-lusterom je vhodne mat DNS-A zaznami uzlov, pripadne zaznami v "/etc/hosts"
 
-Instalacia cluster-a "Corosync" v "OpenSUSE", na uzloch: $ sudo zypper in ha-cluster-bootstrap 
+Instalacia Mcast. clustera "Corosync" v "OpenSUSE", na uzloch: $ sudo zypper in ha-cluster-bootstrap 
  - nasladne na "hlavnom" uzle spustime: $ sudo crm cluster init
  - na dalsich clenoch spustime "join" na "hlavny" uzol: $ sudo crm join -c <hostname>
    - treba sa pripravit na manazment PKI klucov v SSH pre uzivatelov "root" a "hacluster"
    - z tohto vyplvyva aj relevantne zabezpecenie/izolacia sietoveho segmentu
  - instalaciu overime s "$ sudo crm_mon" alebo: $ sudo crm status
    - dalej mozeme pouzit: $ sudo systemctl status corosync
+ - konfiguraciu mozeme overit s: $ sudo crm configure show
 
 Instalacia Unicast clustra v CentOS Stream 9, pridame repo.: $ sudo dnf install epel-release
  - aktivujeme v "/etc/yum.repos.d/centos-addons.repo" repo. "highavailability" uprava na "enabled=1"
@@ -1766,6 +1768,7 @@ Instalacia Unicast clustra v CentOS Stream 9, pridame repo.: $ sudo dnf install 
  - diagnostika: $ sudo pcs status pcsd cent1 cent2 cent3
  - dalej zostavime cluster: $ sudo pcs cluster setup centos-clus1 cent1 cent2 cent3 --start --enable
  - overime s: $ sudo pcs status
+ - stav vsetkych potrebnych sluzieb overime s: $ sudo systemctl status pacemaker corosync pcsd
 
 
 
