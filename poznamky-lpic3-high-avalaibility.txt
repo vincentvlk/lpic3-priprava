@@ -1746,7 +1746,8 @@ UUID=aa03eabf-10a9-41d9-a1eb-149682d0c44f /mnt/san1d1 btrfs _netdev,x-systemd.au
 Instalacia cluster-a "Corosync" v "OpenSUSE", na uzloch: $ sudo zypper in ha-cluster-bootstrap 
  - nasladne na "hlavnom" uzle spustime: $ sudo crm cluster init
  - na dalsich clenoch spustime "join" na "hlavny" uzol: $ sudo crm join -c <hostname>
-   - treba sa pripravit na manazment PKI klucov v SSH pre uzivatela "root", treba uzavretu siet
+   - treba sa pripravit na manazment PKI klucov v SSH pre uzivatelov "root" a "hacluster"
+   - z tohto vyplvyva aj relevantne zabezpecenie/izolacia sietoveho segmentu
  - instalaciu overime s "$ sudo crm_mon" alebo: $ sudo crm status
    - dalej mozeme pouzit: $ sudo systemctl status corosync
 
@@ -1754,10 +1755,17 @@ Instalacia Unicast clustra v CentOS Stream 9, pridame repo.: $ sudo dnf install 
  - aktivujeme v "/etc/yum.repos.d/centos-addons.repo" repo. "highavailability" uprava na "enabled=1"
  - aktualizujeme repo.: $ sudo dnf update
  - instalacia: $ sudo dnf --enablerepo=highavailability -y install pacemaker corosync pcs
+ - nastavime, aby sluzby startovali po reboote: $ sudo systemctl enable pacemaker corosync pcsd
+ - overime s: $ sudo systemctl status pacemaker corosync pcsd | grep loaded
+ - upravime konf. firewall-u: $ sudo firewall-cmd --permanent --add-service=high-availability
+ - restartujem firewall proces: $ sudo firewall-cmd --reload
+ - nastavime heslo pre specialneho uzivatela: $ sudo passwd hacluster
 
-
-
-
+ - pokracujeme Autentifikaciou uzlov: $ sudo pcs host auth cent1 cent2 cent3
+   - na koniec prikazu mozeme pridat "--debug" 
+ - diagnostika: $ sudo pcs status pcsd cent1 cent2 cent3
+ - dalej zostavime cluster: $ sudo pcs cluster setup centos-clus1 cent1 cent2 cent3 --start --enable
+ - overime s: $ sudo pcs status
 
 
 
