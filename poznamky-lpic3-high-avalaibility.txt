@@ -1805,7 +1805,7 @@ Dalsia praca s nastrojom "pcs", tiez podporuje "TAB completion", s niekolkymi vy
  - ako rucne upravit CIB konfiguraciu s "pcs": $ sudo pcs cluster edit
    - ak nemame definovanu premennu $EDITOR tak: $ sudo export EDITOR=$(which vim)
    - dalsie editory: emacs, nano, pico, joe, mcedit, ...
- - ako vypisat dostupne zdroje clustera: $ sudo pcs resource list
+ - ako vypisat dostupne zdroje clustera: $ sudo pcs resource list | less
  - ako vypisat popis urciteho zdroja "IPaddr2" pre cluster: $ sudo pcs resource describe IPaddr2
  - ako vytvorit zdroj "Virtualna HA IP adresa" nastrojom "pcs"
    - prikaz: $ sudo pcs resource create mojaIP IPaddr2 ip=192.168.255.30 cidr_netmask=24
@@ -1819,7 +1819,22 @@ Mozeme menit aj tzv. genericke vlastnosti Cluster-a, ktre sa netykaju zdrojov (r
 Podobne pracuje s vlastnostami/properties aj nastroj "crm": $ sudo crm configure get_property
  - podobne upravime vlastnost s: $ sudo crm configure property stonith-enabled=no
 
-Praca s tzv. "RA - Resource Agents", ktore spravuju zdroje, napr. "OCF - Open Cluster Framework":
+Praca "RA - Resource Agents", ktore tiez spravuju zdroje, napr. "OCF - Open Cluster Framework":
  - vypiseme triedy zdrojov: $ sudo crm ra classes
  - presnejsi vypis RA z triedy OCF: $ sudo crm ra list ocf
  - OCF ma *svoje* skripty, ako napr. "SystemD", info o konkretnom RA: $ sudo crm ra info apache
+ 
+Silne zjednoduseny priklad ako vytvorit WebServer cluster pomocou "crm" na OS OpenSUSE Leap 15.3:
+ - otvorime konfiguraciu zdrojov cluster-a prikazom: $ sudo crm configure edit
+ - pridame dve definiciu zdrojov, konkretne Virtualnu IP a samotny proces WebServera Apache2:
+
+primitive ip-apache ocf:heartbeat:IPaddr2 \
+        params cidr_netmask=24 ip=192.168.255.20 \
+        op monitor interval=1 timeout=4
+primitive service-apache ocf:heartbeat:apache \
+        op stop interval=0 timeout=60 \
+        op start interval=0 timeout=60 \
+        op monitor interval=10 timeout=30
+
+ - po ulozeni a zavreti editora sa zmeny aplikuju na Cluster
+ - dalej je potrebne nainstalovat samotny WebServer Apache2: $ sudo zypper -n install apache2
