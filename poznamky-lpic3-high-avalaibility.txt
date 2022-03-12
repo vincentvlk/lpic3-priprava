@@ -1827,7 +1827,7 @@ Praca "RA - Resource Agents", ktore tiez spravuju zdroje, napr. "OCF - Open Clus
 Silne zjednoduseny priklad ako vytvorit WebServer cluster pomocou "crm" na OS OpenSUSE Leap 15.3:
  - je potrebne nainstalovat samotny WebServer Apache2: $ sudo zypper -n install apache2
  - otvorime konfiguraciu zdrojov cluster-a prikazom: $ sudo crm configure edit
- - pridame dve definiciu zdrojov, konkretne Virtualnu IP a samotny proces WebServera Apache2:
+ - pridame dve definicie zdrojov, konkretne Virtualnu IP a samotny proces WebServera Apache2:
 
 primitive ip-apache ocf:heartbeat:IPaddr2 \
         params cidr_netmask=24 ip=192.168.255.20 \
@@ -1845,4 +1845,22 @@ primitive service-apache ocf:heartbeat:apache \
     $ sudo firewall-cmd --permanent --add-service=http
     $ sudo firewall-cmd --reload
 
+POZNAMKA: Zdroj je kvoli zjednoduseniu dostupny len na fyz. IP uzla na ktorom bezi "service-apache"
+ - zistime s: $ sudo crm_mon
 
+Silne zjednoduseny priklad ako vytvorit WebServer cluster pomocou "pcs" na CentOS Stream 9:
+ - je potrebne nainstalovat samotny WebServer Apache2: $ sudo dnf -y in httpd
+ - POZOR, na TEST je potrebne vypnut STONITH/Fencing: $ sudo pcs property set stonith-enabled=false
+ - vytvorine vIP: $ sudo pcs resource create apache-ip IPaddr2 ip=192.168.255.29 cidr_netmask=24
+ - overime s: $ sudo pcs resource status
+ - nasledne vytvorime Apache2 zdroj clustera: $ sudo pcs resource create apache-service apache
+ - overime s: $ sudo pcs resource status
+ - otvorime konfiguraciu zdrojov cluster-a prikazom: $ sudo crm configure edit
+ - nasledne je potrebne na *vsetkych* uzloch povolit HTTP port na firewalle:
+
+    $ sudo firewall-cmd --permanent --add-service=http
+    $ sudo firewall-cmd --reload
+
+POZNAMKA: Web je kvoli zjednoduseniu dostupny len na real. IP uzla na ktorom bezi "service-apache"
+ - zistime s: $ sudo pcs resource status
+ 
