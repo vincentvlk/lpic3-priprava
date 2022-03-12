@@ -1809,5 +1809,17 @@ Dalsia praca s nastrojom "pcs", tiez podporuje "TAB completion", s niekolkymi vy
  - ako vypisat popis urciteho zdroja "IPaddr2" pre cluster: $ sudo pcs resource describe IPaddr2
  - ako vytvorit zdroj "Virtualna HA IP adresa" nastrojom "pcs"
    - prikaz: $ sudo pcs resource create mojaIP IPaddr2 ip=192.168.255.30 cidr_netmask=24
-   - overime s: $ sudo pcs resource status
+   - overime s: $ sudo pcs resource status mojaIP
    - minimalne v danom L2 segmente by malo odpovedat aj: $ ping -c2 192.168.255.30 
+
+Mozeme menit aj tzv. genericke vlastnosti Cluster-a, ktre sa netykaju zdrojov (resources):
+ - vypisanie vlastnosti: $ sudo pcs property config --all | less
+ - napr. mozeme vlastnost "stonith-enabled" upravit: $ sudo pcs property set stonith-enabled=true
+
+Podobne pracuje s vlastnostami/properties aj nastroj "crm": $ sudo crm configure get_property
+ - podobne upravime vlastnost s: $ sudo crm configure property stonith-enabled=no
+
+Praca s tzv. "RA - Resource Agents", ktore spravuju zdroje, napr. "OCF - Open Cluster Framework":
+ - vypiseme triedy zdrojov: $ sudo crm ra classes
+ - presnejsi vypis RA z triedy OCF: $ sudo crm ra list ocf
+ - OCF ma *svoje* skripty, ako napr. "SystemD", info o konkretnom RA: $ sudo crm ra info apache
