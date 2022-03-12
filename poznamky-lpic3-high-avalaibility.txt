@@ -1746,6 +1746,7 @@ Na pracu s HA-lusterom je vhodne mat DNS-A zaznami uzlov, pripadne zaznami v "/e
 
 Trocha teorie: CIB - Cluster Information Base: Stav cluster-a v pamati
  - ako kopia existuje na kazdom uzle, subor sa NESMIE rucne upravovat
+ - na spravu CIB sa pouziva nastroj "cibadmin", napr. vypis databazy: $ sudo cibadmin -Q | less
  - proces Cluster Resource Management Daemon "crmd" umoznuje prsitup k tejto databaze
    - zabezpecuje dalej riadiacu komunikaciu medzi uzlami cluster-a
  - dalsi komponent, Local Resource Management Daemon "lrmd" zabezpecuje restart lokalnych zdrojov
@@ -1755,7 +1756,7 @@ Trocha teorie: CIB - Cluster Information Base: Stav cluster-a v pamati
    - STONITH - Shoot The Other Node in The Head, pripadne jemnejsie tzv. "Node fencing" :)
  - v RedHat based distribuciach sa pouziva nastroj "pcsd", ako rozhranie ku Corosync a Pacemaker
    - pouziva sa prikaz $ sudo pcs ...
- - alternativne sa pouziva podobny nastroj "crmsh", ktory ma prikazy $ sudo crm ...
+ - alternativne sa pouziva nastroj CRM Shell "crmsh", ktory ma prikazy $ sudo crm ...
 
 Instalacia Mcast. clustera "Corosync" v "OpenSUSE", na uzloch: $ sudo zypper in ha-cluster-bootstrap 
  - nasladne na "hlavnom" uzle spustime: $ sudo crm cluster init
@@ -1783,8 +1784,14 @@ Instalacia Unicast clustra v CentOS Stream 9, pridame repo.: $ sudo dnf install 
  - stav vsetkych potrebnych sluzieb overime s: $ sudo systemctl status pacemaker corosync pcsd
 
 Dalsia praca s nastrojom "crm", podporuje tzv. "TAB completion", ked nevieme presne prikaz
- - 
+ - alebo sa da spustit v interaktivnom rezime s: $ sudo crm 
+ - vypisanie konfiguracie cluster-a: $ sudo crm configure show 
+   - mozeme vidiet ze pridelene zdroje v clustery sa definuje ako tzv. "primitive"
+ - ak chceme upravit konfiguraciu clustera, pouzijeme: $ sudo configure edit
+ - dalsie zdroje pridelime v int. shelly: $ sudo crm configure
+ - napr. v interaktivnom rezime pridame dalsiu "Virtual IP", pouzijeme prikaz:
 
+crm(live)configure# primitive newIP ocf:heartbeat:IPaddr2 params ip=192.168.255.30 cidr_netmask=24  
 
 
  Hawk cluster interface is now running. To see cluster status, open:
