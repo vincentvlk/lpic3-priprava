@@ -1755,8 +1755,8 @@ Trocha teorie: CIB - Cluster Information Base: Stav cluster-a v pamati
    - STONITH - Shoot The Other Node in The Head, pripadne jemnejsie tzv. "Node fencing" :)
  - v RedHat based distribuciach sa pouziva nastroj "pcsd", ako rozhranie ku Corosync a Pacemaker
    - pouziva sa prikaz $ sudo pcs ...
- - 
- 
+ - alternativne sa pouziva podobny nastroj "crmsh", ktory ma prikazy $ sudo crm ...
+
 Instalacia Mcast. clustera "Corosync" v "OpenSUSE", na uzloch: $ sudo zypper in ha-cluster-bootstrap 
  - nasladne na "hlavnom" uzle spustime: $ sudo crm cluster init
  - na dalsich clenoch spustime "join" na "hlavny" uzol: $ sudo crm join -c <hostname>
@@ -1775,7 +1775,6 @@ Instalacia Unicast clustra v CentOS Stream 9, pridame repo.: $ sudo dnf install 
  - upravime konf. firewall-u: $ sudo firewall-cmd --permanent --add-service=high-availability
  - restartujem firewall proces: $ sudo firewall-cmd --reload
  - nastavime heslo pre specialneho uzivatela: $ sudo passwd hacluster
-
  - pokracujeme Autentifikaciou uzlov: $ sudo pcs host auth cent1 cent2 cent3
    - na koniec prikazu mozeme pridat "--debug" 
  - diagnostika: $ sudo pcs status pcsd cent1 cent2 cent3
@@ -1783,6 +1782,8 @@ Instalacia Unicast clustra v CentOS Stream 9, pridame repo.: $ sudo dnf install 
  - overime s: $ sudo pcs status
  - stav vsetkych potrebnych sluzieb overime s: $ sudo systemctl status pacemaker corosync pcsd
 
+Dalsia praca s nastrojom "crm", podporuje tzv. "TAB completion", ked nevieme presne prikaz
+ - 
 
 
 
