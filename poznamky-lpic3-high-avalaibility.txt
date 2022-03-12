@@ -1744,6 +1744,19 @@ UUID=aa03eabf-10a9-41d9-a1eb-149682d0c44f /mnt/san1d1 btrfs _netdev,x-systemd.au
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Na pracu s HA-lusterom je vhodne mat DNS-A zaznami uzlov, pripadne zaznami v "/etc/hosts"
 
+Trocha teorie: CIB - Cluster Information Base: Stav cluster-a v pamati
+ - ako kopia existuje na kazdom uzle, subor sa NESMIE rucne upravovat
+ - proces Cluster Resource Management Daemon "crmd" umoznuje prsitup k tejto databaze
+   - zabezpecuje dalej riadiacu komunikaciu medzi uzlami cluster-a
+ - dalsi komponent, Local Resource Management Daemon "lrmd" zabezpecuje restart lokalnych zdrojov
+ - dalsi komponent Polocy Engine "pengine"
+ - dalsi komponent Transition Engine "tengine"
+ - dalsi komponent "stonithd" zabezpecuje "vybavovanie STONITH" poziadavok
+   - STONITH - Shoot The Other Node in The Head, pripadne jemnejsie tzv. "Node fencing" :)
+ - v RedHat based distribuciach sa pouziva nastroj "pcsd", ako rozhranie ku Corosync a Pacemaker
+   - pouziva sa prikaz $ sudo pcs ...
+ - 
+ 
 Instalacia Mcast. clustera "Corosync" v "OpenSUSE", na uzloch: $ sudo zypper in ha-cluster-bootstrap 
  - nasladne na "hlavnom" uzle spustime: $ sudo crm cluster init
  - na dalsich clenoch spustime "join" na "hlavny" uzol: $ sudo crm join -c <hostname>
@@ -1769,6 +1782,7 @@ Instalacia Unicast clustra v CentOS Stream 9, pridame repo.: $ sudo dnf install 
  - dalej zostavime cluster: $ sudo pcs cluster setup centos-clus1 cent1 cent2 cent3 --start --enable
  - overime s: $ sudo pcs status
  - stav vsetkych potrebnych sluzieb overime s: $ sudo systemctl status pacemaker corosync pcsd
+
 
 
 
