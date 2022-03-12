@@ -1792,8 +1792,18 @@ Dalsia praca s nastrojom "crm", podporuje tzv. "TAB completion", ked nevieme pre
  - napr. v interaktivnom rezime pridame dalsiu "Virtual IP", pouzijeme prikaz:
 
 crm(live)configure# primitive newIP ocf:heartbeat:IPaddr2 params ip=192.168.255.30 cidr_netmask=24  
+ - ak chceme po prikaze nieco upravit, pouzijeme prikaz "edit": crm(live)configure# edit
 
+Ako ulozit nastrojom "crm" konfiguraciu clustera do suboru s datumom v nazve:
+ - napr. prikaz: $ sudo crm configure save zaloha-clus-$(date +%d-%m-%Y).txt
+ - POZOR na TESTOVANIE v "lab" prostredi mozeme zmazat CIB: $ sudo cibadmin -E --force
+ - nasledne mozeme konfiguraciu obnovit: $ sudo crm configure load push zaloha-clus-12-03-2022.txt 
 
- Hawk cluster interface is now running. To see cluster status, open:
-    https://192.168.255.11:7630/
-  Log in with username 'hacluster', password 'linux'
+Dalsia praca s nastrojom "pcs", tiez podporuje "TAB completion", s niekolkymi vynimkami:
+ - je potrebne nainstalovat balicek: $ sudo dnf in 
+ - najskor overime ci bezi proces "pcsd": $ sudo systemctl status pcsd
+ - ako rucne upravit CIB konfiguraciu s "pcs": $ sudo pcs cluster edit
+   - ak nemame definovanu premennu $EDITOR tak: $ sudo export EDITOR=$(which vim)
+   - dalsie editory: emacs, nano, pico, joe, mcedit, ...
+ - ako vypisat dostupne zdroje clustera: $ sudo pcs resource list
+ - ako vypisat popis urciteho zdroja "IPaddr2" pre cluster: $ sudo pcs resource describe IPaddr2
