@@ -1807,3 +1807,7 @@ Dalsia praca s nastrojom "pcs", tiez podporuje "TAB completion", s niekolkymi vy
    - dalsie editory: emacs, nano, pico, joe, mcedit, ...
  - ako vypisat dostupne zdroje clustera: $ sudo pcs resource list
  - ako vypisat popis urciteho zdroja "IPaddr2" pre cluster: $ sudo pcs resource describe IPaddr2
+ - ako vytvorit zdroj "Virtualna HA IP adresa" nastrojom "pcs"
+   - prikaz: $ sudo pcs resource create mojaIP IPaddr2 ip=192.168.255.30 cidr_netmask=24
+   - overime s: $ sudo pcs resource status
+   - minimalne v danom L2 segmente by malo odpovedat aj: $ ping -c2 192.168.255.30 
