@@ -1825,6 +1825,7 @@ Praca "RA - Resource Agents", ktore tiez spravuju zdroje, napr. "OCF - Open Clus
  - OCF ma *svoje* skripty, ako napr. "SystemD", info o konkretnom RA: $ sudo crm ra info apache
  
 Silne zjednoduseny priklad ako vytvorit WebServer cluster pomocou "crm" na OS OpenSUSE Leap 15.3:
+ - je potrebne nainstalovat samotny WebServer Apache2: $ sudo zypper -n install apache2
  - otvorime konfiguraciu zdrojov cluster-a prikazom: $ sudo crm configure edit
  - pridame dve definiciu zdrojov, konkretne Virtualnu IP a samotny proces WebServera Apache2:
 
@@ -1837,4 +1838,11 @@ primitive service-apache ocf:heartbeat:apache \
         op monitor interval=10 timeout=30
 
  - po ulozeni a zavreti editora sa zmeny aplikuju na Cluster
- - dalej je potrebne nainstalovat samotny WebServer Apache2: $ sudo zypper -n install apache2
+ - stav clustera overime s: $ sudo crm_mon
+ - pripadne aktualizujeme stav a pridelenie zdrojov: $ sudo crm resource cleanup
+ - nasledne je potrebne na *vsetkych* uzloch povolit HTTP port na firewalle:
+
+    $ sudo firewall-cmd --permanent --add-service=http
+    $ sudo firewall-cmd --reload
+
+
