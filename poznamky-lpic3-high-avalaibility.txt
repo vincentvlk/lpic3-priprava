@@ -1921,4 +1921,9 @@ Konfiguracia Fencing-u v systeme CentOS Stream 9 (RedHat based OS)
  - POZOR, na *TEST* mozeme odstavit VM instanciu prikazom: $ sudo echo c > /proc/sysrq-trigger 
  - akciu STONITH mozeme rucne vykonat aj prikazom: # sudo pcs stonith <hotname>
 
-
+Ked chceme pouzivat SBD Fencing na VM, je potrebne do kernelu nacitat modul "softdog"
+ - na rozdiel od fyz. HW, na VM chyba SCSI "Watchdog", preto treba nacitat software verziu:
+ - overime loading kernel modulov pomocou SystemD: $ sudo systemctl status systemd-modules-load
+ - na nacitanie modulu "softdog", vytvorime v "/etc/modules-load.d" subor "softdog.conf"
+ - nasledne do tohto suboru vlozime riadok s nazvom kernel modulu, teda: "softdog"
+ - dalej restartujeme proces: $ sudo  
