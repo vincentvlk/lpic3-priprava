@@ -1881,14 +1881,12 @@ Pri distribucii OpenSUSE je konfiguracia dostupna v subore "/etc/corosync/corosy
  - zmeny samozrejme robime v LABe, inak treba robit "off-peak udrzbu" a mat pripravene zalohy konf.
 
 quorum {
-
         provider: corosync_votequorum
         last_man_standing: 1
         wait_for_all: 1
         auto_tie_breaker: 1
         auto_tie_breaker_node: lowest
         two_node: 1
-
 }
 
 - po ulozeni nasledne restartujeme proces: $ sudo systemctl restart corosync
@@ -1896,3 +1894,17 @@ quorum {
 - ak by sme robili upravy "corosync.conf" na OS s "pcs", mozeme zmeny distribuovat na ostatne uzly: 
   - pouzijeme prikaz: $ sudo pcs cluster sync
   - nasledne je potrebne znova spustit cluster: $ sudo pcs cluster reload corosync
+
+Node Fencing/STONITH, problematicky uzol, treba "odrezat" z clustera, fencing ma viacero druhov:
+ - druh "Power fencing": ked mamet pristup ku kontrolerom napajania, odrezeme napajenia uzla
+ - druh "Fabric fencing": uzol odrezeme od storage konektivity, teda od iSCSI, resp. FibreChannel-u
+ - samozrejme su k dispozicii dalsie moznosti Fencingu
+ - k dispozicii su "Fencing" agenti: disk, hypervisor, power switch, management board, test agent
+   - agent "disk" - zmedzi uzlu pristup na disk(y)
+   - agent "hypervisor" - vypne VM uzol
+   - agent "power switch" - vypne napajanie, cez API kontrolera napajania na PDU/UPS...
+   - agent "management board" - vypne fyz. server cez Out-Of-Band Manage. (iLO, iDRAC, IBM-RSA, ...) 
+   - agent "test agent" - sluzi na testovanie fencingu, v praxi nedoporucovane
+ - napr. v Systeme CentOS si mozeme instalovat agenta "fence-agents-apc": 
+   - prikaz: $ sudo dnf -y in fence-agents-apc
+   - dalsie informacie o agentovi ziskame napr. z: $ man fence_apc
