@@ -1926,4 +1926,4 @@ Ked chceme pouzivat SBD Fencing na VM, je potrebne do kernelu nacitat modul "sof
  - overime loading kernel modulov pomocou SystemD: $ sudo systemctl status systemd-modules-load
  - na nacitanie modulu "softdog", vytvorime v "/etc/modules-load.d" subor "softdog.conf"
  - nasledne do tohto suboru vlozime riadok s nazvom kernel modulu, teda: "softdog"
- - dalej restartujeme proces: $ sudo  
+ - dalej restartujeme proces: $ sudo systemctl restart systemd-modules-load 
