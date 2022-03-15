@@ -1903,8 +1903,11 @@ Node Fencing/STONITH, problematicky uzol, treba "odrezat" z clustera, fencing ma
    - agent "disk" - zmedzi uzlu pristup na disk(y)
    - agent "hypervisor" - vypne VM uzol
    - agent "power switch" - vypne napajanie, cez API kontrolera napajania na PDU/UPS...
-   - agent "management board" - vypne fyz. server cez Out-Of-Band Manage. (iLO, iDRAC, IBM-RSA, ...) 
+   - agent "management board" - vypne fyz. server cez Out-Of-Band Mng. (iLO, iDRAC, IBM-RSA, IPMI) 
    - agent "test agent" - sluzi na testovanie fencingu, v praxi nedoporucovane
  - napr. v Systeme CentOS si mozeme instalovat agenta "fence-agents-apc": 
    - prikaz: $ sudo dnf -y in fence-agents-apc
    - dalsie informacie o agentovi ziskame napr. z: $ man fence_apc
+ - dalsi agent "fence-agents-ipmilan" je uzitocny, pretoze vykovana Fencing cez standard IPMI
+ - alternativne mozeme ziskat informacie o STONITH/fencing agentoch: $ pcs stonith list
+
