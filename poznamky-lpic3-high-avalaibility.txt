@@ -1864,3 +1864,33 @@ Silne zjednoduseny priklad ako vytvorit WebServer cluster pomocou "pcs" na CentO
 POZNAMKA: Web je kvoli zjednoduseniu dostupny len na real. IP uzla na ktorom bezi "service-apache"
  - zistime s: $ sudo pcs resource status
  
+Ako vypisat stav technologie "Quorum", ktora zabranuje vzniku "split-brain" scenarov:
+ - prilaz: $ sudo corosync-quorumtool
+ - obvzvlast nebezpecny je efekt "split-brain" pre uloziska, teda "storage resources"
+ - ciastocne sa da stav kvora sledovat prikazom: $ sudo crm_mon
+
+Pri zostavovani clustra nastrojom "pcs", teda prikazom: $ sudo pcs cluster setup, mame moznosti:
+ - parameter "--wait_for_all" - vypocet kvora sa zacne az po zacleneni vsetkych uzlov/nodes
+ - parameter "--auto_tie_breaker" - pri 50% "hlasov" sa vitaz urci ako uzol s najnizsim ID
+ - parameter "--last_man_standing" - kvorum sa prepocitava kazdych 10s
+   - treba skombinovat s "--wait_for_all" a nasledne umoznuje postupne "vypinanie" uzlov z clustra 
+ - parameter "--two_node" - umoznuje "bezat" cluster z 2 uzlov
+
+Pri distribucii OpenSUSE je konfiguracia dostupna v subore "/etc/corosync/corosync.conf"
+ - priklad na konfiguraciu kvora v subore "corosync.conf":
+ - zmeny samozrejme robime v LABe, inak treba robit off-peak a mat pripravene zlaohy konf.
+
+quorum {
+
+        provider: corosync_votequorum
+        last_man_standing: 1
+        wait_for_all: 1
+        auto_tie_breaker: 1
+        auto_tie_breaker_node: lowest
+        two_node: 1
+
+}
+
+- po ulozeni nasledne restartujeme proces: $ sudo systemctl restart corosync
+
+
