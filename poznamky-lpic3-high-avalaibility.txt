@@ -1918,3 +1918,7 @@ Konfiguracia Fencing-u v systeme CentOS Stream 9 (RedHat based OS)
  - da sa pouzit "Hypervisor" Fencing "device"/agent, instalujeme: $ sudo dnf -y in fence-virtd 
    - tento agent sa pouziva pri hypervizore "KVM", kazdy hyperviz. musi mat "fence-virtd"
    - hypervizory musia byt na spolocnom mCast segmente a musia zdielat spolocny PSK kluc
+ - POZOR, na *TEST* mozeme odstavit VM instanciu prikazom: $ sudo echo c > /proc/sysrq-trigger 
+ - akciu STONITH mozeme rucne vykonat aj prikazom: # sudo pcs stonith <hotname>
+
+
