@@ -1878,7 +1878,7 @@ Pri zostavovani clustra nastrojom "pcs", teda prikazom: $ sudo pcs cluster setup
 
 Pri distribucii OpenSUSE je konfiguracia dostupna v subore "/etc/corosync/corosync.conf"
  - priklad na konfiguraciu kvora v subore "corosync.conf":
- - zmeny samozrejme robime v LABe, inak treba robit off-peak a mat pripravene zlaohy konf.
+ - zmeny samozrejme robime v LABe, inak treba robit "off-peak udrzbu" a mat pripravene zalohy konf.
 
 quorum {
 
@@ -1892,5 +1892,7 @@ quorum {
 }
 
 - po ulozeni nasledne restartujeme proces: $ sudo systemctl restart corosync
-
-
+- nove parametre overime s: $ sudo corosync-quorumtool 
+- ak by sme robili upravy "corosync.conf" na OS s "pcs", mozeme zmeny distribuovat na ostatne uzly: 
+  - pouzijeme prikaz: $ sudo pcs cluster sync
+  - nasledne je potrebne znova spustit cluster: $ sudo pcs cluster reload corosync
