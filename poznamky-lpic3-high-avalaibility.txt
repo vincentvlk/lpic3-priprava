@@ -1997,7 +1997,6 @@ Priklad tvorby zdrojov clustera s obmedzeniami / constraints pomocou nastroja "c
    - na uzloch instalujeme: $ sudo zypper -n in vsftpd
    - na uzloch aktivujeme: $ sudo systemctl enable vsftpd && sudo systemctl start vsftpd
    - nasledne definujeme zdroje do skupiny "ftp-group", upravime konf.: $ sudo crm configure edit
-     - pridame riadky:
 
 primitive ftp-ip IPaddr2 \
         params nic=eth0 cidr_netmask=24 ip=192.168.255.200 \
@@ -2006,10 +2005,13 @@ primitive ftp-service systemd:vsftpd
 group ftp-group ftp-ip ftp-service
   
    - aplikujeme zmeny a overime napr. s: $ sudo crm status
- - dalej pridame do konfiguracie podobne obmedzenia / constraints: $ sudo crm configure edit
+ - dalej pridame do konfiguracie podobne obmedzenia/constraints: $ sudo crm configure edit
 
 order ftp-after-apache apache-group ftp-group
 colocation web-not-ftp -10000: ftp-group apache-group
 
    - aplikujeme zmeny a overime napr. s: $ sudo crm status
-
+ - na testovanie je potrebne povolit FTP sluzbu na firewalle:
+   - prikazy: $ sudo firewall-cmd --permanent --add-service=ftp && sudo firewall-cmd --reload 
+ - nasledne mozeme dostupnost FTP sluzby overit napr. prikazom: $ nc 192.168.X.Y 21
+   - dalsie informacie o nastroji "netcat" napr. v: $ man nc
