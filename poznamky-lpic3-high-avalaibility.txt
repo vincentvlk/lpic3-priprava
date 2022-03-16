@@ -1940,6 +1940,15 @@ Praca s "Cluster Resources", teda zdroje, ktore dokaze cluster poskytovat:
    - typ "Clone" - zdroj, ktori spravuje cluster a bezi na viacerych uzloch viac-krat, napr. cLVM
    - typ "Multi State (Master/Slave)" - zdroje bezia v hierarchii, priklad je DRBD
    - typ "Group" - skupina zdrojov, teda skupina "Primitives" a "Clones", napr. HA Webserver
-
-
+     - umoznuje definovat obmedzenia zdrojov/"Resource constraints", ktore poskytuje cluster
+ - pojem "Resource Stickines" definuje, kam sa ma "rozbehnut" zdroj po obnove z fail situacie
+ - ako hladat urcity "Resource script" na disku, napr. "IPaddr2": $ sudo find / -name IPaddr2
+ - nastrojom "crm" mozeme otvorit interaktivny "Cluster Management" shell: $ sudo crm
+   - definovane zdroje vypiseme s "crm(live/suse1)# resource status" alebo: $ sudo crm_mon 
+ 
+Praca s "Resource constraints", rozdelujeme na typy: Location, Colocation, Order
+ - typ "Location" - na ktorom uzle ma "bezat" dany zdroj/resource, preferencia uzla
+ - typ "Colocation" - s ktorym dalsim zdrojom, ma/nema bezat dany zdroj
+ - typ "Order" - pred, ktorym alebo za ktorym zdrojom ma dany zdroj "bezat"
+ - prikazy "$ sudo crm migrate" a "$ sudo resource move", prikazu obmedzenia danemu zdroju
 
