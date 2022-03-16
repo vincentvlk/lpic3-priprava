@@ -2006,3 +2006,10 @@ primitive ftp-service systemd:vsftpd
 group ftp-group ftp-ip ftp-service
   
    - aplikujeme zmeny a overime napr. s: $ sudo crm status
+ - dalej pridame do konfiguracie podobne obmedzenia / constraints: $ sudo crm configure edit
+
+order ftp-after-apache apache-group ftp-group
+colocation web-not-ftp -10000: ftp-group apache-group
+
+   - aplikujeme zmeny a overime napr. s: $ sudo crm status
+
