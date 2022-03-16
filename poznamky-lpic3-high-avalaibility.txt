@@ -1951,4 +1951,8 @@ Praca s "Resource constraints", rozdelujeme na typy: Location, Colocation, Order
  - typ "Colocation" - s ktorym dalsim zdrojom, ma/nema bezat dany zdroj
  - typ "Order" - pred, ktorym alebo za ktorym zdrojom ma dany zdroj "bezat"
  - prikazy "$ sudo crm migrate" a "$ sudo resource move", prikazu obmedzenia danemu zdroju
+   - prikazmi "$ sudo crm unmigrate" resp. "$ sudo resource clear" tieto obmedzenia odstranime
+ - pomocou nastroja "crm" mozeme vypisat stav riadenia obmedzeni: $ sudo crm_simulate -sL
+ - doporuceny dizaj je vsak pouzivat koncept "Resource Groups"
+
 
