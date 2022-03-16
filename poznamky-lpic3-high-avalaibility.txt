@@ -1980,3 +1980,17 @@ Ako na "troubleshooting", teda hladanie a riesenie problemov s "Resource Groups"
  - dalej mozeme skontrolovat log "/var/log/messages" alebo s "$ sudo journalctl"
    - v programe "journalctl" sa klavesovou skratkou "Shift + g" resp. "G" prepnema na koniec logu
 
+Priklad ako vytvorit FTP server "resource" pomocou "pcs":
+ - najskor na vsetkych uzloch instalujeme FTP server: $ sudo dnf -y in vsftpd
+ - aktivujeme na uzloch FTP server: $ sudo systemctl enable vsftpd && sudo systemctl start vsftpd
+ - potom pomocou nastroja "pcs" vytvorime 2 zdroje a zaradime ich to skupiny "ftp-service":
+ - prikaz: $ sudo pcs resource create ftp-ip IPaddr2 ip=10.0.0.123 cidr_netmask=24 --group ftp-group
+ - prikaz: $ sudo pcs resource create ftp-service systemd:vsftpd --group ftp-group
+ - overime prikazom: $ sudo pcs status
+ - nasledne obmedzime, tak aby skupiny "apache-group" a "ftp-group" nebezali na rovnakom uzle:
+   - prikaz: $ sudo pcs constraint colocation add apache-group with ftp-group -10000
+ - este upravime poradie startovania zdrojov: $ sudo pcs constraint order apache-group then ftp-group
+
+Priklad tvorby zdrojov clustera s obmedzeniami / constraints pomocou nastroja "crm":
+
+
