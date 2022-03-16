@@ -1955,4 +1955,7 @@ Praca s "Resource constraints", rozdelujeme na typy: Location, Colocation, Order
  - pomocou nastroja "crm" mozeme vypisat stav riadenia obmedzeni: $ sudo crm_simulate -sL
  - doporuceny dizaj je vsak pouzivat koncept "Resource Groups"
 
+Praca s cluster obmedzeniami pomocou konceptu "Resource Groups":
+ - doporucuje sa vytvarat obmedzenia na skupiny/groups
+
 
