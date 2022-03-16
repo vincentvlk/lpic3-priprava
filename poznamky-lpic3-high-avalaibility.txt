@@ -1932,6 +1932,14 @@ Ked chceme pouzivat SBD Fencing na VM, je potrebne do kernelu nacitat modul "sof
  - dalej restartujeme proces: $ sudo systemctl restart systemd-modules-load 
  - pritomnost modulu v kerneli overime s: $ sudo lsmod | grep soft
 
-**VRATIT SA K VIDEAM 6.7 a 6.8 a 6.9**
+**VRATIT SA K VIDEAM LPIC3-HA 6.7 a 6.8 a 6.9**
+
+Praca s "Cluster Resources", teda zdroje, ktore dokaze cluster poskytovat:
+ - mame k dispozicii tieto typy zdrojov: Primitive, Clone, Multi State (Master/Slave), Group
+   - typ "Primitive" - singularny zdroj spravovany resource anazerom clustra, ma "bezat" iba raz
+   - typ "Clone" - zdroj, ktori spravuje cluster a bezi na viacerych uzloch viac-krat, napr. cLVM
+   - typ "Multi State (Master/Slave)" - zdroje bezia v hierarchii, priklad je DRBD
+   - typ "Group" - skupina zdrojov, teda skupina "Primitives" a "Clones", napr. HA Webserver
+
 
 
