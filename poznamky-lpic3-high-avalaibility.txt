@@ -1802,7 +1802,7 @@ Ako ulozit nastrojom "crm" konfiguraciu clustera do suboru s datumom v nazve:
  - nasledne mozeme konfiguraciu obnovit: $ sudo crm configure load push zaloha-clus-12-03-2022.txt 
 
 Dalsia praca s nastrojom "pcs", tiez podporuje "TAB completion", s niekolkymi vynimkami:
- - je potrebne nainstalovat balicek: $ sudo dnf in 
+ - je potrebne nainstalovat balicek: $ sudo dnf in bash-completion
  - najskor overime ci bezi proces "pcsd": $ sudo systemctl status pcsd
  - ako rucne upravit CIB konfiguraciu s "pcs": $ sudo pcs cluster edit
    - ak nemame definovanu premennu $EDITOR tak: $ sudo export EDITOR=$(which vim)
@@ -1893,7 +1893,7 @@ quorum {
 
 - po ulozeni nasledne restartujeme proces: $ sudo systemctl restart corosync
 - nove parametre overime s: $ sudo corosync-quorumtool 
-- ak by sme robili upravy "corosync.conf" na OS s "pcs", mozeme zmeny distribuovat na ostatne uzly: 
+- ak by sme robili upravy "corosync.conf" na OS s "pcs", mozeme zmeny distribuovat na ostatne uzly:
   - pouzijeme prikaz: $ sudo pcs cluster sync
   - nasledne je potrebne znova spustit cluster: $ sudo pcs cluster reload corosync
 
@@ -1962,5 +1962,21 @@ Praca s cluster obmedzeniami pomocou konceptu "Resource Groups":
    - prikaz: $ sudo pcs resource create ip2 IPaddr2 ip=10.0.0.2 cidr_netmask=24 --group IPgroup
    - vzniknutu skupinu zdrojov overime prikazom: # sudo pcs status
 
- - postup vytvarania zdrojov a zaradovania do skupiny pomocou nastroja "crm":
+ - postup zaradovania zdrojov do skupiny pomocou nastroja "crm":
  - otvorime konfiguraciu clustera s: $ sudo crm configure edit
+ - pridame riadok, ktory 2 (existujuce) IP zdroje "admin-ip" a "dalsiaIP" zaradi do group "IPgroup"
+
+    group IPgroup admin-ip dalsiaIP
+
+ - subor ulozime a overime napr. prikazom: $ sudo crm_mon
+
+Praca s konceptom "Resource Clones", umoznuje bezat primitivy alebo skupiny na viacerych uzloch
+ - pocet klonov byva zvycajne rovnaky ako pocet uzlov, ale moze sa obmedzit pocet klonov
+ - typicky sa pouziva nastavenie "interleave=true", ktore umoznuje bezat ostatne klony nezavisle
+   - napr. ked sa jeden z klonov zruti
+
+Ako na "troubleshooting", teda hladanie a riesenie problemov s "Resource Groups":
+ - nastrojom "pcs" overime stav clustra: $ sudo pcs status
+ - dalej mozeme skontrolovat log "/var/log/messages" alebo s "$ sudo journalctl"
+   - v programe "journalctl" sa klavesovou skratkou "Shift + g" resp. "G" prepnema na koniec logu
+
