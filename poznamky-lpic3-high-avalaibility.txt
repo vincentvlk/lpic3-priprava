@@ -2106,3 +2106,13 @@ location myDummy-location myDummy 10000: lpic3-suse1
 - vratime uzol do stavu "ready", teda pripraveny na cinnost: $ sudo crm node ready lpic3-suse1
 - vsetky zmeny overime s: "$ sudo crm status" resp. "$ sudo crm configure show"
  
+Praca s Cluster Storage riesenim "DRDB - Distributed Replicated Block Device"
+ - riesenie v podstate realizuje RAID1 ale cez sietove prepojenia
+ - zvycajne sa pouzivaju 2 storage uzly, ktore si navzajom synchronizuju data
+ - zakladny M/S model vyuziva standardne FS, napr. Ext4, XFS, ...
+ - rezim Multi-master umoznuje obom stroage uzlom read/write pristup, dvojcestna synchronizacia
+ - specialny "Cluster filesystem" je nevyhnutny, napr. GlusterFS, CEPH, OCFS2
+ - system DRBD pracuje s replikacnymi modmi:
+   - Protocol A: Asynchronne zapisovanie, vhodny pre "long-distance" replikaciu, znizena spolahlivost
+   - Protocol B: Semi-synchronne zapisovanie
+   - Protocol C: Synchronne zapisovanie, najvyssia uroven spolahlivost, zvycajne predvoleny rezim
