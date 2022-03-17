@@ -2059,3 +2059,8 @@ Ako na presuvanie zdrojov klustera na definovane uzly:
 
 Ako na reset Failcount-erov: "$ sudo pcs resource cleanup" resp. "$ sudo crm resource cleanup"
 
+Praca s Cluter logmi, loguje sa na 2 urovniach, na urovniach "Corosync" a "Pacemaker"
+ - logy z Corosync-u mozeme sledovat v: $ sudo tail -f /var/log/cluster/corosync.log
+ - logovanie sa zapina v "/etc/corosync/corosync.conf", direktiva "to_logfile: yes"
+
+Poznamka, ako vypisat/vlozit skrateny datum: "$ date +%H%h%Y" resp. v skripte $(date +%H%h%Y)
