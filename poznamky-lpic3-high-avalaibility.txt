@@ -2071,3 +2071,33 @@ Praca s Cluter logmi, loguje sa na 2 urovniach, na urovniach "Corosync" a "Pacem
  - logy nastroja Pacemaker najdeme v "/var/log/pacemaker/pacemaker.log" 
  - mozeme pouzit spolocne logy Systemd: $ sudo journalctl -lu pacemaker.service -u corosync.service
    - pripadne ich sledovat: $ sudo journalctl -fu pacemaker.service -u corosync.service
+
+Priklady na manazment clustra s nastrojom "pcs":
+ - vytvori zdroj: $ sudo pcs resource create myDummy ocf:heartbeat:Dummy op monitor interval=60s
+ - aplikujeme obmedzenie na zdroj: $ sudo pcs constraint location myDummy prefers <adresa-nodeX>
+ - overime s: $ sudo pcs status
+ - vypiseme obmedzenia: "$ sudo pcs constraint list" alebo s "$ sudo pcs constraint config"
+ - ked chceme hladat napr. "location" obmedzenie, hladame toto slovo v: $ sudo cibadmin -Q | less
+ - presunieme zdroj na iny uzol: $ sudo pcs resource move myDummy
+pcs status
+pcs constraint list
+pcs constraint
+pcs constraint list
+pcs resource move myDummy
+pcs constraint list
+pcs status
+pcs constraint list
+pcs constraint config
+pcs status
+pcs resource move myDummy
+pcs cluster standby cent2
+pcs cluster node standby cent2
+pcs node standby cent2
+pcs status
+pcs node unstandby cent2
+pcs status
+pcs resource unmanage myDummy
+pcs resource status
+pcs status
+pcs resource manage myDummy
+
