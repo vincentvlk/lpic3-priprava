@@ -2150,4 +2150,7 @@ resource drbd0 {
 
  - tato konfiguracia MUSI byt na oboch uzloch ZHODNA
  - nasledne konfiguraciu overime s: $ sudo drbdadm dump all
-
+ - dalej povolime definovany DRBD TCP port: $ sudo firewall-cmd --add-port=7676/tcp --permanent
+ - nasledne restartujeme firewall: $ sudo firewall-cmd --reload
+ - konfiguraciu overime s: $ sudo firewall-cmd --list-all
+ - vytvorime nove DRBD zariadenie "/dev/drbd0" prikazom: $ sudo drbdadm create-md drbd0 
