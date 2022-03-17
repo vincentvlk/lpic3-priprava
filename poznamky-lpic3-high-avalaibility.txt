@@ -2012,11 +2012,11 @@ colocation web-not-ftp -10000: ftp-group apache-group
 
    - aplikujeme zmeny a overime napr. s: $ sudo crm status
  - na testovanie je potrebne povolit FTP sluzbu na firewalle:
-   - prikazy: $ sudo firewall-cmd --permanent --add-service=ftp && sudo firewall-cmd --reload 
+   - prikazy: $ sudo firewall-cmd --permanent --add-service=ftp && sudo firewall-cmd --reload
  - nasledne mozeme dostupnost FTP sluzby overit napr. prikazom: $ nc 192.168.X.Y 21
    - dalsie informacie o nastroji "netcat" napr. v: $ man nc
 
-Ako spravovat zdroje cluster-a, prikazy "$ sudo pcs resource enable" a "$ sudo pcs resource disable" 
+Ako spravovat zdroje cluster-a, prikazy "$ sudo pcs resource enable" a "$ sudo pcs resource disable"
  - uvedene prikazy zapinaju / vypinaju zdroje clustera
  - prikazmi restartujeme zdroje: "$ sudo pcs resource restart" a "$ sudo crm resource restart"
  - prikazmi upravujeme zdroje: "$ sudo pcs resource update" resp. "$ sudo crm configure edit"
@@ -2033,4 +2033,8 @@ Ako spravovat zdroje cluster-a, prikazy "$ sudo pcs resource enable" a "$ sudo p
  - stav overime s: $ sudo pcs status
  - zapneme / vypneme prihlasovanie do clustera: $ sudo pcs cluster {disable|enable} <adresa-nodeX>
  - pridavanie / odstranovanie uzlov: $ sudo pcs cluster node {add|remove} <adresa-nodeX>
-   - nasledne je potrebne autentifikovat novy uzol: 
+   - nasledne je potrebne autentifikovat novy uzol: $ sudo pcs host auth <adresa-nodeX>
+   - overime s: $ sudo pcs status
+ - na odstranenie uzlu pouzijeme uvedene: $ sudo pcs cluster node remove <adresa-nodeX>
+   - dalej je potrebne odstranit STONITH proces: $ sudo pcs stonith delete <adresa-nodeX>
+??? - ked potrebujeme docasne vyradit uzol: $ sudo pcs cluster [un]standby <adresa-nodeX>
