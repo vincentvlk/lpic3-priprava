@@ -2086,4 +2086,7 @@ Priklady na manazment clustra s nastrojom "pcs":
  - vypneme manazment zdroja, umozni zmeny na uzle: $ sudo pcs resource unmanage myDummy
  - overime s: $ sudo pcs resource status
  - nasledne znova aktivujeme manazment zdroja: $ sudo pcs resource manage myDummy
+ - po testovani zmazeme: "$ sudo pcs resource disable myDummy" a "$ sudo pcs resource remove myDummy"
+
+Priklady na manazment clustra s nastrojom "crm":
 
