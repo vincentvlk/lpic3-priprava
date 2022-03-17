@@ -2089,10 +2089,25 @@ Priklady na manazment clustra s nastrojom "pcs":
  - po testovani zmazeme: "$ sudo pcs resource disable myDummy" a "$ sudo pcs resource remove myDummy"
 
 Priklady na manazment clustra s nastrojom "crm":
- - crm configure edit
+ - edit konf. a pridame zdroj "myDummy" a obmedzenie "myDummy-location": $ sudo crm configure edit
 
 primitive myDummy ocf:pacemaker:Dummy \
         op monitor interval=60
-colocation web-not-ftp -10000: ftp-group apache-group 
+location myDummy-location myDummy 10000: lpic3-suse1
  
- - 
+- overime s: "$ sudo crm status" resp. s: "$ sudo crm configure show"
+- presunieme zdroj na iny uzol "lpic3-suse2": $ sudo crm resource move myDummy lpic3-suse2
+- tuto migraciu mozeme zmazat v configu alebo s: $ sudo crm resource clear myDummy
+- prikaz presunie uzol "lpic3-suse1" do "standby" modu" $ sudo crm node standby lpic3-suse1
+crm status
+crm node online lpic3-suse1
+crm status
+crm resource unmanage myDummy
+crm status
+crm config show
+crm resource manage myDummy
+crm config show
+crm node maintenance lpic3-suse1
+crm
+crm config show
+ 
