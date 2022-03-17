@@ -2015,3 +2015,8 @@ colocation web-not-ftp -10000: ftp-group apache-group
    - prikazy: $ sudo firewall-cmd --permanent --add-service=ftp && sudo firewall-cmd --reload 
  - nasledne mozeme dostupnost FTP sluzby overit napr. prikazom: $ nc 192.168.X.Y 21
    - dalsie informacie o nastroji "netcat" napr. v: $ man nc
+
+Ako spravovat zdroje cluster-a, prikazy "$ sudo pcs resource enable" a "$ sudo pcs resource disable" 
+ - uvedene prikazy zapinaju / vypinaju zdroje clustera
+ - prikazmi restartujeme zdroje: "$ sudo pcs resource restart" a "$ sudo crm resource restart"
+
