@@ -2037,4 +2037,18 @@ Ako spravovat zdroje cluster-a, prikazy "$ sudo pcs resource enable" a "$ sudo p
    - overime s: $ sudo pcs status
  - na odstranenie uzlu pouzijeme uvedene: $ sudo pcs cluster node remove <adresa-nodeX>
    - dalej je potrebne odstranit STONITH proces: $ sudo pcs stonith delete <adresa-nodeX>
-??? - ked potrebujeme docasne vyradit uzol: $ sudo pcs cluster [un]standby <adresa-nodeX>
+ - ked potrebujeme docasne vyradit uzol: $ sudo pcs node [un]standby <adresa-nodeX>
+   - rozdiel oproti vypnutiu, je ucast Qourum procese
+   - overime s: "$ sudo pcs status" alebo s: $ sudo pcs status nodes
+
+Nastroj "crm" pouziva na pridavanie uzlov prikaz: $ sudo crm cluster add
+ - nastroj "crm" na mod "standby": $ sudo crm node standby <nazov-uzla>
+   - po upravach "zapneme": $ sudo crm node online <nazov-uzla>
+   - nazov uzla ziskame napr z: $ sudo crm status
+
+Ako dat uzol tzv. "Maintenance Mode", mod umoznuje udrzbu cluster software ale nema dosah na zdroje
+ - prikaz nastavi "Maintenance" mod: $ sudo crm node maintenance <nazov-uzla>
+ - nasledne po upravach: $ sudo crm node ready <nazov-uzla>
+ - overime s: $ sudo crm status
+
+
