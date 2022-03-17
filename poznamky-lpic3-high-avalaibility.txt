@@ -2089,4 +2089,10 @@ Priklady na manazment clustra s nastrojom "pcs":
  - po testovani zmazeme: "$ sudo pcs resource disable myDummy" a "$ sudo pcs resource remove myDummy"
 
 Priklady na manazment clustra s nastrojom "crm":
+ - crm configure edit
 
+primitive myDummy ocf:pacemaker:Dummy \
+        op monitor interval=60
+colocation web-not-ftp -10000: ftp-group apache-group 
+ 
+ - 
