@@ -2059,8 +2059,15 @@ Ako na presuvanie zdrojov klustera na definovane uzly:
 
 Ako na reset Failcount-erov: "$ sudo pcs resource cleanup" resp. "$ sudo crm resource cleanup"
 
+Poznamka, ako vypisat/vlozit skrateny datum: "$ date +%H%h%Y" resp. v skripte $(date +%H%h%Y)
+
 Praca s Cluter logmi, loguje sa na 2 urovniach, na urovniach "Corosync" a "Pacemaker"
  - logy z Corosync-u mozeme sledovat v: $ sudo tail -f /var/log/cluster/corosync.log
  - logovanie sa zapina v "/etc/corosync/corosync.conf", direktiva "to_logfile: yes"
-
-Poznamka, ako vypisat/vlozit skrateny datum: "$ date +%H%h%Y" resp. v skripte $(date +%H%h%Y)
+ - logovanie do "std::err", ktore zachytava Systemd, teda "journalctl" zapneme s "to_stderr: yes"
+ - zmenu mozeme replikovat s: $ sudo pcs cluster sync
+ - nasledne restartujeme "Crosync": $ sudo pcs cluster reload corosync
+ - je vhodne zvazit strategiu a nastroje "logrotate"
+ - logy nastroja Pacemaker najdeme v "/var/log/pacemaker/pacemaker.log" 
+ - mozeme pouzit spolocne logy Systemd: $ sudo journalctl -lu pacemaker.service -u corosync.service
+   - pripadne ich sledovat: $ sudo journalctl -fu pacemaker.service -u corosync.service
