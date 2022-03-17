@@ -2080,22 +2080,9 @@ Priklady na manazment clustra s nastrojom "pcs":
  - ked chceme hladat napr. "location" obmedzenie, hladame toto slovo v: $ sudo cibadmin -Q | less
  - nasledne dane obmedzenie odstranime: $ sudo pcs constraint remove location-myDummy-cent2-INFINITY 
  - presunieme zdroj na iny uzol: $ sudo pcs resource move myDummy
-pcs status
-pcs constraint list
-pcs constraint
-pcs constraint list
-pcs resource move myDummy
-pcs constraint list
-pcs status
-pcs constraint list
-pcs constraint config
-pcs status
-pcs resource move myDummy
-pcs cluster standby cent2
-pcs cluster node standby cent2
-pcs node standby cent2
-pcs status
-pcs node unstandby cent2
+ - overime s "$ sudo pcs status" alebo s: $ sudo pcs resource status
+ - prikazom "odstavime" uzol: $ sudo pcs node standby <adresa-nodeX>
+ - nasledne "zapneme" uzol: $ sudo pcs node unstandby <adresa-nodeX>
 pcs status
 pcs resource unmanage myDummy
 pcs resource status
