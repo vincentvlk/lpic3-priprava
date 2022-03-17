@@ -2153,4 +2153,10 @@ resource drbd0 {
  - dalej povolime definovany DRBD TCP port: $ sudo firewall-cmd --add-port=7676/tcp --permanent
  - nasledne restartujeme firewall: $ sudo firewall-cmd --reload
  - konfiguraciu overime s: $ sudo firewall-cmd --list-all
- - vytvorime nove DRBD zariadenie "/dev/drbd0" prikazom: $ sudo drbdadm create-md drbd0 
+ - na uzloch vytvorime nove DRBD zariadenie "/dev/drbd0" prikazom: $ sudo drbdadm create-md drbd0 
+ - na uzloch nasledne aktivujeme DRBD zariadenie: $ sudo drbdadm up drbd0
+ - overime s: $ sudo drbdadm status
+ - na jednom uzle inicializ. bitovu mapu: $ sudo drbdadm new-current-uuid --clear-bitmap drbd0/0
+ - uzol "lpic3-suse1" nastavime ako primarny: $ sudo drbdadm primary --force drbd0
+ - overime s: $ sudo drbdadm status
+ - dalej mozeme uz vytvorit FS na zariadeni "/dev/drbd0", napr.: $ sudo mkfs.btrfs /dev/drbd0
