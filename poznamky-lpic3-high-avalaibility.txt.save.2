@@ -2018,16 +2018,5 @@ colocation web-not-ftp -10000: ftp-group apache-group
 
 Ako spravovat zdroje cluster-a, prikazy "$ sudo pcs resource enable" a "$ sudo pcs resource disable" 
  - uvedene prikazy zapinaju / vypinaju zdroje clustera
- - prikazmi restartujeme zdroje: "$ sudo pcs resource restart" a "$ sudo crm resource restart"
- - prikazmi upravujeme zdroje: "$ sudo pcs resource update" resp. "$ sudo crm configure edit"
- - na ladenie pouzijeme $ sudo pcs resource debug-start <resource>
- - na restart resetujeme tzv. "Failcount": $ sudo pcs resource refresh
- - na udrzbu mozeme vypnut / zapnut manazment zdroja cluster stackom:
-   - prikazy: "$ sudo pcs resource [un]manage" resp. "$ sudo crm resource [un]manage"
- - ako presuvat zdroje na ine uzly: "$ sudo pcs resource relocate"
- - ako definovat limity zdrojov, priklad: $ sudo pcs resource utilization <resource> ram=20 cpu=10
-   - pre nastroj "crm": $ sudo crm resource utilization <resource> ram=20 cpu=10
-     - treba pozriet presnejsie...
- - na udrzbu, mozeme vypnut cluster sluzby na uzle: $ sudo pcs cluster stop <adresa-nodeX>
- - po upravach / udrzbe, znova spustime: 
-
+ - prikazmi restartujeme zdroje: "$ sudo pcs resource restart" resp. "$ sudo crm resource restart"
+ - prikazmi upravujeme zdroje: "$ sudo pcs resource update" resp. ""
