@@ -2029,5 +2029,8 @@ Ako spravovat zdroje cluster-a, prikazy "$ sudo pcs resource enable" a "$ sudo p
    - pre nastroj "crm": $ sudo crm resource utilization <resource> ram=20 cpu=10
      - treba pozriet presnejsie...
  - na udrzbu, mozeme vypnut cluster sluzby na uzle: $ sudo pcs cluster stop <adresa-nodeX>
- - po upravach / udrzbe, znova spustime: 
-
+ - po upravach / udrzbe, znova spustime: $ sudo pcs cluster stop <adresa-nodeX>
+ - stav overime s: $ sudo pcs status
+ - zapneme / vypneme prihlasovanie do clustera: $ sudo pcs cluster {disable|enable} <adresa-nodeX>
+ - pridavanie / odstranovanie uzlov: $ sudo pcs cluster node {add|remove} <adresa-nodeX>
+   - nasledne je potrebne autentifikovat novy uzol: 
