@@ -2106,7 +2106,7 @@ location myDummy-location myDummy 10000: lpic3-suse1
 - vratime uzol do stavu "ready", teda pripraveny na cinnost: $ sudo crm node ready lpic3-suse1
 - vsetky zmeny overime s: "$ sudo crm status" resp. "$ sudo crm configure show"
  
-Praca s Cluster Storage riesenim "DRDB - Distributed Replicated Block Device"
+Praca s Cluster Storage riesenim "DRBD - Distributed Replicated Block Device"
  - riesenie v podstate realizuje RAID1 ale cez sietove prepojenia
  - zvycajne sa pouzivaju 2 storage uzly, ktore si navzajom synchronizuju data
  - zakladny M/S model vyuziva standardne FS, napr. Ext4, XFS, ...
@@ -2116,3 +2116,38 @@ Praca s Cluster Storage riesenim "DRDB - Distributed Replicated Block Device"
    - Protocol A: Asynchronne zapisovanie, vhodny pre "long-distance" replikaciu, znizena spolahlivost
    - Protocol B: Semi-synchronne zapisovanie
    - Protocol C: Synchronne zapisovanie, najvyssia uroven spolahlivost, zvycajne predvoleny rezim
+
+Instalacia DRBD balickov na OpenSUSE 15.3: $ sudo zypper -n in drbd drbd-utils drbdmanage
+ - je potrebne mat nasjkor volnu particiu na oboch uzloch, ktore sa bude pouzivat, doporucene je LVM
+ - na test sa da vytvorit napr. virtual-disk v roznych hypervizoroch (VMw, VBox, KVM, ...)
+ - dalej vytvorime tzv. "resource file", nazov napr. "/etc/drbd.d/drbd0.res", do ktoreho vlozime:
+
+resource drbd0 {
+    volume 0 {
+        device           /dev/drbd0 minor 0;
+        disk             /dev/sdb;
+        meta-disk        internal;
+    }
+    on lpic3-suse1 {
+        node-id 0;
+        address          ipv4 192.168.255.11:7676;
+    }
+    on lpic3-suse2 {
+        node-id 1;
+        address          ipv4 192.168.255.12:7676;
+    }
+    connection-mesh {
+        hosts lpic3-suse1 lpic3-suse2;
+        net {
+            protocol       C;
+        }
+    }
+    net {
+        cram-hmac-alg    sha1;
+        shared-secret    drbd.2022;
+    }
+}
+
+ - tato konfiguracia MUSI byt na oboch uzloch ZHODNA
+ - nasledne konfiguraciu overime s: $ sudo drbdadm dump all
+
