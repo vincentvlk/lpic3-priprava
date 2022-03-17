@@ -2083,9 +2083,7 @@ Priklady na manazment clustra s nastrojom "pcs":
  - overime s "$ sudo pcs status" alebo s: $ sudo pcs resource status
  - prikazom "odstavime" uzol: $ sudo pcs node standby <adresa-nodeX>
  - nasledne "zapneme" uzol: $ sudo pcs node unstandby <adresa-nodeX>
-pcs status
-pcs resource unmanage myDummy
-pcs resource status
-pcs status
-pcs resource manage myDummy
+ - vypneme manazment zdroja, umozni zmeny na uzle: $ sudo pcs resource unmanage myDummy
+ - overime s: $ sudo pcs resource status
+ - nasledne znova aktivujeme manazment zdroja: $ sudo pcs resource manage myDummy
 
