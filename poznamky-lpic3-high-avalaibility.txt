@@ -2051,4 +2051,11 @@ Ako dat uzol tzv. "Maintenance Mode", mod umoznuje udrzbu cluster software ale n
  - nasledne po upravach: $ sudo crm node ready <nazov-uzla>
  - overime s: $ sudo crm status
 
+Ako na presuvanie zdrojov klustera na definovane uzly:
+ - prikaz presunie resource group na iny uzol: $ sudo crm resource move apache-group <nazov-uzla>
+ - ak chceme predoslemu uzlu vratit moznost bezat zdroj, tak: $ sudo crm resource clear apache-group
+   - pozor, spravanie tohto prikazu meni koncept "Resource Stickiness" 
+ - overime s: $ sudo crm status
+
+Ako na reset Failcount-erov: "$ sudo pcs resource cleanup" resp. "$ sudo crm resource cleanup"
 
