@@ -1748,6 +1748,10 @@ UUID=aa03eabf-10a9-41d9-a1eb-149682d0c44f /mnt/san1d1 btrfs _netdev,x-systemd.au
 Po reboote systemu mozeme overit napr. s: "$ sudo mount | grep san1" alebo prikazom: $ sudo lsblk
  - alebo napr. s: $ sudo ls -l /dev/disk/by-path/
 
+Poznamka, ak je potrebne, je mozne "discovered" targety, alebo docasne odhlasit:
+ - vymazeme: $ sudo iscsiadm -m node -T iqn.2022-03.lpic3.suse1:www.target01 -o delete
+ - odhlasime: $ sudo iscsiadm -m node -T iqn.2022-03.lpic3.suse1:www.target01 -u
+
 (na zjednoduseny postup, bez auth a s "block-IO" pozriet video LPIC3-HA-Pearson-Sander-10.2)
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Na pracu s HA-lusterom je vhodne mat DNS-A zaznami uzlov, pripadne zaznami v "/etc/hosts"
@@ -2168,7 +2172,7 @@ resource drbd0 {
  - dalej mozeme uz vytvorit FS na zariadeni "/dev/drbd0", napr.: $ sudo mkfs.btrfs /dev/drbd0
 
 Poznamka, uzitocne prikazy na vypisanie informacii o diskoch a particiach: "lsblk", "blkid", "lsscsi"
-Ako v Systemd "zapnut" sluzbu "po boote" a zaroven spustit: $ sudo systemctl enable --now <service> 
+Ako so Systemd "zapnut" sluzbu "po boote" a zaroven spustit: $ sudo systemctl enable --now <service> 
 
 
 configure
