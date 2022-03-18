@@ -2184,8 +2184,9 @@ Ako so Systemd "zapnut" sluzbu "po boote" a zaroven spustit: $ sudo systemctl en
 
 Ako vytvorit iSCSI target (SAN-Cluster) v Cluster-y nad systemom DRBD v OS OpenSUSE Leap 15.3:
  - overime stav DRBD zariadenia s: $ sudo drbdadm status
+ - v LABe, ak mame DRBD z dvoch uzlov a Corosync clus. z 3 a viac, treba zvysne clus. uzly "odstavit"
  - pokracujeme konfiguraciou "clustered DRBD", otvorime "$ sudo crm" a vlozime konf. napr.:
- - 
+
 configure
 
 rsc_defaults resource-stickiness="200"
@@ -2201,4 +2202,7 @@ ms ms-drbd_drbd0 drbd_drbd0 \
   clone-node-max="1" notify="true"
 
 commit
+cd
+
+ - overime v "crmsh" prikazom "status" alebo s: $ sudo crm status
 
