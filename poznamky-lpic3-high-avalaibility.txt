@@ -1704,6 +1704,7 @@ success
 [root@fed-stor1 ~]# firewall-cmd --runtime-to-permanent
 success
 
+Poznamka, iSCSI target sa da prevadzkovat v Cluster-y nad systemom DRBD
 -=-=-=-=-=-=INITIATOR na OS OpenSUSE Leap 15.3:=-=-=-=-=-=-
 
 - pracujeme so sluzbami "iscsi" a "iscsid"
@@ -1753,6 +1754,12 @@ Poznamka, ak je potrebne, je mozne "discovered" targety, alebo docasne odhlasit:
  - odhlasime: $ sudo iscsiadm -m node -T iqn.2022-03.lpic3.suse1:www.target01 -u
    - po ukonceni cinnosti sa da znova pripojit restartom sluzieb "iscsi" a "iscsid"
 
+Poznamka, v OS OpenSUSE Leap sa da pouzit na konf. iSCSI Initatora TUI nastroj: $ sudo yast2
+ - TUI - Terminal User Interface
+ - instalujeme: $ sudo zypper -n in yast2-iscsi-client
+ - v menu volime "Network Services" -> "iSCSI Initiator" -> "sipkou doprava" na "Connected Targets"
+   - v tomto submenu sa uz mozeme klavesom "Tab" prepnut na moznosti "Add" / "Edit" / "Disconnect"
+
 (na zjednoduseny postup, bez auth a s "block-IO" pozriet video LPIC3-HA-Pearson-Sander-10.2)
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Na pracu s HA-lusterom je vhodne mat DNS-A zaznami uzlov, pripadne zaznami v "/etc/hosts"
@@ -1768,8 +1775,8 @@ Trocha teorie: CIB - Cluster Information Base: Stav cluster-a v pamati
  - dalsi komponent "stonithd" zabezpecuje "vybavovanie STONITH" poziadavok
    - STONITH - Shoot The Other Node in The Head, pripadne jemnejsie tzv. "Node fencing" :)
  - v RedHat based distribuciach sa pouziva nastroj "pcsd", ako rozhranie ku Corosync a Pacemaker
-   - pouziva sa prikaz $ sudo pcs ...
- - alternativne sa pouziva nastroj CRM Shell "crmsh", ktory ma prikazy $ sudo crm ...
+   - pouziva sa prikazy: $ sudo pcs ...
+ - alternativne sa pouziva nastroj CRM Shell "crmsh", ktory ma prikazy: $ sudo crm ...
 
 Instalacia Mcast. clustera "Corosync" v "OpenSUSE", na uzloch: $ sudo zypper in ha-cluster-bootstrap 
  - nasladne na "hlavnom" uzle spustime: $ sudo crm cluster init
@@ -2175,8 +2182,12 @@ resource drbd0 {
 Poznamka, uzitocne prikazy na vypisanie informacii o diskoch a particiach: "lsblk", "blkid", "lsscsi"
 Ako so Systemd "zapnut" sluzbu "po boote" a zaroven spustit: $ sudo systemctl enable --now <service> 
 
-
+Ako vytvorit iSCSI target (SAN-Cluster) v Cluster-y nad systemom DRBD v OS OpenSUSE Leap 15.3:
+ - overime stav DRBD zariadenia s: $ sudo drbdadm status
+ - pokracujeme konfiguraciou "clustered DRBD", otvorime "$ sudo crm" a vlozime konf. napr.:
+ - 
 configure
+
 rsc_defaults resource-stickiness="200"
 
 primitive drbd_drbd0 \
@@ -2184,10 +2195,10 @@ primitive drbd_drbd0 \
     params drbd_resource="drbd0" \
   op monitor interval="15" role="Master" \
   op monitor interval="30" role="Slave"
+
 ms ms-drbd_drbd0 drbd_drbd0 \
   meta master-max="1" master-node-max="1" clone-max="2" \
   clone-node-max="1" notify="true"
 
 commit
 
-zapisat prikazy: lsblk blkid lsscsi
