@@ -2215,10 +2215,21 @@ cd
 
 configure
 
-primitive ftp-ip IPaddr2 \
+primitive iscsi-ip IPaddr2 \
 	params nic=eth0 cidr_netmask=24 ip=192.168.255.100 \
 	op monitor interval=10 timeout=40
 
+primitive iscsitarget iSCSITarget \
+    params implementation=lio iqn="iqn.2022-03.example:target1"
+
 primitive iscsilun0 iSCSILogicalUnit \
- params implementation=lio target_iqn="iqn.2022-03.example:target1" path="/dev/drbd0" \
- params lun=0 allowed_initiators="iqn.2022-03.example:init1 iqn.2022-03.example:init2"
+    params implementation=lio target_iqn="iqn.2022-03.example:target1" path="/dev/drbd0" \
+    params lun=0 allowed_initiators="iqn.2022-03.example:init1 iqn.2022-03.example:init2"
+
+group iscsigroup iscsi-ip iscsitarget iscsilun0 
+
+commit
+cd
+status
+
+
