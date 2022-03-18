@@ -2186,6 +2186,8 @@ Poznamka, uzitocne prikazy na vypisanie informacii o diskoch a particiach: "lsbl
 Ako so Systemd "zapnut" sluzbu "po boote" a zaroven spustit: $ sudo systemctl enable --now <service> 
 
 Ako vytvorit iSCSI target (SAN-Cluster) v Cluster-y nad systemom DRBD v OS OpenSUSE Leap 15.3:
+ **PROBLEMATICKE TREBA DALSI VYSKUM**
+
  - overime stav DRBD zariadenia s: $ sudo drbdadm status
  - v LABe, ak mame DRBD z dvoch uzlov a Corosync clus. z 3 a viac, treba zvysne clus. uzly "odstavit"
 ??   - elegantnejsie, definujeme "resource constraint", ktore obmedzi "bezat" z droj na 3. uzle
@@ -2237,4 +2239,9 @@ status
 
  - povolime na firewalle: $ sudo firewall-cmd --add-service=iscsi-target --permanent
    - restart firewallu: $ sudo firewall-cmd --reload
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+Ako na instalaciu technologie iSCSI multipath:
+ - technologia umoznuje viacero zaloznych ciest na storage zariadenia (SAN)
+ - zalozne cesty su plne redundantne, teda nezavisle voci inym cestam (karty, routre, switche...)
+ - vacsina distribucii vyuziva Device Mapper implementaciu
