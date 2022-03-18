@@ -2245,6 +2245,8 @@ status
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 Ako na instalaciu technologie iSCSI multipath:
+ - vyuziva sa fakt, ze SAN iSCSI Target ma viac sietovych pripojeni, na ktore sa Initiator pripaja
+   - zariadenie v role iSCSI Initiatora ma tiez k dispozicii dalsiu nezavislu SAN konektivitu
  - technologia umoznuje viacero zaloznych ciest na storage zariadenia (SAN)
  - zalozne cesty su plne redundantne, teda nezavisle voci inym cestam (karty, routre, switche...)
  - vacsina distribucii vyuziva "Device Mapper" implementaciu "dm-multipath"
@@ -2257,3 +2259,9 @@ Priklad instalacie v OS CentOS Stream 9
  - instalujeme (zvycajne byva uz nainstalovany): $ sudo dnf -y in device-mapper-multipath
  - zapneme proces "multipathd": $ sudo mpathconf --enable --with_multipathd y
    - prikaz zaroven vygeneruje konfig. subor "/etc/multipath.conf"
+   - dalsie informacie v "$ man mpathconf" a v "$ man multipath.conf"
+   - stav sluzby overime s: $ sudo systemctl status multipathd.service 
+ - po viac-nasobnom pripojeni na iSCSI Target, nam system prideli rozne zariadenia na jeden LUN
+   - toto sa snazi "Multipathing" riesit tym, ze spoji viacere cesty do jedneho zariadenia 
+ - stav dostupnych multipath zariadeni overime s: $ sudo multipath -ll
+ - tieto zariadenia su dostupne ako "/dev/mapper/mpathX" , "/dev/mapper/mpathX" a pod.
