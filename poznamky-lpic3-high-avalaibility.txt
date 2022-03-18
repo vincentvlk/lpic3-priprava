@@ -2255,7 +2255,7 @@ Ako na instalaciu technologie iSCSI multipath:
  - konfiguracia sa nachadza v subore "/etc/multipath.conf"
  - zariadenie dostupne cez "dm-multipath" sa nachadzaju v "/dev/mapper"
 
-Priklad instalacie v OS CentOS Stream 9
+Priklad instalacie riesenia "Device Mapper Mulltipath" v OS CentOS Stream 9
  - instalujeme (zvycajne byva uz nainstalovany): $ sudo dnf -y in device-mapper-multipath
  - zapneme proces "multipathd": $ sudo mpathconf --enable --with_multipathd y
    - prikaz zaroven vygeneruje konfig. subor "/etc/multipath.conf"
