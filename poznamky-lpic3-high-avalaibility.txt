@@ -2211,26 +2211,30 @@ cd
 
  - overime v "crmsh" prikazom "status" alebo s: $ sudo crm status
  - direktiva "ms ms-drbd_drbd0 drbd_drbd0" definuje v clustery parametre Master/Slave zdrojov
+ - pred konf zdrojov instalujeme na uzloch iSCSI nastroje: $ sudo zypper -n in python3-targetcli-fb 
  - nasleduje konfiguracia "clustered" iSCSI Tragetu:
 
 configure
 
 primitive iscsi-ip IPaddr2 \
-	params nic=eth0 cidr_netmask=24 ip=192.168.255.100 \
-	op monitor interval=10 timeout=40
+        params nic=eth0 cidr_netmask=24 ip=192.168.255.100 \
+        op monitor interval=10 timeout=40
 
 primitive iscsitarget iSCSITarget \
-    params implementation=lio iqn="iqn.2022-03.example:target1"
+        params iqn="iqn.2022-03.com.example:target1"
 
-primitive iscsilun0 iSCSILogicalUnit \
-    params implementation=lio target_iqn="iqn.2022-03.example:target1" path="/dev/drbd0" \
-    params lun=0 allowed_initiators="iqn.2022-03.example:init1 iqn.2022-03.example:init2"
+primitive iscsilun1 iSCSILogicalUnit \
+        params target_iqn="iqn.2022-03.com.example:target1" path="/dev/drbd0" lun=1 \
+        params allowed_initiators="iqn.2022-03.com.example:init1 iqn.2022-03.com.example:init2"
 
-group iscsigroup iscsi-ip iscsitarget iscsilun0
+group iscsigroup iscsi-ip iscsitarget iscsilun1
 order iscsigroup-after-drbd ms-drbd_drbd0 iscsigroup 
 
 commit
 
 cd
-
 status
+
+ - povolime na firewalle: $ sudo firewall-cmd --add-service=iscsi-target --permanent
+   - restart firewallu: $ sudo firewall-cmd --reload
+
