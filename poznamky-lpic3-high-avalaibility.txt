@@ -2185,6 +2185,7 @@ resource drbd0 {
 Poznamka, uzitocne prikazy na vypisanie informacii o diskoch a particiach: "lsblk", "blkid", "lsscsi"
 Ako so Systemd "zapnut" sluzbu "po boote" a zaroven spustit: $ sudo systemctl enable --now <service> 
 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako vytvorit iSCSI target (SAN-Cluster) v Cluster-y nad systemom DRBD v OS OpenSUSE Leap 15.3:
  **PROBLEMATICKE TREBA DALSI VYSKUM**
 
@@ -2241,7 +2242,7 @@ status
    - restart firewallu: $ sudo firewall-cmd --reload
 
 **PROBLEMATICKE RIESENIE TREBA DALSI VYSKUM**
- - zvazit pouzitie LVM, resp. cLVM
+ - zvazit pouzitie LVM, resp. cLVM, alebo CEPH
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 Ako na instalaciu technologie iSCSI multipath:
