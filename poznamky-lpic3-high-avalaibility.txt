@@ -1617,7 +1617,7 @@ Zakladna praca s balickovacim systemom "Zypper" v OS: "OpenSUSE Leap":
 Ako v OS "Fedora Server 35" nainstalovat NetworkManager-TUI: $ sudo dnf install NetworkManager-tui
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-*Vytvorenie iSCSI targetu ("server") a Initiatora ("klient") v OS "Fedora Server 35"*
+*Vytvorenie iSCSI targetu ("SAN-server") a Initiatora ("SAN-klient") v OS "Fedora Server 35"*
  - *ROZPRACOVANY Status*
 
 =-TARGET:=-
@@ -1704,9 +1704,13 @@ success
 [root@fed-stor1 ~]# firewall-cmd --runtime-to-permanent
 success
 
--=INITIATOR na OpenSUSE Leap 15.3:=-
+-=-=-=-=-=-=INITIATOR na OS OpenSUSE Leap 15.3:=-=-=-=-=-=-
 
-Instalacia nastroja: $ sudo zypper -n install open-iscsi
+- pracujeme so sluzbami "iscsi" a "iscsid"
+- dolezite konfiguracne subory: "/etc/iscsi/iscsid.conf" a "/etc/iscsi/initiatorname.iscsi"
+- initiator moze byt HW (sietova karta s TCP offloadingom) alebo softwarovy
+
+Instalacia softwaroveho Initiatora: $ sudo zypper -n install open-iscsi
 
 Pridame Initiatora do zoznamu, podla vytvoreneho ACL IQN: $ sudo vim /etc/iscsi/initiatorname.iscsi  
  - pridame riadok napr.: "InitiatorName=iqn.2022-03.lpic3.suse1:www.node01.init01"
@@ -2162,6 +2166,9 @@ resource drbd0 {
  - uzol "lpic3-suse1" nastavime ako primarny: $ sudo drbdadm primary --force drbd0
  - overime s: $ sudo drbdadm status
  - dalej mozeme uz vytvorit FS na zariadeni "/dev/drbd0", napr.: $ sudo mkfs.btrfs /dev/drbd0
+
+Poznamka, uzitocne prikazy na vypisanie informacii o diskoch a particiach: "lsblk", "blkid", "lsscsi"
+Ako v Systemd "zapnut" sluzbu "po boote" a zaroven spustit: $ sudo systemctl enable --now <service> 
 
 
 configure
