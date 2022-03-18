@@ -1751,6 +1751,7 @@ Po reboote systemu mozeme overit napr. s: "$ sudo mount | grep san1" alebo prika
 Poznamka, ak je potrebne, je mozne "discovered" targety, alebo docasne odhlasit:
  - vymazeme: $ sudo iscsiadm -m node -T iqn.2022-03.lpic3.suse1:www.target01 -o delete
  - odhlasime: $ sudo iscsiadm -m node -T iqn.2022-03.lpic3.suse1:www.target01 -u
+   - po ukonceni cinnosti sa da znova pripojit restartom sluzieb "iscsi" a "iscsid"
 
 (na zjednoduseny postup, bez auth a s "block-IO" pozriet video LPIC3-HA-Pearson-Sander-10.2)
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
