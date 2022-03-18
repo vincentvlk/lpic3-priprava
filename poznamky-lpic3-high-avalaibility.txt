@@ -1704,7 +1704,10 @@ success
 [root@fed-stor1 ~]# firewall-cmd --runtime-to-permanent
 success
 
-Poznamka, iSCSI target sa da prevadzkovat v Cluster-y nad systemom DRBD
+- konfiguraciu firewallu overime s: $ sudo firewall-cmd --list-all
+
+Poznamka, iSCSI target sa da prevadzkovat v Cluster-y nad systemom DRBD (nizsie v tomto texte)
+
 -=-=-=-=-=-=INITIATOR na OS OpenSUSE Leap 15.3:=-=-=-=-=-=-
 
 - pracujeme so sluzbami "iscsi" a "iscsid"
@@ -2208,4 +2211,14 @@ cd
 
  - overime v "crmsh" prikazom "status" alebo s: $ sudo crm status
  - direktiva "ms ms-drbd_drbd0 drbd_drbd0" definuje v clustery parametre Master/Slave zdrojov
+ - nasleduje konfiguracia "clustered" iSCSI Tragetu:
 
+configure
+
+primitive ftp-ip IPaddr2 \
+	params nic=eth0 cidr_netmask=24 ip=192.168.255.100 \
+	op monitor interval=10 timeout=40
+
+primitive iscsilun0 iSCSILogicalUnit \
+ params implementation=lio target_iqn="iqn.2022-03.example:target1" path="/dev/drbd0" \
+ params lun=0 allowed_initiators="iqn.2022-03.example:init1 iqn.2022-03.example:init2"
