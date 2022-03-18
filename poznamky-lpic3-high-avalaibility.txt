@@ -2239,9 +2239,17 @@ status
 
  - povolime na firewalle: $ sudo firewall-cmd --add-service=iscsi-target --permanent
    - restart firewallu: $ sudo firewall-cmd --reload
+
+**PROBLEMATICKE RIESENIE TREBA DALSI VYSKUM**
+ - zvazit pouzitie LVM, resp. cLVM
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 Ako na instalaciu technologie iSCSI multipath:
  - technologia umoznuje viacero zaloznych ciest na storage zariadenia (SAN)
  - zalozne cesty su plne redundantne, teda nezavisle voci inym cestam (karty, routre, switche...)
- - vacsina distribucii vyuziva Device Mapper implementaciu
+ - vacsina distribucii vyuziva "Device Mapper" implementaciu "dm-multipath"
+ - sluzba je prevadzkovana "multipathd" demon/proces
+ - na manazment sa vyuziva program "$ sudo multipath"
+ - konfiguracia sa nachadza v subore "/etc/multipath.conf"
+ - zariadenie dostupne cez "dm-multipath" sa nachadzaju v "/dev/mapper"
+
