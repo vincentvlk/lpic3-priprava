@@ -2274,7 +2274,18 @@ Praca s LVM, logicke LV particie sa zvycajne mapuju napr. ako: "/dev/mapper/ubun
    - dalsie informacie v $ man lvm.conf
  - rozsirenie cLVM je pre koncept "Clustered LVM", umoznuje vytvorit tzv. "Cluster Sharede Volume"
  - rozsirenie HALVM je dostupne na RedHat based systemoch, zabranuje sucasnemu zapisu 2 uzlov
- - dolezity proces "clvmd" sluzi na propagaciu zmien dalsim uzlom
+ - dolezity proces "clvmd" sluzi na propagaciu zmien dalsim uzlom, novsi proces ako HALVM
  - dalsou poziadavkou je DLM - Distributed Local Manager
+ - v cLVM su vsetky VG a LV na zdielanom storage su *stale* dostupne *vsetkym* uzlom
+   - vhodne na Cluster Suborove systemy ako je napr. GFS2
+ - v HALVM su VG a LV dostupne v danom case len *jednemu* uzlu z clustera, vhodne na ext4,xfs,btrfs
+   - na riadenie dostupnosti particii, pre dany uzol, sa vyuziva "Volume Tagging", pre RedHat b.
+ - alternativa HALVM mimo RedHat systemov je "exclusive LVM"
+ - zjednoduseny postup ako vytvorit cLVM HA:
 
+    $ sudo pvcreate /dev/nvme0n2
+    $ sudo vgcreate vghalvm /dev/nvme0n2
+    $ sudo lvcreate -L 2G -n lvhalvm vghalvm
+    $ sudo mkfs.xfs /dev/vghalvm/lvhalvm
 
+ 
