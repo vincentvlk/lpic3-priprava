@@ -2270,3 +2270,11 @@ Priklad instalacie riesenia "Device Mapper Mulltipath" v OS CentOS Stream 9
 Praca s LVM, logicke LV particie sa zvycajne mapuju napr. ako: "/dev/mapper/ubuntu--vg-ubuntu--lv"
  - kde je teda VG (Volume Group) sa nazvom "ubuntu" a LV (Logical Volume) s nazvom "ubuntu" 
    - je to symbolicky link
+ - LVM (Logical Volume Management) je spravuje procesom "Device Mapper", konf.: "/etc/lvm/lvm.conf"
+   - dalsie informacie v $ man lvm.conf
+ - rozsirenie cLVM je pre koncept "Clustered LVM", umoznuje vytvorit tzv. "Cluster Sharede Volume"
+ - rozsirenie HALVM je dostupne na RedHat based systemoch, zabranuje sucasnemu zapisu 2 uzlov
+ - dolezity proces "clvmd" sluzi na propagaciu zmien dalsim uzlom
+ - dalsou poziadavkou je DLM - Distributed Local Manager
+
+
