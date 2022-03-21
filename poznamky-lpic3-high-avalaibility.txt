@@ -2266,3 +2266,7 @@ Priklad instalacie riesenia "Device Mapper Mulltipath" v OS CentOS Stream 9
    - toto sa snazi "Multipathing" riesit tym, ze spoji viacere cesty do jedneho zariadenia 
  - stav dostupnych multipath zariadeni overime s: $ sudo multipath -ll
  - tieto zariadenia su dostupne ako "/dev/mapper/mpathX" , "/dev/mapper/mpathX" a pod.
+
+Praca s LVM, logicke LV particie sa zvycajne mapuju napr. ako: "/dev/mapper/ubuntu--vg-ubuntu--lv"
+ - kde je teda VG (Volume Group) sa nazvom "ubuntu" a LV (Logical Volume) s nazvom "ubuntu" 
+   - je to symbolicky link
