@@ -2281,7 +2281,8 @@ Praca s LVM, logicke LV particie sa zvycajne mapuju napr. ako: "/dev/mapper/ubun
  - v HALVM su VG a LV dostupne v danom case len *jednemu* uzlu z clustera, vhodne na ext4,xfs,btrfs
    - na riadenie dostupnosti particii, pre dany uzol, sa vyuziva "Volume Tagging", pre RedHat b.
  - alternativa HALVM mimo RedHat systemov je "exclusive LVM"
- - zjednoduseny postup ako vytvorit cLVM HA, na kazom uzle vytvorime:
+
+ - Zjednoduseny postup ako vytvorit HALVM cluster, na uzloch s CentOS 9 Stream, na kazom uzle:
 
     $ sudo pvcreate /dev/nvme0n2
     $ sudo vgcreate vghalvm /dev/nvme0n2
@@ -2302,5 +2303,7 @@ Praca s LVM, logicke LV particie sa zvycajne mapuju napr. ako: "/dev/mapper/ubun
  - dalej vytvorime novy InitRAM-FS: $ sudo dracut -H -f /boot/initramfs-$(uname -r).img $(uname -r)
    - na vsetkych uzloch 
  - nasledne restartujeme uzly: $ sudo reboot
+ - po reboote: $ sudo pcs resource 
 
+**Zasekol som sa, na novych distrach esxsituju nove tooly/postupy/kniznice**
 
