@@ -2367,6 +2367,9 @@ Na prvom uzle vytvorime LVM disk:
 # parted --script /dev/sda "mklabel gpt"
 # parted --script /dev/sda "mkpart primary 0% 100%"
 # parted --script /dev/sda "set 1 lvm on"
+
+- overime napr s: $ sudo fdisk -l /dev/sda
+
 # pvcreate /dev/sda1
 # vgcreate --shared vg_gfs2 /dev/sda1 
 
