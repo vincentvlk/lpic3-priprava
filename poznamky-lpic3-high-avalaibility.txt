@@ -2357,6 +2357,8 @@ v subore "/etc/lvm/lvm.conf"
     odstranit riadok "volume_list = [ XYZ ]"
     odstranit riadok "locking_type = XYZ"
 
+overime s: $ sudo lvmconfig
+
 zapneme STONITH mna cluster-y:
 
 $ sudo pcs property set stonith-enabled=true
@@ -2368,7 +2370,7 @@ $ sudo pcs property config
 ll /dev/disk/by-id | grep sda | grep wwn 
 
 - vytvorime Fencing STONITH pomocou SCSI:
-pcs stonith create scsi-Fence fence_scsi pcmk_host_list="cent1 cent2 cent3" devices=/dev/disk/by-id/wwn-0x6001405588b270da4024a1c92f37ff7b meta provides=unfencing
+pcs stonith create scsi-Fence fence_scsi pcmk_host_list="cent1 cent2 cent3" devices=/dev/disk/by-id/wwn-0x600140520845b9b2586439fa1949df69 meta provides=unfencing
 
 Na node 1 Vytvorime LVM:
 
