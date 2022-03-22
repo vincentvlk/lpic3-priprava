@@ -2356,7 +2356,7 @@ pcs property set stonith-enabled=true
 ll /dev/disk/by-id | grep sda | grep wwn 
 
 - vytvorime Fencing STONITH pomocou SCSI:
-pcs stonith create scsi-Fence fence_scsi pcmk_host_list="cent1 cent2 cent3" devices=/dev/disk/by-id/wwn-0x600140500223d89d1ea4852a6631e52d meta provides=unfencing
+pcs stonith create scsi-Fence fence_scsi pcmk_host_list="cent1 cent2 cent3" devices=/dev/disk/by-id/wwn-0x6001405588b270da4024a1c92f37ff7b meta provides=unfencing
 
 Na node 1 Vytvorime LVM:
 
