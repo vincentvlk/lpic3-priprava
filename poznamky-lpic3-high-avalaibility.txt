@@ -2353,7 +2353,9 @@ ll /dev/disk/by-id | grep sda | grep wwn
 - vytvorime Fencing STONITH pomocou SCSI:
 pcs stonith create scsi-Fence fence_scsi pcmk_host_list="cent1 cent2 cent3" devices=/dev/disk/by-id/wwn-0x600140500223d89d1ea4852a6631e52d meta provides=unfencing
 
-Vytvorime LVM:
+Na node 1 Vytvorime LVM:
+
+- skontrolujeme stav LVM na uzloch: $ sudo lvs; echo; sudo vgs; echo; sudo pvs
 
 # parted --script /dev/sda "mklabel gpt"
 
