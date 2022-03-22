@@ -2318,19 +2318,48 @@ Praca so suborovym systemom GFS2 (Global File System), rezim active/active, zhod
 ?? - maximalna podporovana kapacita je 100TiB
 
 
+v subore "/etc/iscsi/iscsid.conf" upravime konfiguraciu na:
+
+node.session.auth.authmethod = CHAP
+node.startup = automatic
+node.session.auth.username = gfsnode
+node.session.auth.password = gfs.2022
+
+pridame napr. do suboru "/etc/iscsi/initiatorname.iscsi"
+
+InitiatorName=iqn.2022-03.lpic3.lab:gfs.node1.init1
+
+nasledne: # iscsiadm -m discovery -t sendtargets -p 192.168.255.X
+
+ak discovery najde viac targetov, treba ich zmazat, napr. na CentOS 9 Stream:
+
+rm -rf /var/lib/iscsi/nodes/iqn.2022-03.lpic3.suse1\:www.target01/
+
+nasledne: $ sudo iscsiadm -m node --login 
+
 v subore "/etc/lvm/lvm.conf"
 
-    odstranit riadok "use_lvmlockd = 1"
+    pridat riadok "use_lvmlockd = 1"
     odstranit riadok "volume_list = [ XYZ ]"
+    odstranit riadok "locking_type = XYZ"
 
 pcs property set stonith-enabled=true
 
-pvcreate /dev/sda1
-
 dnf --enablerepo=resilientstorage -y install lvm2-lockd gfs2-utils dlm
 
-pvcreate /dev/sda1
+# parted --script /dev/sda "mklabel gpt"
+
+# parted --script /dev/sda "mkpart primary 0% 100%"
+
+# parted --script /dev/sda "set 1 lvm on"
+
+# pvcreate /dev/sda1
+
+# vgcreate --shared vg_gfs /dev/sda1 
+
 
 mkfs.gfs2 -j2 -p lock_dlm -t centos-clus1:gfs-01 /dev/vg_gfs/lv_gfs
 
-pcs resource create shared_lv ocf:heartbeat:LVM-activate lvname=lv_gfs2 vgname=vg_gfs2 activation_mode=shared vg_access_mode=lvmlockd --group shared_vg 
+pcs resource create shared_lv ocf:heartbeat:LVM-activate lvname=lv_gfs vgname=vg_gfs activation_mode=shared vg_access_mode=lvmlockd --group shared_vg
+
+pcs resource create shared_fs ocf:heartbeat:Filesystem device="/dev/vg_gfs/lv_gfs" directory="/home/gfs-share" fstype="gfs2" options=noatime op monitor interval=10s on-fail=fence --group shared_vg
