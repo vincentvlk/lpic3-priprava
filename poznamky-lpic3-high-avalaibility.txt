@@ -2317,6 +2317,13 @@ Praca so suborovym systemom GFS2 (Global File System), rezim active/active, zhod
  - su potrebne technologie DLM a cLVM na koordinaciu zamykania suborov (file locking)
 ?? - maximalna podporovana kapacita je 100TiB
 
+o- acls .................................................................................................................. [ACLs: 3]
+  o- iqn.2022-03.lpic3.lab:gfs.node1.init1 ........................................................................ [Mapped LUNs: 1]
+  | o- mapped_lun0 .................................................................................... [lun0 fileio/gfs-disk1 (rw)]
+  o- iqn.2022-03.lpic3.lab:gfs.node2.init1 ........................................................................ [Mapped LUNs: 1]
+  | o- mapped_lun0 .................................................................................... [lun0 fileio/gfs-disk1 (rw)]
+  o- iqn.2022-03.lpic3.lab:gfs.node3.init1 ........................................................................ [Mapped LUNs: 1]
+    o- mapped_lun0 .................................................................................... [lun0 fileio/gfs-disk1 (rw)]
 
 dnf --enablerepo=highavailability,resilientstorage -y install fence-agents-scsi lvm2-lockd gfs2-utils dlm
 
@@ -2357,15 +2364,14 @@ Na node 1 Vytvorime LVM:
 
 - skontrolujeme stav LVM na uzloch: $ sudo lvs; echo; sudo vgs; echo; sudo pvs
 
+Na prvom uzle vytvorime LVM disk:
+
 # parted --script /dev/sda "mklabel gpt"
-
 # parted --script /dev/sda "mkpart primary 0% 100%"
-
 # parted --script /dev/sda "set 1 lvm on"
-
 # pvcreate /dev/sda1
+# vgcreate --shared vg_gfs2 /dev/sda1 
 
-# vgcreate --shared vg_gfs /dev/sda1 
 
 mkfs.gfs2 -j2 -p lock_dlm -t centos-clus1:gfs-01 /dev/vg_gfs/lv_gfs
 
