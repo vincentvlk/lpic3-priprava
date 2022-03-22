@@ -2267,6 +2267,7 @@ Priklad instalacie riesenia "Device Mapper Mulltipath" v OS CentOS Stream 9
  - stav dostupnych multipath zariadeni overime s: $ sudo multipath -ll
  - tieto zariadenia su dostupne ako "/dev/mapper/mpathX" , "/dev/mapper/mpathX" a pod.
 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Praca s LVM, logicke LV particie sa zvycajne mapuju napr. ako: "/dev/mapper/ubuntu--vg-ubuntu--lv"
  - kde je teda VG (Volume Group) sa nazvom "ubuntu" a LV (Logical Volume) s nazvom "ubuntu" 
    - je to symbolicky link
@@ -2305,5 +2306,6 @@ Praca s LVM, logicke LV particie sa zvycajne mapuju napr. ako: "/dev/mapper/ubun
  - nasledne restartujeme uzly: $ sudo reboot
  - po reboote: $ sudo pcs resource 
 
-**Zasekol som sa, na novych distrach esxsituju nove tooly/postupy/kniznice**
+**Zasekol som sa, na novych distrach exsituju nove tooly/postupy/kniznice, ktore zatial nepoznam**
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
