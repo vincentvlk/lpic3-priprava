@@ -1802,6 +1802,7 @@ Instalacia Unicast clustra v CentOS Stream 9, pridame repo.: $ sudo dnf install 
  - pokracujeme Autentifikaciou uzlov: $ sudo pcs host auth cent1 cent2 cent3
    - na koniec prikazu mozeme pridat "--debug" 
  - diagnostika: $ sudo pcs status pcsd cent1 cent2 cent3
+   - detailensjie diagnostika: $ sudo pcs status --full
  - dalej zostavime cluster: $ sudo pcs cluster setup centos-clus1 cent1 cent2 cent3 --start --enable
  - overime s: $ sudo pcs status
  - stav vsetkych potrebnych sluzieb overime s: $ sudo systemctl status pacemaker corosync pcsd
@@ -2313,4 +2314,20 @@ Praca so suborovym systemom GFS2 (Global File System), rezim active/active, zhod
  - pracuje len v cluster rieseni
  - kazdy uzol ma svoj vlastny FS journal
  - ostatne uzly clustra zreplikuju journal uzla, ktory zlyhava, po aplikovani Fencing-u
- - 
+ - su potrebne technologie DLM a cLVM na koordinaciu zamykania suborov (file locking)
+?? - maximalna podporovana kapacita je 100TiB
+
+
+in "/etc/lvm/lvm.conf"
+
+use_lvmlockd = 1
+
+pcs property set stonith-enabled=true
+
+pvcreate /dev/sda1
+
+dnf --enablerepo=resilientstorage -y install lvm2-lockd gfs2-utils dlm
+
+pvcreate /dev/sda1
+
+mkfs.gfs2 -j2 -p lock_dlm -t centos-clus1:gfs-01 /dev/vg_gfs/lv_gfs
