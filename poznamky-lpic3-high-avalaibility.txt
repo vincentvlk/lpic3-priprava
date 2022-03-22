@@ -2318,9 +2318,10 @@ Praca so suborovym systemom GFS2 (Global File System), rezim active/active, zhod
 ?? - maximalna podporovana kapacita je 100TiB
 
 
-in "/etc/lvm/lvm.conf"
+v subore "/etc/lvm/lvm.conf"
 
-use_lvmlockd = 1
+    odstranit riadok "use_lvmlockd = 1"
+    odstranit riadok "volume_list = [ XYZ ]"
 
 pcs property set stonith-enabled=true
 
@@ -2331,3 +2332,5 @@ dnf --enablerepo=resilientstorage -y install lvm2-lockd gfs2-utils dlm
 pvcreate /dev/sda1
 
 mkfs.gfs2 -j2 -p lock_dlm -t centos-clus1:gfs-01 /dev/vg_gfs/lv_gfs
+
+pcs resource create shared_lv ocf:heartbeat:LVM-activate lvname=lv_gfs2 vgname=vg_gfs2 activation_mode=shared vg_access_mode=lvmlockd --group shared_vg 
