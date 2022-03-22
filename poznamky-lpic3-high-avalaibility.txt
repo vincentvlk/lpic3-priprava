@@ -2317,6 +2317,13 @@ Praca so suborovym systemom GFS2 (Global File System), rezim active/active, zhod
  - su potrebne technologie DLM a cLVM na koordinaciu zamykania suborov (file locking)
 ?? - maximalna podporovana kapacita je 100TiB
 
+treba vytvorit minimalne 2 LUNy, jeden maly (1 MB) a druhy na storage napr. 10GB, na storage moze byt viac...
+
+ fencedisk1 .............................................. [/var/lib/iscsi_pool1/fencedisk1.img (1.0MiB) write-back activated]
+ gfs2disk1 ............................................... [/var/lib/iscsi_pool1/gfs2disk1.img (10.0GiB) write-back activated]
+
+$ sudo iscsiadm -m node --rescan
+
 iqn.2022-03.lpic3.lab:gfs-disk1.tar1
 
   o- iqn.2022-03.lpic3.lab:gfs.node1.init1 ........................................................................ [Mapped LUNs: 1]
@@ -2350,7 +2357,12 @@ v subore "/etc/lvm/lvm.conf"
     odstranit riadok "volume_list = [ XYZ ]"
     odstranit riadok "locking_type = XYZ"
 
-pcs property set stonith-enabled=true
+zapneme STONITH mna cluster-y:
+
+$ sudo pcs property set stonith-enabled=true
+
+overime s:
+$ sudo pcs property config
 
 - zistime WWN pre SCSI Stonith:
 ll /dev/disk/by-id | grep sda | grep wwn 
@@ -2373,8 +2385,12 @@ Na prvom uzle vytvorime LVM disk:
 # pvcreate /dev/sda1
 # vgcreate --shared vg_gfs2 /dev/sda1 
 
+[root@lpic3-cent1 ~]# vgcreate --shared vg_gfs2 /dev/sda1
+  Volume group "vg_gfs2" successfully created
+  VG vg_gfs2 starting dlm lockspace
+  Starting locking.  Waiting until locks are ready...
 
-mkfs.gfs2 -j2 -p lock_dlm -t centos-clus1:gfs-01 /dev/vg_gfs/lv_gfs
+mkfs.gfs2 -j3 -p lock_dlm -t centos-clus1:gfs-01 /dev/vg_gfs/lv_gfs
 
 pcs resource create shared_lv ocf:heartbeat:LVM-activate lvname=lv_gfs vgname=vg_gfs activation_mode=shared vg_access_mode=lvmlockd --group shared_vg
 
