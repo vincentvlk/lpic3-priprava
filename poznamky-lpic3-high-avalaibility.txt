@@ -2317,13 +2317,11 @@ Praca so suborovym systemom GFS2 (Global File System), rezim active/active, zhod
  - su potrebne technologie DLM a cLVM na koordinaciu zamykania suborov (file locking)
 ?? - maximalna podporovana kapacita je 100TiB
 
-o- acls .................................................................................................................. [ACLs: 3]
+iqn.2022-03.lpic3.lab:gfs-disk1.tar1
+
   o- iqn.2022-03.lpic3.lab:gfs.node1.init1 ........................................................................ [Mapped LUNs: 1]
-  | o- mapped_lun0 .................................................................................... [lun0 fileio/gfs-disk1 (rw)]
   o- iqn.2022-03.lpic3.lab:gfs.node2.init1 ........................................................................ [Mapped LUNs: 1]
-  | o- mapped_lun0 .................................................................................... [lun0 fileio/gfs-disk1 (rw)]
   o- iqn.2022-03.lpic3.lab:gfs.node3.init1 ........................................................................ [Mapped LUNs: 1]
-    o- mapped_lun0 .................................................................................... [lun0 fileio/gfs-disk1 (rw)]
 
 dnf --enablerepo=highavailability,resilientstorage -y install fence-agents-scsi lvm2-lockd gfs2-utils dlm
 
