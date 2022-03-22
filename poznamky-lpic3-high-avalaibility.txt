@@ -2318,6 +2318,8 @@ Praca so suborovym systemom GFS2 (Global File System), rezim active/active, zhod
 ?? - maximalna podporovana kapacita je 100TiB
 
 
+dnf --enablerepo=highavailability,resilientstorage -y install fence-agents-scsi lvm2-lockd gfs2-utils dlm
+
 v subore "/etc/iscsi/iscsid.conf" upravime konfiguraciu na:
 
 node.session.auth.authmethod = CHAP
@@ -2345,7 +2347,13 @@ v subore "/etc/lvm/lvm.conf"
 
 pcs property set stonith-enabled=true
 
-dnf --enablerepo=resilientstorage -y install lvm2-lockd gfs2-utils dlm
+- zistime WWN pre SCSI Stonith:
+ll /dev/disk/by-id | grep sda | grep wwn 
+
+- vytvorime Fencing STONITH pomocou SCSI:
+pcs stonith create scsi-Fence fence_scsi pcmk_host_list="cent1 cent2 cent3" devices=/dev/disk/by-id/wwn-0x600140500223d89d1ea4852a6631e52d meta provides=unfencing
+
+Vytvorime LVM:
 
 # parted --script /dev/sda "mklabel gpt"
 
@@ -2356,7 +2364,6 @@ dnf --enablerepo=resilientstorage -y install lvm2-lockd gfs2-utils dlm
 # pvcreate /dev/sda1
 
 # vgcreate --shared vg_gfs /dev/sda1 
-
 
 mkfs.gfs2 -j2 -p lock_dlm -t centos-clus1:gfs-01 /dev/vg_gfs/lv_gfs
 
