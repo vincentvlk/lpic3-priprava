@@ -2309,3 +2309,8 @@ Praca s LVM, logicke LV particie sa zvycajne mapuju napr. ako: "/dev/mapper/ubun
 **Zasekol som sa, na novych distrach exsituju nove tooly/postupy/kniznice, ktore zatial nepoznam**
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+Praca so suborovym systemom GFS2 (Global File System), rezim active/active, zhoda s POSIX-om
+ - pracuje len v cluster rieseni
+ - kazdy uzol ma svoj vlastny FS journal
+ - ostatne uzly clustra zreplikuju journal uzla, ktory zlyhava, po aplikovani Fencing-u
+ - 
