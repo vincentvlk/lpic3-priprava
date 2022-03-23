@@ -2330,6 +2330,10 @@ iqn.2022-03.lpic3.lab:gfs-disk1.tar1
   o- iqn.2022-03.lpic3.lab:gfs.node2.init1 ........................................................................ [Mapped LUNs: 1]
   o- iqn.2022-03.lpic3.lab:gfs.node3.init1 ........................................................................ [Mapped LUNs: 1]
 
+
+ - ako vypisat dostupne repozitare: $ sudo dnf repolist all 
+ - zapneme repozitare: $ sudo dnf config-manager --set-enabled highavailability,resilientstorage
+
 dnf --enablerepo=highavailability,resilientstorage -y install fence-agents-scsi lvm2-lockd gfs2-utils dlm
 
 zapneme sluzbu "LVMlockd": $ sudo systemctl enable lvmlockd.service
@@ -2396,6 +2400,8 @@ Na prvom uzle vytvorime LVM disk:
 # pvcreate /dev/sda1
 # vgcreate --shared vg_gfs2 /dev/sda1 
 
+- poznamka, prepisat "zaciatok" disku nulami: $ sudo dd if=/dev/zero of=/dev/sda bs=1M count=100
+
 [root@lpic3-cent1 ~]# vgcreate --shared vg_gfs2 /dev/sda1
   Volume group "vg_gfs2" successfully created
   VG vg_gfs2 starting dlm lockspace
@@ -2407,7 +2413,8 @@ pcs resource create shared_lv ocf:heartbeat:LVM-activate lvname=lv_gfs vgname=vg
 
 pcs resource create shared_fs ocf:heartbeat:Filesystem device="/dev/vg_gfs/lv_gfs" directory="/home/gfs-share" fstype="gfs2" options=noatime op monitor interval=10s on-fail=fence --group shared_vg
 
-lpic3-cent1-snap2
-po konfiguracii GFS2 clustera, ostava shared LVM
+** zatial nedokoncene, problem s cLVM na CentOS9 Stream **
 
-$ sudo dd if=/dev/zero of=/dev/sda bs=1M count=100
+- poznamka: alternativy k CentOS: CentOS Stream, Alma Linux, Rocky Linux, Oracle Linux
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+ 
