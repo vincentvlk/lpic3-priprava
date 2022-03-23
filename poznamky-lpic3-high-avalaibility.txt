@@ -2346,7 +2346,7 @@ pridame napr. do suboru "/etc/iscsi/initiatorname.iscsi"
 
 InitiatorName=iqn.2022-03.lpic3.lab:gfs.node1.init1
 
-nasledne: # iscsiadm -m discovery -t sendtargets -p 192.168.255.X
+nasledne: $ sudo iscsiadm -m discovery -t sendtargets -p 192.168.255.X
 
 ak discovery najde viac targetov, treba ich zmazat, napr. na CentOS 9 Stream:
 
@@ -2362,9 +2362,10 @@ v subore "/etc/lvm/lvm.conf"
 
 overime s: $ sudo lvmconfig
 
-zapneme STONITH mna cluster-y:
+zapneme STONITH mna cluster-y a upraqvime konfiguraciu technologie Qourum:
 
 $ sudo pcs property set stonith-enabled=true
+$ sudo pcs property set no-quorum-policy=freeze
 
 overime s:
 $ sudo pcs property config
@@ -2374,6 +2375,11 @@ ll /dev/disk/by-id | grep sda | grep wwn
 
 - vytvorime Fencing STONITH pomocou SCSI:
 pcs stonith create scsi-Fence fence_scsi pcmk_host_list="cent1 cent2 cent3" devices=/dev/disk/by-id/wwn-0x600140520845b9b2586439fa1949df69 meta provides=unfencing
+
+- vytvorime "DLM Locking"  zdroj: $ sudo pcs resource create dlm ocf:pacemaker:controld op monitor interval=30s on-fail=fence --group locking
+- dalej zdroj klonujeme na ostatne uzly: $ sudo pcs resource clone locking interleave=true
+
+- vytvorime "LVMlockd" zdroj: # sudo pcs resource create lvmlockdd ocf:heartbeat:lvmlockd op monitor interval=30s on-fail=fence --group locking
 
 Na node 1 Vytvorime LVM:
 
