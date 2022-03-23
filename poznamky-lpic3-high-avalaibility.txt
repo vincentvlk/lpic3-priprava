@@ -2277,7 +2277,7 @@ Praca s LVM, logicke LV particie sa zvycajne mapuju napr. ako: "/dev/mapper/ubun
  - rozsirenie cLVM je pre koncept "Clustered LVM", umoznuje vytvorit tzv. "Cluster Sharede Volume"
  - rozsirenie HALVM je dostupne na RedHat based systemoch, zabranuje sucasnemu zapisu 2 uzlov
  - dolezity proces "clvmd" sluzi na propagaciu zmien dalsim uzlom, novsi proces ako HALVM
-   - dalsou poziadavkou je DLM - Distributed Locck Manager
+   - dalsou poziadavkou je DLM - Distributed Lock Manager, znamy aj pod nazvom "controld"
  - v cLVM su vsetky VG a LV na zdielanom storage su *stale* dostupne *vsetkym* uzlom
    - vhodne na Cluster Suborove systemy ako je napr. GFS2
  - v HALVM su VG a LV dostupne v danom case len *jednemu* uzlu z clustera, vhodne na ext4,xfs,btrfs
@@ -2409,3 +2409,5 @@ pcs resource create shared_fs ocf:heartbeat:Filesystem device="/dev/vg_gfs/lv_gf
 
 lpic3-cent1-snap2
 po konfiguracii GFS2 clustera, ostava shared LVM
+
+$ sudo dd if=/dev/zero of=/dev/sda bs=1M count=100
