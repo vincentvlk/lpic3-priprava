@@ -2332,6 +2332,9 @@ iqn.2022-03.lpic3.lab:gfs-disk1.tar1
 
 dnf --enablerepo=highavailability,resilientstorage -y install fence-agents-scsi lvm2-lockd gfs2-utils dlm
 
+zapneme sluzbu "LVMlockd": $ sudo systemctl enable lvmlockd.service
+ - overime s: $ sudo systemctl status lvmlockd.service
+
 v subore "/etc/iscsi/iscsid.conf" upravime konfiguraciu na:
 
 node.session.auth.authmethod = CHAP
