@@ -2331,13 +2331,18 @@ iqn.2022-03.lpic3.lab:gfs-disk1.tar1
   o- iqn.2022-03.lpic3.lab:gfs.node3.init1 ........................................................................ [Mapped LUNs: 1]
 
 
- - ako vypisat dostupne repozitare: $ sudo dnf repolist all 
- - zapneme repozitare: $ sudo dnf config-manager --set-enabled highavailability,resilientstorage
+- ako vypisat dostupne repozitare: $ sudo dnf repolist all 
 
-dnf --enablerepo=highavailability,resilientstorage -y install fence-agents-scsi lvm2-lockd gfs2-utils dlm
+- verzia pre CentOS 9 Stream:
+- zapneme repozitare: $ sudo dnf config-manager --set-enabled highavailability,resilientstorage
+  - instalacia: $ sudo dnf -y in fence-agents-scsi lvm2-lockd gfs2-utils dlm
 
-zapneme sluzbu "LVMlockd": $ sudo systemctl enable lvmlockd.service
- - overime s: $ sudo systemctl status lvmlockd.service
+- verzia pre Rocky-Linux 8.5:
+- zapneme repozitare: $ sudo dnf config-manager --set-enabled ha,resilient-storage
+  - instalacia: $ sudo dnf -y in fence-agents-scsi lvm2-lockd gfs2-utils dlm
+
+- zapneme sluzbu "LVMlockd": $ sudo systemctl enable lvmlockd.service
+  - overime s: $ sudo systemctl status lvmlockd.service
 
 v subore "/etc/iscsi/iscsid.conf" upravime konfiguraciu na:
 
@@ -2418,3 +2423,73 @@ pcs resource create shared_fs ocf:heartbeat:Filesystem device="/dev/vg_gfs/lv_gf
 - poznamka: alternativy k CentOS: CentOS Stream, Alma Linux, Rocky Linux, Oracle Linux
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
  
+cent1:
+
+DEVICE="ens160"
+ONBOOT="YES"
+IPADDR=192.168.255.21
+NETMASK=255.255.255.0
+GATEWAY=192.168.255.1
+DNS1=1.1.1.1
+DNS2=9.9.9.9
+TYPE=Ethernet
+PROXY_METHOD=none
+BROWSER_ONLY=no
+BOOTPROTO=none
+PREFIX=24
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=no
+IPV6_DISABLED=yes
+IPV6INIT=no
+IPV6_DEFROUTE=yes
+IPV6_FAILURE_FATAL=no
+NAME="System ens160"
+
+cent2:
+
+DEVICE=ens160
+ONBOOT=yes
+IPADDR=192.168.255.22
+NETMASK=255.255.255.0
+GATEWAY=192.168.255.1
+DNS1=1.1.1.1
+DNS2=9.9.9.9
+TYPE=Ethernet
+PROXY_METHOD=none
+BROWSER_ONLY=no
+BOOTPROTO=none
+PREFIX=24
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=no
+IPV6_DISABLED=yes
+IPV6INIT=no
+IPV6_DEFROUTE=yes
+IPV6_FAILURE_FATAL=no
+NAME="System ens160"
+UUID=ea74cf24-c2a2-ecee-3747-a2d76d46f93b
+
+
+cent3:
+
+DEVICE=ens160
+ONBOOT=yes
+IPADDR=192.168.255.23
+NETMASK=255.255.255.0
+GATEWAY=192.168.255.1
+DNS1=1.1.1.1
+DNS2=9.9.9.9
+TYPE=Ethernet
+PROXY_METHOD=none
+BROWSER_ONLY=no
+BOOTPROTO=none
+PREFIX=24
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=no
+IPV6_DISABLED=yes
+IPV6INIT=no
+IPV6_DEFROUTE=yes
+IPV6_FAILURE_FATAL=no
+NAME="System ens160"
+UUID=ea74cf24-c2a2-ecee-3747-a2d76d46f93b
+
+
