@@ -2481,10 +2481,21 @@ Pacemaker/Corosync (Unicast) Cluster na OS "Rocky Linux 8.5":
      - overime s: $ sudo lvmconfig | grep lvmlockd
    - upravime konfiguraciu technologie Quorum: $ sudo pcs property set no-quorum-policy=freeze
      - overime s: $ sudo pcs property config        
-   - vytvorime DLM zdroj:
+   - vytvorime DLM (Distributed Locking MAnager) zdroj:
 
         $ sudo pcs resource create dlm ocf:pacemaker:controld op monitor interval=30s \
         on-fail=fence --group locking
+
+   - dalej zdroj klonujeme na ostatne uzly: $ sudo pcs resource clone locking interleave=true
+   - pokracujeme vytvorenim zdroja "LVM lockd":
+     
+     $ sudo pcs resource create res_lvmlockd ocf:heartbeat:lvmlockd \
+      op monitor interval=30s on-fail=fence --group locking
+
+   - overime s: $ sudo pcs status --full
+   - *LEN* na 1 uzle vytvorime, na zdielanom iSCSI LUNe particiu so suborovym systemom LVM:
+
+
 
     $ sudo pcs resource create shared_fs ocf:heartbeat:Filesystem device="/dev/vg_gfs2/lv_gfs2" \
     directory="/mnt/gfs2disk1" fstype="gfs2" options=noatime op monitor \
