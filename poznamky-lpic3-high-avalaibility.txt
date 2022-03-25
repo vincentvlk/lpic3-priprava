@@ -2478,6 +2478,13 @@ Pacemaker/Corosync (Unicast) Cluster na OS "Rocky Linux 8.5":
    - podobne ako pri STONITH sa pripojime na dalsi novy LUN, ktory sluzi uz ako aplikacny FS
    - na oboch uzloch upravime konfiguraciu LVM v subore "/etc/lvm/lvm.conf"
      - upravit riadok na: "use_lvmlockd = 1"
+     - overime s: $ sudo lvmconfig | grep lvmlockd
+   - upravime konfiguraciu technologie Quorum: $ sudo pcs property set no-quorum-policy=freeze
+     - overime s: $ sudo pcs property config        
+   - vytvorime DLM zdroj:
+
+        $ sudo pcs resource create dlm ocf:pacemaker:controld op monitor interval=30s \
+        on-fail=fence --group locking
 
     $ sudo pcs resource create shared_fs ocf:heartbeat:Filesystem device="/dev/vg_gfs2/lv_gfs2" \
     directory="/mnt/gfs2disk1" fstype="gfs2" options=noatime op monitor \
