@@ -2426,16 +2426,33 @@ pcs resource create shared_fs ocf:heartbeat:Filesystem device="/dev/vg_gfs/lv_gf
 Pacemaker/Corosync (Unicast) Cluster na OS "Rocky Linux 8.5":
 
  - vytvorime DNS zaznamy uzlov, alebo "/etc/hosts"
- - zapneme repo.: $ sudo dnf config-manager --set-enabled ha,resilient-storage
- - instalujeme: $ sudo dnf -y in pacemaker pcs
- - zapneme PCS daemona: $ sudo systemctl enable --now pcsd
- - nastavime heslo pre "hacluster" uzivatela: $ sudo passwd hacluster
-   - alebo: $ sudo echo <heslo> | passwd --stdin hacluster
- - povolime na fwl.: $ sudo firewall-cmd --add-service=high-availability --permanent
-   - restart fwl.: $ sudo firewall-cmd --reload
- - autentifikujeme uzly: $ sudo pcs host auth <hostname1> <hostname2>
- - vytvorime cluster: $ sudo pcs cluster setup rocky_cluster <hostname1> <hostname2>
- - nastartujeme cluster(clustre): $ sudo pcs cluster start --all
- - zapeneme cluster(clustre): $ sudo pcs cluster enable --all
+ - na uzloch zapneme repo.: $ sudo dnf config-manager --set-enabled ha,resilient-storage
+ - na uzloch instalujeme: $ sudo dnf -y in pacemaker pcs fence-agents-scsi iscsi-initiator-utils
+ - na uzloch zapneme PCS daemona: $ sudo systemctl enable --now pcsd
+ - na uzloch nastavime heslo pre "hacluster" uzivatela: $ sudo passwd hacluster
+   - alebo: $ sudo echo <heslo> | sudo passwd --stdin hacluster
+ - na uzloch povolime na fwl.: $ sudo firewall-cmd --add-service=high-availability --permanent
+   - na uzloch restart fwl.: $ sudo firewall-cmd --reload
+ - na uzloch autentifikujeme clenov/uzly clustra: $ sudo pcs host auth <hostname1> <hostname2>
+ - na 1 uzle vytvorime cluster: $ sudo pcs cluster setup rocky_cluster <hostname1> <hostname2>
+ - na 1 uzle nastartujeme cluster(clustre): $ sudo pcs cluster start --all
+ - na 1 uzle zapneme cluster(clustre): $ sudo pcs cluster enable --all
    - overime s "$ sudo pcs status --full" a s "$ sudo pcs status corosync"
+ - odbocka: da sa pouzivat aj Web rozhranie na pracu Pacamaker clustra:
+   - povolime na fwl.: firewall-cmd --add-port=2224/tcp --permanent  
+   - nezabudnut na: $ sudo firewall-cmd --reload
+   - pripojime sa na "https://nodeX:2224" a prihlasime sa s uzivatelom "hacluster"
+ - Fencing/STONITH je rieseny cez iSCSI LUN, staci maly, aj 1 MB (dufam):
+   - na oboch uzloch, pripojime sa na LUN, definujeme iSCSI initiatora v "/etc/iscsi/initiatorname.iscsi"
+   - vlozime IQN, ktore je na iSCSI target-e, napr: InitiatorName=iqn.2022-03.lpic3.lab:gfs.node1.init1
+     - na druhy uzol, napr.: InitiatorName=iqn.2022-03.lpic3.lab:gfs.node2.init1  
+   - podla iSCSI Target-u, nastavime meno/heslo/parametre v subore "/etc/iscsi/iscsid.conf":
+
+        node.session.auth.authmethod = CHAP
+        node.startup = automatic
+        node.session.auth.username = <meno>
+        node.session.auth.password = <heslo>     
    
+   - poznmaka, preskumat/otestovat ine auth. algoritmy ako (hanbate) MD5
+   - spustime iSCSI target discovery: $ sudo iscsiadm -m discovery -t sendtargets -p <storage-Host>
+   - ak najde viac targetov, mazeme: $ sudo rm -rf /var/lib/iscsi/nodes/iqn.2022-03.lpic3.suse1\:target1/
