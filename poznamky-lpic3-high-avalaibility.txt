@@ -2467,3 +2467,9 @@ Pacemaker/Corosync (Unicast) Cluster na OS "Rocky Linux 8.5":
     $ sudo pcs stonith create scsi-Fence fence_scsi pcmk_host_list="<node1> <node2>" \
     devices=/dev/disk/by-id/wwn-0x600140520845b9b2586439fa1949df69 meta provides=unfencing
 
+   - overime s: $ sudo pcs status --full 
+   - mimo produkcie mozeme Fencing otestovat s: $ sudo pcs stonith fence <node2>
+     - na obnovenie treba druhy uzol rebootovat, nic lepsie som zatial nenasiel
+
+
+
