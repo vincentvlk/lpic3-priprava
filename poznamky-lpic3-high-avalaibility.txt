@@ -2423,3 +2423,14 @@ pcs resource create shared_fs ocf:heartbeat:Filesystem device="/dev/vg_gfs/lv_gf
 - poznamka: alternativy k CentOS: CentOS Stream, Alma Linux, Rocky Linux, Oracle Linux
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
  
+Pacemaker/Corosync Cluster na OS "Rocky Linux 8.5":
+
+ - vytvorime DNS zaznamy uzlov, alebo "/etc/hosts"
+ - zapneme repo.: $ sudo dnf config-manager --set-enabled ha,resilient-storage
+ - instalujeme: $ sudo dnf -y in pacemaker pcs
+ - zapneme PCS daemona: $ sudo systemctl enable --now pcsd
+ - nastavime heslo pre "hacluster" uzivatela: $ sudo passwd hacluster
+ - povolime na fwl.: $ sudo firewall-cmd --add-service=high-availability --permanent
+   - restart fwl.: $ sudo firewall-cmd --reload
+ - autentifikujeme uzly: $ sudo pcs host auth <hostname1> <hostname2>
+
