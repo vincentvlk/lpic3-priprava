@@ -2462,6 +2462,8 @@ Pacemaker/Corosync (Unicast) Cluster na OS "Rocky Linux 8.5":
      - overime napr. s "$ sudo iscsiadm -m session -o show" / "$ sudo lsscsi" / "$ sudo lsblk"
    - dalej, zistime si WWN spominaneho 1MB Fencing LUNu: $ sudo ls -l /dev/disk/by-id/ | grep wwn
    - nasledne vytvorime Fencing zdroj, treba pouzit dlhy prikaz s vlastnym WWN, ktore sme nasli:
+     - na definiciu clenov clsustr-a treba pouzit DNS hostnames uzlov 
 
     $ sudo pcs stonith create scsi-Fence fence_scsi pcmk_host_list="<node1> <node2>" \
     devices=/dev/disk/by-id/wwn-0x600140520845b9b2586439fa1949df69 meta provides=unfencing
+
