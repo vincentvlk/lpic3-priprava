@@ -2443,8 +2443,9 @@ Pacemaker/Corosync (Unicast) Cluster na OS "Rocky Linux 8.5":
    - nezabudnut na: $ sudo firewall-cmd --reload
    - pripojime sa na "https://nodeX:2224" a prihlasime sa s uzivatelom "hacluster"
  - na uzloch zapneme STONITH / Fencing: $ sudo pcs property set stonith-enabled=true
+   - overime s: $ sudo pcs property config 
  - Fencing/STONITH je rieseny cez iSCSI LUN, staci maly, aj 1 MB (dufam):
-   - na oboch uzloch, pripojime sa na LUN, definujeme iSCSI initiatora v "/etc/iscsi/initiatorname.iscsi"
+   - na oboch uzloch, sa pripojime na LUN, definujeme iSCSI initiatora v "/etc/iscsi/initiatorname.iscsi"
    - vlozime IQN, ktore je na iSCSI target-e, napr: InitiatorName=iqn.2022-03.lpic3.lab:gfs.node1.init1
      - na druhy uzol, napr.: InitiatorName=iqn.2022-03.lpic3.lab:gfs.node2.init1  
    - podla iSCSI Target-u, nastavime meno/heslo/parametre v subore "/etc/iscsi/iscsid.conf":
@@ -2460,4 +2461,7 @@ Pacemaker/Corosync (Unicast) Cluster na OS "Rocky Linux 8.5":
    - prihlasime sa na iSCSI target: $ sudo iscsiadm -m node --login
      - overime napr. s "$ sudo iscsiadm -m session -o show" / "$ sudo lsscsi" / "$ sudo lsblk"
    - dalej, zistime si WWN spominaneho 1MB Fencing LUNu: $ sudo ls -l /dev/disk/by-id/ | grep wwn
-   - nasledne vytvor
+   - nasledne vytvorime Fencing zdroj, treba pouzit dlhy prikaz s vlastnym WWN, ktore sme nasli:
+
+    $ sudo pcs stonith create scsi-Fence fence_scsi pcmk_host_list="<node1> <node2>" \
+    devices=/dev/disk/by-id/wwn-0x600140520845b9b2586439fa1949df69 meta provides=unfencing
