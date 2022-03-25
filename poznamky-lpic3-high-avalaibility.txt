@@ -2515,8 +2515,20 @@ Pacemaker/Corosync (Unicast) Cluster na OS "Rocky Linux 8.5":
      lvname=lv_gfs2 vgname=vg_gfs2 activation_mode=shared vg_access_mode=lvmlockd --group shared_vg 
 
    - tento zdroj klonujeme na dalsie uzly: $ sudo pcs resource $ sudo clone shared_vg interleave=true
+   - pridame poradie startu: $ sudo pcs constraint order start locking-clone then shared_vg-clone
+   - pridame start na 1 node: $ sudo pcs constraint colocation add shared_vg-clone with locking-clone
+   - overime s "$ sudo pcs status --full" a "$ sudo pcs constraint config"
 
+   - na oboch uzloch vytvorime adresar, kde cluster "namountuje" GFS2 disk: $ sudo mkdir /mnt/gfs2disk1
+   - vytvorime zdielany GFS2 zdroj, na ukladanie dat so synchronizaciou:
+   
     $ sudo pcs resource create shared_fs ocf:heartbeat:Filesystem device="/dev/vg_gfs2/lv_gfs2" \
     directory="/mnt/gfs2disk1" fstype="gfs2" options=noatime op monitor \
     interval=10s on-fail=fence --group shared_vg
+
+   - overime cluster stack: $ sudo pcs status --full 
+   - ak je vsetko aktivne bez chyb, vsetky uzly budu mat dostupny GFS2 "mount": $ sudo df -hT
+   - da sa otestovat, ze napr. kazdy uzol zapise do "/mnt/gfs2disk1" napr. $ sudo touch uzol1
+     - ostatne uzly uvidia subor "uzol1" v "/mnt/gfs2disk1"
+
 
