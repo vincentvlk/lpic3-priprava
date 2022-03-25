@@ -2475,9 +2475,11 @@ Pacemaker/Corosync (Unicast) Cluster na OS "Rocky Linux 8.5":
      - na obnovenie treba druhy uzol rebootovat, nic lepsie som zatial nenasiel
 
  - pokracujeme konfiguraciou active/active storage clustr-a, postaveneho na GFS2
-   - podobne ako pri STONITH sa pripojime na novy LUN
+   - podobne ako pri STONITH sa pripojime na dalsi novy LUN, ktory sluzi uz ako aplikacny FS
+   - na oboch uzloch upravime konfiguraciu LVM v subore "/etc/lvm/lvm.conf"
+     - upravit riadok na: "use_lvmlockd = 1"
 
     $ sudo pcs resource create shared_fs ocf:heartbeat:Filesystem device="/dev/vg_gfs2/lv_gfs2" \
     directory="/mnt/gfs2disk1" fstype="gfs2" options=noatime op monitor \
-    interval=10s on-fail=fence --group shared_vg 
+    interval=10s on-fail=fence --group shared_vg
 
