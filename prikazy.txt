@@ -1,4 +1,0 @@
-nahrat na SDF poznamky:
-
-scp poznamky-lpic3-high-avalaibility.txt viny@beastie.sdf.org:docs.d/poznamky-lpic3-high-avalaibility.txt
-
