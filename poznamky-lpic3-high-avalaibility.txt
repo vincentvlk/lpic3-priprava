@@ -2531,4 +2531,8 @@ Pacemaker/Corosync (Unicast) Cluster na OS "Rocky Linux 8.5":
    - da sa otestovat, ze napr. kazdy uzol zapise do "/mnt/gfs2disk1" napr. $ sudo touch uzol1
      - ostatne uzly uvidia subor "uzol1" v "/mnt/gfs2disk1"
 
+$ sudo pcs resource create apach2_vip IPaddr2 ip=192.168.255.29 cidr_netmask=24 --group apache2grp
+$ pcs resource create apach2_srv apache --group apache2grp
 
+firewall-cmd --permanent --add-service=http
+firewall-cmd --reload
