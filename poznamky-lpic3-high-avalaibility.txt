@@ -2471,5 +2471,7 @@ Pacemaker/Corosync (Unicast) Cluster na OS "Rocky Linux 8.5":
    - mimo produkcie mozeme Fencing otestovat s: $ sudo pcs stonith fence <node2>
      - na obnovenie treba druhy uzol rebootovat, nic lepsie som zatial nenasiel
 
-
+    $ sudo pcs resource create shared_fs ocf:heartbeat:Filesystem device="/dev/vg_gfs2/lv_gfs2" \
+    directory="/mnt/gfs2disk1" fstype="gfs2" options=noatime op monitor \
+    interval=10s on-fail=fence --group shared_vg 
 
