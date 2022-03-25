@@ -2361,7 +2361,7 @@ ak discovery najde viac targetov, treba ich zmazat, napr. na CentOS 9 Stream:
 
 rm -rf /var/lib/iscsi/nodes/iqn.2022-03.lpic3.suse1\:www.target01/
 
-nasledne: $ sudo iscsiadm -m node --login 
+nasledne: $ sudo iscsiadm -m node --login
 
 v subore "/etc/lvm/lvm.conf"
 
@@ -2371,7 +2371,7 @@ v subore "/etc/lvm/lvm.conf"
 
 overime s: $ sudo lvmconfig
 
-zapneme STONITH mna cluster-y a upraqvime konfiguraciu technologie Qourum:
+zapneme STONITH mna cluster-y a upravime konfiguraciu technologie Qourum:
 
 $ sudo pcs property set stonith-enabled=true
 $ sudo pcs property set no-quorum-policy=freeze
@@ -2442,6 +2442,7 @@ Pacemaker/Corosync (Unicast) Cluster na OS "Rocky Linux 8.5":
    - povolime na fwl.: firewall-cmd --add-port=2224/tcp --permanent  
    - nezabudnut na: $ sudo firewall-cmd --reload
    - pripojime sa na "https://nodeX:2224" a prihlasime sa s uzivatelom "hacluster"
+ - na uzloch zapneme STONITH / Fencing: $ sudo pcs property set stonith-enabled=true
  - Fencing/STONITH je rieseny cez iSCSI LUN, staci maly, aj 1 MB (dufam):
    - na oboch uzloch, pripojime sa na LUN, definujeme iSCSI initiatora v "/etc/iscsi/initiatorname.iscsi"
    - vlozime IQN, ktore je na iSCSI target-e, napr: InitiatorName=iqn.2022-03.lpic3.lab:gfs.node1.init1
@@ -2456,3 +2457,7 @@ Pacemaker/Corosync (Unicast) Cluster na OS "Rocky Linux 8.5":
    - poznmaka, preskumat/otestovat ine auth. algoritmy ako (hanbate) MD5
    - spustime iSCSI target discovery: $ sudo iscsiadm -m discovery -t sendtargets -p <storage-Host>
    - ak najde viac targetov, mazeme: $ sudo rm -rf /var/lib/iscsi/nodes/iqn.2022-03.lpic3.suse1\:target1/
+   - prihlasime sa na iSCSI target: $ sudo iscsiadm -m node --login
+     - overime napr. s "$ sudo iscsiadm -m session -o show" / "$ sudo lsscsi" / "$ sudo lsblk"
+   - dalej, zistime si WWN spominaneho 1MB Fencing LUNu: $ sudo ls -l /dev/disk/by-id/ | grep wwn
+   - nasledne vytvor
