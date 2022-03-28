@@ -2603,6 +2603,7 @@ $ sudo pcs resource create apache2_srv ocf:heartbeat:apache configfile=/etc/http
     - na zaver otestujeme funkcnost, napr. s klientom: $ curl http://192.168.255.29/index.html
     - je vhodne otestovat aj vypadky aktivneho uzla, aka je odolnost clustr-a
     - cluster sa samozrejme da vybudovat na viac ako 2 uzloch a je to aj doporucovane
+    - server Apache2 ma dalsie dolezite nastavenia, ale tu sa im nevenujem
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 
