@@ -2601,7 +2601,8 @@ $ sudo pcs resource create apache2_srv ocf:heartbeat:apache configfile=/etc/http
     - po vytvoreni zdroja "apache2_srv" obnovime SELinux kontexty: $ sudo restorecon -R /var/www
 
     - na zaver otestujeme funkcnost, napr. s klientom: $ curl http://192.168.255.29/index.html
-    - je vhodne otestovat aj vypadky aktivneho uzla, aka je odolnost clustr-a
+    - je vhodne otestovat aj vypadky aktivneho uzla, aka je odolnost clustr-a:
+      - napr. s: $ sudo pcs node standby <hostname_uzolX>
     - cluster sa samozrejme da vybudovat na viac ako 2 uzloch a je to aj doporucovane
     - server Apache2 ma dalsie dolezite nastavenia, ale tu sa im nevenujem
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
