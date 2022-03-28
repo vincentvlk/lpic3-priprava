@@ -2542,6 +2542,7 @@ Pacemaker/Corosync (Unicast) WebServer Cluster na OS "Rocky Linux 8.5":
    - overime napr. s: $ sudo pcs status --full
  
    - dalej instalujeme Apache2 Web Server : $ sudo dnf -y in httpd
+     - po instalacii si zatial nevsimame stav procesu, chceme aby ho riadil Pacemaker, nie "systemd"
    - na uzloch vytvorime "Server Status" konfig.: $ sudo vim /etc/httpd/conf.d/server-status.conf
      - vlozime konfiguraciu:
 
