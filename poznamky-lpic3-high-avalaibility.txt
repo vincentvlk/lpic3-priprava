@@ -2572,7 +2572,6 @@ Pacemaker/Corosync (Unicast) Cluster na OS "Rocky Linux 8.5":
      - prikaz: $ sudo mount /dev/vg_web_clus/lv_web_clus /mnt/webdisk1/
    - pokracujeme skopirovanim adresarovej struktury WebServera na zdielanu GFS2 particiu:
      - prikaz: $ sudo cp -pR /var/www/* /mnt/webdisk1/
-     - obnovime SELinux kontexty: $ sudo restorecon -R /var/www 
    - pokracujeme vytvorenim jednoducjeh testovacej "stranky":
      - prikaz: $ sudo echo "Testovaci Apache2 WebServer Cluster" > /mnt/webdisk1/html/index.html
    - dalej "odmountujeme" GFS2 particiu: $ sudo umount /mnt/webdisk1/
@@ -2596,7 +2595,7 @@ $ sudo pcs resource create apache2_vip IPaddr2 ip=192.168.255.29 cidr_netmask=24
 $ sudo pcs resource create apache2_srv ocf:heartbeat:apache configfile=/etc/httpd/conf/httpd.conf \ 
   statusurl=http://127.0.0.1/server-status --group apache2grp
 
-    - restorecon -R /var/www
+    - Po vytvoreni zdroja "apache2_srv" obnovime SELinux kontexty: $ sudo restorecon -R /var/www
 
 
 
