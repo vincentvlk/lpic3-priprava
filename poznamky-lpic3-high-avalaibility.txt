@@ -2551,6 +2551,7 @@ Pacemaker/Corosync (Unicast) Cluster na OS "Rocky Linux 8.5":
     </Location>
    
     - dalej na uzloch upravime konfiguraciu procesu "Log Rotate" v "/etc/logrotate.d/httpd" na:
+      - zakomentujeme povodny riadok, aby "systemd" neriadil proces, ale aby ho riadil Pacamaker
 
 /var/log/httpd/*log {
     missingok
@@ -2596,5 +2597,7 @@ $ sudo pcs resource create apache2_srv ocf:heartbeat:apache configfile=/etc/http
   statusurl=http://127.0.0.1/server-status --group apache2grp
 
     - po vytvoreni zdroja "apache2_srv" obnovime SELinux kontexty: $ sudo restorecon -R /var/www
-    - na zaver otestujeme funkcnost, napr. s: $ curl http://192.168.255.29/index.html
+    - na zaver otestujeme funkcnost, napr. s klientom: $ curl http://192.168.255.29/index.html
+    - je vhodne otestovat aj vypadky aktivneho uzla, aka je odolnost clustr-a
+    - cluster sa samozrejme da vybudovat na viac ako 2 uzloch a je to aj doporucovane
 
