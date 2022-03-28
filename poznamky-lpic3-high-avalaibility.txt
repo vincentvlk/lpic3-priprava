@@ -2392,8 +2392,9 @@ Na prvom uzle vytvorime LVM disk:
 
 - overime napr s: $ sudo fdisk -l /dev/sda
 
-# pvcreate /dev/sda1
-# vgcreate --shared vg_gfs2 /dev/sda1 
+- nasledne zaradime do LVM: $ sudo  pvcreate /dev/sda1
+
+- dalej zaradime PV do VG: $ sudo vgcreate --shared vg_gfs2 /dev/sda1
 
 - poznamka, prepisat "zaciatok" disku nulami: $ sudo dd if=/dev/zero of=/dev/sda bs=1M count=100
 
@@ -2598,6 +2599,7 @@ $ sudo pcs resource create apache2_srv ocf:heartbeat:apache configfile=/etc/http
     - overime napr. s: $ sudo pcs status --full
       - pripadne aj s: $ sudo pcs resource config
     - po vytvoreni zdroja "apache2_srv" obnovime SELinux kontexty: $ sudo restorecon -R /var/www
+
     - na zaver otestujeme funkcnost, napr. s klientom: $ curl http://192.168.255.29/index.html
     - je vhodne otestovat aj vypadky aktivneho uzla, aka je odolnost clustr-a
     - cluster sa samozrejme da vybudovat na viac ako 2 uzloch a je to aj doporucovane
