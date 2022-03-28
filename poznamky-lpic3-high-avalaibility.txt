@@ -2315,21 +2315,11 @@ Praca so suborovym systemom GFS2 (Global File System), rezim active/active, zhod
  - kazdy uzol ma svoj vlastny FS journal
  - ostatne uzly clustra zreplikuju journal uzla, ktory zlyhava, po aplikovani Fencing-u
  - su potrebne technologie DLM a cLVM na koordinaciu zamykania suborov (file locking)
-?? - maximalna podporovana kapacita je 100TiB
+ - maximalna podporovana kapacita je 100TiB (namam zatial overene)
 
-treba vytvorit minimalne 2 LUNy, jeden maly (1 MB) a druhy na storage napr. 10GB, na storage moze byt viac...
-
- fencedisk1 .............................................. [/var/lib/iscsi_pool1/fencedisk1.img (1.0MiB) write-back activated]
- gfs2disk1 ............................................... [/var/lib/iscsi_pool1/gfs2disk1.img (10.0GiB) write-back activated]
+- treba vytvorit minimalne 2 LUNy, jeden maly (1 MB) a druhy na storage napr. 10GB, na storage moze byt viac...
 
 $ sudo iscsiadm -m node --rescan
-
-iqn.2022-03.lpic3.lab:gfs-disk1.tar1
-
-  o- iqn.2022-03.lpic3.lab:gfs.node1.init1 ........................................................................ [Mapped LUNs: 1]
-  o- iqn.2022-03.lpic3.lab:gfs.node2.init1 ........................................................................ [Mapped LUNs: 1]
-  o- iqn.2022-03.lpic3.lab:gfs.node3.init1 ........................................................................ [Mapped LUNs: 1]
-
 
 - ako vypisat dostupne repozitare: $ sudo dnf repolist all 
 
@@ -2532,15 +2522,42 @@ Pacemaker/Corosync (Unicast) Cluster na OS "Rocky Linux 8.5":
      - ostatne uzly uvidia subor "uzol1" v "/mnt/gfs2disk1"
 
  - pokracujeme riesenim weboveho servera Apache2 ako clustrovy zdroj:
-   - pridame dalsi LUN na iSCSI storage systeme
+   - najskor riesenie pre data storage, pridame dalsi LUN na iSCSI storage systeme
    - na uzloch pouzijeme tzv. iSCSI target rescan: $ sudo iscsiadm -m node --rescan
-   - novy LUN overime prikazmi: 
+   - novy LUN overime napr. s: "$ sudo lsscsi" / "$ sudo lsblk"
+   - do LVM zaradime novy iSCSI disk (moze sa pouzit aj disk bez part.): $ sudo pvcreate /dev/sdc
+   - na uzle 1 vytvorime zdielanu LVM VG: $ sudo vgcreate --shared vg_web_clus /dev/sdc
+   - na uzle 2 pokracujeme zapnutim LVM Locking-u: $ sudo vgchange --lock-start vg_web_clus
+   - vratime sa na uzol 1 a vytvorime LV: lvcreate -l 100%FREE -n lv_web_clus vg_web_clus
+     - na oboch uzloch overime prikazom: "$ sudo vgs" a "$ sudo lvs", musia vidiet to iste
+   - pokracujeme, na novom zdielanom cluster LV vytvorime suborovy system GFS2: 
+
+   $ sudo mkfs.gfs2 -j2 -p lock_dlm -t rocky_cluster:web_clus /dev/vg_web_clus/lv_web_clus
+
+   - vytvorime cluster LVM zdroj pre WebServer:
+
+   $ sudo pcs resource create lv_web_shared ocf:heartbeat:LVM-activate lvname=lv_web_clus \
+     vgname=vg_web_clus activation_mode=shared vg_access_mode=lvmlockd --group shared_vg
+
+   - overime napr. s: $ sudo pcs status --full
+   - instalujeme Apache2 Web Server : $ sudo dnf -y in httpd
+   - na uzloch vytvorime "Server Status" konfig.: $ sudo vim /etc/httpd/conf.d/server-status.conf
+     - vlozime konfiguraciu:
+
+    <Location /server-status>
+        SetHandler server-status
+        Require local
+    </Location>
+
+   - vytvorime 
+$ sudo pcs resource create shared_fs ocf:heartbeat:Filesystem device="/dev/vg_gfs2/lv_gfs2" \
+  directory="/home/gfs2-share" fstype="gfs2" options=noatime op monitor interval=10s \
+  on-fail=fence --group shared_vg
 
 $ sudo pcs resource create apach2_vip IPaddr2 ip=192.168.255.29 cidr_netmask=24 --group apache2grp
 $ pcs resource create apach2_srv apache --group apache2grp
 
 firewall-cmd --permanent --add-service=http
 firewall-cmd --reload
-
 
 
