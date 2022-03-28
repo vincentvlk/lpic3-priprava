@@ -2548,7 +2548,21 @@ Pacemaker/Corosync (Unicast) Cluster na OS "Rocky Linux 8.5":
         SetHandler server-status
         Require local
     </Location>
+   
+    - na uzloch upravime konfiguraciu procesu "Log Rotate" v "/etc/logrotate.d/httpd" na:
 
+/var/log/httpd/*log {
+    missingok
+    notifempty
+    sharedscripts
+    delaycompress
+    postrotate
+        #/bin/systemctl reload httpd.service > /dev/null 2>/dev/null || true
+        /usr/sbin/httpd -f /etc/httpd/conf/httpd.conf -c "PidFile /var/run/httpd/httpd.pid" -k graceful > /dev/null 2>/dev/null || true 
+    endscript
+}
+
+ - 
    - vytvorime 
 $ sudo pcs resource create shared_fs ocf:heartbeat:Filesystem device="/dev/vg_gfs2/lv_gfs2" \
   directory="/home/gfs2-share" fstype="gfs2" options=noatime op monitor interval=10s \
