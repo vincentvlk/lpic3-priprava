@@ -2585,7 +2585,11 @@ $ sudo pcs resource create web_fs ocf:heartbeat:Filesystem device=/dev/vg_web_cl
 
     - overime napr. s: $ sudo pcs status --full
 
+    - dalej vytvorime virutalnu IP adresu pre zdroj WebServera
+
 $ sudo pcs resource create apach2_vip IPaddr2 ip=192.168.255.29 cidr_netmask=24 --group apache2grp
+
+
 $ pcs resource create apach2_srv apache --group apache2grp
 
 
