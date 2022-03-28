@@ -2591,13 +2591,12 @@ $ sudo pcs resource create apache2_vip IPaddr2 ip=192.168.255.29 cidr_netmask=24
 
     - definujeme pravidlo postupnosti startu storage zdrojov pred app. zdrojmi: 
       - prikaz: $ sudo pcs constraint order start shared_vg-clone then apache2grp
-    - zapneme server Apache2 ako sluzbu so startom po reboote: $ sudo systemctl enable httpd
     - pokracujeme vytvorenim samotneho Apache2 zdroja:
 
 $ sudo pcs resource create apache2_srv ocf:heartbeat:apache configfile=/etc/httpd/conf/httpd.conf \ 
   statusurl=http://127.0.0.1/server-status --group apache2grp
 
-?? $ pcs resource create apach2_srv apache --group apache2grp
+    - restorecon -R /var/www
 
 
 
