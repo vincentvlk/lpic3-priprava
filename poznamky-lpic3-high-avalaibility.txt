@@ -2406,8 +2406,7 @@ Na prvom uzle vytvorime LVM disk:
 
 - poznamka: alternativy k CentOS: CentOS Stream, Alma Linux, Rocky Linux, Oracle Linux
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
- 
-Pacemaker/Corosync (Unicast) Cluster na OS "Rocky Linux 8.5":
+Pacemaker/Corosync (Unicast) WebServer Cluster na OS "Rocky Linux 8.5":
 
  - vytvorime DNS zaznamy uzlov, alebo "/etc/hosts"
  - na uzloch zapneme repo.: $ sudo dnf config-manager --set-enabled ha,resilient-storage
@@ -2600,4 +2599,6 @@ $ sudo pcs resource create apache2_srv ocf:heartbeat:apache configfile=/etc/http
     - na zaver otestujeme funkcnost, napr. s klientom: $ curl http://192.168.255.29/index.html
     - je vhodne otestovat aj vypadky aktivneho uzla, aka je odolnost clustr-a
     - cluster sa samozrejme da vybudovat na viac ako 2 uzloch a je to aj doporucovane
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
 
