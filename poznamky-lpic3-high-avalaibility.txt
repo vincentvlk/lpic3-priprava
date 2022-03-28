@@ -2531,8 +2531,8 @@ Pacemaker/Corosync (Unicast) Cluster na OS "Rocky Linux 8.5":
    - vratime sa na uzol 1 a vytvorime LV: lvcreate -l 100%FREE -n lv_web_clus vg_web_clus
      - na oboch uzloch overime prikazom: "$ sudo vgs" a "$ sudo lvs", musia vidiet to iste
    - pokracujeme, na novom zdielanom cluster LV vytvorime suborovy system GFS2: 
-
-   $ sudo mkfs.gfs2 -j2 -p lock_dlm -t rocky_cluster:web_clus /dev/vg_web_clus/lv_web_clus
+    
+     $ sudo mkfs.gfs2 -j2 -p lock_dlm -t rocky_cluster:web_clus /dev/vg_web_clus/lv_web_clus
 
    - vytvorime cluster LVM zdroj pre WebServer:
 
@@ -2550,7 +2550,7 @@ Pacemaker/Corosync (Unicast) Cluster na OS "Rocky Linux 8.5":
         Require local
     </Location>
    
-    - na uzloch upravime konfiguraciu procesu "Log Rotate" v "/etc/logrotate.d/httpd" na:
+    - dalej na uzloch upravime konfiguraciu procesu "Log Rotate" v "/etc/logrotate.d/httpd" na:
 
 /var/log/httpd/*log {
     missingok
@@ -2563,19 +2563,27 @@ Pacemaker/Corosync (Unicast) Cluster na OS "Rocky Linux 8.5":
     endscript
 }
 
-  
    - na FWL povolime porty HTTP a HTTPS: $ sudo firewall-cmd --add-service={http,https} --permanent
    - restart FWL: $ sudo firewall-cmd --reload
+   - konfiguraciu firewallu overime s: $ sudo firewall-cmd --list-all
 
-   - vytvorime docasny adresar, napr.: $ sudo mkdir mkdir /mnt/webdisk1/
-   - dalej docasne "namountujeme" GFS2 particiu na vytvoreny adresar: 
-     - prikaz: $ sudo mmount /dev/vg_web_clus/lv_web_clus /mnt/webdisk1/
+   - na jednom uzle vytvorime docasny adresar, napr.: $ sudo mkdir mkdir /mnt/webdisk1/
+   - dalej na uzle docasne "namountujeme" GFS2 particiu na vytvoreny adresar: 
+     - prikaz: $ sudo mount /dev/vg_web_clus/lv_web_clus /mnt/webdisk1/
+   - pokracujeme skopirovanim adresarovej struktury WebServera na zdielanu GFS2 particiu:
+     - prikaz: $ sudo cp -pR /var/www/* /mnt/webdisk1/
+     - obnovime SELinux kontexty: $ sudo restorecon -R /var/www 
+   - pokracujeme vytvorenim jednoducjeh testovacej "stranky":
+     - prikaz: $ sudo echo "Testovaci Apache2 WebServer Cluster" > /mnt/webdisk1/html/index.html
+   - dalej "odmountujeme" GFS2 particiu: $ sudo umount /mnt/webdisk1/
+   
+   - pokracujeme vytvorenim Cluster FS zdroja pre Apache2 WebServer v Pacemaker-y:
 
-   - pokracujeme 
-
-$ sudo pcs resource create shared_fs ocf:heartbeat:Filesystem device="/dev/vg_gfs2/lv_gfs2" \
-  directory="/home/gfs2-share" fstype="gfs2" options=noatime op monitor interval=10s \
+$ sudo pcs resource create web_fs ocf:heartbeat:Filesystem device=/dev/vg_web_clus/lv_web_clus \
+  directory=/var/www fstype=gfs2 options=noatime op monitor interval=10s \
   on-fail=fence --group shared_vg
+
+    - overime napr. s: $ sudo pcs status --full
 
 $ sudo pcs resource create apach2_vip IPaddr2 ip=192.168.255.29 cidr_netmask=24 --group apache2grp
 $ pcs resource create apach2_srv apache --group apache2grp
