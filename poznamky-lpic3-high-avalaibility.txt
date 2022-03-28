@@ -2595,6 +2595,8 @@ $ sudo pcs resource create apache2_vip IPaddr2 ip=192.168.255.29 cidr_netmask=24
 $ sudo pcs resource create apache2_srv ocf:heartbeat:apache configfile=/etc/httpd/conf/httpd.conf \ 
   statusurl=http://127.0.0.1/server-status --group apache2grp
 
+    - overime napr. s: $ sudo pcs status --full
+      - pripadne aj s: $ sudo pcs resource config
     - po vytvoreni zdroja "apache2_srv" obnovime SELinux kontexty: $ sudo restorecon -R /var/www
     - na zaver otestujeme funkcnost, napr. s klientom: $ curl http://192.168.255.29/index.html
     - je vhodne otestovat aj vypadky aktivneho uzla, aka je odolnost clustr-a
