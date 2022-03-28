@@ -2540,7 +2540,8 @@ Pacemaker/Corosync (Unicast) Cluster na OS "Rocky Linux 8.5":
      vgname=vg_web_clus activation_mode=shared vg_access_mode=lvmlockd --group shared_vg
 
    - overime napr. s: $ sudo pcs status --full
-   - instalujeme Apache2 Web Server : $ sudo dnf -y in httpd
+ 
+   - dalej instalujeme Apache2 Web Server : $ sudo dnf -y in httpd
    - na uzloch vytvorime "Server Status" konfig.: $ sudo vim /etc/httpd/conf.d/server-status.conf
      - vlozime konfiguraciu:
 
@@ -2562,8 +2563,11 @@ Pacemaker/Corosync (Unicast) Cluster na OS "Rocky Linux 8.5":
     endscript
 }
 
- - 
-   - vytvorime 
+  
+   - na FWL povolime porty HTTP a HTTPS: $ sudo firewall-cmd --add-service={http,https} --permanent
+   - restart FWL: $ sudo firewall-cmd --reload
+
+
 $ sudo pcs resource create shared_fs ocf:heartbeat:Filesystem device="/dev/vg_gfs2/lv_gfs2" \
   directory="/home/gfs2-share" fstype="gfs2" options=noatime op monitor interval=10s \
   on-fail=fence --group shared_vg
@@ -2571,7 +2575,5 @@ $ sudo pcs resource create shared_fs ocf:heartbeat:Filesystem device="/dev/vg_gf
 $ sudo pcs resource create apach2_vip IPaddr2 ip=192.168.255.29 cidr_netmask=24 --group apache2grp
 $ pcs resource create apach2_srv apache --group apache2grp
 
-firewall-cmd --permanent --add-service=http
-firewall-cmd --reload
 
 
