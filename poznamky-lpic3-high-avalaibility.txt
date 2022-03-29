@@ -2673,7 +2673,7 @@ $ sudo pcs resource create nfs_notify ocf:heartbeat:nfsnotify source_host=192.16
 
 - dalej na *AKTIVNOM* NFS uzle vytvorime Pacemaker cluster zdroje pre NFS "exportfs":
   - inak napisane, vytvarame dva rozne NFS exporty v HA "rieseni"
-  - POZOR na parametre "directory=" a "fsid="
+  - POZOR na parametre "clientspec=" , "directory=" a "fsid="
 
 $ sudo pcs resource create nfs_root_exp ocf:heartbeat:exportfs \
   clientspec=192.168.255.0/255.255.255.0 options=rw,sync,no_root_squash \
@@ -2683,4 +2683,12 @@ $ sudo pcs resource create nfs_share1_exp ocf:heartbeat:exportfs \
   clientspec=192.168.255.0/255.255.255.0 options=rw,sync,no_root_squash \
   directory=/home/nfs-server/nfs-root/share1 fsid=1 --group nfs_server_grp
 
-- na tomto uzle nove exporty overime s: $ sudo 
+- overime stav a konf.: "$ sudo pcs status --full" a "$ sudo pcs resource config nfs_server_grp"
+- na tomto uzle nove exporty overime s: $ sudo showmount -e 
+- na testovanie sa mozeme s NFS klietom pripojit na vyexportovane suborove systemy:
+  - poznamka, na Rocky Linux 8.5 bolo potrebne instalovat: $ sudo dnf -y in nfs-utils.x86_64
+  - protokol NFSv4: $ sudo mount -t nfs4 192.168.255.28:share1 /mnt/nfs
+  - overime s: $ df -hT /mnt/nfs
+  - pre NFSv3 prikaz: $ sudo mount -t nfs 192.168.255.28:/home/nfs-server/nfs-root/share1 /mnt/nfs
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
