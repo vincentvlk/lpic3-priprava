@@ -2445,6 +2445,10 @@ Pacemaker/Corosync (Unicast) WebServer Cluster na OS "Rocky Linux 8.5":
    - poznmaka, preskumat/otestovat ine auth. algoritmy ako (hanbate) MD5
    - spustime iSCSI target discovery: $ sudo iscsiadm -m discovery -t sendtargets -p <storage-Host>
    - ak najde viac targetov, mazeme: $ sudo rm -rf /var/lib/iscsi/nodes/iqn.2022-03.lpic3.suse1\:target1/
+     - alebo sa mozeme prihlasit na konkretny iSCSI Target s jeho IQN, napr.:
+
+$ sudo iscsiadm -m node --targetname iqn.2001-05.com.lab:test --portal 192.168.255.100:3260 --login
+   
    - prihlasime sa na iSCSI target: $ sudo iscsiadm -m node --login
      - overime napr. s "$ sudo iscsiadm -m session -o show" / "$ sudo lsscsi" / "$ sudo lsblk"
    - dalej, zistime si WWN spominaneho 1MB Fencing LUNu: $ sudo ls -l /dev/disk/by-id/ | grep wwn
@@ -2607,5 +2611,19 @@ $ sudo pcs resource create apache2_srv ocf:heartbeat:apache configfile=/etc/http
     - cluster sa samozrejme da vybudovat na viac ako 2 uzloch a je to aj doporucovane
     - server Apache2 ma dalsie dolezite nastavenia, ale tu sa im nevenujem
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Praca s NFS Serverom v HA Cluster rieseni Pacemaker:
 
+- na instalaciu pouzijeme novy iSCSI LUN, ktory si vytvorime na storage 
+  - novy LUN na cluster uzloch najdeme s: $ sudo iscsiadm -m node --rescan
+  - overime napr. s: "$ sudo lsscsi" / "$ sudo lsblk"
+  - poznamka, ako si pozriet statistiky danej iSCSI session: $ sudo iscsiadm -m node -s
+- dalej na oboch uzloch pripravime zdielane LVM, upravime subor "/etc/lvm/lvm.conf":
+  - riadok 'system_id_source = "none"' upravime na 'system_id_source = "uname"'
+- novy LUN pridame do LVM s: $ sudo pvcreate /dev/sdd 
+- dalej pridame tento disk do VG "vg_ha_lvm": $ sudo vgcreate vg_ha_lvm /dev/sdd
+- overime s: $ sudo vgs -o+systemid
+  - vo vypise musi byt "System ID" zhodne s vypisom "$ uname -n"
+- z novej VG vytvorime nove LV "lv_ha_lvm": $ sudo lvcreate -l 100%FREE -n lv_ha_lvm vg_ha_lvm
+- na novom LV vytvorime particiu XFS: $ sudo mkfs.xfs /dev/vg_ha_lvm/lv_ha_lvm
+ 
 
