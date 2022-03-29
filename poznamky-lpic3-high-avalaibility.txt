@@ -2643,9 +2643,26 @@ $ sudo firewall-cmd --reload
 - firewall overime s: $ sudo firewall-cmd --list-all
 - na uzloch vytvorime adresar pre NFS server: $ sudo mkdir /home/nfs-server
 
-- vytvorime cluster zdroj typu "Filesystem" pre HA NFS server:
+- vytvorime cluster zdroj typu "Filesystem" pre HA-NFS server:
 
 $ sudo pcs resource create nfs_server ocf:heartbeat:Filesystem device=/dev/vg_ha_lvm/lv_ha_lvm \
   directory=/home/nfs-server fstype=xfs --group nfs_server_grp
 
 - overime stav a konf. zdroja: "$ sudo pcs status --full" a "$ sudo pcs resource config nfs_server"
+- na uzle, kde bezi tento FS zdroj, mozeme overit stav particie: $ sudo df -hT /home/nfs-server 
+- pokracujeme vytvorenim NFS daemon zdroja:
+
+$ sudo pcs resource create nfs_daemon ocf:heartbeat:nfsserver \
+  nfs_shared_infodir=/home/nfs-server/nfsinfo nfs_no_notify=true --group nfs_server_grp
+
+- vytvorime cluster vIP, na ktorej bude dostupny zdroj HA-NFS:
+
+$ sudo pcs resource create nfs_vip ocf:heartbeat:IPaddr2 ip=192.168.255.28 cidr_netmask=24 \
+   --group nfs_server_grp
+
+- dalej vytvorime zdroj pre NFS notifikacie:
+
+$ sudo pcs resource create nfs_notify ocf:heartbeat:nfsnotify source_host=192.168.255.28 \
+  --group nfs_server_grp
+
+ 
