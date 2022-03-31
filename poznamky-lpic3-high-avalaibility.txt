@@ -2701,9 +2701,10 @@ Praca s Load-Balancingom sluzieb, teda rozkladanim zataze na viacero aplikacnych
    - HAProxy - high-level load balancing, ktory pracuje na 4. (TCP) alebo 7. (HTTP[S]) verstve OSI
      - rozsirene riesenie, podporuje SSL, kompresiu, alive-check, pokrocile logovanie
      - nacastejsia aplikacia je v mode Layer7 HTTP[S]
-     - HAProxy vyuziva LB algoritmi: Roundrobin, Lastconn, Souce
-     - Roundrobin: kazde nove pripojenie je posielane na obsluzenie dalsin app serverom
-  
+     - HAProxy vyuziva LB algoritmi: Roundrobin, Lastconn, Source
+     - Roundrobin: kazde nove pripojenie je posielane na obsluzenie dalsim app. serverom
+     - Lastconn: nove pripojenie obsluzene app. serverom s najmensim poctom aktivnych pripojeni
+     - Source: zdrojova IP klinta je hash-ovana, aby bol pouzity rovnaky app server na dalsie req.
    - Keepalived : implemetacia VRPP protokolu pre OS GNU/Linux, vytvori virtualnu IP adresu
-
+     - da sa nakonfigurovat "do kriza", s rozdielnymi subnetmi, na primitivny state-less LB 
 
