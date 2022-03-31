@@ -2768,3 +2768,9 @@ backend backend_servers
 
   - rozkladanie zataze requestov overime pripojenim na LB TCP port 80, browserom alebo curl-om 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+Praca s virtualizacnymi nastrojmi/platformami pre OS GNU/Linux:
+- zakladne koncepty: virtualizacia dokaze delit fyzicke vypoctove zdroje na viacero oddelenych casti
+  - teda uzmonuje "bezat" viacero virtualnych pocitacov na spolocnom zdielanom HW
+  - tzv. Hypervizor alebo aj "VMM - Viatual Machine Monitor" spravuje a monitoruje virtualizaciu 
+  - virtualizovane zdroje tvoria tzv.: "Core 4" skupinu: procesor, pamat, ulozisko, siet
