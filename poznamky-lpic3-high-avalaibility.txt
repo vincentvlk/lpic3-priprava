@@ -2697,5 +2697,13 @@ Ako v RedHat based OS zistit, ktory balik poskytuje dany "prikaz", napr.: $ dnf 
 Praca s Load-Balancingom sluzieb, teda rozkladanim zataze na viacero aplikacnych uzlov
  - zakladne metody L.B.: 
    - DNS Round Robin - velmi jednoduche, nema vsak ziadne monitorovanie dostupnosti uzlov
+   - LVS - load-balancing na urovni Linux Kernel-u, obmedzene v porovnani s Pacemaker/Corosync
+   - HAProxy - high-level load balancing, ktory pracuje na 4. (TCP) alebo 7. (HTTP[S]) verstve OSI
+     - rozsirene riesenie, podporuje SSL, kompresiu, alive-check, pokrocile logovanie
+     - nacastejsia aplikacia je v mode Layer7 HTTP[S]
+     - HAProxy vyuziva LB algoritmi: Roundrobin, Lastconn, Souce
+     - Roundrobin: kazde nove pripojenie je posielane na obsluzenie dalsin app serverom
+  
+   - Keepalived : implemetacia VRPP protokolu pre OS GNU/Linux, vytvori virtualnu IP adresu
 
 
