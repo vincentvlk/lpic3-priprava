@@ -2726,6 +2726,7 @@ Silne zjednoduseny priklad instalacie load-balancera HAProxy na OS Rocky Linux 8
     $ sudo mv index.html index.html.bak
     $ sudo echo "Testovaci uzol 1: app.node1.lab" > index.html
       - resp. uzol 2: $ sudo echo "Testovaci uzol 2: app.node2.lab" > index.html
- - pokracujeme instalaciou HAProxy LB na uzle 1: $ sudo dnf -y in haproxy
 
+ - pokracujeme instalaciou "HAProxy frontend LB" na uzle 1: $ sudo dnf -y in haproxy
+ - upravime konfig. HAProxy "/etc/haproxy/haproxy.cfg" nasledovne
 
