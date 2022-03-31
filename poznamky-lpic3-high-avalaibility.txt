@@ -2761,7 +2761,10 @@ backend backend_servers
    
    - dalej pridame riadok: "$AllowedSender UDP, 127.0.0.1"
    - upravime riadok "*.info;mail.none;authpriv.none;cron.none   /var/log/messages"
-     - na: "*.info;mail.none;authpriv.none;cron.none;local2.none   /var/log/messages"
+     - uprava na: "*.info;mail.none;authpriv.none;cron.none;local2.none   /var/log/messages"
    - dalej pridame riadok: "local2.*    /var/log/haproxy.log"
-   - na zaver restartujeme logovaciu sluzbu: $ sudo systemctl restart rsyslog 
+     - umozni logovanie, mozeme napr. sledovat s: $ sudo tail -f /var/log/haproxy.log
+   - na zaver restartujeme logovaciu sluzbu: $ sudo systemctl restart rsyslog
+
+  - rozkladanie zataze requestov overime pripojenim na LB TCP port 80, browserom alebo curl-om 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
