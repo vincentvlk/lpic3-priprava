@@ -2697,7 +2697,7 @@ Ako v RedHat based OS zistit, ktory balik poskytuje dany "prikaz", napr.: $ dnf 
 Praca s Load-Balancingom sluzieb, teda rozkladanim zataze na viacero aplikacnych uzlov
  - zakladne metody L.B.: 
    - DNS Round Robin - velmi jednoduche, nema vsak ziadne monitorovanie dostupnosti uzlov
-   - LVS - load-balancing na urovni Linux Kernel-u, obmedzene v porovnani s Pacemaker/Corosync
+   - LVS - load-balancing na urovni Linux Kernel-u, obmedzene v porovnani s HAp/Pacemaker/Corosync
    - HAProxy - high-level load balancing, ktory pracuje na 4. (TCP) alebo 7. (HTTP[S]) verstve OSI
      - rozsirene riesenie, podporuje SSL, kompresiu, alive-check, pokrocile logovanie
      - nacastejsia aplikacia je v mode Layer7 HTTP[S]
@@ -2708,9 +2708,11 @@ Praca s Load-Balancingom sluzieb, teda rozkladanim zataze na viacero aplikacnych
    - Keepalived : implemetacia VRPP protokolu pre OS GNU/Linux, vytvori virtualnu IP adresu
      - da sa nakonfigurovat "do kriza", s rozdielnymi subnetmi, na primitivny state-less LB 
      - da sa vyzuit napr. ako redundancia pre 2xHAProxy na virtualnej IP, alternativa: Pacemaker
-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Silne zjednoduseny priklad instalacie load-balancera HAProxy na OS Rocky Linux 8.5
  - vyuzijeme 3 servery/VM, kde uzol 3 bude HAProxy LB a zvysne uzly 1+2 budu app/backend serv.
+ - IP konfig. uzlov, uzol1:192.168.255.21/24, uzol1:192.168.255.22/24, uzol3:192.168.255.23/24
+   - samozrejme doporuceny dizajn je L3 routed env., netraba zabudnut zapnut IP/IPv6 forwarding
  - na uzloch 1 a 2 instalujeme HTTP app/backend server $ sudo dnf -y install nginx
    - upravime subor "/etc/nginx/nginx.conf", riadok "server_name www.srv.world;" na: 
    
@@ -2730,3 +2732,8 @@ Silne zjednoduseny priklad instalacie load-balancera HAProxy na OS Rocky Linux 8
  - pokracujeme instalaciou "HAProxy frontend LB" na uzle 1: $ sudo dnf -y in haproxy
  - upravime konfig. HAProxy "/etc/haproxy/haproxy.cfg" nasledovne
 
+ - aktivujeme HAProxy sluzbu po reboote: $ sudo systemctl enable --now haproxy
+ - pridame pravidlo na firewalle pre HAProxy: $ sudo firewall-cmd --add-service=http --permanent
+     - restartujeme firewall: $ sudo firewall-cmd --reload
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
