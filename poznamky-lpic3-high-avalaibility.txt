@@ -2708,3 +2708,11 @@ Praca s Load-Balancingom sluzieb, teda rozkladanim zataze na viacero aplikacnych
    - Keepalived : implemetacia VRPP protokolu pre OS GNU/Linux, vytvori virtualnu IP adresu
      - da sa nakonfigurovat "do kriza", s rozdielnymi subnetmi, na primitivny state-less LB 
      - da sa vyzuit napr. ako redundancia pre 2xHAProxy na virtualnej IP, alternativa: Pacemaker
+
+Silne zjednoduseny priklad instalacie load-balancera HAProxy na OS Rocky Linux 8.5
+ - vyuzijeme 3 servery/VM, kde uzol 3 bude HAProxy LB a zvysne uzly 1+2 budu app/backend serv.
+ - na uzle 3 instalujeme HAProxy LB: $ sudo dnf -y in haproxy
+ - na uzloch 1 a 2 instalujeme HTTP server $ sudo dnf -y install nginx
+
+
+                     
