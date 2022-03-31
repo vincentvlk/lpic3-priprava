@@ -2713,6 +2713,12 @@ Silne zjednoduseny priklad instalacie load-balancera HAProxy na OS Rocky Linux 8
  - vyuzijeme 3 servery/VM, kde uzol 3 bude HAProxy LB a zvysne uzly 1+2 budu app/backend serv.
  - na uzle 3 instalujeme HAProxy LB: $ sudo dnf -y in haproxy
  - na uzloch 1 a 2 instalujeme HTTP server $ sudo dnf -y install nginx
+   - upravime subor "/etc/nginx/nginx.conf", riadok "server_name www.srv.world;" na: 
+   
+    "server_name app.node1.lab;" resp. na uzle 2 na: "server_name app.node2.lab;"
+
+   - aktivujeme sluzbu NGINX po reboote: $ sudo systemctl enable --now nginx
+     - overime s: $ sudo systemctl status nginx
 
 
-                     
+
