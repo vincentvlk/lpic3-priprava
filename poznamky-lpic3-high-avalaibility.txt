@@ -2694,3 +2694,8 @@ $ sudo pcs resource create nfs_share1_exp ocf:heartbeat:exportfs \
 
 Ako v RedHat based OS zistit, ktory balik poskytuje dany "prikaz", napr.: $ dnf provides showmount
  
+Praca s Load-Balancingom sluzieb, teda rozkladanim zataze na viacero aplikacnych uzlov
+ - zakladne metody L.B.: 
+   - DNS Round Robin - velmi jednoduche, nema vsak ziadne monitorovanie dostupnosti uzlov
+
+
