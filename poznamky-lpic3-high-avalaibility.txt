@@ -2707,4 +2707,4 @@ Praca s Load-Balancingom sluzieb, teda rozkladanim zataze na viacero aplikacnych
      - Source: zdrojova IP klinta je hash-ovana, aby bol pouzity rovnaky app server na dalsie req.
    - Keepalived : implemetacia VRPP protokolu pre OS GNU/Linux, vytvori virtualnu IP adresu
      - da sa nakonfigurovat "do kriza", s rozdielnymi subnetmi, na primitivny state-less LB 
-
+     - da sa vyzuit napr. ako redundancia pre 2xHAProxy na virtualnej IP, alternativa: Pacemaker
