@@ -2781,6 +2781,7 @@ Poznamka, ako pridat do LVM predtym pouzivane zariadenie, treba pouzit: $ sudo w
  - prikazy LVM sa daju ciastocne debugovat,  napr.: $ sudo pvcreate -vvv /dev/sdb
 
 Praca s Virt. platformou Xen Server, boliky boli z RHEL a klonov odstranene, treba pridat repo.
+- tento postup je instalacia na OS Debian 11
 - na "Host" systeme instalujeme balik LVM2: $ sudo apt install lvm2
 - dalej napr. z dvoch diskov si spravime LVM2 VG "vgxen", na instalaciu virtualizovanych systemov:
 
@@ -2812,4 +2813,14 @@ dns-nameservers 193.17.47.1 185.43.135.1
 
 - nasledne restartujeme "networking" sluzbu: $ sudo systemctl restart networking.service
   - podla vypisu "$ ip address" by mal byt povodny staticky IP conf. na novom "bridge" iface
-- instalujeme nastroje Hypervizora "Xen": $ sudo apt install xen-system-amd64
+- instalujeme nastroje a kernel Hypervizora "Xen": $ sudo apt install xen-system-amd64
+- ak je instalcia uspesna, restartujeme Host-a a v Boot-menu vyberieme moznost "Xen Hyperisor"
+- dalej pouzivame nastroj "xl", ktore je tzv. "tool stack" na pracu s Hyperviz. Xen:
+  - vypiseme aktivne domeny: $ sudo xl list
+  - informacia o Host-e ziskame s: $ sudo xl info
+  - real-time sledovanie hypervizora: $ sudo xl top
+- aby vzdy Host system bootoval s Xen kernelom, upravime konf. "/etc/default/grub" nasledovne:
+  - riadok "GRUB_DEFAULT=0" upravime na:
+
+GRUB_DEFAULT="Debian GNU/Linux, with Xen 4.14-amd64.efi and Linux 5.10.0-13-amd64"
+
