@@ -2854,10 +2854,32 @@ GRUB_CMDLINE_XEN_DEFAULT="dom0_max_vcpus=1 dom0_mem=1024M,max:1024M"
     - odkomentujeme a upravime riadok "lvm = vg0" na "lvm = vgxen"
   - v adresary "/usr/share/xen-tools/" najdeme typy OS pre Xen VM instancie
  
-- nasledne vytvorime Xen domenu/image:
+- nasledne vytvorime zjednodusenu Xen domenu/image:
 
 $ sudo xen-create-image --hostname=xenvm01 --lvm=vgxen --memory=2G --maxmem=2G --vcpus=2 \
 --size=8G --swap=1G --fs=ext4 --dhcp --arch=amd64 --dist=jessie
 
-- parameter memory/maxmem udava velkost RAM a max. velkost RAM
-- parameter vcpus udava pocet virt. CPU
+- parameter "memory/maxmem" udava velkost RAM a max. velkost RAM
+- parameter "vcpus" udava pocet virt. CPU
+- parameter "size" udava velkost disku
+- parameter "swap" udava velkost Swap particie
+- parameter "fs" udava typ suboroveho systemu
+- parameter "dhcp" definuje IP konfiguraciu z DHCP
+- parameter "arch" udava procesorovu architekturu
+- parameter "dist" udava typ Linux distribucie
+- po ukonceni z vypisu ziskame udaje o SSH a heslo "root"
+
+- nasledne vytvorime VM instanciu podla vygenerovaneho Image/konfigu:
+  - prikaz: $ sudo xl create /etc/xen/xenvm01.cfg
+  - overime prikazom: $ sudo xl list
+
+
+Installation Summary
+---------------------
+Hostname        :  xenvm01
+Distribution    :  jessie
+MAC Address     :  00:16:3E:47:52:8C
+IP Address(es)  :  dynamic
+SSH Fingerprint :  SHA256:lO8C+4Dko7dULgoSpwjsixe62a3d0nFGxG/g2chQ76Q (DSA)
+SSH Fingerprint :  SHA256:XWvgsU8JjRNNaUJ6tctkcXWf3Z3RugVOtFpyDCQCzy4 (RSA)
+Root Password   :  DKxMHWaDvkrqptqYEcuWj7b
