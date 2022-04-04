@@ -2879,9 +2879,17 @@ $ sudo xen-create-image --hostname=xenvm01 --lvm=vgxen --memory=2G --maxmem=2G -
   - domenu/VM vypneme s: $ sudo xl shutdown xenvm01
 
 Postup ako vytvorit HVM instanciu s instalacnym .ISO suborom:
-
+- vytvorime si LV pre novu VM: $ sudo lvcreate --size 10g --type linear -n lv_fedora35vm01 vgxen
 - podla sablony si v adresari "/etc/xen/" vytvorime konf. subor na vytvorenie VM: 
   - prikaz $ sudo cp xlexample.hvm fedora35vm01.cfg 
+  - nasldene upravime konf. subor instancie "fedora35vm01.cfg" kde:
+    - riadok "name =" upravime na" "name = fedora35vm01.cfg"
+    - riadok "memory =" upravime na: "memory = 2048"
+    - riadok "maxmem =" upravime na: "maxmem = 2048"
+    - riadok "vif =" upravime na: "vif = [ 'bridge=xenbr0' ]"
+    - riadok "disk =" zmenime napr. na: 
+
+disk = [ 'phy:/dev/vgxen/lv_fedora35vm01,hda,w','file:/root/fed35-x86_64.iso,hdc:cdrom,r' ]
 
 Installation Summary
 ---------------------
