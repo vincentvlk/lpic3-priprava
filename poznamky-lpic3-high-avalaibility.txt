@@ -2819,6 +2819,7 @@ dns-nameservers 193.17.47.1 185.43.135.1
   - vypiseme aktivne domeny: $ sudo xl list
   - informacia o Host-e ziskame s: $ sudo xl info
   - real-time sledovanie hypervizora: $ sudo xl top
+    - alebo: $ sudo xentop
 - aby vzdy Host system bootoval s Xen kernelom, upravime konf. "/etc/default/grub" nasledovne:
   - riadok "GRUB_DEFAULT=0" upravime na:
   - spravnu hodnotu najdeme v subore "/boot/grub/grub.cfg", hladame string "Xen"
@@ -2842,7 +2843,13 @@ GRUB_CMDLINE_XEN_DEFAULT="dom0_max_vcpus=1 dom0_mem=1024M,max:1024M"
   - globalny konf. subore: "/etc/xen/xl.conf"
   - v adresari "/etc/xen/scripts/" su skripty, ktore sa vyuzivaju na pracu s Xen
   - subor "/etc/default/xen" umoznuje nastavit predvoleny "Tool Stack" pre Xen
-    - bez konfiguracie je predvoleny Tool Stack program "xl"
+    - bez konfiguracie je predvoleny Tool Stack program "xl" postaveny na kniznici "Xen Light"
+      - dalsie informacie napr. v: $ man xl
   - dalsi subor "/etc/default/xendomains" definuje spravanie VMs po reboote Host-a
   - adresar s logovacimi udajmi Xen-u je: "/var/log/xen/"
   - systemovy adresar "/var/lib/xen/" uklada uzivatelske data VM instancii
+
+- nasledne instalujeme sadu nastrojov pre Xen: $ sudo apt install xen-tools
+  - konfiguraciu nastrojov najdeme v subore "/etc/xen-tools/xen-tools.conf"
+  - v adresary "/usr/share/xen-tools/" najdeme typy OS pre Xen VM instancie
+ 
