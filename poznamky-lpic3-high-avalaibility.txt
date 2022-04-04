@@ -2836,4 +2836,13 @@ GRUB_CMDLINE_XEN_DEFAULT="dom0_max_vcpus=1 dom0_mem=1024M,max:1024M"
 - konfiguraciu overime spravanim menu v GRUB2 a po starte systemu s: $ sudo xl list
   - domena "Domain-0" by mala mat obmedzene zdroje podla konfiguracie z GRUBu
 
-
+- hlavna konfiguracia Xen-u sa nachadza v "/etc/xen/"
+  - na konfiguraciu HVM (Hardware Virtual Machine) sa da pouzit sablona "/etc/xen/xlexample.hvm"
+  - na konfiguraciu PV (Para-Virtualization) sa da pouzit "/etc/xen/xlexample.pvlinux"
+  - globalny konf. subore: "/etc/xen/xl.conf"
+  - v adresari "/etc/xen/scripts/" su skripty, ktore sa vyuzivaju na pracu s Xen
+  - subor "/etc/default/xen" umoznuje nastavit predvoleny "Tool Stack" pre Xen
+    - bez konfiguracie je predvoleny Tool Stack program "xl"
+  - dalsi subor "/etc/default/xendomains" definuje spravanie VMs po reboote Host-a
+  - adresar s logovacimi udajmi Xen-u je: "/var/log/xen/"
+  - systemovy adresar "/var/lib/xen/" uklada uzivatelske data VM instancii
