@@ -2774,3 +2774,38 @@ Praca s virtualizacnymi nastrojmi/platformami pre OS GNU/Linux:
   - teda uzmonuje "bezat" viacero virtualnych pocitacov na spolocnom zdielanom HW
   - tzv. Hypervizor alebo aj "VMM - Viatual Machine Monitor" spravuje a monitoruje virtualizaciu 
   - virtualizovane zdroje tvoria tzv.: "Core 4" skupinu: procesor, pamat, ulozisko, siet
+
+Poznamka, ako pridat do LVM predtym pouzivane zariadenie, treba pouzit: $ sudo wipefs -a /dev/sdb
+ - POZOR, prikaz odstrani FS z pouzivaneho disku
+ - inak LVM moze hlasit chybu: "Device /dev/sdb excluded by a filter."
+ - prikazy LVM sa daju ciastocne debugovat,  napr.: $ sudo pvcreate -vvv /dev/sdb
+
+Praca s Virt. platformou Xen Server, boliky boli z RHEL a klonov odstranene, treba pridat repo.
+- na "Host" systeme instalujeme balik LVM2: $ sudo apt install lvm2
+- dalej napr. z dvoch diskov si spravime LVM2 VG "vgxen", na instalaciu virtualizovanych systemov:
+
+$ sudo pvcreate /dev/sdb
+$ sudo pvcreate /dev/sdc
+$ sudo vgcreate vgxen /dev/sdb /dev/sdc
+
+- dalej instalujeme sietove balicky: $ sudo apt install ifupdown bridge-utils
+- upravime subor "/etc/network/interfaces" nasledovne:
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# Definujeme fyzicku NIC, ktora bude patrit do "xenbr0"
+auto ens33
+iface ens33 inet static
+########################
+# Definujeme "bridge-interface"
+auto xenbr0
+iface xenbr0 inet static
+bridge_ports ens33
+address 192.168.255.246
+network 192.168.255.0
+netmask 255.255.255.0
+broadcast 192.168.255.255
+gateway 192.168.255.1
+dns-nameservers 193.17.47.1 185.43.135.1 
