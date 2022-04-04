@@ -2891,12 +2891,11 @@ Postup ako vytvorit HVM instanciu s instalacnym .ISO suborom:
 
 disk = [ 'phy:/dev/vgxen/lv_fedora35vm01,hda,w','file:/root/fed35-x86_64.iso,hdc:cdrom,r' ]
 
-Installation Summary
----------------------
-Hostname        :  xenvm01
-Distribution    :  jessie
-MAC Address     :  00:16:3E:47:52:8C
-IP Address(es)  :  dynamic
-SSH Fingerprint :  SHA256:lO8C+4Dko7dULgoSpwjsixe62a3d0nFGxG/g2chQ76Q (DSA)
-SSH Fingerprint :  SHA256:XWvgsU8JjRNNaUJ6tctkcXWf3Z3RugVOtFpyDCQCzy4 (RSA)
-Root Password   :  DKxMHWaDvkrqptqYEcuWj7b
+    - riadok "sdl = 1" zakomentujeme a odkomentujeme riadok "vnc = 1"
+    - dalej pridame riadok, tak aby najskor bootoval "Disk" a potom "CD-ROM image": 
+        boot = "dc"
+- na zaver vytvorime VM instanciu, na ktoru sa da pripojit cez VNC protokol:
+    $ sudo xl create fedora35vm01.cfg
+
+- overime prikazom: $ sudo xl list
+ 
