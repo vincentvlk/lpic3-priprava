@@ -2791,15 +2791,15 @@ $ sudo vgcreate vgxen /dev/sdb /dev/sdc
 - dalej instalujeme sietove balicky: $ sudo apt install ifupdown bridge-utils
 - upravime subor "/etc/network/interfaces" nasledovne:
 
-# The loopback network interface
+# Definicia loopback interface
 auto lo
 iface lo inet loopback
 
-# Definujeme fyzicku NIC, ktora bude patrit do "xenbr0"
-auto ens33
-iface ens33 inet static
+# Zakomentujeme fyzicku NIC, ktora bude patrit do "xenbr0"
+#auto ens33
+#iface ens33 inet static
 ########################
-# Definujeme "bridge-interface"
+# Definujeme "bridge-interface" s povodnou IP konf. z rozhrania "ens33"
 auto xenbr0
 iface xenbr0 inet static
 bridge_ports ens33
@@ -2809,3 +2809,7 @@ netmask 255.255.255.0
 broadcast 192.168.255.255
 gateway 192.168.255.1
 dns-nameservers 193.17.47.1 185.43.135.1 
+
+- nasledne restartujeme "networking" sluzbu: $ sudo systemctl restart networking.service
+  - podla vypisu "$ ip address" by mal byt povodny staticky IP conf. na novom "bridge" iface
+- instalujeme nastroje Hypervizora "Xen": $ sudo apt install xen-system-amd64
