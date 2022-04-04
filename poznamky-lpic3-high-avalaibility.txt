@@ -2851,5 +2851,6 @@ GRUB_CMDLINE_XEN_DEFAULT="dom0_max_vcpus=1 dom0_mem=1024M,max:1024M"
 
 - nasledne instalujeme sadu nastrojov pre Xen: $ sudo apt install xen-tools
   - konfiguraciu nastrojov najdeme v subore "/etc/xen-tools/xen-tools.conf"
+    - odkomentujeme a upravime riadok "lvm = vg0" na "lvm = vgxen"
   - v adresary "/usr/share/xen-tools/" najdeme typy OS pre Xen VM instancie
  
