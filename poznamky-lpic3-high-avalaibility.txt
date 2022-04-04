@@ -2856,4 +2856,8 @@ GRUB_CMDLINE_XEN_DEFAULT="dom0_max_vcpus=1 dom0_mem=1024M,max:1024M"
  
 - nasledne vytvorime Xen domenu/image:
 
-$ sudo xen-create-image --hostname=xenvm01 --lvm=vgxen --memory=2G --maxmem=2G --vcpus=2 --size=8G --swap=1G --fs=ext4 --dhcp --arch=amd64 --dist=jessie
+$ sudo xen-create-image --hostname=xenvm01 --lvm=vgxen --memory=2G --maxmem=2G --vcpus=2 \
+--size=8G --swap=1G --fs=ext4 --dhcp --arch=amd64 --dist=jessie
+
+- parameter memory/maxmem udava velkost RAM a max. velkost RAM
+- parameter vcpus udava pocet virt. CPU
