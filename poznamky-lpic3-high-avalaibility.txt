@@ -2867,12 +2867,13 @@ $ sudo xen-create-image --hostname=xenvm01 --lvm=vgxen --memory=2G --maxmem=2G -
 - parameter "dhcp" definuje IP konfiguraciu z DHCP
 - parameter "arch" udava procesorovu architekturu
 - parameter "dist" udava typ Linux distribucie
-- po ukonceni z vypisu ziskame udaje o SSH a heslo "root"
+- po ukonceni z vypisu ziskame udaje o SSH a heslo "root" uzivatela, ktorym sa prihlasime na VM
 
 - nasledne vytvorime VM instanciu podla vygenerovaneho Image/konfigu:
   - prikaz: $ sudo xl create /etc/xen/xenvm01.cfg
   - overime prikazom: $ sudo xl list
-
+  - po nabootovani VM instanacie sa mozeme pripojit na jej terminal: $ sudo xl console xenvm1
+    - z konzoly sa odhlasime skratkou "Ctrl + ]"
 
 Installation Summary
 ---------------------
