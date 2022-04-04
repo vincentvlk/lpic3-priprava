@@ -3,8 +3,10 @@
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 *MOJ skromny nazor*: popriority pri realizacii projektov na OS GNU/Linux:
 
-Bezpecnost + Zalohovanie + Kontrola pouzitelnosti zaloh + IPv6
-Security + Backups + Backups usability check + IPv6
+Bezpecnost + Zalohovanie + Kontrola pouzitelnosti zaloh
+Security + Backups + Backups usability check
+
++ zvazit nasadenie IPv6
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 Ako na linuxe vypnut PC-speaker: #rmmod pcspkr
@@ -2874,6 +2876,12 @@ $ sudo xen-create-image --hostname=xenvm01 --lvm=vgxen --memory=2G --maxmem=2G -
   - overime prikazom: $ sudo xl list
   - po nabootovani VM instanacie sa mozeme pripojit na jej terminal: $ sudo xl console xenvm1
     - z konzoly sa odhlasime skratkou "Ctrl + ]"
+  - domenu/VM vypneme s: $ sudo xl shutdown xenvm01
+
+Postup ako vytvorit HVM instanciu s instalacnym .ISO suborom:
+
+- podla sablony si v adresari "/etc/xen/" vytvorime konf. subor na vytvorenie VM: 
+  - prikaz $ sudo cp xlexample.hvm fedora35vm01.cfg 
 
 Installation Summary
 ---------------------
