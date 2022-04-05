@@ -2898,4 +2898,9 @@ disk = [ 'phy:/dev/vgxen/lv_fedora35vm01,hda,w','file:/root/fed35-x86_64.iso,hdc
     $ sudo xl create fedora35vm01.cfg
 
 - overime prikazom: $ sudo xl list
- 
+
+Poznamka: Technologia Xen bola davnejsie odkupena spol. Citrix a je to dlhsie komercny produkt.
+Z tohto dovodu OSS komunita viac preferuje kombinaciu projetov ako je KVM, QEMU, libvirt,
+preto tato cast poznamok nejde viac do hlbky.
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
