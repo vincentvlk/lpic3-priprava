@@ -2878,7 +2878,7 @@ $ sudo xen-create-image --hostname=xenvm01 --lvm=vgxen --memory=2G --maxmem=2G -
     - z konzoly sa odhlasime skratkou "Ctrl + ]"
   - domenu/VM vypneme s: $ sudo xl shutdown xenvm01
 
-Postup ako vytvorit HVM instanciu s instalacnym .ISO suborom:
+Postup ako vytvorit HVM (Hardware Vitrual Machine) instanciu s instalacnym .ISO suborom:
 - vytvorime si LV pre novu VM: $ sudo lvcreate --size 10g --type linear -n lv_fedora35vm01 vgxen
 - podla sablony si v adresari "/etc/xen/" vytvorime konf. subor na vytvorenie VM: 
   - prikaz $ sudo cp xlexample.hvm fedora35vm01.cfg 
@@ -2894,13 +2894,23 @@ disk = [ 'phy:/dev/vgxen/lv_fedora35vm01,hda,w','file:/root/fed35-x86_64.iso,hdc
     - riadok "sdl = 1" zakomentujeme a odkomentujeme riadok "vnc = 1"
     - dalej pridame riadok, tak aby najskor bootoval "Disk" a potom "CD-ROM image": 
         boot = "dc"
+
 - na zaver vytvorime VM instanciu, na ktoru sa da pripojit cez VNC protokol:
     $ sudo xl create fedora35vm01.cfg
 
 - overime prikazom: $ sudo xl list
 
 Poznamka: Technologia Xen bola davnejsie odkupena spol. Citrix a je to dlhsie komercny produkt.
-Z tohto dovodu OSS komunita viac preferuje kombinaciu projetov ako je KVM, QEMU, libvirt,
-preto tato cast poznamok nejde viac do hlbky.
+Z tohto dovodu OSS komunita viac preferuje kombinaciu projetov ako je KVM, QEMU, libvirt...
+Preto tato cast poznamok nejde viac do hlbky.
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+Praca s virtualizacnou platformou "KVM" a pridruzenymi projektami "QEMU" a "libvirt":
+ - KVM - Kernel Virtualization Module, sluzi ako "akcelerator" pre nastroje QEMU
+ - QEMU - genericky emulator pocitacov a virtualizator
+ - KVM+QEMU podporuju viacero suborovych diskov, ako napr. raw, qcow2, vdi, vmdk, ...
+   - qcow2 - QEMU Copy On Write version 2
+   - jedine format "qcow2" podporuje "snapshot-y" (neviem ci uz ich nie je viac)
+
+
 
