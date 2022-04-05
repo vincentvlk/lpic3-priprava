@@ -2947,4 +2947,9 @@ $ sudo qemu-kvm -name vm01_kvm -hda /mnt/kvm-stor/qemu.vm01.img \
 
  - stav VM instancie overime s: $ sudo virsh list --all
 
+Dalsie nastroje na pracu s KVM: "qemu-ga" / "qemu-img"
+- ako ziskat informacie o qcow2 image: $ sudo qemu-img info /mnt/kvm-stor/qemu.vm01.img
+- ako otestovat konzistenciu image: $ sudo qemu-img check /mnt/kvm-stor/qemu.vm01.img
+  - dalsie moznosti: create, commit, comapre, convert, map, snaphost, rebase, resize, amend
+  - dalsie informacie napr. v: $ man qemu-img
 
