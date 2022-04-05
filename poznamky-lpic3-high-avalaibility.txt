@@ -2912,7 +2912,7 @@ Praca s virtualizacnou platformou "KVM" a pridruzenymi projektami "QEMU" a "libv
    - qcow2 - QEMU Copy On Write version 2
    - jedine format "qcow2" podporuje "snapshot-y" (neviem ci uz ich nie je viac)
 
-Postup, ako instalovat KVM + QEMU na Host pocitaci/servery s OS Rocky Linux 8.5:
+Zjednoduseny postup, ako instalovat KVM + QEMU na Host pocitaci/servery s OS Rocky Linux 8.5:
 - overime podporu virtualizacie v CPU (Intel alebo AMD): $ sudo egrep -o '(vmx|svm)' /proc/cpuinfo 
   - podpora pre Intel je "vmx", podpora pre AMD je "svm"
 
@@ -2927,3 +2927,13 @@ Postup, ako instalovat KVM + QEMU na Host pocitaci/servery s OS Rocky Linux 8.5:
   - prikaz: $ sudo ln -s /usr/libexec/qemu-kvm /usr/local/sbin/qemu-kvm
 
 - vytv. VM disk vo formate qcow2: $ sudo qemu-img create -f qcow2 /mnt/kvm-stor/qemu.vm01.img 10G
+- dalej vytvorime samotnu VMm ku ktorej pripojime instalacny .ISO image s OS Fedora 35:
+  - instancie bude bezat na pozadi s dostupnym VNC pripojenim
+
+$ sudo qemu-kvm -name vm01_kvm -hda /mnt/kvm-stor/qemu.vm01.img \
+  -cdrom /root/fed35-amd64.iso -boot d -m 2048 &
+
+- na test si mozeme vytv. SSH tunnel, ktory prepoji VNS server na "localhost:5900" so sietou
+  - na tomto TCP/5900 porte pocuva VNS server pre QUEMU/KVM, kde mozeme ovladat danu VM
+  - prikaz napr.: $ sudo ssh -N -R *:6000:localhost:5900 uzivatel@<KVM-Host>
+    - nasledne sa cez VNC klienta pripojime na adresu <KVM-Host> a TCP port 6000
