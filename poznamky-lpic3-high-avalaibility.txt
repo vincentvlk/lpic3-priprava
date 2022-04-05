@@ -2904,7 +2904,6 @@ Poznamka: Technologia Xen bola davnejsie odkupena spol. Citrix a je to dlhsie ko
 Z tohto dovodu OSS komunita viac preferuje kombinaciu projetov ako je KVM, QEMU, libvirt...
 Preto tato cast poznamok nepokracuje dalej.
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
 Praca s virtualizacnou platformou "KVM" a pridruzenymi projektami "QEMU" a "libvirt":
  - KVM - Kernel based Virtual Machine, sluzi ako "akcelerator" pre nastroje QEMU
  - QEMU - genericky emulator a virtualizator pocitacov
@@ -2947,9 +2946,24 @@ $ sudo qemu-kvm -name vm01_kvm -hda /mnt/kvm-stor/qemu.vm01.img \
 
  - stav VM instancie overime s: $ sudo virsh list --all
 
-Dalsie nastroje na pracu s KVM: "qemu-ga" / "qemu-img"
+Dalsie nastroje na pracu s KVM: "qemu-ga" / "qemu-img" / "qemu-kvm"
+- nastroj "qemu-ga" umoznuje napr.: ziskat info o VM, suspendovat VM, nastavit systemovy cas, ...
 - ako ziskat informacie o qcow2 image: $ sudo qemu-img info /mnt/kvm-stor/qemu.vm01.img
 - ako otestovat konzistenciu image: $ sudo qemu-img check /mnt/kvm-stor/qemu.vm01.img
   - dalsie moznosti: create, commit, comapre, convert, map, snaphost, rebase, resize, amend
   - dalsie informacie napr. v: $ man qemu-img
+
+Dolezity nastroj "qemu-kvm" je hlavny nastroj pre pracu s QEMU+KVM:
+ - tento nastroj ma velke mnozstvo moznosti/nastaveni, treba pozriet napr.: $ man qemu-kvm
+ - dalsia sucast je interaktivny nastroj "KVM Monitor", ktory umoznuje riadenie/sledovanie KVM+QEMU
+   - nastroj ma predvolene graficke rozhranie, parameter "stdio" aktivuje textove rozhranie
+   - v terminale spustime s: $ sudo qemu-kvm -monitor stdio
+     - prva pomoc je prikaz "help", dalej napr. ked zadame "info", vypise nam moznosti prikazu
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Ako sledovat cinnost "sietoveho unit-u " v systemD: $ sudo journalctl -f -u systemd-networkd
+
+Praca s "OS-level virtualization" projektami: OpenVZ, LXC
+ - dalsia moznost je "Application-level virtualization", kde je hlavnym zastupcom platforma Docker
+
+
 
