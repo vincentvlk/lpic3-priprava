@@ -2933,7 +2933,7 @@ Zjednoduseny postup, ako instalovat KVM + QEMU na Host pocitaci/servery s OS Roc
 $ sudo qemu-kvm -name vm01_kvm -hda /mnt/kvm-stor/qemu.vm01.img \
   -cdrom /root/fed35-amd64.iso -boot d -m 2048 &
 
-- na test si mozeme vytv. SSH tunnel, ktory prepoji VNS server na "localhost:5900" so sietou
-  - na tomto TCP/5900 porte pocuva VNS server pre QUEMU/KVM, kde mozeme ovladat danu VM
-  - prikaz napr.: $ sudo ssh -N -R *:6000:localhost:5900 uzivatel@<KVM-Host>
+- na test si vytvorime SSH tunnel, ktory prepoji VNS server na "localhost:5900" so sietou
+  - na tomto TCP/5900 porte pocuva VNC server pre QUEMU/KVM Host-a, kde mozeme ovladat danu VM
+  - prikaz napr. na KVM Host-e: $ sudo ssh -N -R *:6000:localhost:5900 uzivatel@<KVM-Host>
     - nasledne sa cez VNC klienta pripojime na adresu <KVM-Host> a TCP port 6000
