@@ -3,8 +3,8 @@
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 *MOJ skromny nazor*: popriority pri realizacii projektov na OS GNU/Linux:
 
-Bezpecnost + Zalohovanie + Kontrola pouzitelnosti zaloh
-Security + Backups + Backups usability check
+Bezpecnost + Zalohovanie + Kontrola pouzitelnosti zaloh + Dokumentacia
+Security + Backups + Backups usability check + Documentation
 
 + zvazit nasadenie IPv6
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
