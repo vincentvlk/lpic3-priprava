@@ -2902,7 +2902,7 @@ disk = [ 'phy:/dev/vgxen/lv_fedora35vm01,hda,w','file:/root/fed35-x86_64.iso,hdc
 
 Poznamka: Technologia Xen bola davnejsie odkupena spol. Citrix a je to dlhsie komercny produkt.
 Z tohto dovodu OSS komunita viac preferuje kombinaciu projetov ako je KVM, QEMU, libvirt...
-Preto tato cast poznamok nejde viac do hlbky.
+Preto tato cast poznamok nepokracuje dalej.
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 Praca s virtualizacnou platformou "KVM" a pridruzenymi projektami "QEMU" a "libvirt":
@@ -2920,8 +2920,10 @@ Postup, ako instalovat KVM + QEMU na Host pocitaci/servery s OS Rocky Linux 8.5:
   - ak nenajde tak: "$ sudo modprobe kvm" a "$ sudo modprobe kvm_intel" / "$ sudo modprobe kvm_amd"
 - overime pritomnost KVM v systeme: $ sudo ls -al /dev/kvm 
 - dalej instalujeme QEMU s podporou KVM: $ sudo dnf -y in qemu-kvm 
-- volitelne mozeme uz intalovat aj nastroje/API "libvirt": $ sudo dnf -y in libvirt
-  - sluzbu nasledne "zapneme": $ sudo systemctl enable --now libvirtd.service
-  - overime stav: $ sudo systemctl status libvirtd.service
+- volitelne mozeme uz intalovat aj nastroje/API "libvirt": $ sudo dnf -y in libvirt virt-install
+  - sluzbu "libvirt" nasledne "zapneme": $ sudo systemctl enable --now libvirtd.service
+  - overime stav sluzby: $ sudo systemctl status libvirtd.service
+- spol. RedHat doporucuje pouzit "libvirt", ak chceme pouzit "qemu-kvm" je potrebny link do $PATH:
+  - prikaz: $ sudo ln -s /usr/libexec/qemu-kvm /usr/local/sbin/qemu-kvm
 
 
