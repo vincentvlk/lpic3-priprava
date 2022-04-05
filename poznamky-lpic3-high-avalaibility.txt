@@ -2906,8 +2906,8 @@ Preto tato cast poznamok nejde viac do hlbky.
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 Praca s virtualizacnou platformou "KVM" a pridruzenymi projektami "QEMU" a "libvirt":
- - KVM - Kernel Virtualization Module, sluzi ako "akcelerator" pre nastroje QEMU
- - QEMU - genericky emulator pocitacov a virtualizator
+ - KVM - Kernel based Virtual Machine, sluzi ako "akcelerator" pre nastroje QEMU
+ - QEMU - genericky emulator a virtualizator pocitacov
  - KVM+QEMU podporuju viacero suborovych diskov, ako napr. raw, qcow2, vdi, vmdk, ...
    - qcow2 - QEMU Copy On Write version 2
    - jedine format "qcow2" podporuje "snapshot-y" (neviem ci uz ich nie je viac)
