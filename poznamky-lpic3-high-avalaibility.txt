@@ -2926,4 +2926,4 @@ Postup, ako instalovat KVM + QEMU na Host pocitaci/servery s OS Rocky Linux 8.5:
 - spol. RedHat doporucuje pouzit "libvirt", ak chceme pouzit "qemu-kvm" je potrebny link do $PATH:
   - prikaz: $ sudo ln -s /usr/libexec/qemu-kvm /usr/local/sbin/qemu-kvm
 
-
+- vytv. VM disk vo formate qcow2: $ sudo qemu-img create -f qcow2 /mnt/kvm-stor/qemu.vm01.img 10G
