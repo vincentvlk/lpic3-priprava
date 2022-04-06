@@ -2982,7 +2982,7 @@ Praca s virtualizacnou platformou "LXC - Linux Containers", tiez pracuje s konta
  - nasledne overime, ci ma aktualny uzivatel mapovanie subUID a subGID pre LXC
    - kontrolujeme subory "/etc/subuid" a "/etc/subgid"
  - dalej definujeme networking limit pre LXC, umozni pripojit 10 "veth NICov" k "lxcbr0" bridgu
-   - upravime subor "/etc/lxc/lxc-usernet" a vlozime riadok "user <uzivatel> lxcbr0 10"
+   - upravime subor "/etc/lxc/lxc-usernet" a vlozime riadok "<uzivatel> veth lxcbr0 10"
  - vytvorime konf. LXC adresar pre daneho uzivatela: $ mkdir -p /home/<uzivatel>/.config/lxc
  - dalej skopirujeme vzorovy konf. subor: $ cp /etc/lxc/default.conf /home/<uzivatel>/.config/lxc/
  - nasledne mozeme upravit lokalnu LXC konfiguraciu v subore "default.conf"
@@ -2994,6 +2994,15 @@ lxc.idmap = g 0 165536 65536
  - je potrebne nastavit premennu: $ export DOWNLOAD_KEYSERVER="hkp://keyserver.ubuntu.com"
    - prikaz mozeme vlozit aj napr. do suboru "/home/<uzivatel>/.bashrc"
  - dalej je potrebne restartovat Host system, napr. s: $ sudo reboot
- - po reboote mozeme pracovat s kontajnermi, vytvorime kont. podla sablony
-   - prikaz: $ lxc-create
+ - po reboote mozeme pracovat s kontajnermi, vytvorime kont. podla sablony s nazvom "lxctest1"
+   - prikaz: $ lxc-create -t download -n lxctest1
+   - nasledujeme sprievodcu, kde zadame system, verziu a CPU architekturu
+   - napr. sa da zadat minimalisticka distribucia  "alpine" + "3.15" + "amd64" 
+ - je potrebne este nastavit prava "execute" na adresar /home/<uzivatel>/.local
+   - prikaz: $ chmod og+x .local/ 
+ - nasledne uz mozeme spustit do pozadia vytvoreny kontajner "lxctest1" s Alpine Linux 3.15
+   - prikaz $ lxc-start -d -n lxctest1
+
+**Treba prerobit na novu verziu Ubuntu, toto je zastaraly postup :/**
+
 
