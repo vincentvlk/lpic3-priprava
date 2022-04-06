@@ -2969,7 +2969,11 @@ Praca s projektom "OpenVZ", ktory pracuje ako "OS-level" virtualizacna platforma
  - kontajnery funguju ako standardny linuxovy server VPS, ktory je izolovany od ostatnych instancii
  - OpenVZ pouziva modifikovany Kernel, platforma podporuje tzv. Checkpoit-y a Live migraciu
    - migracia zmrazi/Freeze stav kont. do suboru a na druhom hoste ho "rozmrazi/Unfreeze" a spusti 
- - nova instalacia je riesena cez stiahnutelny ISO image specialnej Linux dostribucie s OpenVZ  
+ - nova instalacia je riesena cez stiahnutelny ISO image specialnej Linux distribucie s OpenVZ 
+ - po instalacii VZ-Linux mozeme vytvorit OS-level kontajner podla preddefinovanej sablony:
+   - napr.: $ sudo prlctl create ubuCT1 --vmtype ct --ostemplate ubuntu-20.04-x86_64
+   - zoznam zakladnych sablon ziskame s: $ sudo vzpkg list
+*poznamky dalej nepokracuju, pretoze projekt je uz zastaraly*
 
 Praca s virtualizacnou platformou "LXC - Linux Containers", tiez pracuje s kontajnermi
  - snaha je vytvorit co najefektivnejsi kontajner bez emulacie HW
@@ -3004,8 +3008,20 @@ lxc.idmap = g 0 165536 65536
    - prikaz: $ lxc-start -d -n lxctest1
    - stav kontajnerov overime s: $ lxc-ls -f
    - na konzolu kontajnera sa pripojime s: $ lxc-attach -n lxctest1
- - ave
+   - informacie o danom kontajnery: $ lxc-info -n lxctest1
+   - kont. zastavime s: $ lxc-stop -n lxctest1
+   - kont. vymazeme, ak je zastaveny, prikazom: $ lxc-destroy lxctest1 
 
-**Treba prerobit na novu verziu Ubuntu, toto je zastaraly postup :/**
+**Praca s platformou Docker je uz vyssie popisana v tychto poznamkach.**
 
+Virt. nastroj "VirtualBox" je "hosted hypervisor / Type-2 hypervisor", ktory sa instaluje ako App.
+ - dalsie informacie: https://www.virtualbox.org/
 
+Nastroj "Packer" sluzi na automatizovanu tvorbu a konfiguraciu VM imagov
+ - nastroj dalej vyuziva automatizacne projekty Puppet a Chef
+ - dalsie informacie napr.: https://www.packer.io/
+
+Nastroj "Vagrant" sa vyuziva na automaticku tvorbu a manazment VM prostredi, ktore su prenositelne
+ - nastroj je integrovany s projektami Puppet, Chef a Ansible
+ - na definiciu VM prostredi a ich parametrov vyuziva tzv. "VagrantFile"
+ - dalsie informacie napr.: https://www.vagrantup.com/
