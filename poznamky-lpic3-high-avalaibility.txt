@@ -45,6 +45,7 @@ gateway 192.168.1.1
 dns-nameservers 193.17.47.1 185.43.135.1
 
 a nasledne aplikujeme config:
+
 # systemctl restart ifup@ens33 
 
 Dodatok k nastaveniu statickej IPv6 addr.:
@@ -64,11 +65,10 @@ iface ens37 inet6 static
     address 2001:db8:cafe::242/64
     gateway 2001:db8:cafe::42
     dns-nameservers 2001:db8:7ea::1 2001:db8:7ea::2
--=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 - nastavenie siete na CentOS:
-
-- pouzil som nejake hanbate GNOME GUI, neviem preco sa to hned neaplikovalo
+  - pouzil som nejake hanbate GNOME GUI, neviem preco sa to hned neaplikovalo
 
 - nastavenie siete na Fedora 35 Server:
 
@@ -137,7 +137,6 @@ Ako  v unix-like systemoch konvertovat video:
  higher bitrates, and hence produce higher quality videos.
 
  $ ffmpeg -i input.mp4 -vcodec libx265 -crf 28 output.mp4
-
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 Ako v Ubuntu 20.04 konfigurovat siet:
@@ -345,14 +344,13 @@ Ako zabezpecit, aby sa na Ubuntu 20.04 systemovy log neplnil hlaskami:
 $ sudo vim /etc/multipath.conf
 
 tam vlozit: 
----------------------
+
 defaults {
     user_friendly_names yes
 }
 blacklist {
     devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st|sda)[0-9]*"
 }
----------------------
 
 Po ulozeni, treba restartovat proces multipathd:
 
