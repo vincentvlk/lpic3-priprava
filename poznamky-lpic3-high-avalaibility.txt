@@ -1105,7 +1105,6 @@ echo "Zadali ste vek $vek roky/rokov."
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 Priklad nacita vo "for" slucke hodnoty z .txt suboru do premennej $ip:
-
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 #!/bin/bash
 for ip in $(cat /home/dev1/ip_adresy.txt)
@@ -1118,7 +1117,6 @@ done
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 Ako vytvorit skript s jednoduchym "select" menu v jazyku BASH:
-
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 #!/bin/bash
 #
@@ -1194,7 +1192,6 @@ fi
 
 # koniec skpritu
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
 *Pokracovanie prace s Docker-om*
 
 Jednoduche web prostredie na ucenie/testovanie Docker-u: https://labs.play-with-docker.com/
@@ -1254,6 +1251,7 @@ Poznamka, ak chceme vymazat Docker image, treba nasjkor pomazat z neho vytvorene
 POZOR, automaticky nastroj na cistenie tzv. "dangling" Docker images: $ docker system prune
  - dalsie informacie: $ docker system prune --help
  - celkom uzitocna diagnostika zabrateho miesta: $ docker system df
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 Nastroj na ochranu integrity suborov a adresarov "AIDE", instalacia: $ sudp apt install aide
  - instalacia na Fedora Server: $ sudo dnf install aide
@@ -1400,7 +1398,7 @@ Ako hladat/mazat virusy, pouzijeme nastroj "Clam-AV": $ sudo apt install clamav 
    - upravime vypis, aby zobrazil "nakazene" subory: $ sudo clamscan --infected --recursive /home
    - POZOR a OPATRNE, automaticke mazanie: $ sudo clamscan --infected --remove --recursive /home
    - pre Linux-ove distribucie existuje aj GUI rozhranie "ClamTk": $ sudo apt install clamtk
-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako na zabezpecnie zavadzaca "GRUB2", vytvorime heslo: $ sudo grub-mkpasswd-pbkdf2
  - dalej upravime subor "/etc/grub.d/40_custom" pridame riadky, vygenerovany HASH, od slova "grub"
 
@@ -1408,7 +1406,7 @@ set superusers="root"
 password_pbkdf2 root grub.pbkdf2.sha512.10000.C319ED4060EA...
 
  - nasledne ulozime a spustime skript na generovanie konfiguracie: $ sudo update-grub2 
-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Zakladne zabezpecie servera "OpenSSH", hlavna konfiguracia je ulozena v subore: "/etc/ssh/sshd_config"
  - rozsiahly zdroj informacii: $ man sshd_config
  - zvazit zmenu pocuvajuceho TCP portu, upravime riadok "#Port 22" na "Port 5022"
@@ -1436,16 +1434,16 @@ student		hard	nproc	1000
 student		hard	fsize	1000
 
  - dalsie informacie napr. v: $ man limits.conf
-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako zasifrovat subor s citlivymi udajmi pomocou GNU-Pg: $ gpg -c povodny.txt
  - vznikne sifrovany subor "povodny.txt.gpg", ktory napr. premenujeme na "sprava.dat" a posleme
  - mozeme aj upresnit sifru a vystup: $ gpg -c --cipher-algo aes256 -o sprava.dat povodny.txt
  - OPATRNE, ak treba, mozeme spolahlivo "znicit" povodny subor: $ shred -uv -n 100 povodny.txt
  - v cieli sa subor desifruje: $ gpg -o povodny.txt -d sprava.dat
  - dalsie informacie napr. v "$ man gpg" alebo "$ gpg --help"
-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako bez dalsej interakcie spustit APT update/upgrade: $ sudo apt update && sudo apt upgrade -y
-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako nainstalovat DNS server "BIND 9", napr. $ sudo apt install bind9 bind9-utils bind9-doc
  - dalsie implementacie autoritativnych DNS serverov: "Knot DNS", "Dnsmasq", "PowerDNS", ...
  - standardna "bind9" Ubu/Deb instalacia spusti "Cache-only" server, pocuva na IPv4 aj IPv6
@@ -1507,7 +1505,7 @@ mail    IN	A	192.168.1.244
 
 Ako zistit, svoju verejnu IP, napr. "$ curl ifconfig.me", "$ curl -4 ident.me", "$ curl -6 ident.me"
  - priklad: pouzitie v skripte: $ echo "Moja verejne IP je $(curl -s ident.me)"
-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako zadefinovat tzv. "Virtual Hosting" pre Web server Apache2:
  - vytvorime adresar s webom: $ sudo mkdir /var/www/priklad.xyz
  - nastavime vlastnika: $ sudo chown -R www-data:www-data /var/www/priklad.xyz
@@ -1579,7 +1577,7 @@ Ako vypnut "podpis" servera, napr.: "Apache/2.4.41 (Ubuntu) Server at 192.168.1.
  - upravime subor: "/etc/apache2/conf-available/security.conf" najdeme "ServerSignature On"
  - zmenime na: "ServerSignature Off" potom: $ sudo systemctl reload-or-restart apache2
  - je este vhodne zmenit "ServerTokens OS" na "ServerTokens Prod" a restartovat Apache2
-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako programom "Ansible" nainstalovat program "nmap" pomocou systemu "APT":
  - instalujeme balik "ansible": $ sudo apt install ansible
  - vytvorime si "inventar" zariadeni, napr. vytvorime subor "hosts", kde napr. vlozime:
@@ -1601,7 +1599,7 @@ Tip: Ako vypisat dostupne ansible moduly: $ ansible-doc -l
 
 Tip: Na privatny SSH kluc mozeme nastavit prava "read-only": $ chmod u-w .ssh/id_rsa
  - pripadne sa mozu zvazit suborove ACLka
-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Zakladna praca s balickovacim systemom "Zypper" v OS: "OpenSUSE Leap":
  - aktualizacia DB balickov: $ sudo zypper refresh
  - instalacia aktualizacii:$ sudo zypper update 
@@ -1613,7 +1611,7 @@ Zakladna praca s balickovacim systemom "Zypper" v OS: "OpenSUSE Leap":
  - vypisanie dostupnych softwarovych "zaplat": $ sudo zypper patches
  - instalacia softwarovych "zaplat": $ sudo zypper patch
  - dalsie informacie: $ man zypper
-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako v OS "Fedora Server 35" nainstalovat NetworkManager-TUI: $ sudo dnf install NetworkManager-tui
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
