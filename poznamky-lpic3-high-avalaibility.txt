@@ -2976,6 +2976,9 @@ Praca s virtualizacnou platformou "LXC - Linux Containers", tiez pracuje s konta
  - vhodny na vytvaranie Developer prostredi, podporuje sablony/Templates
  - vyuziva projekty/technologie: Namespaces, CGroup, Chroot, Apparmor/SELinuxm, Seccomp
  
- - zjednoduseny postup ako na OS Ubuntu 20.04 spustat neprivilegovane LXC kontajnery:
+ - zjednoduseny postup ako na OS Ubuntu 20.04 spustat *neprivilegovane* LXC kontajnery:
    - instalujeme balik nastrojov: $ sudo apt install lxc
-
+ - nasledne overime, ci ma aktualny uzivatel mapovanie subUID a subGID pre LXC
+   - kontrolujeme subory "/etc/subuid" a "/etc/subgid"
+ - dalej definujeme networking limit pre LXC, umozni pripojit 10 "veth NICov" k "lxcbr0" bridgu
+   - upravime subor "/etc/lxc/lxc-usernet" a vlozime riadok "user <uzivatel> lxcbr0 10"
