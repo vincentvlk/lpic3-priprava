@@ -710,7 +710,7 @@ Ako kompilovat a instalovat zdrojove baliky:
  - po overeni mozeme spustit samotnu instalaciu: $ make install
  - po instalacii v adresary "test_coreutils" vzniknu adresare "bin", "libexec", "share"
  - na Debian-based distr. je nastroj na nastavenie parametrov ".deb" balickov "checkinstall": # apt install checkinstall
- - POZOR, na nasej testovacej instalacii mozeme spustit tvorbu balicka: # checkinstall make install
+ - POZOR, na svojej testovacej instalacii mozeme spustit tvorbu balicka: # checkinstall make install
  - ^^^ uvedenym prikazom si mozeme rozbit system, tak doporucujem si na test VM spravit snapshot a opatrne...
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
