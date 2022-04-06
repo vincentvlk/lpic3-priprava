@@ -2973,7 +2973,8 @@ Praca s projektom "OpenVZ", ktory pracuje ako "OS-level" virtualizacna platforma
  - po instalacii VZ-Linux mozeme vytvorit OS-level kontajner podla preddefinovanej sablony:
    - napr.: $ sudo prlctl create ubuCT1 --vmtype ct --ostemplate ubuntu-20.04-x86_64
    - zoznam zakladnych sablon ziskame s: $ sudo vzpkg list
-*poznamky dalej nepokracuju, pretoze projekt je uz zastaraly*
+
+**poznamky k OpenVZ dalej nepokracuju, pretoze projekt je uz zastaraly**
 
 Praca s virtualizacnou platformou "LXC - Linux Containers", tiez pracuje s kontajnermi
  - snaha je vytvorit co najefektivnejsi kontajner bez emulacie HW
@@ -3025,3 +3026,7 @@ Nastroj "Vagrant" sa vyuziva na automaticku tvorbu a manazment VM prostredi, kto
  - nastroj je integrovany s projektami Puppet, Chef a Ansible
  - na definiciu VM prostredi a ich parametrov vyuziva tzv. "VagrantFile"
  - dalsie informacie napr.: https://www.vagrantup.com/
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+Praca s kniznicou/nastrojmi/API pod nazvom projektu "libvirt"
+ -  
