@@ -2969,4 +2969,13 @@ Praca s projektom "OpenVZ", ktory pracuje ako "OS-level" virtualizacna platforma
  - kontajnery funguju ako standardny linuxovy server VPS, ktory je izolovany od ostatnych instancii
  - OpenVZ pouziva modifikovany Kernel, platforma podporuje tzv. Checkpoit-y a Live migraciu
    - migracia zmrazi/Freeze stav kont. do suboru a na druhom hoste ho "rozmrazi/Unfreeze" a spusti 
+ - nova instalacia je riesena cez stiahnutelny ISO image specialnej Linux dostribucie s OpenVZ  
+
+Praca s virtualizacnou platformou "LXC - Linux Containers", tiez pracuje s kontajnermi
+ - snaha je vytvorit co najefektivnejsi kontajner bez emulacie HW
+ - vhodny na vytvaranie Developer prostredi, podporuje sablony/Templates
+ - vyuziva projekty/technologie: Namespaces, CGroup, Chroot, Apparmor/SELinuxm, Seccomp
+ 
+ - zjednoduseny postup ako na OS Ubuntu 20.04 spustat neprivilegovane LXC kontajnery:
+   - instalujeme balik nastrojov: $ sudo apt install lxc
 
