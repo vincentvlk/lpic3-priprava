@@ -1,1 +1,1 @@
-# Poznamky k priprave na LPIC3-HA
+# Poznamky k priprave na LPIC3-HA/VM

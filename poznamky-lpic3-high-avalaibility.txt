@@ -2962,8 +2962,11 @@ Dolezity nastroj "qemu-kvm" je hlavny nastroj pre pracu s QEMU+KVM:
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako sledovat cinnost "sietoveho unit-u " v systemD: $ sudo journalctl -f -u systemd-networkd
 
-Praca s "OS-level virtualization" projektami: OpenVZ, LXC
+Praca s "OS-level virtualization" projektami OpenVZ, LXC, ktore pracuju s konceptom kontajnerov
  - dalsia moznost je "Application-level virtualization", kde je hlavnym zastupcom platforma Docker
 
-
+Praca s projektom "OpenVZ", ktory pracuje ako "OS-level" virtualizacna platforma s kontajnermi:
+ - kontajnery funguju ako standardny linuxovy server VPS, ktory je izolovany od ostatnych instancii
+ - OpenVZ pouziva modifikovany Kernel, platforma podporuje tzv. Checkpoit-y a Live migraciu
+   - migracia zmrazi/Freeze stav kont. do suboru a na druhom hoste ho "rozmrazi/Unfreeze" a spusti 
 
