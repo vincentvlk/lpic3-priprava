@@ -2960,7 +2960,7 @@ Dolezity nastroj "qemu-kvm" je hlavny nastroj pre pracu s QEMU+KVM:
    - v terminale spustime s: $ sudo qemu-kvm -monitor stdio
      - prva pomoc je prikaz "help", dalej napr. ked zadame "info", vypise nam moznosti prikazu
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Ako sledovat cinnost "sietoveho unit-u " v systemD: $ sudo journalctl -f -u systemd-networkd
+Ako sledovat cinnost "sietoveho unit-u" v systemD: $ sudo journalctl -f -u systemd-networkd
 
 Praca s "OS-level virtualization" projektami OpenVZ, LXC, ktore pracuju s konceptom kontajnerov
  - dalsia moznost je "Application-level virtualization", kde je hlavnym zastupcom platforma Docker
@@ -2977,6 +2977,7 @@ Praca s virtualizacnou platformou "LXC - Linux Containers", tiez pracuje s konta
  - vyuziva projekty/technologie: Namespaces, CGroup, Chroot, Apparmor/SELinuxm, Seccomp
  
  - zjednoduseny postup ako na OS Ubuntu 20.04 spustat *neprivilegovane* LXC kontajnery:
+   - je vhodne vytvorit noveho uzivatela, ktory nie je sysadmin
    - instalujeme balik nastrojov: $ sudo apt install lxc
  - nasledne overime, ci ma aktualny uzivatel mapovanie subUID a subGID pre LXC
    - kontrolujeme subory "/etc/subuid" a "/etc/subgid"
@@ -2987,6 +2988,12 @@ Praca s virtualizacnou platformou "LXC - Linux Containers", tiez pracuje s konta
  - nasledne mozeme upravit lokalnu LXC konfiguraciu v subore "default.conf"
    - pridame riadky, podla UID a GID mapovacich suborov, ktore sa kontrolovali, napr.:
 
-lxc.id_map = u 0 100000 65536
-lxc.id_map = g 0 100000 65536
+lxc.idmap = u 0 165536 65536
+lxc.idmap = g 0 165536 65536
+ 
+ - je potrebne nastavit premennu: $ export DOWNLOAD_KEYSERVER="hkp://keyserver.ubuntu.com"
+   - prikaz mozeme vlozit aj napr. do suboru "/home/<uzivatel>/.bashrc"
+ - dalej je potrebne restartovat Host system, napr. s: $ sudo reboot
+ - po reboote mozeme pracovat s kontajnermi, vytvorime kont. podla sablony
+   - prikaz: $ lxc-create
 
