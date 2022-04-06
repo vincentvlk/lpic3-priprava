@@ -2982,3 +2982,11 @@ Praca s virtualizacnou platformou "LXC - Linux Containers", tiez pracuje s konta
    - kontrolujeme subory "/etc/subuid" a "/etc/subgid"
  - dalej definujeme networking limit pre LXC, umozni pripojit 10 "veth NICov" k "lxcbr0" bridgu
    - upravime subor "/etc/lxc/lxc-usernet" a vlozime riadok "user <uzivatel> lxcbr0 10"
+ - vytvorime konf. LXC adresar pre daneho uzivatela: $ mkdir -p /home/<uzivatel>/.config/lxc
+ - dalej skopirujeme vzorovy konf. subor: $ cp /etc/lxc/default.conf /home/<uzivatel>/.config/lxc/
+ - nasledne mozeme upravit lokalnu LXC konfiguraciu v subore "default.conf"
+   - pridame riadky, podla UID a GID mapovacich suborov, ktore sa kontrolovali, napr.:
+
+lxc.id_map = u 0 100000 65536
+lxc.id_map = g 0 100000 65536
+
