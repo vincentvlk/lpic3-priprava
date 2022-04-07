@@ -3040,3 +3040,12 @@ Praca s kniznicou/nastrojmi/API pod nazvom projektu "libvirt"
  - casto pouzivane subcommands/sub-prikazy nastroja "virsh" ohladom storage manazmentu:
    - "virsh pool-build" : vytvori storage pool
    - "virsh pool-define-as" : prida perzistentny storage pool pomocou dalsich CLI parametrov
+   - "virsh pool-delete" : vymaze storage pool
+   - "virsh pool-destroy" : deaktivuje storage pool
+   - "virsh pool-edit" : uprava XML konf. storage pool-u
+   - "virsh pool-build" : vytvori storage pool
+   - "virsh pool-start" : zapne neaktivny storage pool
+   - "virsh vol-create-as" : v storage pool-e vytvori storage volume pomocou dalsich CLI parametrov
+   - "virsh vol-delete" : odstrani volume z daneho storage pool-u
+   - "virsh vol-list" : vypise zoznam dostupnych volume-s
+
