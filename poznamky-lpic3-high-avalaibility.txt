@@ -3048,9 +3048,9 @@ Praca s kniznicou/nastrojmi/API pod nazvom projektu "libvirt"
    - "virsh pool-start" : zapne neaktivny storage pool
    - "virsh vol-create-as" : v storage pool-e vytvori storage volume pomocou dalsich CLI parametrov
    - "virsh vol-delete" : odstrani volume z daneho storage pool-u
-   - "virsh vol-list" : vypise zoznam dostupnych volume-s
+   - "virsh vol-list <pool>" : vypise zoznam dostupnych volume-s
 
- - Praca s  VM stackom z komponentov: KVM + QEMU + libvirt na OS Rocky Linux 8.5
+ - Praca s VM hosting stackom z komponentov: KVM + QEMU + libvirt na OS Rocky Linux 8.5
    ** Instalacia  platformy je uz vyssie popisana v tychto poznamkach.**
 
    - adresar "/var/lib/libvirt/images/" je predvolena cesta pre disk image subory
@@ -3063,10 +3063,15 @@ Praca s kniznicou/nastrojmi/API pod nazvom projektu "libvirt"
    - pokracujeme vytvorenim storage pool-u s nazvom "lvm_pool"
      - prikaz: $ sudo virsh pool-define-as lvm_pool logical --source-name vg-kvm --target /dev/vdb1 
      - aktivujeme Pool: $ sudo virsh pool-start lvm_pool
-     - overime prikazom: $ sudo virsh pool-list --all
+       - overime prikazom: $ sudo virsh pool-list --all
      - zabezpecime automaticky start: $ sudo virsh pool-autostart lvm_pool
      - vytvorime si 2 particie/vulumes: $ sudo virsh vol-create-as lvm_pool kvm-vol1 10G 
        - resp.: $ sudo virsh vol-create-as lvm_pool kvm-vol2 10G
+       - overime prikazom: $ sudo virsh vol-list lvm_pool
+
+   - ako deaktivovat libvirt Storage pool s nazvom "lvm_pool": $ sudo virsh pool-destroy lvm_pool
+      - po deaktivacii sa moze Storage pool zmazat: $ sudo virsh pool-delete lvm_pool
+      - a nasledne aj oddefinovat: $ sudo virsh pool-undefine lvm_pool
 
    - virtualnu instanciu napr. s instalaciou Fedora Server 35 vytvorime nasledovne:   
 
