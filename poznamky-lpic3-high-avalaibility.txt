@@ -3061,9 +3061,12 @@ Praca s kniznicou/nastrojmi/API pod nazvom projektu "libvirt"
    
    - podla hore uvedenych poznamok si pripravime LVM2 VG skupinu, napr. s nazvom "vg-kvm"
    - pokracujeme vytvorenim storage pool-u s nazvom "lvm_pool"
-     - prikaz: $ sudo virsh pool-define-as 
-
-
+     - prikaz: $ sudo virsh pool-define-as lvm_pool logical --source-name vg-kvm --target /dev/vdb1 
+     - aktivujeme Pool: $ sudo virsh pool-start lvm_pool
+     - overime prikazom: $ sudo virsh pool-list --all
+     - zabezpecime automaticky start: $ sudo virsh pool-autostart lvm_pool
+     - vytvorime si 2 particie/vulumes: $ sudo virsh vol-create-as lvm_pool kvm-vol1 10G 
+       - resp.: $ sudo virsh vol-create-as lvm_pool kvm-vol2 10G
 
    - virtualnu instanciu napr. s instalaciou Fedora Server 35 vytvorime nasledovne:   
 
