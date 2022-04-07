@@ -2930,6 +2930,8 @@ $ sudo qemu-kvm -name vm01_kvm -hda /mnt/kvm-stor/qemu.vm01.img \
   - na tomto TCP/5900 porte pocuva VNC server pre QUEMU/KVM Host-a, kde mozeme ovladat danu VM
   - prikaz napr. na KVM Host-e: $ sudo ssh -N -R *:6000:localhost:5900 uzivatel@<KVM-Host>
     - nasledne sa cez VNC klienta pripojime na adresu <KVM-Host> a TCP port 6000
+  - pre viac VM instancii treba rozlisovat cislo VNC Display port-u
+    - toto cislo zistime prikazom $ sudo virsh vncdisplay <nazovVM>
 
 - dalej mozeme VM instanciu vytvorit aj nastrojom "virt-install" takto:
   - diskovy priestor 8GiB udava parameter "--disk size=8"
@@ -3051,4 +3053,19 @@ Praca s kniznicou/nastrojmi/API pod nazvom projektu "libvirt"
  - Praca s  VM stackom z komponentov: KVM + QEMU + libvirt na OS Rocky Linux 8.5
    ** Instalacia  platformy je uz vyssie popisana v tychto poznamkach.**
    
-   -
+   - virtualu instanciu napr. s instalaciou Fedora Server 35 vytvorime nasledovne:   
+
+sudo virt-install \
+--virt-type kvm \
+--name fedora35VM01 \
+--ram 2048 \
+--disk /mnt/kvmstor/fed35vm01.qcow2 \
+--network network=default --graphics vnc,listen=0.0.0.0 \
+--noautoconsole \
+--os-type=linux \
+--os-variant=fedora34 \
+--cdrom=/mnt/kvmstor/fed35-amd64.iso
+
+
+  virt-install --name=fedora35VM01 --memory=2048 --vcpus=2 --disk /mnt/kvmstor/fed35vm01.qcow2 \
+  --os-variant=fedora34 --cpu host --cdrom /mnt/kvmstor/fed35-amd64.iso &
