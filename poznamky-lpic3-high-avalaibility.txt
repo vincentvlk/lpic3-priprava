@@ -3026,3 +3026,12 @@ Praca s kniznicou/nastrojmi/API pod nazvom projektu "libvirt"
  - sluzi na unifikovany manazment virtualnych zdrojov roznych typov (KVM,QEMU,VMware,LXC,Xen,...)   
  - poskytuje CLI nastroje na manazment, ako su napr. "virsh", "virt-install", "virt-manger"
  - informacie a konfiguraciu VM instanacii uklada vo "formate" XML
+ - casto pouzivane subcommands/sub-prikazy nastroja "virsh" ohladom networkingu:
+   - "virsh net-list" : vypise virtualne siete
+   - "virsh net-start" : spusti virtualnu siet
+   - "virsh net-destroy" : zastavy a vymaze virtualnu siet
+   - "virsh net-undefine" : odstrani virtualnu siet, pokial nie je aktivna
+   - "virsh net-edit" : uprava XML konfiguracie virtualnej siete
+   - "virsh net-dumpxml" : vypise XML konfiguraciu virtualnej siete
+
+  
