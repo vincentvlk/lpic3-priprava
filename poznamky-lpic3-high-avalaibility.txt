@@ -1954,7 +1954,7 @@ Ked chceme pouzivat SBD Fencing na VM, je potrebne do kernelu nacitat modul "sof
 
 Praca s "Cluster Resources", teda zdroje, ktore dokaze cluster poskytovat:
  - mame k dispozicii tieto typy zdrojov: Primitive, Clone, Multi State (Master/Slave), Group
-   - typ "Primitive" - singularny zdroj spravovany resource anazerom clustra, ma "bezat" iba raz
+   - typ "Primitive" - singularny zdroj spravovany resource manazerom clustra, ma "bezat" iba raz
    - typ "Clone" - zdroj, ktori spravuje cluster a bezi na viacerych uzloch viac-krat, napr. cLVM
    - typ "Multi State (Master/Slave)" - zdroje bezia v hierarchii, priklad je DRBD
    - typ "Group" - skupina zdrojov, teda skupina "Primitives" a "Clones", napr. HA Webserver
@@ -3056,9 +3056,15 @@ Praca s kniznicou/nastrojmi/API pod nazvom projektu "libvirt"
    - adresar "/var/lib/libvirt/images/" je predvolena cesta pre disk image subory
    - adresar "/etc/libvirt/" je uzlozisko pre globalnu konfiguraciu
    - adresar "/etc/libvirt/qemu/" je uzlozisko pre XML konfiguraciu VM intanacii, resp. Domen
-     - priama konfiguracia XML suborov nie je doporucena
+     - priama uprava XML suborov nie je doporucena, treba pouzit "vrish edit" a "vrish net-edit"
      - nastroj na jej validaciu, napr: $ sudo virt-xml-validate /etc/libvirt/qemu/fedora35VM01.xml
    
+   - podla hore uvedenych poznamok si pripravime LVM2 VG skupinu, napr. s nazvom "vg-kvm"
+   - pokracujeme vytvorenim storage pool-u s nazvom "lvm_pool"
+     - prikaz: $ sudo virsh pool-define-as 
+
+
+
    - virtualnu instanciu napr. s instalaciou Fedora Server 35 vytvorime nasledovne:   
 
 $ sudo virt-install \
