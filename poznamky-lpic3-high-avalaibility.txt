@@ -3052,8 +3052,13 @@ Praca s kniznicou/nastrojmi/API pod nazvom projektu "libvirt"
 
  - Praca s  VM stackom z komponentov: KVM + QEMU + libvirt na OS Rocky Linux 8.5
    ** Instalacia  platformy je uz vyssie popisana v tychto poznamkach.**
+
+   - adresar "/var/lib/libvirt/images/" je predvolena cesta pre disk image subory
+   - adresar "/etc/libvirt/" je uzlozisko pre globalnu konfiguraciu
+   - adresar "/etc/libvirt/qemu/" je uzlozisko pre XML konfiguraciu VM intanacii, resp. Domen
+
    
-   - virtualu instanciu napr. s instalaciou Fedora Server 35 vytvorime nasledovne:   
+   - virtualnu instanciu napr. s instalaciou Fedora Server 35 vytvorime nasledovne:   
 
 sudo virt-install \
 --virt-type kvm \
