@@ -780,15 +780,15 @@ Chceme napr. zmenit format zapisu poznamok, mozeme vytvorit vetvu, *branch*: $ g
  - potom sa mozeme prepinat medzi vetvami, napr. sa vratit hlavnej "master" vetvy: $ git checkout master
  - overime s: $ git status
 
-Ked chceme replikovat repo. na vzdialeny server, napr. (hanbaty) GitHub:
+Ked chceme replikovat repo. na vzdialeny server, napr. na (hanbaty) GitHub:
 - na platforme github.com si vytvorime uziv. ucet
 - je potrebne vytvorit si autentifikacny Token, tzv. "Personal Access Token", podla odkazu:
 https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
 
 - dalej vytvorime repozitar s nazvom "git_ucenie", portal GiitHub nam vygeneruje zakladne prikazy.
-- dalej si vytvorime vzdialeny pristup na repo., tzv. "Remote": $ git remote add origin https://github.com/UZIVATEL/git_ucenie.git 
+- dalej si vytvorime vzdialeny pristup na repo., tzv. "Remote": $ git remote add origin https://github.com/<UZIVATEL>/git_ucenie.git 
 - nasledne zosynchronizujeme kolakny repo. so vzdialenym repo.: $ git push -u origin master
-- na autentifikaciu zadame svoje uziv. meno, ale namiesto hesla zadame vygenerovany PAT Token
+- na autentifikaciu zadame svoje uziv. meno, ale *namiesto hesla zadame vygenerovany PAT Token*
 
 Na ulahcenie prace si mozeme pridat do svojho $HOME adresara do suboru ".gitconfig" aliasy, napr.:
 
