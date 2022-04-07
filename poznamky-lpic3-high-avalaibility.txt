@@ -2913,7 +2913,7 @@ Zjednoduseny postup, ako instalovat KVM + QEMU na Host pocitaci/servery s OS Roc
   - ak nenajde tak: "$ sudo modprobe kvm" a "$ sudo modprobe kvm_intel" / "$ sudo modprobe kvm_amd"
 - overime pritomnost KVM v systeme: $ sudo ls -al /dev/kvm 
 - dalej instalujeme QEMU s podporou KVM: $ sudo dnf -y in qemu-kvm 
-- volitelne mozeme uz intalovat aj nastroje/API "libvirt": $ sudo dnf -y in libvirt virt-install
+- mozeme uz intalovat aj nastroje/API "libvirt": $ sudo dnf -y in libvirt virt-install
   - sluzbu "libvirt" nasledne "zapneme": $ sudo systemctl enable --now libvirtd.service
   - overime stav sluzby: $ sudo systemctl status libvirtd.service
 - spol. RedHat doporucuje pouzit "libvirt", ak chceme pouzit "qemu-kvm" je potrebny link do $PATH:
@@ -3056,11 +3056,12 @@ Praca s kniznicou/nastrojmi/API pod nazvom projektu "libvirt"
    - adresar "/var/lib/libvirt/images/" je predvolena cesta pre disk image subory
    - adresar "/etc/libvirt/" je uzlozisko pre globalnu konfiguraciu
    - adresar "/etc/libvirt/qemu/" je uzlozisko pre XML konfiguraciu VM intanacii, resp. Domen
-
+     - priama konfiguracia XML suborov nie je doporucena
+     - nastroj na jej validaciu, napr: $ sudo virt-xml-validate /etc/libvirt/qemu/fedora35VM01.xml
    
    - virtualnu instanciu napr. s instalaciou Fedora Server 35 vytvorime nasledovne:   
 
-sudo virt-install \
+$ sudo virt-install \
 --virt-type kvm \
 --name fedora35VM01 \
 --ram 2048 \
@@ -3071,6 +3072,7 @@ sudo virt-install \
 --os-variant=fedora34 \
 --cdrom=/mnt/kvmstor/fed35-amd64.iso
 
-
-  virt-install --name=fedora35VM01 --memory=2048 --vcpus=2 --disk /mnt/kvmstor/fed35vm01.qcow2 \
-  --os-variant=fedora34 --cpu host --cdrom /mnt/kvmstor/fed35-amd64.iso &
+   - ako vykonat "gracefull shutdown" VM instancie: $ sudo virsh shutdown --domain fedora35VM01
+   - ako vykonat "force shutdown" VM instanciu: $ sudo virsh destroy --domain fedora35VM01 
+   - ako vymazat VM instanciu: $ sudo virsh undefine --domain fedora35VM01
+   - POZOR vymaze VM + jej disk: $ sudo virsh undefine --domain fedora35VM01 --remove-all-storage
