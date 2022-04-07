@@ -3068,24 +3068,27 @@ Praca s kniznicou/nastrojmi/API pod nazvom projektu "libvirt"
      - vytvorime si 2 particie/vulumes: $ sudo virsh vol-create-as lvm_pool kvm-vol1 10G 
        - resp.: $ sudo virsh vol-create-as lvm_pool kvm-vol2 10G
        - overime prikazom: $ sudo virsh vol-list lvm_pool
+       - kedze, libvirt pracuje s LVM2, tak overime aj prikazom: $ sudo lvs
 
    - ako deaktivovat libvirt Storage pool s nazvom "lvm_pool": $ sudo virsh pool-destroy lvm_pool
       - po deaktivacii sa moze Storage pool zmazat: $ sudo virsh pool-delete lvm_pool
       - a nasledne aj oddefinovat: $ sudo virsh pool-undefine lvm_pool
 
-   - virtualnu instanciu napr. s instalaciou Fedora Server 35 vytvorime nasledovne:   
+   - vytvorime VM instanciu s instalaciou Fedora35 z Poolu "lvm_pool" a diskom/volume "kvm-vol1":   
 
 $ sudo virt-install \
 --virt-type kvm \
 --name fedora35VM01 \
+--vcpus=2 \
 --ram 2048 \
---disk /mnt/kvmstor/fed35vm01.qcow2 \
+--disk vol=lvm_pool/kvm-vol1  \
 --network network=default --graphics vnc,listen=0.0.0.0 \
 --noautoconsole \
 --os-type=linux \
 --os-variant=fedora34 \
---cdrom=/mnt/kvmstor/fed35-amd64.iso
+--cdrom=/mnt/fed35-amd64.iso
 
+   - stav instalacie VM instancie overime s: $ sudo virsh list --all
    - ako vykonat "gracefull shutdown" VM instancie: $ sudo virsh shutdown --domain fedora35VM01
    - ako vykonat "force shutdown" VM instanciu: $ sudo virsh destroy --domain fedora35VM01 
    - ako vymazat VM instanciu: $ sudo virsh undefine --domain fedora35VM01
