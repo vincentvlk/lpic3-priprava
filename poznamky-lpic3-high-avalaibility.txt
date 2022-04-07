@@ -3075,7 +3075,7 @@ Praca s kniznicou/nastrojmi/API pod nazvom projektu "libvirt"
       - a nasledne aj oddefinovat: $ sudo virsh pool-undefine lvm_pool
 
    - vytvorime VM instanciu s instalaciou Fedora35 z Poolu "lvm_pool" a diskom/volume "kvm-vol1":   
-
+     - instanacia ma pridelene 2xvCPU, 2GB RAM, konzola pocuva na  
 $ sudo virt-install \
 --virt-type kvm \
 --name fedora35VM01 \
@@ -3084,11 +3084,13 @@ $ sudo virt-install \
 --disk vol=lvm_pool/kvm-vol1  \
 --network network=default --graphics vnc,listen=0.0.0.0 \
 --noautoconsole \
+--cpu host \
 --os-type=linux \
---os-variant=fedora34 \
+--os-variant=generic \
 --cdrom=/mnt/fed35-amd64.iso
 
    - stav instalacie VM instancie overime s: $ sudo virsh list --all
+   - na virtualny monitor instancie sa da pripojit s VNC klientom: $ vncviewer <Host:diplay>
    - ako vykonat "gracefull shutdown" VM instancie: $ sudo virsh shutdown --domain fedora35VM01
    - ako vykonat "force shutdown" VM instanciu: $ sudo virsh destroy --domain fedora35VM01 
    - ako vymazat VM instanciu: $ sudo virsh undefine --domain fedora35VM01
