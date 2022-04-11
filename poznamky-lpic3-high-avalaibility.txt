@@ -3172,3 +3172,7 @@ message_size_limit = 10240000
    - instalujeme potrebne baliky (ca. 230MB): $ sudo dnf -y install ovirt-hosted-engine-setup
    - po instalacii spustime instalacny skript: $ sudo hosted-engine --deploy
      - skript doporucuje spustit instlaciu v nastroji "tmux", pripadne "screen"
+     - v skripte je potrebne zadavat parametre podla poziadavky, je treba mat DNS/hosts zaznami
+     - na Storage subsystem som pouzil NFSv4 s adresou: "rock3.example.com:/var/lib/ovirt-share"
+   - instalaciu overime s: $ sudo hosted-engine --vm-status
+     - alebo: $ sudo virsh -c qemu:///system?authfile=/etc/ovirt-hosted-engine/virsh_auth.conf list
