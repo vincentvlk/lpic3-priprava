@@ -3097,7 +3097,7 @@ $ sudo virt-install \
    - ako vykonat "force shutdown" VM instanciu: $ sudo virsh destroy --domain fedora35VM01 
    - ako vymazat VM instanciu: $ sudo virsh undefine --domain fedora35VM01
    - POZOR vymaze VM + jej disk: $ sudo virsh undefine --domain fedora35VM01 --remove-all-storage
-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Praca so sadou virtualizacnych nastrojov pod nazvom projektu "oVirt"
  - dalsie informacie na: https://www.ovirt.org/
  - OSS projekt zalozeny RodHatom, poskytuje centralny manazment nad zdrojmi pre virtualizaciu
@@ -3108,4 +3108,7 @@ Praca so sadou virtualizacnych nastrojov pod nazvom projektu "oVirt"
    - ulozisko "storage" na domeny; 
      - Data - uklada VM disky a OVF sablony/definicie
      - ISO - uklada instalacne ISO image
-    
+
+ - zjednoduseny postup instalacie oVirt prostredia s NFS storage pripojenim na OS Rocky Linux 8.5:
+ - na LAB pouzijeme 3 servery/uzly s Rocky Linux 8.5, kde treti bude v role NFS storage servera
+   - servery/uzly 1 a 2 budu sluzit na manazment a poskytovanie vypoctovych/sietovych zdrojov
