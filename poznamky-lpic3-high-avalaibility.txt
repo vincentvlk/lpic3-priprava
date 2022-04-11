@@ -3168,4 +3168,6 @@ message_size_limit = 10240000
 
  - Dalej mozeme pokracovat s instalaciou "oVirt Engine" na "Admin" uzle/servery c.1:
    - install repo.: $ sudo dnf -y in https://resources.ovirt.org/pub/yum-repo/ovirt-release44.rpm 
-   - instalujeme baliky: $ sudo dnf -y install ovirt-hosted-engine-setup
+   - instalujeme potrebne baliky (ca. 230MB): $ sudo dnf -y install ovirt-hosted-engine-setup
+   - po instalacii spustime instalacny skript: $ sudo hosted-engine --deploy
+
