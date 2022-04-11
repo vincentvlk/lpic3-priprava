@@ -3112,3 +3112,9 @@ Praca so sadou virtualizacnych nastrojov pod nazvom projektu "oVirt"
  - zjednoduseny postup instalacie oVirt prostredia s NFS storage pripojenim na OS Rocky Linux 8.5:
  - na LAB pouzijeme 3 servery/uzly s Rocky Linux 8.5, kde treti bude v role NFS storage servera
    - servery/uzly 1 a 2 budu sluzit na manazment a poskytovanie vypoctovych/sietovych zdrojov
+ - pokracujeme instalaciou NFS servera na uzle 3:
+   - instalujeme balicky: $ sudo dnf -y in nfs-utils
+   - upravime subor "/etc/idmapd.conf"
+     -  kde odkomentujeme riadok "Domain = " a upravime napr.: "Domain = rock3.example.com"
+   - v subore "/etc/exports" pridame export napr.: "/home/nfs 192.168.255.0/24(rw,no_root_squash)"
+   - aktivujeme sluzby potrebne pre NFS server: $ sudo systemctl enable --now rpcbind nfs-server 
