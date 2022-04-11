@@ -3111,6 +3111,7 @@ Praca so sadou virtualizacnych nastrojov pod nazvom projektu "oVirt"
 
 Zjednoduseny postup instalacie oVirt prostredia s NFS storage riesenim na OS Rocky Linux 8.5:
  - na LAB pouzijeme 3 servery/uzly s Rocky Linux 8.5, kde treti bude v role NFS storage servera
+   - minimalna kapacita LocalFS disku je 25GB a doporucena je 50GB
    - servery/uzly 1 a 2 budu sluzit na manazment a poskytovanie vypoctovych/sietovych zdrojov
 
  - pokracujeme instalaciou NFS servera na uzle/servery c. 3:
@@ -3137,7 +3138,7 @@ $ sudo chmod 755 /var/lib/ovirt-share
 
 # moje upravy v LABe:
 
-myhostname = rock3.example.com
+myhostname = rock1.example.com
 
 mydomain = example.com
 
@@ -3167,7 +3168,7 @@ message_size_limit = 10240000
      - restartujeme FWL: $ sudo firewall-cmd --reload
 
  - Dalej mozeme pokracovat s instalaciou "oVirt Engine" na "Admin" uzle/servery c.1:
-   - install repo.: $ sudo dnf -y in https://resources.ovirt.org/pub/yum-repo/ovirt-release44.rpm 
+   - pridame repo.: $ sudo dnf -y in https://resources.ovirt.org/pub/yum-repo/ovirt-release44.rpm 
    - instalujeme potrebne baliky (ca. 230MB): $ sudo dnf -y install ovirt-hosted-engine-setup
    - po instalacii spustime instalacny skript: $ sudo hosted-engine --deploy
-
+     - skript doporucuje spustit instlaciu v nastroji "tmux", pripadne "screen"
