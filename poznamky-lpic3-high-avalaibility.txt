@@ -3071,11 +3071,13 @@ Praca s kniznicou/nastrojmi/API pod nazvom projektu "libvirt"
        - kedze, libvirt pracuje s LVM2, tak overime aj prikazom: $ sudo lvs
 
    - ako deaktivovat libvirt Storage pool s nazvom "lvm_pool": $ sudo virsh pool-destroy lvm_pool
-      - po deaktivacii sa moze Storage pool zmazat: $ sudo virsh pool-delete lvm_pool
-      - a nasledne aj oddefinovat: $ sudo virsh pool-undefine lvm_pool
+     - po deaktivacii sa moze Storage pool zmazat: $ sudo virsh pool-delete lvm_pool
+     - a nasledne aj oddefinovat: $ sudo virsh pool-undefine lvm_pool
 
    - vytvorime VM instanciu s instalaciou Fedora35 z Poolu "lvm_pool" a diskom/volume "kvm-vol1":   
-     - instanacia ma pridelene 2xvCPU, 2GB RAM, konzola pocuva na  
+     - instanacia ma pridelene 2xvCPU, 2GB RAM, grafika pocuva na VNC servery TCP/5900, display :0  
+       - pozor na nastavenie firewallu na Host-e
+
 $ sudo virt-install \
 --virt-type kvm \
 --name fedora35VM01 \
@@ -3095,3 +3097,15 @@ $ sudo virt-install \
    - ako vykonat "force shutdown" VM instanciu: $ sudo virsh destroy --domain fedora35VM01 
    - ako vymazat VM instanciu: $ sudo virsh undefine --domain fedora35VM01
    - POZOR vymaze VM + jej disk: $ sudo virsh undefine --domain fedora35VM01 --remove-all-storage
+
+Praca so sadou virtualizacnych nastrojov pod nazvom projektu "oVirt"
+ - dalsie informacie na: https://www.ovirt.org/
+ - OSS projekt zalozeny RodHatom, poskytuje centralny manazment nad zdrojmi pre virtualizaciu
+ - ma webovy interface, podporuje live-migraciu, distribuovany, pouziva KVM, umoznuje Virt. DC
+ - risenie ma tieto komponenty "oVirt Engine", ktory umoznuje pristup a manzment k "oVirt uzlom"
+   - uzly "oVirt Nodes" poskytuju funkciu Host systemu, na ktorom bezia VM instanacie
+   - dalsi komponent je datove ulozisko "storage", ktore moze byt LocalFS, NFS, iSCSI, Gluster, ...
+   - ulozisko "storage" na domeny; 
+     - Data - uklada VM disky a OVF sablony/definicie
+     - ISO - uklada instalacne ISO image
+    
