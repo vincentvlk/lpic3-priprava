@@ -3178,3 +3178,7 @@ message_size_limit = 10240000
      - alebo: $ sudo virsh -c qemu:///system?authfile=/etc/ovirt-hosted-engine/virsh_auth.conf list
    - po instalacii je dostupne web rozhranie s mng adresou a heslom, ktore sme zadavali do skriptu
      - meno je "admin" a heslo zadane do instalacneho skriptu ($ sudo hosted-engine --deploy)
+
+  - Dalsi vypoctovy uzol, teda "oVirt Node/Host" mozeme nainstalovat z pripraveneho .ISO:
+    - upravene distro z: https://resources.ovirt.org/pub/ovirt-4.4/iso/ovirt-node-ng-installer/
+    - je potrebne mat spravne nadefinovane DNS zaznami jednotlivych uzlov, storage, ...
