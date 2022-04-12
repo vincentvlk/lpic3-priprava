@@ -3182,3 +3182,4 @@ message_size_limit = 10240000
   - Dalsi vypoctovy uzol, teda "oVirt Node/Host" mozeme nainstalovat z pripraveneho .ISO:
     - upravene distro z: https://resources.ovirt.org/pub/ovirt-4.4/iso/ovirt-node-ng-installer/
     - je potrebne mat spravne nadefinovane DNS zaznami jednotlivych uzlov, storage, ...
+    - na pridanie dalsieho uzla je vhodne vyuzit PKI auth. v SSH pomocou klucov
