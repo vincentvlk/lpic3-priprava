@@ -3178,8 +3178,24 @@ message_size_limit = 10240000
      - alebo: $ sudo virsh -c qemu:///system?authfile=/etc/ovirt-hosted-engine/virsh_auth.conf list
    - po instalacii je dostupne web rozhranie s mng adresou a heslom, ktore sme zadavali do skriptu
      - meno je "admin" a heslo zadane do instalacneho skriptu ($ sudo hosted-engine --deploy)
+     - na nahranie instalacnych .ISO je volba: Storage > Disks > vpravo volba "Upload"
+       - mne to zlyhalo kvoli CA certifikatu, po importovani do Firefoxu siel upload OK
+       - CA certifikat mal link, suboru som pridal ".pem" a importoval ako CA do Firefoxu v Nast.
+
+http://{engine_url}/ovirt-engine/services/pki-resource?resource=ca-certificate&format=X509-PEM-CA' 
 
   - Dalsi vypoctovy uzol, teda "oVirt Node/Host" mozeme nainstalovat z pripraveneho .ISO:
     - upravene distro z: https://resources.ovirt.org/pub/ovirt-4.4/iso/ovirt-node-ng-installer/
     - je potrebne mat spravne nadefinovane DNS zaznami jednotlivych uzlov, storage, ...
     - na pridanie dalsieho uzla je vhodne vyuzit PKI auth. v SSH pomocou klucov
+    - ked vytvorime VM instanciu a pripojime instalacne ISO, da sa pripojit protokolom SPICE
+      - pouzil som neoficialny balickovaci system "Brew Install" podla: https://brew.sh/
+      - na MacOS som pridal "repo" a instaloval: 
+
+$ brew tap jeffreywildman/homebrew-virt-manager
+$ brew install virt-viewer 
+   
+      - po instalacii som otvoril subor, ktory poskytne oVirt Engine: $ remote-viewer console.vv
+      - pripojenie je podobne ako VNC, da sa nahliadnut do suboru "console.vv"
+      - subor ".vv" ma platnost 120 sekund, potom exspiruje vygenerovane heslo
+
