@@ -3176,3 +3176,5 @@ message_size_limit = 10240000
      - na Storage subsystem som pouzil NFSv4 s adresou: "rock3.example.com:/var/lib/ovirt-share"
    - instalaciu overime s: $ sudo hosted-engine --vm-status
      - alebo: $ sudo virsh -c qemu:///system?authfile=/etc/ovirt-hosted-engine/virsh_auth.conf list
+   - po instalacii je dostupne web rozhranie s mng adresou a heslom, ktore sme zadavali do skriptu
+     - meno je "admin" a heslo zadane do instalacneho skriptu ($ sudo hosted-engine --deploy)
