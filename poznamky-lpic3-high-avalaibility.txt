@@ -3187,7 +3187,8 @@ http://{engine_url}/ovirt-engine/services/pki-resource?resource=ca-certificate&f
   - Dalsi vypoctovy uzol, teda "oVirt Node/Host" mozeme nainstalovat z pripraveneho .ISO:
     - upravene distro z: https://resources.ovirt.org/pub/ovirt-4.4/iso/ovirt-node-ng-installer/
     - je potrebne mat spravne nadefinovane DNS zaznami jednotlivych uzlov, storage, ...
-    - na pridanie dalsieho uzla je vhodne vyuzit PKI auth. v SSH pomocou klucov
+      - inak napisane, treba mat pripraveny aspon zakladny systemovy dizajn
+    - na pridanie dalsieho Node/uzla je vhodne vyuzit PKI auth. v SSH, pomocou klucov
     - ked vytvorime VM instanciu a pripojime instalacne ISO, da sa pripojit protokolom SPICE
       - pouzil som neoficialny balickovaci system "Brew Install" podla: https://brew.sh/
       - na MacOS som pridal "repo" a instaloval: 
