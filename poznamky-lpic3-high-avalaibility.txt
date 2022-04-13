@@ -3235,7 +3235,7 @@ Projekt CloudStack, je definovany ako OSS produkt na nasadenia a spravu velkych 
    - dobre relativne RTTV - Rapid Time To Value
    - podporuje viacero Hypervizorov, napr. VMware, KVM/QEMU, XenServer, HyperV, OVM, UCS, ...
 
- - tzv. Manazmenty Server je zodpovedny za orchestraciu zdrojov v Cloud Prostredi
+ - tzv. Manazment Server je zodpovedny za orchestraciu zdrojov v Cloud Prostredi
    - bezi ako kontajner na platforme Apache Tomcat
    - vyzaduje databazu, napr. MySQL/MariaDB, pripadne jej Cluster riresenie "Galera MariaDB Cluster"
 
