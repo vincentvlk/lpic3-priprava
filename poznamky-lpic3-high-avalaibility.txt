@@ -3212,7 +3212,7 @@ Poznamky k projektu OpenStack, definovany ako Cloud Operating System
    - Nova: - sluzi na provisioning Compute zdrojov (Virtual Machines, Bare Metal HW, Kontajnery)
    - Neutron: poskytuje manazment sietovych zdrojov a sluzieb ako DHCP, DNS, LB, Sec, Routing, ...
    - Ironic: sluzby pre HW provisioning s PXE, IPMI, iLO, iDRAC, ..., integrovany s Nova/Neutron
-   - Swift: object storage sluzba, poskytuje sluzby datoveho uloziska
+   - Swift: object storage sluzba, poskytuje sluzby datoveho uloziska s mensim vykonom, kapacita++
    - Cinder: poskytuje sluzby pre Block Storage uloziska, ich provisioning a samotne pouzivanie
    - Keystone: poskytuje sluzbu identit, teda autentifikacie a autorizacie pre OpenStack
    - Glance: poskytuje sluzby na pracu s image-mi, ako su .iso, .ovf, .vmdk, ...
@@ -3228,9 +3228,26 @@ Projekt CloudStack, je definovany ako OSS produkt na nasadenia a spravu velkych 
    - Storage manazment pre VM instancie ako aj pre image a sablony, snapshoty
    - manazment uzivatelov a uctov
    - Multi-tenancy
-   - Nativne API + kompatibilne API s Amazon S3/EC2
+   - Nativne REST API + kompatibilne API s Amazon S3/EC2
    - uctovanie/accounting vyuzivanych zdrojov
    - webove UI
    - terminalove CLI nastroje
-   - podporuje viacero Hypervizorov, ako VMware, KVM, XenServer, HyperV, ...
+   - dobre relativne RTTV - Rapid Time To Value
+   - podporuje viacero Hypervizorov, napr. VMware, KVM/QEMU, XenServer, HyperV, OVM, UCS, ...
 
+ - tzv. Manazmenty Server je zodpovedny za orchestraciu zdrojov v Cloud Prostredi
+   - bezi ako kontajner na platforme Apache Tomcat
+   - vyzaduje databazu, napr. MySQL/MariaDB, pripadne jej Cluster riresenie "Galera MariaDB Cluster"
+
+Projekt Eucalyptus je OSS riesenie pre IaaS platformi, ktore su kompatibilne s Amazon AWS
+ - umoznuje vytvorit privatny aj public cloud
+ - architektura postavena na GNU/Linux, ktora umoznuje vyuzit svoje vlastne zdroje kompati. s AWS
+ - dalsie infomacie napr.: https://www.eucalyptus.cloud/
+
+Projekt OpenNebula kombinuje virtualizaciu a kontajnery na budovanie multi-tenant cloud rieseni
+ - umoznuje vybudovat private/public/hybrid cloud riesenia + edge computing
+ - komercny produkt s profesionalnou/garantovanou podporou
+ - plne automatizovany provisioning a elasticita na poskytovanie on-demand vypoctovych prostriedkov
+ - integruje viacero technologii, napr. VMware, KVM/QEMU, Firecracker, LXC, Docker, K8S, Terraform
+ - umoznuje nasadit hybrid/edge riesenie s vyuzitim externych zdrojov AWS, Google, Equinix.
+ - dalsie informacie napr.: https://opennebula.io
