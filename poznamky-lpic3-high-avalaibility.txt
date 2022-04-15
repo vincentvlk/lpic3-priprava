@@ -3251,3 +3251,8 @@ Projekt OpenNebula kombinuje virtualizaciu a kontajnery na budovanie multi-tenan
  - integruje viacero technologii, napr. VMware, KVM/QEMU, Firecracker, LXC, Docker, K8S, Terraform
  - umoznuje nasadit hybrid/edge riesenie s vyuzitim externych zdrojov AWS, Google, Equinix.
  - dalsie informacie napr.: https://opennebula.io
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+Dalsie poznamky k VM a HA technologiam v prostredi OS GNU/Linux
+
+
