@@ -3252,7 +3252,12 @@ Projekt OpenNebula kombinuje virtualizaciu a kontajnery na budovanie multi-tenan
  - umoznuje nasadit hybrid/edge riesenie s vyuzitim externych zdrojov AWS, Google, Equinix.
  - dalsie informacie napr.: https://opennebula.io
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Poznamka k bezpecnosti systemov, dva webove zdroje s info. k typom a kategoriam utokov:
 
+https://www.nsa.gov/Press-Room/Cybersecurity-Advisories-Guidance/
+
+https://attack.mitre.org/
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Dalsie poznamky k VM a HA technologiam v prostredi OS GNU/Linux
 
 
