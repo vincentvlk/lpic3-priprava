@@ -1,4 +1,4 @@
-*** Poznamky k priprave na LPIC3-High Availability ***
+*** Poznamky k priprave na LPIC3-High Availability and Virtualization ***
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 *MOJ skromny nazor*: popriority pri realizacii projektov na OS GNU/Linux:
@@ -7,13 +7,13 @@ Bezpecnost + Zalohovanie + Kontrola pouzitelnosti zaloh + Dokumentacia
 Security + Backups + Backups usability check + Documentation
 
 + zvazit nasadenie IPv6, ak je to mozne
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako na linuxe vypnut PC-speaker: #rmmod pcspkr
 
 - dobra stranka na zaciatocnu konfiguraciu znamych distribucii:
 
-https://www.server-world.info/en/note?os=Ubuntu_20.04&p=initial_conf&f=3
+https://www.server-world.info/en/
 
 - ^^^ nevedno do kedy bude online a chyba tam IPv6 :-(
 
@@ -66,14 +66,12 @@ iface ens37 inet6 static
     gateway 2001:db8:cafe::42
     dns-nameservers 2001:db8:7ea::1 2001:db8:7ea::2
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
 - nastavenie siete na CentOS:
   - pouzil som nejake hanbate GNOME GUI, neviem preco sa to hned neaplikovalo
 
 - nastavenie siete na Fedora 35 Server:
 
 - pouzil som cli nastroj "nmcli" z balika "NetworkManager"
-	
 - syntax je takto nejako:
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-	 
@@ -118,7 +116,6 @@ lo      loopback  unmanaged  --
 Nasledne overime config:
 
 # nmcli device show ens33 
-
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 Ako  v unix-like systemoch konvertovat video:
@@ -141,7 +138,7 @@ Ako  v unix-like systemoch konvertovat video:
 
 Ako v Ubuntu 20.04 konfigurovat siet:
 
-Treba "vypnut" povodny config file:
+Treba "presunut/zalohovat" povodny config file:
 
 # mv /etc/netplan/00-installer-config.yaml /etc/netplan/00-installer-config.yaml.disabled
 
@@ -234,7 +231,6 @@ Overime s: df -h /mnt/lvnas1
 
 Prikaz vypise prava a inode informacie o subore: $ stat subor.xyz
 - da sa pouzit aj prikaz:  $ ls -li
-
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako pridat uzivatela do dalsej group: # usermod -a -G examplegroup exampleusername
 
@@ -288,6 +284,7 @@ Ako restartovat system: # shutdown -r now
  - pripadne za 10 min.: # shutdown -r +10
 
 Ako zabezpecit, aby sa do systemu mohol prihlasit len superuser, vytvorime subor: /etc/nologin 
+
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Logovanie a diasgnostika user-space nastrojov:
 
@@ -330,7 +327,6 @@ Ako zmenit default shell uzivatela: $ chsh vlkv -s /bin/bash
  - dany SHELL by mal byt v subore: /etc/shells
 
 Ako zistit s akymi argumentami je spusteny program/daemon: $ ps aux | grep getty
-
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako zabezpecit, aby sa na Ubuntu 20.04 systemovy log neplnil hlaskami:
 	
@@ -1080,7 +1076,6 @@ Ako v BASH skripte testujeme, ze premenna obsahuje substring: if [[ "$str1" == *
 Testovanie BASH premennej s logickymi operatormi: if [[ $vek -ge 0 ]] && [[ $vek -le 18 ]]
 
 Priklad na cvicny input error handling (osetrenie chybneho vstupu) v jazyku BASH:
-
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 #!/bin/bash
 #
