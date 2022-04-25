@@ -686,7 +686,7 @@ V definicii promptu, teda v premennej $PS1 by sme sa mali vyhnut znakom: { } = &
  - dalsie detaily najdeme v manualy, v sekcii "PROMPTING" vid.: $ man bash
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-*Praca s vyvojarskymi nastrojmi*
+Praca s vyvojarskymi nastrojmi
 
 Jednoduchy priklad na kompilaciu zdrojoveho kodu v jazyku "C", vytvorime subor "pokus.c":
 
@@ -1101,8 +1101,9 @@ Ako v BASH skripte testujeme, ze premenna obsahuje substring: if [[ "$str1" == *
 
 Testovanie BASH premennej s logickymi operatormi: if [[ $vek -ge 0 ]] && [[ $vek -le 18 ]]
 
-Priklad na cvicny input error handling (osetrenie chybneho vstupu) v jazyku BASH:
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Priklad na cvicny input error handling (osetrenie chybneho vstupu) v jazyku BASH:
+
 #!/bin/bash
 #
 # Cvicny skript ocakava cele cislo v ramci vymedzenych hodnot, 17.2.2022 by vlkv
@@ -1123,10 +1124,10 @@ done
 echo "Zadali ste vek $vek roky/rokov."
 
 # koniec skriptu
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-Priklad nacita vo "for" slucke hodnoty z .txt suboru do premennej $ip:
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Priklad nacita vo "for" slucke hodnoty z .txt suboru do premennej $ip:
+
 #!/bin/bash
 for ip in $(cat /home/dev1/ip_adresy.txt)
 do
@@ -1135,10 +1136,10 @@ do
 done
 
 # koniec skriptu
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-Ako vytvorit skript s jednoduchym "select" menu v jazyku BASH:
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Ako vytvorit skript s jednoduchym "select" menu v jazyku BASH:
+
 #!/bin/bash
 #
 #priklad na menu selection v jazyku BASH
@@ -1195,6 +1196,7 @@ do
 done
 
 #koniec skriptu
+
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Jednoduchy priklad na hladanie substringu zo systemoveho vypisu:
 
@@ -1211,6 +1213,7 @@ else
 fi
 
 # koniec skpritu
+
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 *Pokracovanie prace s Docker-om*
 
