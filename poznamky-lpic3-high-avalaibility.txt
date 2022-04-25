@@ -2178,15 +2178,15 @@ Priklady na manazment clustra s nastrojom "pcs":
  - overime s: $ sudo pcs status
  - vypiseme obmedzenia: "$ sudo pcs constraint list" alebo s "$ sudo pcs constraint config"
  - ked chceme hladat napr. "location" obmedzenie, hladame toto slovo v: $ sudo cibadmin -Q | less
- - nasledne dane obmedzenie odstranime: $ sudo pcs constraint remove location-myDummy-cent2-INFINITY 
+ - dalej dane obmedzenie odstranime: $ sudo pcs constraint remove location-myDummy-cent2-INFINITY
  - presunieme zdroj na iny uzol: $ sudo pcs resource move myDummy
  - overime s "$ sudo pcs status" alebo s: $ sudo pcs resource status
  - prikazom "odstavime" uzol: $ sudo pcs node standby <adresa-nodeX>
  - nasledne "zapneme" uzol: $ sudo pcs node unstandby <adresa-nodeX>
  - vypneme manazment zdroja, umozni zmeny na uzle: $ sudo pcs resource unmanage myDummy
  - overime s: $ sudo pcs resource status
- - nasledne znova aktivujeme manazment zdroja: $ sudo pcs resource manage myDummy
- - po testovani zmazeme: "$ sudo pcs resource disable myDummy" a "$ sudo pcs resource remove myDummy"
+ - dalej znova aktivujeme manazment zdroja: $ sudo pcs resource manage myDummy
+ - po teste zmazeme: "$ sudo pcs resource disable myDummy" a "$ sudo pcs resource remove myDummy"
 
 Priklady na manazment clustra s nastrojom "crm":
  - edit konf. a pridame zdroj "myDummy" a obmedzenie "myDummy-location": $ sudo crm configure edit
@@ -2213,7 +2213,7 @@ Praca s Cluster Storage riesenim "DRBD - Distributed Replicated Block Device"
  - rezim Multi-master umoznuje obom stroage uzlom read/write pristup, dvojcestna synchronizacia
  - specialny "Cluster filesystem" je nevyhnutny, napr. GlusterFS, CEPH, OCFS2
  - system DRBD pracuje s replikacnymi modmi:
-   - Protocol A: Asynchronne zapisovanie, vhodny pre "long-distance" replikaciu, znizena spolahlivost
+   - Protocol A: Asynchronne zapisovanie, vhodne na "long-distance" replikaciu, znizena spolahlivost
    - Protocol B: Semi-synchronne zapisovanie
    - Protocol C: Synchronne zapisovanie, najvyssia uroven spolahlivost, zvycajne predvoleny rezim
 
@@ -2261,15 +2261,16 @@ resource drbd0 {
  - overime s: $ sudo drbdadm status
  - dalej mozeme uz vytvorit FS na zariadeni "/dev/drbd0", napr.: $ sudo mkfs.btrfs /dev/drbd0
 
-Poznamka, uzitocne prikazy na vypisanie informacii o diskoch a particiach: "lsblk", "blkid", "lsscsi"
-Ako so Systemd "zapnut" sluzbu "po boote" a zaroven spustit: $ sudo systemctl enable --now <service> 
+Poznamka, prikazy na vypisanie informacii o diskoch a particiach: "lsblk", "blkid", "lsscsi"
+Ako v Systemd "zapnut" sluzbu "po boote" a zaroven spustit: $ sudo systemctl enable --now <service>
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako vytvorit iSCSI target (SAN-Cluster) v Cluster-y nad systemom DRBD v OS OpenSUSE Leap 15.3:
+
  **PROBLEMATICKE TREBA DALSI VYSKUM**
 
  - overime stav DRBD zariadenia s: $ sudo drbdadm status
- - v LABe, ak mame DRBD z dvoch uzlov a Corosync clus. z 3 a viac, treba zvysne clus. uzly "odstavit"
+ - v LABe, ak mame DRBD z dvoch uzlov a Corosync clus. z 3 a viac, treba zvysne clus. uzly odstavit
 ??   - elegantnejsie, definujeme "resource constraint", ktore obmedzi "bezat" z droj na 3. uzle
 ??     - napr. konfiguracia "crm": "location drbd_drbd0-location drbd_drbd0 -10000: lpic3-suse3"
  - pokracujeme konfiguraciou "clustered DRBD", otvorime "$ sudo crm" a vlozime konf. napr.:
@@ -2321,9 +2322,10 @@ status
    - restart firewallu: $ sudo firewall-cmd --reload
 
 **PROBLEMATICKE RIESENIE TREBA DALSI VYSKUM**
- - zvazit pouzitie LVM, resp. cLVM, alebo CEPH
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+ - zvazit pouzitie LVM, resp. cLVM, alebo CEPH
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako na instalaciu technologie iSCSI multipath:
  - vyuziva sa fakt, ze SAN iSCSI Target ma viac sietovych pripojeni, na ktore sa Initiator pripaja
    - zariadenie v role iSCSI Initiatora ma tiez k dispozicii dalsiu nezavislu SAN konektivitu
@@ -2346,7 +2348,7 @@ Priklad instalacie riesenia "Device Mapper Mulltipath" v OS CentOS Stream 9
  - stav dostupnych multipath zariadeni overime s: $ sudo multipath -ll
  - tieto zariadenia su dostupne ako "/dev/mapper/mpathX" , "/dev/mapper/mpathX" a pod.
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Praca s LVM, logicke LV particie sa zvycajne mapuju napr. ako: "/dev/mapper/ubuntu--vg-ubuntu--lv"
  - kde je teda VG (Volume Group) sa nazvom "ubuntu" a LV (Logical Volume) s nazvom "ubuntu" 
    - je to symbolicky link
@@ -2386,7 +2388,7 @@ Praca s LVM, logicke LV particie sa zvycajne mapuju napr. ako: "/dev/mapper/ubun
  - po reboote: $ sudo pcs resource 
 
 **Zasekol som sa, na novych distrach exsituju nove tooly/postupy/kniznice, ktore zatial nepoznam**
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 Praca so suborovym systemom GFS2 (Global File System), rezim active/active, zhoda s POSIX-om
  - pracuje len v cluster rieseni
@@ -2395,7 +2397,7 @@ Praca so suborovym systemom GFS2 (Global File System), rezim active/active, zhod
  - su potrebne technologie DLM a cLVM na koordinaciu zamykania suborov (file locking)
  - maximalna podporovana kapacita je 100TiB (namam zatial overene)
 
-- treba vytvorit minimalne 2 LUNy, jeden maly (1 MB) a druhy na storage napr. 10GB, na storage moze byt viac...
+- treba vytvorit minimalne 2 LUNy, jeden maly (1 MB) a druhy na storage napr. 10GB
 
 $ sudo iscsiadm -m node --rescan
 
@@ -2451,12 +2453,21 @@ $ sudo pcs property config
 ll /dev/disk/by-id | grep sda | grep wwn 
 
 - vytvorime Fencing STONITH pomocou SCSI:
-pcs stonith create scsi-Fence fence_scsi pcmk_host_list="cent1 cent2 cent3" devices=/dev/disk/by-id/wwn-0x600140520845b9b2586439fa1949df69 meta provides=unfencing
 
-- vytvorime "DLM Locking"  zdroj: $ sudo pcs resource create dlm ocf:pacemaker:controld op monitor interval=30s on-fail=fence --group locking
+$ sudo pcs stonith create scsi-Fence fence_scsi pcmk_host_list="cent1 cent2 cent3" \
+devices=/dev/disk/by-id/wwn-0x600140520845b9b2586439fa1949df69 meta provides=unfencing
+
+- vytvorime "DLM Locking" zdroj:
+
+$ sudo pcs resource create dlm ocf:pacemaker:controld op monitor interval=30s \
+on-fail=fence --group locking
+
 - dalej zdroj klonujeme na ostatne uzly: $ sudo pcs resource clone locking interleave=true
 
-- vytvorime "LVMlockd" zdroj: # sudo pcs resource create lvmlockdd ocf:heartbeat:lvmlockd op monitor interval=30s on-fail=fence --group locking
+- vytvorime "LVMlockd" zdroj: 
+
+$ sudo pcs resource create lvmlockdd ocf:heartbeat:lvmlockd op monitor interval=30s \
+on-fail=fence --group locking
 
 Na node 1 Vytvorime LVM:
 
