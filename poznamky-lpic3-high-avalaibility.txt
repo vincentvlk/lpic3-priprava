@@ -2469,7 +2469,7 @@ on-fail=fence --group locking
 $ sudo pcs resource create lvmlockdd ocf:heartbeat:lvmlockd op monitor interval=30s \
 on-fail=fence --group locking
 
-Na node 1 Vytvorime LVM:
+- na node c. 1 vytvorime LVM:
 
 - skontrolujeme stav LVM na uzloch: $ sudo lvs; echo; sudo vgs; echo; sudo pvs
 
@@ -2485,7 +2485,7 @@ Na prvom uzle vytvorime LVM disk:
 
 - dalej zaradime PV do VG: $ sudo vgcreate --shared vg_gfs2 /dev/sda1
 
-- poznamka, prepisat "zaciatok" disku nulami: $ sudo dd if=/dev/zero of=/dev/sda bs=1M count=100
+- poznamka, prepisanie "zaciatku" disku nulami: $ sudo dd if=/dev/zero of=/dev/sda bs=1M count=100
 
 [root@lpic3-cent1 ~]# vgcreate --shared vg_gfs2 /dev/sda1
   Volume group "vg_gfs2" successfully created
@@ -2495,7 +2495,8 @@ Na prvom uzle vytvorime LVM disk:
 ** zatial nedokoncene, zasa som sa zasekol, problem s cLVM na CentOS 9 Stream **
 
 - poznamka: alternativy k CentOS: CentOS Stream, Alma Linux, Rocky Linux, Oracle Linux
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Pacemaker/Corosync (Unicast) WebServer Cluster na OS "Rocky Linux 8.5":
 
  - vytvorime DNS zaznamy uzlov, alebo "/etc/hosts"
@@ -2521,9 +2522,9 @@ Pacemaker/Corosync (Unicast) WebServer Cluster na OS "Rocky Linux 8.5":
    - overime s: $ sudo pcs property config 
  
  - Fencing/STONITH je rieseny cez iSCSI LUN, staci maly, aj 1 MB (mne fungovalo):
-   - na oboch uzloch, sa pripojime na LUN, definujeme iSCSI initiatora v "/etc/iscsi/initiatorname.iscsi"
-   - vlozime IQN, ktore je na iSCSI target-e, napr: InitiatorName=iqn.2022-03.lpic3.lab:gfs.node1.init1
-     - na druhy uzol, napr.: InitiatorName=iqn.2022-03.lpic3.lab:gfs.node2.init1  
+ - oba uzly pripojime na LUN, definujeme iSCSI initiatora v "/etc/iscsi/initiatorname.iscsi"
+ - pridame IQN, ktore je na iSCSI targete, "InitiatorName=iqn.2022-03.lpic3.lab:gfs.node1.init1"
+   - na druhy uzol, napr.: InitiatorName=iqn.2022-03.lpic3.lab:gfs.node2.init1  
    - podla iSCSI Target-u, nastavime meno/heslo/parametre v subore "/etc/iscsi/iscsid.conf":
 
         node.session.auth.authmethod = CHAP
@@ -2531,10 +2532,11 @@ Pacemaker/Corosync (Unicast) WebServer Cluster na OS "Rocky Linux 8.5":
         node.session.auth.username = <meno>
         node.session.auth.password = <heslo>     
    
-   - poznmaka, preskumat/otestovat ine auth. algoritmy ako (hanbate) MD5
-   - spustime iSCSI target discovery: $ sudo iscsiadm -m discovery -t sendtargets -p <storage-Host>
-   - ak najde viac targetov, mazeme: $ sudo rm -rf /var/lib/iscsi/nodes/iqn.2022-03.lpic3.suse1\:target1/
-     - alebo sa mozeme prihlasit na konkretny iSCSI Target s jeho IQN, napr.:
+ - poznmaka, preskumat/otestovat ine auth. algoritmy ako (hanbate) MD5
+ - spustime iSCSI target discovery: $ sudo iscsiadm -m discovery -t sendtargets -p <storage-Host>
+ - ak najde viac targetov, mazeme zmazat tie, ktore nepotrebujeme:
+   - prikaz: $ sudo rm -rf /var/lib/iscsi/nodes/iqn.2022-03.lpic3.suse1\:target1/
+   - alebo sa mozeme prihlasit na konkretny iSCSI Target s jeho IQN, napr.:
 
 $ sudo iscsiadm -m node --targetname iqn.2001-05.com.lab:test --portal 192.168.255.100:3260 --login
    
@@ -2558,7 +2560,7 @@ $ sudo iscsiadm -m node --targetname iqn.2001-05.com.lab:test --portal 192.168.2
      - overime s: $ sudo lvmconfig | grep lvmlockd
    - upravime konfiguraciu technologie Quorum: $ sudo pcs property set no-quorum-policy=freeze
      - overime s: $ sudo pcs property config        
-   - vytvorime DLM (Distributed Locking MAnager) zdroj:
+   - vytvorime DLM (Distributed Locking Manager) zdroj:
 
         $ sudo pcs resource create dlm ocf:pacemaker:controld op monitor interval=30s \
         on-fail=fence --group locking
@@ -2577,12 +2579,12 @@ $ sudo iscsiadm -m node --targetname iqn.2001-05.com.lab:test --portal 192.168.2
        $ sudo parted --script /dev/sda "mkpart primary 0% 100%"
        $ sudo parted --script /dev/sda "set 1 lvm on"
 
-     - sposobov na vytvorenie LVM particie je samozrejme viac (fdisk, cfdisk, ...)
-     - overime napr. s: $ sudo fdisk -l /dev/sda
-     - dalej zaradime tzv. PV (Psysical Volume) do LVM stacku: $ sudo pvcreate /dev/sda1 
-     - vytvorime zdielanu VG (Volume Group): $ sudo vgcreate --shared vg_gfs2 /dev/sda1
-     - po tomto kroku je to funky, ja som musel restartovat druhy uzol, aby nasiel to nove PV, VG :-/ 
-       - zatial nepoznam dovod, skusal som "$ sudo pvscan" a "$ sudo vgscan", nepomohlo
+   - sposobov na vytvorenie LVM particie je samozrejme viac (fdisk, cfdisk, ...)
+   - overime napr. s: $ sudo fdisk -l /dev/sda
+   - dalej zaradime tzv. PV (Psysical Volume) do LVM stacku: $ sudo pvcreate /dev/sda1 
+   - vytvorime zdielanu VG (Volume Group): $ sudo vgcreate --shared vg_gfs2 /dev/sda1
+   - po tomto kroku je to funky, ja som musel restartovat druhy uzol, aby nasiel to nove PV a VG
+     - zatial nepoznam dovod, skusal som "$ sudo pvscan" a "$ sudo vgscan", nepomohlo
      - na oboch uzloch overime stav zdielaneho LVM: $ sudo vgs; echo; sudo pvs
        - treba, aby oba uzly videli PV a VG zo zdielaneho iSCSI storage LUNu
 
@@ -2597,12 +2599,12 @@ $ sudo iscsiadm -m node --targetname iqn.2001-05.com.lab:test --portal 192.168.2
      $ sudo pcs resource create shared_lv ocf:heartbeat:LVM-activate \
      lvname=lv_gfs2 vgname=vg_gfs2 activation_mode=shared vg_access_mode=lvmlockd --group shared_vg 
 
-   - tento zdroj klonujeme na dalsie uzly: $ sudo pcs resource $ sudo clone shared_vg interleave=true
+   - tento zdroj klonujeme na dalsie uzly: $ sudo pcs resource clone shared_vg interleave=true
    - pridame poradie startu: $ sudo pcs constraint order start locking-clone then shared_vg-clone
-   - pridame start na 1 node: $ sudo pcs constraint colocation add shared_vg-clone with locking-clone
+   - spolu start na 1 node: $ sudo pcs constraint colocation add shared_vg-clone with locking-clone
    - overime s "$ sudo pcs status --full" a "$ sudo pcs constraint config"
 
-   - na oboch uzloch vytvorime adresar, kde cluster "namountuje" GFS2 disk: $ sudo mkdir /mnt/gfs2disk1
+   - na oboch uzloch vytvorime adresar, kde cluster "namountuje" GFS2: $ sudo mkdir /mnt/gfs2disk1
    - vytvorime zdielany GFS2 zdroj, na ukladanie dat so synchronizaciou:
    
     $ sudo pcs resource create shared_fs ocf:heartbeat:Filesystem device="/dev/vg_gfs2/lv_gfs2" \
@@ -2699,7 +2701,8 @@ $ sudo pcs resource create apache2_srv ocf:heartbeat:apache configfile=/etc/http
       - napr. s: $ sudo pcs node standby <hostname_uzolX>
     - cluster sa samozrejme da vybudovat na viac ako 2 uzloch a je to aj doporucovane
     - server Apache2 ma dalsie dolezite nastavenia, ale tu sa im nevenujem
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Praca s NFS Serverom v HA Cluster rieseni na Rocky Linux 8.5, so zdielanym LVM cez iSCSI:
 
 - na instalaciu pouzijeme novy iSCSI LUN, ktory si vytvorime na storage 
