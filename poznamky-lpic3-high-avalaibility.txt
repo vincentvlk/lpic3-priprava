@@ -422,17 +422,17 @@ Ako vypisat smerovaciu tabulku systemu: $ ip route show
  - smerovacuiu tab. pre IPv6 vypiseme s: $ ip -6 route show
 
 Ako vypisat, akym rozhranim bude smerovany paket s danou cielovou adresou: $ ip route get 9.9.9.9
- - resp. pre ipv6: $ ip -6 route get 2620:fe::9 
+ - resp. pre IPv6: $ ip -6 route get 2620:fe::9 
 
-Ako nastavit predvolenu branu: # ip route add default via 192.168.100.1
- - predvolenu branu vymazeme s: # ip route del default
- - staticku cestu nastavime s: # ip route add 192.168.16.0/24 via 10.1.2.3
- - staticku cestu vymazeme s: # ip route del 192.168.16.0/24
+Ako nastavit predvolenu branu: $ sudo ip route add default via 192.168.100.1
+ - predvolenu branu vymazeme s: $ sudo ip route del default
+ - staticku cestu nastavime s: $ sudo ip route add 192.168.16.0/24 via 10.1.2.3
+ - staticku cestu vymazeme s: $ sudo ip route del 192.168.16.0/24
 
 Ako overit konektivitu sietoveho zariadenia: $ ping 9.9.9.9
  - ekvivalent pre IPv6: $ ping6 2620:fe::9
 
-Ako vypisat vsetky TCP a UDP sockety: $ ss -tupa
+Ako vypisat vsetky TCP a UDP sockety: $ sudo ss -tupa
  - vhodne pozriet: $ man 8 ss
 
 Ako vypisat reverzny PTR zaznam pre danu IP adresu: $ host 9.9.9.9
@@ -441,11 +441,12 @@ Ako vypisat reverzny PTR zaznam pre danu IP adresu: $ host 9.9.9.9
 
 Pozriet nastroje NetworkManager a systemd.networkd(5)
 
-Konfiguracne subory, ktore zabezpecuju DNS preklad: /etc/nsswitch.conf , /etc/hosts , /etc/resolv.conf
+Konf. subory, ktore zabezpecuju DNS preklad: /etc/nsswitch.conf , /etc/hosts , /etc/resolv.conf
  - zvycajne vsak konfigurovane s inymi nastrojmi ako Networkmanager alebo Netplan
 
 Ako overit ze na DNS preklady sa pouziva Cache: $ nslookup -debug quad9.net
  - vo vypise vidime riadky: "Server: 127.0.0.53" a "Address: 127.0.0.53#53"
+ - alebo pouzijeme novsi nastroj "dig": $ dig +trace quad9.net
 
 Ako overit nastavenia DNS v systeme: $ resolvectl status
 
