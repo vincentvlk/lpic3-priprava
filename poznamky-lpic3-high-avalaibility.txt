@@ -421,10 +421,10 @@ Ako vypisat smerovaciu tabulku systemu: $ ip route show
  - podobne sa da skracovat: $ ip r s
  - smerovacuiu tab. pre IPv6 vypiseme s: $ ip -6 route show
 
-Ako vypisat, akym rozhranim bude smerovany paket s danou cielovou adresou: $ ip route get 9.9.9.9
+Ako vypisat, akym rozhranim bude smerovany paket s danou cielovou adresou: $ ip route get 9.9.9.9  
  - resp. pre IPv6: $ ip -6 route get 2620:fe::9 
 
-Ako nastavit predvolenu branu: $ sudo ip route add default via 192.168.100.1
+Ako nastavit predvolenu branu: $ sudo ip route add default via 192.168.100.1   
  - predvolenu branu vymazeme s: $ sudo ip route del default
  - staticku cestu nastavime s: $ sudo ip route add 192.168.16.0/24 via 10.1.2.3
  - staticku cestu vymazeme s: $ sudo ip route del 192.168.16.0/24
@@ -532,7 +532,8 @@ Ako vypisat lokalne Unix Domain sockety, pre aktualneho uzivatela: $ lsof -U
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 *Praca s BASH skriptami*
 
-Ako zabezpecit, aby sa skript spustal aj na inych systemoch (portability), skript zacina s: #!/usr/bin/env bash
+Ako zabezpecit, aby sa skript spustal aj na inych systemoch (portability): 
+ - skript zacina riadkom: #!/usr/bin/env bash
  - nevyhoda je, ze skript je spustany s prvym najdenym interpretom (BASH, Python, etc.)
 
 V BASHi sa rozlisuje "Quoting" alebo 'Literals'.
@@ -543,7 +544,8 @@ V BASHi sa rozlisuje "Quoting" alebo 'Literals'.
    - prikaz 1: $ echo "I don't like unexpected bahavior in /etc/ directory." 
    - prikaz 2: $ echo 'I don't like unexpected bahavior in /etc/ directory.'
 
-Dalsi priklad rozvijania specialnych znakov v BASHi: $ echo "Nemam ziadnu * v mojich cestach: $PATH" 
+Dalsi priklad rozvijania specialnych znakov v BASHi: 
+ - prikaz: $ echo "Nemam ziadnu * v mojich cestach: $PATH"
  - porovnat s prikazom: $ echo 'Nemam ziadnu * v mojich cestach: $PATH'
 
 Prikazovy interpret BASH ma specialne premenne pre argumenty, napr. skript "ashow.sh":
@@ -570,7 +572,8 @@ Presmerovanie diagnostickych vypisov/vystupov:
  - Chybovy vypis/vystup mozeme presmerovat do standardneho vypisu/vystupu s: 2>&1
  - Opacny postup: 1>&2
 
-Pozriet riadenie toku BASH skriptu, resp. rozhodovanie s:"if", "then", "else", "elif" "while", "until", "case".
+Pozriet riadenie toku BASH skriptu, resp. rozhodovanie s:
+ - riadiace struktury: "if", "then", "else", "elif" "while", "until", "case"
  - zakladny rozcestnik $ man bash
  - dalsi uzitocny manual: $ man test 
 
