@@ -403,9 +403,11 @@ Ako vypisat strom spustenych procesov: $ ps axjf
 Ako vypisat CPU prioritu (tzv. Niceness, stlpec "NI") spustenych procesov: $ ps al
  - vhodne pozriet $ man ps
 
-Ako zmenit CPU prioritu (Niceness, zhovievavost k inym procsesom) daneho procesu: # renice 20 <PID>
- - default hodnota je "0", rozsah je -20 az 20. Hodnota "-20" sa NEDOPORUCUJE.
- - najvyssiu prioritu, teda najnizsiu zhovievavost (NEDOPORUCUJE SA) nastavime s: # renice -20 <PID> 
+Ako zmenit CPU prioritu (Niceness, zhovievavost k inym procesom) daneho procesu:
+ - prikaz: $ sudo renice 20 <PID>
+ - default hodnota je "0", rozsah je "-20" az "20", ani hodnota "-20" sa NEDOPORUCUJE.
+ - top prioritu, teda najnizsiu zhovievavost (NEDOPORUCUJE SA) nastavime s: 
+   - prikaz: $ sudo renice -20 <PID> 
 
 Ako vypisat stav operacnej pamate: $ free -m
  - je dobre si uvedomit, co je realna spotreba a co je file cashe/buffer
@@ -447,6 +449,7 @@ Konf. subory, ktore zabezpecuju DNS preklad: /etc/nsswitch.conf , /etc/hosts , /
 Ako overit ze na DNS preklady sa pouziva Cache: $ nslookup -debug quad9.net
  - vo vypise vidime riadky: "Server: 127.0.0.53" a "Address: 127.0.0.53#53"
  - alebo pouzijeme novsi nastroj "dig": $ dig +trace quad9.net
+   - napr.: $ dig +trace quad9.net | grep bytes
 
 Ako overit nastavenia DNS v systeme: $ resolvectl status
 
@@ -530,7 +533,7 @@ Ako vypisat lokalne Unix Domain sockety, pre aktualneho uzivatela: $ lsof -U
  - vypisanie vsetkych Unix Domain socketov: $ sudo lsof -U
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-*Praca s BASH skriptami*
+Praca s BASH skriptami:
 
 Ako zabezpecit, aby sa skript spustal aj na inych systemoch (portability): 
  - skript zacina riadkom: #!/usr/bin/env bash
@@ -606,7 +609,8 @@ fi
 echo "Koniec skriptu, exit code: $?"
 #
 
-Dalej doporucujem pozriet zaklady BASH skriptovania, napr. v knihe: https://www.root.cz/knihy/bash-ocima-bohdana-milara/
+Dalej doporucujem pozriet zaklady BASH skriptovania:
+ - napr. v knihe: https://www.root.cz/knihy/bash-ocima-bohdana-milara/
  - pokrocilejsie skriptovanie, napr. v knihe: https://tldp.org/LDP/abs/abs-guide.pdf
  - pripadne pozriet 11. kapitolu v knihe "How Linux Works by Brian Ward" ISBN-13: 9781718500402
 
@@ -617,35 +621,44 @@ Pozriet dalsi program na spracovanie textu: $ man sed
 Pozriet tematiku "BASH Subshell"
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-*Praca s prenosom suborov po sieti*
+Praca s prenosom suborov po sieti:
 
 Ako spustit jednoduchy HTTP server (Python modul) v danom adresary: $ python3 -m http.server
- - standardne spusteny na TCP porte 8000, mozeme zmenit s : $ python3 -m http.server 5000
- - na TCP porty nizsie ako 1024 su potrebne prava "root", cize napr.: $ sudo python3 -m http.server 80
- - na starsich instalaciach sa da pouzit Python2 modul: $ python -m SimpleHTTPServer
+ - standardne spusteny na TCP porte 8000, mozeme zmenit s: $ python3 -m http.server 5000
+ - na TCP porty nizsie ako 1024 su potrebne prava "superuser":
+   - prikaz napr.: $ sudo python3 -m http.server 80
+ - na starsich instalaciach sa da pouzit Python2 modul: $ python -m SimpleHTTPServer 5000
 
-Na transfer suborov pomocou prgramu "rsync", musi byt program na "oboch stranach"
+Na transfer suborov pomocou prgramu "rsync", musi byt program instalovany na "oboch stranach"
  - pre Debian based systemy $ sudo apt install rsync
  - alebo pre Fedora Server: # dnf install rsync 
 
-Zakladne pouzitie, skopirujeme 3 sobory s diagnostikou: $ rsync -v ifPriklad.sh casePriklad.sh ashow.sh 192.168.1.245:
+Zakladne pouzitie, skopirujeme 3 sobory s diagnostikou: 
+ - prikaz napr.: $ rsync -v ifPriklad.sh casePriklad.sh ashow.sh 192.168.1.245:
 
-Ako skopirovat vsetky adresare s nazvom "dirX" na stroj s DNS nazvom "ubu2.lab" do vzdiualeneho adresara "nas":
+Ako kopirovat vsetky adresare "dirX" na stroj s DNS nazvom "ubu2.lab" do adresara "nas":
  - parameter "-a" umoznuje skopirovat nastavenia suborovych prav, nastavenie UID bitov a pod.
- - teda pouzijeme: $ rsync -va dir* ubu2.lab:nas
- - aby netrebalo zadavat SSH heslo, moze sa nahrat verejny kluc PKI: $ ssh-copy-id userXYZ@ubu2.lab
- - ked chceme transfer/zalohu len otestovat, pouzijeme parameter "-n": $ rsync -n -va dir* ubu2.lab:nas
+ - teda pouzijeme prikaz: $ rsync -va dir* ubu2.lab:nas
+ - aby netrebalo zadavat SSH heslo, moze nahrat verejny kluc PKI: $ ssh-copy-id userXYZ@ubu2.lab
+ - ked chceme transfer/zalohu len otestovat, pouzijeme parameter "-n":
+   - prikaz: $ rsync -n -va dir* ubu2.lab:nas
 
-POZOR, ked chceme v cieli vytvorit EXAKTNU kopiu lokalneho(ych) adresara(ov), ktora ZMAZE nove subory v cieli:
+POZOR, ked chceme v cieli vytvorit EXAKTNU kopiu lokalneho(ych) adresara(ov), ktora ZMAZE 
+nove subory v cieli:
+
  - pouzijeme: $ rsync -va --delete dir* ubu2.lab:nas
  - diagnosticky parameter "-v" vypise, ktore subory v cieli boli vymazane
 
-Ked chceme vykopirovat LEN obsah lokalneho adresara po sieti, dolezity znak "/": $ rsync -av dir1/ ubu2.lab:
-Ked chceme vynechat subor, specifikujeme absolutnu cestu: $ rsync -av --exclude=dir1/junk.txt dir1 ubu2.lab:
+Chceme kopirovat LEN obsah lokalneho adresara po sieti, dolezity znak "/":
+ - prikaz: $ rsync -av dir1/ ubu2.lab:
+Ked chceme vynechat subor, specifikujeme absolutnu cestu: 
+ - prikaz: $ rsync -av --exclude=dir1/junk.txt dir1 ubu2.lab:
+
 Ked chceme prenos overit kontrolnym suctom, pouzijeme parameter "-c" alebo "--checksum"
 Pozriet v "$ man 1 rsync" dalsie parametre ohladom zalohovania: "-b" a "--suffix=.old" a "-u" 
 
-Ako obmedzit BW, napr. na 50MBytes/s (cca 400Mbit/s): rsync -a --bwlimit=50000 same_nuly.txt ubu2.lab: 
+Ako obmedzit BW, napr. na 50MBytes/s (cca 400Mbit/s):
+ - prikaz:  rsync -a --bwlimit=50000 same_nuly.txt ubu2.lab: 
  - priklad ako vytvorit testovaci 1GiB subor: $ dd if=/dev/zero of=same_nuly.txt bs=1024 count=1M
   
 *Dalej pozriet dokumentaciu a manualy k projektu "Samba File/Printer Sharing"*
@@ -658,11 +671,15 @@ Ako si pripojit vzdialny adresar cez SSH, napr.: $ sshfs userABC@ubu2.lab:/mnt/l
 
 *Praca s premennymi prostredia*
 
-Premenne prostredia pre interpret BASH su definovane v "skrytych" suboroch: ".bash_profile" alebo ".profile"
+Premenne prostredia pre interpret BASH su definovane v "skrytych" suboroch: ".bash_profile"
+alebo ".profile"
+
  - priklad na definiciu premennej shellu: $ TEST=123 
  - priklad na definiciu premennej prostredia: $ export TESTENV=567 
 
-Dolezite adresare na spustanie bin. aplikacii, v premennej $PATH: "/usr/local/bin" a "/usr/bin" a "/bin"
+Dolezite adresare na spustanie binarnych aplikacii a skriptov su ulozene
+v premennej $PATH: "/usr/local/bin" a "/usr/bin" a "/bin"
+
  - overime s prikazom: $ echo $PATH
 
 V definicii promptu, teda v premennej $PS1 by sme sa mali vyhnut znakom: { } = & < >
