@@ -2782,7 +2782,8 @@ $ sudo pcs resource create nfs_share1_exp ocf:heartbeat:exportfs \
   - protokol NFSv4: $ sudo mount -t nfs4 192.168.255.28:share1 /mnt/nfs
   - overime s: $ df -hT /mnt/nfs
   - pre NFSv3 prikaz: $ sudo mount -t nfs 192.168.255.28:/home/nfs-server/nfs-root/share1 /mnt/nfs
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 Ako v RedHat based OS zistit, ktory balik poskytuje dany "prikaz", napr.: $ dnf provides showmount
  
