@@ -1676,7 +1676,8 @@ Tip: Ako vypisat dostupne ansible moduly: $ ansible-doc -l
 
 Tip: Na privatny SSH kluc mozeme nastavit prava "read-only": $ chmod u-w .ssh/id_rsa
  - pripadne sa mozu zvazit suborove ACLka
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Zakladna praca s balickovacim systemom "Zypper" v OS: "OpenSUSE Leap":
  - aktualizacia DB balickov: $ sudo zypper refresh
  - instalacia aktualizacii:$ sudo zypper update 
@@ -1688,12 +1689,14 @@ Zakladna praca s balickovacim systemom "Zypper" v OS: "OpenSUSE Leap":
  - vypisanie dostupnych softwarovych "zaplat": $ sudo zypper patches
  - instalacia softwarovych "zaplat": $ sudo zypper patch
  - dalsie informacie: $ man zypper
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako v OS "Fedora Server 35" nainstalovat NetworkManager-TUI: $ sudo dnf install NetworkManager-tui
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-*Vytvorenie iSCSI targetu ("SAN-server") a Initiatora ("SAN-klient") v OS "Fedora Server 35"*
- - *ROZPRACOVANY Status*
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Vytvorenie iSCSI targetu ("SAN-server") a Initiatora ("SAN-klient") v OS "Fedora Server 35"
+
+ *ROZPRACOVANY Status*
 
 =-TARGET:=-
 
@@ -1791,7 +1794,7 @@ Poznamka, iSCSI target sa da prevadzkovat v Cluster-y nad systemom DRBD (nizsie 
 
 Instalacia softwaroveho Initiatora: $ sudo zypper -n install open-iscsi
 
-Pridame Initiatora do zoznamu, podla vytvoreneho ACL IQN: $ sudo vim /etc/iscsi/initiatorname.iscsi  
+Pridame Initiatora do zoznamu, podla vytvoreneho ACL IQN: $ sudo vim /etc/iscsi/initiatorname.iscsi
  - pridame riadok napr.: "InitiatorName=iqn.2022-03.lpic3.suse1:www.node01.init01"
 
 Nasledne upravime konfiguraciu suboru: "/etc/iscsi/iscsid.conf"
@@ -1803,7 +1806,7 @@ node.session.auth.password = MOJE_HESLO
 
 Nasledne restartujeme iSCSI sluzby: $ sudo systemctl restart iscsi iscsid
 
-Spustime "discovery" voci Target device: $ sudo iscsiadm -m discovery -t sendtargets -p 192.168.255.X
+Spustime "discovery" voci Target device: $ sudo iscsiadm -m discovery -t sendtargets -p 192.168.2.X
  - v pozadi sa vytvoria adresare: "/etc/iscsi/nodes/" a "/etc/iscsi/send_targets/"
  - mozeme overit status, napr. prikazom: $ sudo iscsiadm -m node -o show
 
@@ -1838,8 +1841,7 @@ Poznamka, v OS OpenSUSE Leap sa da pouzit na konf. iSCSI Initatora TUI nastroj: 
  - v menu volime "Network Services" -> "iSCSI Initiator" -> "sipkou doprava" na "Connected Targets"
    - v tomto submenu sa uz mozeme klavesom "Tab" prepnut na moznosti "Add" / "Edit" / "Disconnect"
 
-(na zjednoduseny postup, bez auth a s "block-IO" pozriet video LPIC3-HA-Pearson-Sander-10.2)
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Na pracu s HA-lusterom je vhodne mat DNS-A zaznami uzlov, pripadne zaznami v "/etc/hosts"
 
 Trocha teorie: CIB - Cluster Information Base: Stav cluster-a v pamati
@@ -1856,7 +1858,8 @@ Trocha teorie: CIB - Cluster Information Base: Stav cluster-a v pamati
    - pouziva sa prikazy: $ sudo pcs ...
  - alternativne sa pouziva nastroj CRM Shell "crmsh", ktory ma prikazy: $ sudo crm ...
 
-Instalacia Mcast. clustera "Corosync" v "OpenSUSE", na uzloch: $ sudo zypper in ha-cluster-bootstrap 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Instalacia Mcast. clustra "Corosync" v "OpenSUSE", na uzloch: $ sudo zypper in ha-cluster-bootstrap
  - nasladne na "hlavnom" uzle spustime: $ sudo crm cluster init
  - na dalsich clenoch spustime "join" na "hlavny" uzol: $ sudo crm join -c <hostname>
    - treba sa pripravit na manazment PKI klucov v SSH pre uzivatelov "root" a "hacluster"
@@ -1865,6 +1868,7 @@ Instalacia Mcast. clustera "Corosync" v "OpenSUSE", na uzloch: $ sudo zypper in 
    - dalej mozeme pouzit: $ sudo systemctl status corosync
  - konfiguraciu mozeme overit s: $ sudo crm configure show
 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Instalacia Unicast clustra v CentOS Stream 9, pridame repo.: $ sudo dnf install epel-release
  - aktivujeme v "/etc/yum.repos.d/centos-addons.repo" repo. "highavailability" uprava na "enabled=1"
  - aktualizujeme repo.: $ sudo dnf update
@@ -2029,8 +2033,7 @@ Ked chceme pouzivat SBD Fencing na VM, je potrebne do kernelu nacitat modul "sof
  - dalej restartujeme proces: $ sudo systemctl restart systemd-modules-load 
  - pritomnost modulu v kerneli overime s: $ sudo lsmod | grep soft
 
-**VRATIT SA K VIDEAM LPIC3-HA 6.7 a 6.8 a 6.9**
-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Praca s "Cluster Resources", teda zdroje, ktore dokaze cluster poskytovat:
  - mame k dispozicii tieto typy zdrojov: Primitive, Clone, Multi State (Master/Slave), Group
    - typ "Primitive" - singularny zdroj spravovany resource manazerom clustra, ma "bezat" iba raz
@@ -2086,7 +2089,7 @@ Priklad ako vytvorit FTP server "resource" pomocou "pcs":
  - overime prikazom: $ sudo pcs status
  - nasledne obmedzime, tak aby skupiny "apache-group" a "ftp-group" nebezali na rovnakom uzle:
    - prikaz: $ sudo pcs constraint colocation add apache-group with ftp-group -10000
- - este upravime poradie startovania zdrojov: $ sudo pcs constraint order apache-group then ftp-group
+ - upravime poradie startovania zdrojov: $ sudo pcs constraint order apache-group then ftp-group
 
 Priklad tvorby zdrojov clustera s obmedzeniami / constraints pomocou nastroja "crm":
  - upravujeme konfiguraciu clustera pomocou $ sudo crm configure edit
