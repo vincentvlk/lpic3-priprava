@@ -685,7 +685,7 @@ v premennej $PATH: "/usr/local/bin" a "/usr/bin" a "/bin"
 V definicii promptu, teda v premennej $PS1 by sme sa mali vyhnut znakom: { } = & < >
  - dalsie detaily najdeme v manualy, v sekcii "PROMPTING" vid.: $ man bash
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Praca s vyvojarskymi nastrojmi
 
 Jednoduchy priklad na kompilaciu zdrojoveho kodu v jazyku "C", vytvorime subor "pokus.c":
@@ -732,13 +732,13 @@ Ako kompilovat a instalovat zdrojove baliky:
  - po overeni mozeme spustit samotnu instalaciu: $ make install
  - po instalacii v adresary "test_coreutils" vzniknu adresare "bin", "libexec", "share"
  - na Debian-based distr. je nastroj na nastavenie parametrov ".deb" balickov "checkinstall": # apt install checkinstall
- - POZOR, na svojej testovacej instalacii mozeme spustit tvorbu balicka: # checkinstall make install
- - ^^^ uvedenym prikazom si mozeme rozbit system, tak doporucujem si na test VM spravit snapshot a opatrne...
+ - POZOR, na svojej testovacej instalacii sa da spustit tvorba balicka: # checkinstall make install
+ - ^^^ uvedenym prikazom sa da rozbit system, tak si treba na test VM spravit snapshot a pod.
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-*Praca s kontajnermi, zaklady*
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Praca s kontajnermi, zaklady Docker-u
 
-Instalacia najznamejsieho nastroja Docker nie je zlozita, ale ani trivialna, pouzil som postup napr.:
+Instalacia najznamejsieho nastroja Docker nie je zlozita, ale ani trivialna, ofic. postup:
 
 https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04
 
