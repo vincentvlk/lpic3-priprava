@@ -131,56 +131,52 @@ $ sudo mv /etc/netplan/00-installer-config.yaml /etc/netplan/00-installer-config
 
 - dalej vytvorime novy config file:
 
-# vim /etc/netplan/00-installer-config.yaml
+$ sudo vim /etc/netplan/00-installer-config.yaml
 
-A nasledne pridat nieco taketo:
+- nasledne pridame riadky napr.:
 
 network:
   ethernets:
-    # interface name
     ens33:
       dhcp4: no
-      # IP address/subnet mask
       addresses: [192.168.1.244/24]
-      # default gateway
       gateway4: 192.168.1.1
       nameservers:
-        # name server to bind
         addresses: [193.17.47.1, 185.43.135.1]
       dhcp6: yes
   version: 2
 
-Ulozit subor a potom zadat (prikaz spravi aj syntax check):
+- ulozit subor a potom zadat (prikaz vykona aj syntax check):
 
-# netplan try
+$ sudo netplan try
 
-alebo:
+- alebo:
 
-# netplan apply
+$ sudo netplan apply
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Sprava diskov:
+Sprava diskov, particii, SWAPu:
 
-Prikaz vypise blokove zariadenia: # lsblk
-Prikaz vypise UUID aktivnych particii: # blkid
-Prikaz vytvori Ext4 particiu: # mkfs.ext4 /dev/sdb1
+Prikaz vypise blokove zariadenia: $ sudo lsblk
+Prikaz vypise UUID aktivnych particii: $ sudo blkid
+Prikaz vytvori Ext4 particiu: $ sudo mkfs.ext4 /dev/sdb1
 
 Ako vytvorit Swap subor, nie particiu: 
 
 Prikaz vypise stav Swap-u:
-# free -m
+$ sudo free -m
 
-# dd if=/dev/zero of=swap_file bs=1024k count=pocet_MB
-# mkswap swap_file
-# swapon swap_file
-# swapoff swap_file	<< pozor treba mat nahradnu Swap kapacitu
+$ sudo dd if=/dev/zero of=swap_file bs=1024k count=pocet_MB
+$ sudo mkswap swap_file
+$ sudo swapon swap_file
+$ sudo swapoff swap_file	<< pozor treba mat nahradnu Swap kapacitu
  
 V kontexte Swap-u existuje v kerneli tzv. OOM-killer, ktory pri nedostatku pamate zabija procesy
 
 **Praca s LVM:**
 Aktualna verzia LVM2.
 
-Prikaz na interaktivne CLI: # lvm
+Prikaz na interaktivne CLI: $ sudo lvm
 - nasledne: lvm> help
 
 Prikaz vypise Physical Volumes: pvs
@@ -190,16 +186,21 @@ Prikaz detailne vypise Volume Groups: vgdispaly
 Prikaz vipise Logical Volumes: lvs
 Prikaz detailne vypise Logical Volumes: lvdisplay
 
-Na pracu s LVM vytvorime jednu alebo viac PV particii na realnych diskoch s cfdisk/fdisk/parted a potom mkfs.XYZ
+Na pracu s LVM vytvorime jednu alebo viac PV particii na realnych diskoch s
+cfdisk/fdisk/parted a nasledne "mkfs.XYZ": 
 
 Prikaz vytvori VG s nazvom "vg-nas" a pouzije prve PV (particiu): # vgcreate vg-nas /dev/sdb1   
-- nasledne rozsirime tuto VG (pool) o dalsiu PV particiu: #vgextend vg-nas /dev/sdc1
+ - nasledne rozsirime tuto VG (pool) o dalsiu PV particiu: $ sudo vgextend vg-nas /dev/sdc1
 
-Prikaz vytvori LV particiu "lvnas1" z danej VG "vg-nas": # lvcreate --size 15g --type linear -n lvnas1 vg-nas 
+Prikaz vytvori LV particiu "lvnas1" z danej VG "vg-nas": 
+ 
+ - zadame napr.: $ sudo lvcreate --size 15g --type linear -n lvnas1 vg-nas 
 
-Prikaz naformatuje LV particu na Ext4-FS: # mkfs.ext4 /dev/mapper/vg--nas-lvnas1
+Prikaz naformatuje LV particu na Ext4-FS: $ sudo mkfs.ext4 /dev/mapper/vg--nas-lvnas1
 
-Prikaz rucne namountuje LV "lvnas1" do adresara "/mnt/lvnas1": # mount /dev/mapper/vg--nas-lvnas1 lvnas1 
+Prikaz rucne namountuje LV "lvnas1" do adresara "/mnt/lvnas1":
+ - zadame napr. $ sudo mount /dev/mapper/vg--nas-lvnas1 lvnas1
+
 Nasledne upravou suboru "/etc/fstab" pridame riadok, ktory zabezpeci mount po boot-e: 
 - pomoze prikaz "blkid"
 
@@ -208,16 +209,17 @@ Nasledne upravou suboru "/etc/fstab" pridame riadok, ktory zabezpeci mount po bo
 
 Potom si uz napr. v $HOME mozeme vytvorit link na svoju NAS particiu: $ ln -s /mnt/lvnas1 nas
 
-Ako ostranit LV z VG: # lvremove vg-nas/lvnas3
+Ako ostranit LV z VG: $ sudo lvremove vg-nas/lvnas3
 
-Ako zvacsit nejake LV z VG poolu (moze byt mounted): # lvresize -r -L +5g vg-nas/lvnas1
-Overime s: df -h /mnt/lvnas1
+Ako zvacsit nejake LV z VG poolu (moze byt mounted): $ sudo lvresize -r -L +5g vg-nas/lvnas1
+Overime s: $ df -h /mnt/lvnas1
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-**Praca s inode-ami:**
+Praca s inode-ami:
 
 Prikaz vypise prava a inode informacie o subore: $ stat subor.xyz
 - da sa pouzit aj prikaz:  $ ls -li
+
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako pridat uzivatela do dalsej group: # usermod -a -G examplegroup exampleusername
 
@@ -241,7 +243,7 @@ Zakladny konfig. subor pre GRUB2, ktory je vygenerovany, nema sa upravovat: /boo
 
 Skripty, ktore podla poradia generuju konfig. subor GRUB2: $ ls /etc/grub.d/* 
 
-Ako nainstalovat GRUB2 v MBR mode: # grub-install --boot-directory=/mnt/boot /dev/sdc
+Ako nainstalovat GRUB2 v MBR mode: $ sudo grub-install --boot-directory=/mnt/boot /dev/sdc
 
 Ako zistit s akymi parametrami bol nacitany kernel: $ cat /proc/cmdline
 
