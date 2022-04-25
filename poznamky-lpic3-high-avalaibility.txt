@@ -2656,7 +2656,7 @@ $ sudo iscsiadm -m node --targetname iqn.2001-05.com.lab:test --portal 192.168.2
     delaycompress
     postrotate
         #/bin/systemctl reload httpd.service > /dev/null 2>/dev/null || true
-        /usr/sbin/httpd -f /etc/httpd/conf/httpd.conf -c "PidFile /var/run/httpd/httpd.pid" -k graceful > /dev/null 2>/dev/null || true 
+        /usr/sbin/httpd -f /etc/httpd/conf/httpd.conf -c "PidFile /var/run/httpd/httpd.pid" -k graceful > /dev/null 2>/dev/null || true
     endscript
 }
 
@@ -2784,9 +2784,9 @@ $ sudo pcs resource create nfs_share1_exp ocf:heartbeat:exportfs \
   - pre NFSv3 prikaz: $ sudo mount -t nfs 192.168.255.28:/home/nfs-server/nfs-root/share1 /mnt/nfs
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
 Ako v RedHat based OS zistit, ktory balik poskytuje dany "prikaz", napr.: $ dnf provides showmount
- 
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- 
 Praca s Load-Balancingom sluzieb, teda rozkladanim zataze na viacero aplikacnych uzlov
  - zakladne metody L.B.: 
    - DNS Round Robin - velmi jednoduche, nema vsak ziadne monitorovanie dostupnosti uzlov
