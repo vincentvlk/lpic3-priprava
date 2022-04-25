@@ -1422,7 +1422,7 @@ Ako docasne deaktivovat "password-auth" pre daneho uzivatela: $ sudo passwd -l <
  - overime s: $ sudo chage -l <uzivatel>
  - znova "aktivujeme" s: $ sudo usermod --expiredate "" <uzivatel>
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako s Nmap TCP skenom s "odhadnut" verziu OS a programov: $ sudo nmap -A -Pn -sV 192.168.1.100
  - parameter "-Pn" zabezpeci, ze sa nepouzije "ping-check", nmap pokracuje aj ked sa ICMP zahadzuje
  - SEDA ZONA: mozeme pouzit "Decoys", napr.: $ sudo nmap 192.168.1.2 -D A.B.C.D,E.F.G.H,I.J.K.L
@@ -1431,7 +1431,7 @@ Ako s Nmap TCP skenom s "odhadnut" verziu OS a programov: $ sudo nmap -A -Pn -sV
    - napr: $ sudo nmap -sV -iL hosts.txt -n -oN output.txt
  - program "nmap" ma koncept "Templates", dalsie info v "$ man nmap", vyhladat parameter "-T"
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Nastroj na detekciu tzv. "Rootkit-ov", nainstalujeme: $ sudo apt install rkhunter
  - nasledne aktualizujeme "file-DB": $ sudo rkhunter --propupd
  - dalej spustime samotne skenovanie: $ sudo rkhunter --check
@@ -1446,7 +1446,7 @@ Dalsi nastroj na "Rootkit" detekciu, instalujeme: $ sudo apt install chkrootkit
  - jednoduche spustenie: $ sudo chkrootkit
    - podobne sa da spustit, len vypise "Warnings": $ sudo chkrootkit -q
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako hladat/mazat virusy, pouzijeme nastroj "Clam-AV": $ sudo apt install clamav clamav-daemon
  - dolezite komponenty: "$ man clamd", "$ man clamdscan", "$ man clamscan" (pouziva vlastnu Vir-DB)
  - nastroj na aktualizaciu "Virus DB": $ man freshclam
@@ -1467,16 +1467,19 @@ Ako hladat/mazat virusy, pouzijeme nastroj "Clam-AV": $ sudo apt install clamav 
    - upravime vypis, aby zobrazil "nakazene" subory: $ sudo clamscan --infected --recursive /home
    - POZOR a OPATRNE, automaticke mazanie: $ sudo clamscan --infected --remove --recursive /home
    - pre Linux-ove distribucie existuje aj GUI rozhranie "ClamTk": $ sudo apt install clamtk
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako na zabezpecnie zavadzaca "GRUB2", vytvorime heslo: $ sudo grub-mkpasswd-pbkdf2
  - dalej upravime subor "/etc/grub.d/40_custom" pridame riadky, vygenerovany HASH, od slova "grub"
 
 set superusers="root"
 password_pbkdf2 root grub.pbkdf2.sha512.10000.C319ED4060EA...
 
- - nasledne ulozime a spustime skript na generovanie konfiguracie: $ sudo update-grub2 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Zakladne zabezpecie servera "OpenSSH", hlavna konfiguracia je ulozena v subore: "/etc/ssh/sshd_config"
+ - nasledne ulozime a spustime skript na generovanie konfiguracie: $ sudo update-grub2
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Zabezpecenie servera "OpenSSH", hlavna konfiguracia je ulozena v subore: "/etc/ssh/sshd_config"
+ 
  - rozsiahly zdroj informacii: $ man sshd_config
  - zvazit zmenu pocuvajuceho TCP portu, upravime riadok "#Port 22" na "Port 5022"
  - po zmenach je potrebne: $ sudo systemctl restart ssh
@@ -1503,16 +1506,19 @@ student		hard	nproc	1000
 student		hard	fsize	1000
 
  - dalsie informacie napr. v: $ man limits.conf
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako zasifrovat subor s citlivymi udajmi pomocou GNU-Pg: $ gpg -c povodny.txt
  - vznikne sifrovany subor "povodny.txt.gpg", ktory napr. premenujeme na "sprava.dat" a posleme
  - mozeme aj upresnit sifru a vystup: $ gpg -c --cipher-algo aes256 -o sprava.dat povodny.txt
  - OPATRNE, ak treba, mozeme spolahlivo "znicit" povodny subor: $ shred -uv -n 100 povodny.txt
  - v cieli sa subor desifruje: $ gpg -o povodny.txt -d sprava.dat
  - dalsie informacie napr. v "$ man gpg" alebo "$ gpg --help"
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako bez dalsej interakcie spustit APT update/upgrade: $ sudo apt update && sudo apt upgrade -y
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako nainstalovat DNS server "BIND 9", napr. $ sudo apt install bind9 bind9-utils bind9-doc
  - dalsie implementacie autoritativnych DNS serverov: "Knot DNS", "Dnsmasq", "PowerDNS", ...
  - standardna "bind9" Ubu/Deb instalacia spusti "Cache-only" server, pocuva na IPv4 aj IPv6
@@ -1574,7 +1580,8 @@ mail    IN	A	192.168.1.244
 
 Ako zistit, svoju verejnu IP, napr. "$ curl ifconfig.me", "$ curl -4 ident.me", "$ curl -6 ident.me"
  - priklad: pouzitie v skripte: $ echo "Moja verejne IP je $(curl -s ident.me)"
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako zadefinovat tzv. "Virtual Hosting" pre Web server Apache2:
  - vytvorime adresar s webom: $ sudo mkdir /var/www/priklad.xyz
  - nastavime vlastnika: $ sudo chown -R www-data:www-data /var/www/priklad.xyz
@@ -1594,7 +1601,7 @@ Ako zadefinovat tzv. "Virtual Hosting" pre Web server Apache2:
 </VirtualHost>
  
  - po ulozeni aktivujeme a pridame stranku do "Virtual Hosting": $ sudo a2ensite priklad.xyz
- - vznikne symlink: "/etc/apache2/sites-available/vlkv.name.conf" -> "/etc/apache2/sites-enabled/vlkv.name.conf"
+ - vznikne: /etc/apache2/sites-available/vlkv.name.conf -> /etc/apache2/sites-enabled/vlkv.name.conf
  - nasledne znova nacitame konfiguracie: $ sudo systemctl reload apache2
  - mozeme overit s: $ sudo systemctl status apache2
  - mozeme aj deaktivovat ine Virtual Host stranky, napr.: $ sudo a2dissite 000-default
@@ -1646,7 +1653,8 @@ Ako vypnut "podpis" servera, napr.: "Apache/2.4.41 (Ubuntu) Server at 192.168.1.
  - upravime subor: "/etc/apache2/conf-available/security.conf" najdeme "ServerSignature On"
  - zmenime na: "ServerSignature Off" potom: $ sudo systemctl reload-or-restart apache2
  - je este vhodne zmenit "ServerTokens OS" na "ServerTokens Prod" a restartovat Apache2
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako programom "Ansible" nainstalovat program "nmap" pomocou systemu "APT":
  - instalujeme balik "ansible": $ sudo apt install ansible
  - vytvorime si "inventar" zariadeni, napr. vytvorime subor "hosts", kde napr. vlozime:
