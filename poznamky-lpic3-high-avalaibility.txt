@@ -1,6 +1,6 @@
 *** Poznamky k priprave na LPIC3-High Availability and Virtualization ***
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 *MOJ skromny nazor*: popriority pri realizacii projektov na OS GNU/Linux:
 
 Bezpecnost + Zalohovanie + Kontrola pouzitelnosti zaloh + Dokumentacia
@@ -8,7 +8,7 @@ Security + Backups + Backups usability check + Documentation
 
 + zvazit nasadenie IPv6, ak je to mozne
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako na linuxe vypnut PC-speaker: #rmmod pcspkr
 
 - dobra stranka na zaciatocnu konfiguraciu znamych distribucii:
@@ -17,10 +17,11 @@ https://www.server-world.info/en/
 
 - ^^^ nevedno do kedy bude online a chyba tam IPv6 :-(
 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 - nastavenie siete v systeme Debian11:
-  - edituje sa "/etc/network/interfaces"
+  - editujeme konf. subor "/etc/network/interfaces"
   - a vlozime napr.:
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
 auto lo
 iface lo inet loopback
 
@@ -33,7 +34,7 @@ broadcast 192.168.1.255
 gateway 192.168.1.1
 dns-nameservers 193.17.47.1 185.43.135.1
 
-a nasledne aplikujeme config:
+ - nasledne aplikujeme config:
 
 $ sudo systemctl restart ifup@ens33 
 
@@ -53,10 +54,13 @@ iface ens37 inet6 static
     address 2001:db8:cafe::242/64
     gateway 2001:db8:cafe::1
     dns-nameservers 2001:148f:ffff::1 2001:148f:fffe::1
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-- nastavenie siete na CentOS:
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Nastavenie siete na CentOS:
+
   - pouzil som nejake hanbate GNOME GUI, neviem preco sa to hned neaplikovalo
   - alternativne sa da pouzit nastroj "nmtui", instalujeme: $ sudo dnf -y in NetworkManager-tui
+    - nasledne uz len spustime: $ sudo nmtui
 
 - nastavenie siete na Fedora 35 Server:
   - pouzil som cli nastroj "nmcli" z balika "NetworkManager"
@@ -276,7 +280,7 @@ Ako prepnut rn-level do single-user modu: $ sudo telinit -s
 Ako restartovat system: $ sudo shutdown -r now
  - pripadne za 10 min.: $ sudo shutdown -r +10
 
-Ako zabezpecit, aby sa do systemu mohol prihlasit len superuser, vytvorime subor: /etc/nologin 
+Ako zabezpecit, aby sa do systemu mohol prihlasit len superuser, vytvorime subor: "/etc/nologin"
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Logovanie a diasgnostika user-space nastrojov:
@@ -704,7 +708,8 @@ int main(void) {
     printf("Hello, World.\n");
 }
 
-- nasledne mozeme skompilovat, je potrebne nainstalovat dev. nastroje: # apt install build-essential
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+- nasledne skompilujeme, treba nainstalovat dev. nastroje: $ sudo apt install build-essential
 - na kompilaciu pouzijeme program "cc", teda "C Compiler": $ cc pokus.c
 - vystupom bude spustitelny binarny subor "a.out": $ ./a.out
 - pri kompilacii mozeme specifikovat nazov vystupneho suboru: $ cc -o pokus pokus.c 
@@ -723,24 +728,27 @@ class MyFirstProgram {
 }
 
  - nasledne program skompilujeme do tzv. "byte code" formatu s priponou ".class": $ javac pokus.java
- - vznikne bytecode subor "MyFirstProgram.class", ktory spustime (bez pripony): $ java MyFirstProgram
+ - vznikne bytecode subor "MyFirstProgram.class", ktory spustime prikazom: $ java MyFirstProgram
 
 Ako kompilovat a instalovat zdrojove baliky:
  - na test si vytvorime adresar "test_coreutils": $ mkdir test_coreutils 
- - do vytvoreneho adresara stiahneme zdrojovy balik: $ wget https://ftp.gnu.org/gnu/coreutils/coreutils-9.0.tar.gz  
+ - do vytvoreneho adresara stiahneme zdrojovy balik:
+   - prikaz: $ wget https://ftp.gnu.org/gnu/coreutils/coreutils-9.0.tar.gz
  - rozbalime zdrojovy archiv: $ tar -xvzf coreutils-9.0.tar.gz
- - v rozbalenom adresary "coreutils-9.0" spustime konfiguracny "GNU Autoconf" (Shell) skript "configure"...
+ - v rozbalenom adresary "coreutils-9.0" spustime konfiguracny "GNU Autoconf" skript "configure"
  - tento skript konfiguruje parametre kompilacie a naslednej instalacie...
- - skript spustime s parametrom cieloveho adresara kompilacie a instalacie: $ ./configure --prefix=$HOME/test_coreutils
- - nasledne po konfiguracii spustime kompilaciu: $ make
+ - skript spustime s parametrom cieloveho adresara kompilacie a instalacie: 
+   - prikaz: $ ./configure --prefix=$HOME/test_coreutils
+ - nasledne po konfiguracii spustime v danom adresary kompilaciu: $ make
  - skompilovane programy a binarne objekty najdeme v adresary "coreutils-9.0/src/"
  - po kompilacii mozeme spustit rozsiahle overenie kompilacie: $ make check
  - po kompilacii mozeme "na sucho / dry run" spustit test instalacie: $ make -n install
  - po overeni mozeme spustit samotnu instalaciu: $ make install
  - po instalacii v adresary "test_coreutils" vzniknu adresare "bin", "libexec", "share"
- - na Debian-based distr. je nastroj na nastavenie parametrov ".deb" balickov "checkinstall": # apt install checkinstall
+ - na Debian-based distr. je nastroj na nastavenie parametrov ".deb" balickov "checkinstall":
+   - prikaz: $ sudo apt install checkinstall
  - POZOR, na svojej testovacej instalacii sa da spustit tvorba balicka: # checkinstall make install
- - ^^^ uvedenym prikazom sa da rozbit system, tak si treba na test VM spravit snapshot a pod.
+ - ^^^ uvedenym prikazom sa da rozbit system, tak si treba na test VM spravit snapshot, atd.
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Praca s kontajnermi, zaklady Docker-u
@@ -783,39 +791,46 @@ Ako sa odpojit od konzoly, v terminale za sebou skratky: "Ctrl+p a Ctrl+q"
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Praca s nastrojom Git a platformou GitHub:
 
-Vytvorime si pracovny adresar "git_ucenie", v ktorom inicializujeme *lokalny* Git repozitar: $ git init
+Vytvorime adresar "git_ucenie", v ktorom inicializujeme *lokalny* Git repozitar: $ git init
  - aktualny stav repozitara overime s: $ git status
  - nastavime identitu uzivatela na pridavanie zmien: $ git config --global --edit
- - vytvorime cvicny subor, napr.: "poznamky.txt", do suboru napiseme "moja prva poznamka", subor ulozime
+ - vytvorime cvicny subor, napr. "poznamky.txt"
+   - do suboru napiseme "moja prva poznamka", subor ulozime
  - nasledne subor pridame do Staging Cache repozitara: $ git add poznamky.txt
  - overime s: $ git status
  - dalej pridame do *lokalneho* repo. novu zmenu, teda *commit* s popisom/spravou: 
 
-$ git commit -m 'vytvoril som subor poznamky.txt a pridal 1. riadok'
+   - prikaz: $ git commit -m 'vytvoril som subor poznamky.txt a pridal 1. riadok'
 
  - dalej upravime subor "poznamky.txt", pridame riadok "dalsi riadok s poznamkou"
  - subor ulozime a overime stav *lokalneho* repo.: $ git status
  - podla vypisu je potrebne pridat upraveny subor do Staging Cache: $ git add poznamky.txt
  - jednoduchsie mozeme pridat vsetky subory v "root" adresary repozitara: $ git add .
- - aby sme sa vyhli pridavaniu suborov, ktore nechceme pridat do Staging Cache, vytvorime subor ".gitignore"
- - do suboru mozeme zapisat napr. riadok ".*" (bez uvodzoviek)
+ - aby sme sa vyhli pridavaniu suborov, ktore nechceme pridat do Staging Cache,
+   vytvorime subor ".gitignore"
+ - na ignorovali ".dotfiles" do suboru mozeme zapisat napr. riadok ".*" (bez uvodzoviek)
  - ak chceme odstranit subor z Cache, pouzijeme: $ git rm --cached <nazov_suboru>
  - pridame novu zmenu: $ git commit -m 'pridal som dalsi riadok'
 
-Chceme napr. zmenit format zapisu poznamok, mozeme vytvorit vetvu, *branch*: $ git checkout -b 'novy_format'
- - v novej vetve mozeme napr. vytvorit subor "poznamky_novy_format.txt" a ten pridat do Cache a commitovat
- - ^^ avsak uz do novej vetvy/branch s nazvom "novy_format"
+Chceme napr. zmenit format zapisu poznamok, mozeme vytvorit vetvu, *branch*:
+ - prikaz:  $ git checkout -b 'novy_format'
+ - v novej vetve napr. vytvorime subor "poznamky_novy_format.txt" a ten pridat do Cache a commit.
+   - ^^ avsak uz do novej vetvy/branch s nazvom "novy_format"
  - overime s: $ git status
- - potom sa mozeme prepinat medzi vetvami, napr. sa vratit hlavnej "master" vetvy: $ git checkout master
+ - potom sa mozeme prepinat medzi vetvami, napr. sa vratit hlavnej "master" vetvy:
+   - prikaz: $ git checkout master
  - overime s: $ git status
 
 Ked chceme replikovat repo. na vzdialeny server, napr. na (hanbaty) GitHub:
 - na platforme github.com si vytvorime uziv. ucet
 - je potrebne vytvorit si autentifikacny Token, tzv. "Personal Access Token", podla odkazu:
+
 https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
 
-- dalej vytvorime repozitar s nazvom "git_ucenie", portal GiitHub nam vygeneruje zakladne prikazy.
-- dalej si vytvorime vzdialeny pristup na repo., tzv. "Remote": $ git remote add origin https://github.com/<UZIVATEL>/git_ucenie.git 
+- vytvoreny Token nezabudame/nezatvarame
+- dalej vytvorime repozitar s nazvom "git_ucenie", portal GitHub nam vygeneruje zakladne prikazy
+- dalej si vytvorime vzdialeny pristup na repo., tzv. "Remote": 
+  - prikaz: $ git remote add origin https://github.com/<UZIVATEL>/git_ucenie.git 
 - nasledne zosynchronizujeme kolakny repo. so vzdialenym repo.: $ git push -u origin master
 - na autentifikaciu zadame svoje uziv. meno, ale *namiesto hesla zadame vygenerovany PAT Token*
 
@@ -831,7 +846,7 @@ Na ulahcenie prace si mozeme pridat do svojho $HOME adresara do suboru ".gitconf
     undo = reset HEAD~1 --mixed
     strom = !git log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C$
 
-Naslendne uz mozeme pouzivat napr. aliasy:
+ - naslendne uz mozeme pouzivat napr. aliasy:
 
 $ git s
 $ git save
@@ -871,7 +886,8 @@ Ako vypisat stromovu strukturu suborov, napr.: $ tree /home/student1 > strom.fs.
 
 Ako vypisat (priblizne) podla velkosti adresare a subory: $ du -hd 1 | sort 
 
-Ako vyfiltrovat MAC adresy z vypisu a ulozit ich zaroven do suboru: $ ip a s | grep ether | cut -d" " -f6 | tee mac-adresy.txt 
+Ako vyfiltrovat MAC adresy z vypisu a ulozit ich zaroven do suboru: 
+ - prikaz: $ ip a s | grep ether | cut -d" " -f6 | tee mac-adresy.txt 
 
 Ako porovnat dva subory s detailnejsim rozpisom: $ diff -c a b
  - dva subory mmozeme porovnat vedla seba: $ diff -y a b
@@ -884,9 +900,12 @@ Ako vytvorit komprimovany (BZip2) archiv: $ tar -cvjf subory.tar.bz2 a.txt b.txt
 
 Ako vytvorit adresarovu strukturu huerarchiu jednym prikazom: $ mkdir -p prvy/druhy/treti
 
-Ako vypisat konf. subory, zmenene za posledny den: $ sudo find /etc -type f -mtime 0 -exec ls -l {} \;
- - zaloha suborov, zmenenych za poslednych 7 dni: $ sudo find /etc -type f -mtime -7 -exec cp {} /root/backup \;
- - aby sa "find" pytal, ci chceme napr. zmazat stare subory: $ find . -type f -mtime +30 -ok rm {} \;  
+Ako vypisat konf. subory, zmenene za posledny den:
+ - prikaz: $ sudo find /etc -type f -mtime 0 -exec ls -l {} \;
+ - zaloha suborov, zmenenych za poslednych 7 dni:
+   - prikaz  $ sudo find /etc -type f -mtime -7 -exec cp {} /root/backup \;
+ - aby sa "find" pytal, ci chceme napr. zmazat stare subory:
+   - prikaz: $ find . -type f -mtime +30 -ok rm {} \;  
  - ^ pripadne mozeme najskor (30 dni stare) subory len VYPISAT: $ find . -type f -mtime +30 -print
 
 Ako hladat subory podla nazvu, nova implementacia "mlocate": $ sudo apt install mlocate
@@ -899,10 +918,12 @@ Ako hladat programom "find" bez rozlisenia A/a: $ find . -iname PriKlad.txt
 
 V BASH-y sa tzv. "glob-y" volaju aj "Shell Meta Characters", napr. "*"
 
-Prikaz najde, spocita adresare v "/etc", hlbka 3 adresarov s pravami "755": $ sudo find /etc/ -maxdepth 3 -type d -perm 755 | wc -l 
+Prikaz najde, spocita adresare v "/etc", hlbka 3 adresarov s pravami "755": 
+ - prikaz: $ sudo find /etc/ -maxdepth 3 -type d -perm 755 | wc -l 
 
 Ako vypisat subory s velkostou medzi 3G a 4G: $ find /home/nas/ -type f -size +3G -size -4G
- - da sa doplnit det. vypis do suboru: $ find /home/nas/ -type f -size +3G -size -4G -ls > zoznam.txt
+ - da sa doplnit detailny vypis do suboru: 
+   - prikaz: $ find /home/nas/ -type f -size +3G -size -4G -ls > zoznam.txt
 
 Asociacia medzi suborovou strukturou a nazvom suboru sa nazyva tzv. "hardlink"
  - pocet asosiacii overime s: $ stat subor.txt
@@ -914,6 +935,7 @@ Ako naist a vypisat objekty s viac ako 1 hardlinkom: $ find /var/ -links +1 -ls
 
 Ako presuvat subory len aktualnejsie alebo chybajuce subory: $ mv -u <zdroj> <ciel>
 
+Quiz:
 V adresary /home/student/ vytvori uzivatel "root" subor "a.txt", moze ho uzivatel "student" vymazat?
 
 Prikaz najde "chybove" hlasky v Syslogu: $ grep -win error /var/log/syslog
@@ -1311,8 +1333,10 @@ Nastroj na ochranu integrity suborov a adresarov "AIDE", instalacia: $ sudp apt 
 
  - a nasledne inicializujeme s novou databazou: $ sudo aideinit
  - dalej je mozne vytvorit si vlastny config a vlastne pravidla, navody exsituju ;-)
+
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Na overenie bezpecnosti hesla, mozeme pouzit nastroj "John the Ripper"
+
  - instalacia na Ubu/Deb: $ sudo apt install john
  - zlucime "/etc/passwd" a "/etc/shadow": $ sudo unshadow /etc/passwd /etc/shadow > unshadow.out.txt
  - na test spustime jednoduchy "single mode": $ sudo john -single unshadow.out.txt
@@ -1329,6 +1353,7 @@ Politiku systemovyh hesiel najdeme v subore "/etc/login.defs"
 
 Ako nastavit cas expiracie hesla na 30 dni: $ sudo chage -M 30 <uzivatel>
  - overime s: $ sudo chage -l <uzivatel>
+
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Dalsie politiky hesla, ako napr. zlozitost spravuju "PAM - Pluggable Authentification Modules"
  - treba instalovat balik: $ sudo apt install libpam-pwquality
@@ -1361,7 +1386,8 @@ Ako vytvorit sifrovanu particiu na HDD/SSD, potrebne nainstalovat: $ sudo apt in
  - po ukonceni prace: "$ sudo umount /mnt/crypt1" nasledne: $ sudo cryptsetup luksClose crypt1
  - nova uloha: $ sudo cryptsetup luksOpen /dev/sdb crypt1
    - nasledne: $ sudo mount /dev/mapper/crypt1 /mnt/crypt1/
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Relacia vytvorena prikazom "sudo" ma pristupove prava v "cache" presne 15 min.
  - cache sa da zmanzat s: $ sudo -k
  - toto nastavenie mozeme zmenit, napr. na 10 min., otvorime konfiguraciu "sudoers": $ sudo visudo
@@ -1369,7 +1395,7 @@ Relacia vytvorena prikazom "sudo" ma pristupove prava v "cache" presne 15 min.
  - mozeme nadefinovat, povolene prikazy, dopiseme: "user1  ALL=(root)      /usr/bin/ls,/usr/bin/cat"
  - zjednodusenie, definujeme aliasy, priklad v subore "/etc/sudoers" moze cast vyzerat takto:
    - vytvorime alias uzivatelov "ADMINS" v ktorom su 3 uziv., dalej alias na prikazy "FILE_OPER"
-   - potom aliasu "ADMINS" priradime povoleny prikaz "/user/bin/netstat" + alias prikazov "FILE_OPER"
+   - aliasu "ADMINS" priradime povoleny prikaz "/user/bin/netstat" + alias prikazov "FILE_OPER"
 
 # User alias specification
 User_Alias ADMINS=user1,user2,dev1
@@ -1395,14 +1421,16 @@ Ako docasne deaktivovat "password-auth" pre daneho uzivatela: $ sudo passwd -l <
  - dalsi psosob zamknutia, zmena datumu exspiracie hesla: $ sudo usermod --expiredate 1 <uzivatel>
  - overime s: $ sudo chage -l <uzivatel>
  - znova "aktivujeme" s: $ sudo usermod --expiredate "" <uzivatel>
+
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Ako ziskat Nmap TCP skenovanie s "odhadom" verzie OS a programov: $ sudo nmap -A -Pn -sV 192.168.1.100
+Ako s Nmap TCP skenom s "odhadnut" verziu OS a programov: $ sudo nmap -A -Pn -sV 192.168.1.100
  - parameter "-Pn" zabezpeci, ze sa nepouzije "ping-check", nmap pokracuje aj ked sa ICMP zahadzuje
  - SEDA ZONA: mozeme pouzit "Decoys", napr.: $ sudo nmap 192.168.1.2 -D A.B.C.D,E.F.G.H,I.J.K.L
    - tieto tzv. "Decoy" hosty musia byt UP
  - sken bez prekladu PTR "-n", zo zoznamu "-iL hosts.txt", vystup ide do suboru "-oN output.txt":
    - napr: $ sudo nmap -sV -iL hosts.txt -n -oN output.txt
  - program "nmap" ma koncept "Templates", dalsie info v "$ man nmap", vyhladat parameter "-T"
+
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Nastroj na detekciu tzv. "Rootkit-ov", nainstalujeme: $ sudo apt install rkhunter
  - nasledne aktualizujeme "file-DB": $ sudo rkhunter --propupd
@@ -1417,9 +1445,10 @@ Nastroj na detekciu tzv. "Rootkit-ov", nainstalujeme: $ sudo apt install rkhunte
 Dalsi nastroj na "Rootkit" detekciu, instalujeme: $ sudo apt install chkrootkit
  - jednoduche spustenie: $ sudo chkrootkit
    - podobne sa da spustit, len vypise "Warnings": $ sudo chkrootkit -q
+
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako hladat/mazat virusy, pouzijeme nastroj "Clam-AV": $ sudo apt install clamav clamav-daemon
- - dolezite komponenty: "$ man clamd", "$ man clamdscan", "$ man clamscan" (pouziva vlastnu Virus-DB)
+ - dolezite komponenty: "$ man clamd", "$ man clamdscan", "$ man clamscan" (pouziva vlastnu Vir-DB)
  - nastroj na aktualizaciu "Virus DB": $ man freshclam
  - aktivnu aktualizaciu overime s: $ sudo systemctl status clamav-freshclam
  - verziu DB overime s: $ freshclam --version
