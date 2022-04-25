@@ -3129,7 +3129,6 @@ Nastroj "Vagrant" sa vyuziva na automaticku tvorbu a manazment VM prostredi, kto
  - dalsie informacie napr.: https://www.vagrantup.com/
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
 Praca s kniznicou/nastrojmi/API pod nazvom projektu "libvirt"
  - sluzi na unifikovany manazment virtualnych zdrojov roznych typov (KVM,QEMU,VMware,LXC,Xen,...)   
  - poskytuje CLI nastroje na manazment, ako su napr. "virsh", "virt-install", "virt-manger"
