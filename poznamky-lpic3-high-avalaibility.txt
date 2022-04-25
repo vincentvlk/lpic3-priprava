@@ -2801,7 +2801,8 @@ Praca s Load-Balancingom sluzieb, teda rozkladanim zataze na viacero aplikacnych
    - Keepalived : implemetacia VRPP protokolu pre OS GNU/Linux, vytvori virtualnu IP adresu
      - da sa nakonfigurovat "do kriza", s rozdielnymi subnetmi, na primitivny state-less LB 
      - da sa vyzuit napr. ako redundancia pre 2xHAProxy na virtualnej IP, alternativa: Pacemaker
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Silne zjednoduseny priklad instalacie load-balancera HAProxy na OS Rocky Linux 8.5
  - vyuzijeme 3 servery/VM, kde uzol 3 bude HAProxy LB a zvysne uzly 1+2 budu app/backend serv.
  - IP konfig. uzlov, uzol1:192.168.255.21/24, uzol1:192.168.255.22/24, uzol3:192.168.255.23/24
@@ -2827,6 +2828,8 @@ Silne zjednoduseny priklad instalacie load-balancera HAProxy na OS Rocky Linux 8
 
 # moje definicie HAProxy Frontend a Backend
 #
+# defininica frontend-u
+
 frontend cust1-http-in-FE
     # listen 80 port
     bind *:80
@@ -2835,7 +2838,8 @@ frontend cust1-http-in-FE
     # send X-Forwarded-For header
     option             forwardfor
 
-# defininica backend
+# defininica backend-u
+
 backend backend_servers
     # balance with roundrobin
     balance            roundrobin
@@ -2859,11 +2863,12 @@ backend backend_servers
      - umozni logovanie, mozeme napr. sledovat s: $ sudo tail -f /var/log/haproxy.log
    - na zaver restartujeme logovaciu sluzbu: $ sudo systemctl restart rsyslog
 
-  - rozkladanie zataze requestov overime pripojenim na LB TCP port 80, browserom alebo curl-om 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  - rozkladanie zataze requestov overime pripojenim na LB TCP port 80, browserom alebo curl-om
 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Praca s virtualizacnymi nastrojmi/platformami pre OS GNU/Linux:
-- zakladne koncepty: virtualizacia dokaze delit fyzicke vypoctove zdroje na viacero oddelenych casti
+
+- zakladne koncepty: virtualizacia vie delit fyzicke vypoctove zdroje na viacero oddelenych casti
   - teda uzmonuje "bezat" viacero virtualnych pocitacov na spolocnom zdielanom HW
   - tzv. Hypervizor alebo aj "VMM - Viatual Machine Monitor" spravuje a monitoruje virtualizaciu 
   - virtualizovane zdroje tvoria tzv.: "Core 4" skupinu: procesor, pamat, ulozisko, siet
@@ -2890,6 +2895,7 @@ auto lo
 iface lo inet loopback
 
 # Zakomentujeme fyzicku NIC, ktora bude patrit do "xenbr0"
+
 #auto ens33
 #iface ens33 inet static
 ########################
@@ -2991,9 +2997,10 @@ disk = [ 'phy:/dev/vgxen/lv_fedora35vm01,hda,w','file:/root/fed35-x86_64.iso,hdc
 
 - overime prikazom: $ sudo xl list
 
-Poznamka: Technologia Xen bola davnejsie odkupena spol. Citrix a je to dlhsie komercny produkt.
+Poznamka: Technologia Xen bola davnejsie odkupena spol. Citrix a je to dlhsie komercny produkt
 Z tohto dovodu OSS komunita viac preferuje kombinaciu projetov ako je KVM, QEMU, libvirt...
 Preto tato cast poznamok nepokracuje dalej.
+
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Praca s virtualizacnou platformou "KVM" a pridruzenymi projektami "QEMU" a "libvirt":
  - KVM - Kernel based Virtual Machine, sluzi ako "akcelerator" pre nastroje QEMU
@@ -3052,6 +3059,7 @@ Dolezity nastroj "qemu-kvm" je hlavny nastroj pre pracu s QEMU+KVM:
    - nastroj ma predvolene graficke rozhranie, parameter "stdio" aktivuje textove rozhranie
    - v terminale spustime s: $ sudo qemu-kvm -monitor stdio
      - prva pomoc je prikaz "help", dalej napr. ked zadame "info", vypise nam moznosti prikazu
+
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako sledovat cinnost "sietoveho unit-u" v systemD: $ sudo journalctl -f -u systemd-networkd
 
@@ -3119,7 +3127,8 @@ Nastroj "Vagrant" sa vyuziva na automaticku tvorbu a manazment VM prostredi, kto
  - nastroj je integrovany s projektami Puppet, Chef a Ansible
  - na definiciu VM prostredi a ich parametrov vyuziva tzv. "VagrantFile"
  - dalsie informacie napr.: https://www.vagrantup.com/
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 Praca s kniznicou/nastrojmi/API pod nazvom projektu "libvirt"
  - sluzi na unifikovany manazment virtualnych zdrojov roznych typov (KVM,QEMU,VMware,LXC,Xen,...)   
@@ -3194,7 +3203,8 @@ $ sudo virt-install \
    - ako vykonat "force shutdown" VM instanciu: $ sudo virsh destroy --domain fedora35VM01 
    - ako vymazat VM instanciu: $ sudo virsh undefine --domain fedora35VM01
    - POZOR vymaze VM + jej disk: $ sudo virsh undefine --domain fedora35VM01 --remove-all-storage
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Praca so sadou virtualizacnych nastrojov pod nazvom projektu "oVirt"
  - dalsie informacie na: https://www.ovirt.org/
  - OSS projekt zalozeny RodHatom, poskytuje centralny manazment nad zdrojmi pre virtualizaciu
@@ -3348,13 +3358,12 @@ Projekt OpenNebula kombinuje virtualizaciu a kontajnery na budovanie multi-tenan
  - integruje viacero technologii, napr. VMware, KVM/QEMU, Firecracker, LXC, Docker, K8S, Terraform
  - umoznuje nasadit hybrid/edge riesenie s vyuzitim externych zdrojov AWS, Google, Equinix.
  - dalsie informacie napr.: https://opennebula.io
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Poznamka k bezpecnosti systemov, dva webove zdroje s info. k typom a kategoriam utokov:
 
 https://www.nsa.gov/Press-Room/Cybersecurity-Advisories-Guidance/
 
 https://attack.mitre.org/
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Dalsie poznamky k VM a HA technologiam v prostredi OS GNU/Linux
-
-
