@@ -252,25 +252,28 @@ Praca s init systemom "systemd":
 
 Ako vypisat logy pre proces podla urciteho string patternu: $ journalctl --unit=ssh
 Ako vypisat status nejakeho spusteneho daemona: $ systemctl status sshd.service
-Ako zabezpecit, aby si beziaci proces nacital novy config: # systemctl reload sshd.service
+Ako zabezpecit, aby si beziaci proces nacital novy config: $ sudo systemctl reload sshd.service
 Ako restartovat nejaky proces: # systemctl restart sshd.service
-Ako vypisat vsetky systemd unit-y, ktore su nacitane v RAM: # systemctl list-units
- - ako vypisat vsetky unit-y, ktore su nacitane ale neaktivne: # systemctl list-units --all  
-Ako vypisat vsetky unit subory pre systemd: # systemctl list-unit-files --all
+Ako vypisat vsetky systemd unit-y, ktore su nacitane v RAM: $ sudo systemctl list-units
+ - ako vypisat vsetky unit-y, ktore su nacitane ale neaktivne: $ sudo systemctl list-units --all  
+Ako vypisat vsetky unit subory pre systemd: $ sudo systemctl list-unit-files --all
 
-Ako vyipsat, na com zavisy dany proces a co vyzaduje: 
-# systemctl show -p Requires sshd.service
-# systemctl show -p Wants sshd.service
+Ako vyipsat, na com zavisi dany proces a co vyzaduje:
+
+$ sudo systemctl show -p Requires sshd.service
+$ sudo systemctl show -p Wants sshd.service
 
 Nastroj na spustanie viacerych programov/skriptov v jednom adresary: run-parts(8)
- - v suvislosti so starsim init-om podla "System V Init" 
+ - v suvislosti so starsim init-om podla "System V Init"
+
 Ako zistit v akom run-level-y bezi system: $ who -r
 
-V akom adresary sa nachadzaju system V init skripty: $ cd /etc/rc5.d/ 
-Ako prepnut rn-level do single-user modu: # telinit -s
+V akom adresary sa nachadzaju system V init skripty: $ cd /etc/rc5.d/
 
-Ako restartovat system: # shutdown -r now
- - pripadne za 10 min.: # shutdown -r +10
+Ako prepnut rn-level do single-user modu: $ sudo telinit -s
+
+Ako restartovat system: $ sudo shutdown -r now
+ - pripadne za 10 min.: $ sudo shutdown -r +10
 
 Ako zabezpecit, aby sa do systemu mohol prihlasit len superuser, vytvorime subor: /etc/nologin 
 
@@ -345,14 +348,18 @@ $ sudo systemctl restart multipathd.service
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Cron a planovanie v kratkosti:
 
-Ako vytvorit cron job, aby sa vystup aj err presmerovali do /dev/null: 10 5 * * * /usr/bin/xyz > /dev/null 2>&1
+Ako vytvorit cron job, aby sa vystup aj error presmerovali do "/dev/null", vytvorime zaznam: 
+
+10 5 * * * /usr/bin/xyz > /dev/null 2>&1
 
 Ako spustit jednorazovo nejaky prikaz: $ at 15:00
 - nasledne do promptu zadame prikaz, ukoncime s Ctrl-d
 - naplanovane ulohy si mozeme vypisat s: $ atq
 - tretiu ulohu mozeme vymazat s: $ atrm 3
 
-Ako zadat ulohu pre systemd: $ systemd-run --on-calendar='2022-01-12 16:00' /bin/echo testovacie-echo
+Ako zadat ulohu pre systemd:
+
+- zadame: $ systemd-run --on-calendar='2022-01-12 16:00' /bin/echo testovacie-echo
 - tieto docasne (transient) unit-y mozeme vypisat s: $ systemctl list-units | grep timer 
 
 Ako vypisat cron ulohy pre daneho uzivatela: $ crontab -l
