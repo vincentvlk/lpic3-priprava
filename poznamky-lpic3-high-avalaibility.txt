@@ -1137,7 +1137,7 @@ done
 
 # koniec skriptu
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako vytvorit skript s jednoduchym "select" menu v jazyku BASH:
 
 #!/bin/bash
@@ -1197,7 +1197,7 @@ done
 
 #koniec skriptu
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Jednoduchy priklad na hladanie substringu zo systemoveho vypisu:
 
 #!/bin/bash
@@ -1214,8 +1214,8 @@ fi
 
 # koniec skpritu
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-*Pokracovanie prace s Docker-om*
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Pokracovanie prace s Docker-om:
 
 Jednoduche web prostredie na ucenie/testovanie Docker-u: https://labs.play-with-docker.com/
  - dalsie informacie: https://www.docker.com/play-with-docker
@@ -1276,7 +1276,7 @@ POZOR, automaticky nastroj na cistenie tzv. "dangling" Docker images: $ docker s
  - dalsie informacie: $ docker system prune --help
  - celkom uzitocna diagnostika zabrateho miesta: $ docker system df
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Nastroj na ochranu integrity suborov a adresarov "AIDE", instalacia: $ sudp apt install aide
  - instalacia na Fedora Server: $ sudo dnf install aide
  - dalsie informacie: https://aide.github.io/
@@ -1303,7 +1303,7 @@ Nastroj na ochranu integrity suborov a adresarov "AIDE", instalacia: $ sudp apt 
 
  - a nasledne inicializujeme s novou databazou: $ sudo aideinit
  - dalej je mozne vytvorit si vlastny config a vlastne pravidla, navody exsituju ;-)
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Na overenie bezpecnosti hesla, mozeme pouzit nastroj "John the Ripper"
  - instalacia na Ubu/Deb: $ sudo apt install john
  - zlucime "/etc/passwd" a "/etc/shadow": $ sudo unshadow /etc/passwd /etc/shadow > unshadow.out.txt
@@ -1321,7 +1321,7 @@ Politiku systemovyh hesiel najdeme v subore "/etc/login.defs"
 
 Ako nastavit cas expiracie hesla na 30 dni: $ sudo chage -M 30 <uzivatel>
  - overime s: $ sudo chage -l <uzivatel>
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Dalsie politiky hesla, ako napr. zlozitost spravuju "PAM - Pluggable Authentification Modules"
  - treba instalovat balik: $ sudo apt install libpam-pwquality
  - konfiguracia v subore "/etc/pam.d/common-password"
@@ -1340,7 +1340,7 @@ Dalsie politiky hesla, ako napr. zlozitost spravuju "PAM - Pluggable Authentific
    - "ocredit=" atribut s "-1" vyzaduje aspon jeden specialny znak (special character)
    - na "RedHat-based" distribuciach sa pouziva konf. subor: "/etc/pam.d/system-auth"
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako vytvorit sifrovanu particiu na HDD/SSD, potrebne nainstalovat: $ sudo apt install cryptsetup
  - disk, ktory chceme sifrovat, musi byt "unmounted"
  - dalej spustime sifrovanie a nastavime kluc/heslo: $ sudo cryptsetup -y -v luksFormat /dev/sdX
