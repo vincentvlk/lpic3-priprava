@@ -26,22 +26,13 @@ https://www.server-world.info/en/
 auto lo
 iface lo inet loopback
 
-# The primary network interface
 allow-hotplug ens33
-#iface ens33 inet dhcp
-# add static settings
 iface ens33 inet static
-# IP address
 address 192.168.1.242
-# network address
 network 192.168.1.0
-# subnet mask
 netmask 255.255.255.0
-# broadcast address
 broadcast 192.168.1.255
-# default gateway
 gateway 192.168.1.1
-# name server
 dns-nameservers 193.17.47.1 185.43.135.1
 
 a nasledne aplikujeme config:
