@@ -349,6 +349,8 @@ $ sudo systemctl restart multipathd.service
 Cron a planovanie v kratkosti:
 
 Ako vytvorit cron job, aby sa vystup aj error presmerovali do "/dev/null", vytvorime zaznam: 
+ - pre daneho uzivatela pouzijeme napr. prikaz: $ crontab -e
+ - zaznam:
 
 10 5 * * * /usr/bin/xyz > /dev/null 2>&1
 
@@ -360,7 +362,7 @@ Ako spustit jednorazovo nejaky prikaz: $ at 15:00
 Ako zadat ulohu pre systemd:
 
 - zadame: $ systemd-run --on-calendar='2022-01-12 16:00' /bin/echo testovacie-echo
-- tieto docasne (transient) unit-y mozeme vypisat s: $ systemctl list-units | grep timer 
+  - tieto docasne (transient) unit-y mozeme vypisat s: $ systemctl list-units | grep timer 
 
 Ako vypisat cron ulohy pre daneho uzivatela: $ crontab -l
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
