@@ -61,7 +61,7 @@ iface ens37 inet6 static
 - nastavenie siete na Fedora 35 Server:
   - pouzil som cli nastroj "nmcli" z balika "NetworkManager"
   - syntax napr. takto:
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
 - nastavime hostname napr.:
 
 $ sudo hostnamectl set-hostname ubuntu1.example.com
@@ -69,10 +69,6 @@ $ sudo hostnamectl set-hostname ubuntu1.example.com
 - vypiseme sietove zariadenia:
 
 $ sudo nmcli device
-
-DEVICE  TYPE      STATE      CONNECTION
-ens33  ethernet  connected  ens33
-lo      loopback  unmanaged  --
 
 - nastavime IPv4 adresu:
 
@@ -103,7 +99,8 @@ $ sudo nmcli connection down ens33; nmcli connection up ens33
 # nmcli device show ens33 
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Poznamka: ak system nepreklada DNS zaznami, treba skontrolovat subor "/etc/resolv.conf"
+Poznamka: ak system nepreklada DNS zaznami, hlasi: "Temporary failure in name resolution"
+ - treba skontrolovat syntax suboru "/etc/resolv.conf"
  - pripadne restartovat DNS resolver proces: $ sudo systemctl restart systemd-resolved.service
  - overime s: $ sudo systemctl status systemd-resolved.service 
 
@@ -124,15 +121,15 @@ Ako  v unix-like systemoch konvertovat video:
  higher bitrates, and hence produce higher quality videos.
 
  $ ffmpeg -i input.mp4 -vcodec libx265 -crf 28 output.mp4
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako v Ubuntu 20.04 konfigurovat siet:
 
-Treba "presunut/zalohovat" povodny config file:
+- treba "presunut/zalohovat" povodny config file:
 
-# mv /etc/netplan/00-installer-config.yaml /etc/netplan/00-installer-config.yaml.disabled
+$ sudo mv /etc/netplan/00-installer-config.yaml /etc/netplan/00-installer-config.yaml.disabled
 
-Treba vytvorit novy config file:
+- dalej vytvorime novy config file:
 
 # vim /etc/netplan/00-installer-config.yaml
 
