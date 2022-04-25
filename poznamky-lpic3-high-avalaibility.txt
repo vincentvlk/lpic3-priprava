@@ -96,15 +96,15 @@ $ sudo nmcli connection down ens33; nmcli connection up ens33
 
 - nasledne overime config:
 
-# nmcli device show ens33 
+$ sudo nmcli device show ens33
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Poznamka: ak system nepreklada DNS zaznami, hlasi: "Temporary failure in name resolution"
  - treba skontrolovat syntax suboru "/etc/resolv.conf"
  - pripadne restartovat DNS resolver proces: $ sudo systemctl restart systemd-resolved.service
  - overime s: $ sudo systemctl status systemd-resolved.service 
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako  v unix-like systemoch konvertovat video:
 
 1. nainstalujeme ffmpeg (apt install ffmpeg, yum install ffmpeg, brew install ffmpeg a pod.)
@@ -122,7 +122,7 @@ Ako  v unix-like systemoch konvertovat video:
 
  $ ffmpeg -i input.mp4 -vcodec libx265 -crf 28 output.mp4
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako v Ubuntu 20.04 konfigurovat siet:
 
 - treba "presunut/zalohovat" povodny config file:
@@ -154,7 +154,7 @@ $ sudo netplan try
 
 $ sudo netplan apply
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Sprava diskov, particii, SWAPu:
 
 Prikaz vypise blokove zariadenia: $ sudo lsblk
@@ -214,26 +214,27 @@ Ako ostranit LV z VG: $ sudo lvremove vg-nas/lvnas3
 Ako zvacsit nejake LV z VG poolu (moze byt mounted): $ sudo lvresize -r -L +5g vg-nas/lvnas1
 Overime s: $ df -h /mnt/lvnas1
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Praca s inode-ami:
 
 Prikaz vypise prava a inode informacie o subore: $ stat subor.xyz
 - da sa pouzit aj prikaz:  $ ls -li
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako pridat uzivatela do dalsej group: # usermod -a -G examplegroup exampleusername
 
 Ako zmenit vlastnikov na adresary alebo subore: # chown -R root:vgnas /mnt/lvnas1
 
 Ako nastavit prava na subore alebo adresary: # chmod g+w /mnt/lvnas1
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako vypisat parametre kernelu, s ktorymi nabootoval: $ cat /proc/cmdline
 
 Ako zistit ake KILL signaly system podporuje: $ kill -l
 
 Dobry nastroj na kontrolu syntaxe BASH skriptov: shellcheck
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Praca s GRUB2:
 
 Ulahcene konfiguracne moznosti su v subore: /etc/default/grub
@@ -247,7 +248,7 @@ Ako nainstalovat GRUB2 v MBR mode: $ sudo grub-install --boot-directory=/mnt/boo
 
 Ako zistit s akymi parametrami bol nacitany kernel: $ cat /proc/cmdline
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Praca s init systemom "systemd":
 
 Ako vypisat logy pre proces podla urciteho string patternu: $ journalctl --unit=ssh
@@ -277,7 +278,7 @@ Ako restartovat system: $ sudo shutdown -r now
 
 Ako zabezpecit, aby sa do systemu mohol prihlasit len superuser, vytvorime subor: /etc/nologin 
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Logovanie a diasgnostika user-space nastrojov:
 
 Ako vypisat od zaciatku log z bootovania: $ journalctl -b
@@ -289,7 +290,7 @@ Ako vypisat vsetky ID jednotlivych boot-ov: $ journalctl --list-boots
 
 Alternativy pre logovanie v Linuxe: syslog-ng (/etc/syslog-ng) a rsyslogd /etc/rsyslog.cfg)
   
-Ako vypisat, kto bol kedy bnaposledy prihlaseny: $ lastlog *alebo* $ last
+Ako vypisat, kto bol kedy naposledy prihlaseny: $ lastlog *alebo* $ last
 
 Ako vypisat log pre konkretne Process ID: $ journalctl _PID=XYZ
 
@@ -312,20 +313,21 @@ Ako sledovat real-time priebeh systemoveho logu: $ journalctl -f
 Ako ulozit urcite logy v text formate: $ journalctl -u ssh -o old > sshd.log
  - ako ulozit rovnaky log napr. vo formate "json": $ journalctl -u ssh -o json > sshd.log.json
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Praca s zivatelskymi uctami:
 
 Ako zmenit default shell uzivatela: $ chsh vlkv -s /bin/bash
  - dany SHELL by mal byt v subore: /etc/shells
 
 Ako zistit s akymi argumentami je spusteny program/daemon: $ ps aux | grep getty
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako zabezpecit, aby sa na Ubuntu 20.04 systemovy log neplnil hlaskami:
 	
-	Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: add missing path
-	Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: failed to get udev uid: Invalid argument
-	Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: failed to get sysfs uid: Invalid argument
-	Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: failed to get sgio uid: No such file or directory
+ Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: add missing path
+ Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: failed to get udev uid: Invalid argument
+ Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: failed to get sysfs uid: Invalid argument
+ Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: failed to get sgio uid: No such file or directory
 
 - obsah suboru sa moze prepisat nasledovne:
 
@@ -345,7 +347,8 @@ Po ulozeni, treba restartovat proces multipathd:
 $ sudo systemctl restart multipathd.service
  
 - dodatocne mozeme skontrolovat stav procesu: $ systemctl status multipathd.service
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Cron a planovanie v kratkosti:
 
 Ako vytvorit cron job, aby sa vystup aj error presmerovali do "/dev/null", vytvorime zaznam: 
@@ -365,7 +368,8 @@ Ako zadat ulohu pre systemd:
   - tieto docasne (transient) unit-y mozeme vypisat s: $ systemctl list-units | grep timer 
 
 Ako vypisat cron ulohy pre daneho uzivatela: $ crontab -l
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Praca s monitorovanim procesov:
 
 Ako ovladat program "top":
@@ -413,8 +417,9 @@ Ako vypisat stav operacnej pamate: $ free -m
  - je dobre si uvedomit, co je realna spotreba a co je file cashe/buffer
 
 Ako vypisat, ake parametre ma nastaveny kernel a system: $ getconf -a
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-*Praca so sietou (IPv4, IPv6, WiFi)*
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Praca so sietovymi nastrojmi (IPv4, IPv6, WiFi):
 
 Ako vypisat sietove rozhrania a ich parametre: $ ip address show
  - prikaz sa da skracovat napr.: $ ip a s
@@ -466,7 +471,7 @@ Ako overit, ci je v kerneli zapnuty packet routing: $ sysctl net.ipv4.ip_forward
    - do suboru vlozime riadky "net.ipv4.ip_forward=1" alebo/aj "net.ipv6.conf.all.forwarding=1" 
    - zmeny v subore ulozime a aplikujeme s: $ sudo sysctl -p
 
-Ako vypisat pravidla firewallu IPtables: $ iptables -L
+Ako vypisat pravidla firewallu IPtables: $ sudo iptables -L
 
 Ako si vytvorime pravidla firewallu: vytvorime subor /etc/network/iptables.up.rules
  - do suboru mozeme pisat riadky napr.:
@@ -487,8 +492,8 @@ Ako vypisat IPv4 ARP tabulku a zaroven aj IPv6 ND tabulku: $ ip neigh
  - opat sa da skratit na: $ ip n
  - stary prikaz pre IPv4: $ arp -an
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-*Praca s TCP/UDP aplikaciami, socketmi*
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Praca s TCP/UDP aplikaciami, socketmi:
 
 Ako vytvorit testovaci TCP socket co pocuva na danom porte: # nc -l 23
  - na socket sa so vzdialenej stanice pripojime napr.: $ telnet A.B.C.D 23
@@ -532,7 +537,7 @@ Pozriet si nastroj "nmap", velmi vela moznosti:
 Ako vypisat lokalne Unix Domain sockety, pre aktualneho uzivatela: $ lsof -U
  - vypisanie vsetkych Unix Domain socketov: $ sudo lsof -U
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Praca s BASH skriptami:
 
 Ako zabezpecit, aby sa skript spustal aj na inych systemoch (portability): 
@@ -551,6 +556,7 @@ Dalsi priklad rozvijania specialnych znakov v BASHi:
  - prikaz: $ echo "Nemam ziadnu * v mojich cestach: $PATH"
  - porovnat s prikazom: $ echo 'Nemam ziadnu * v mojich cestach: $PATH'
 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Prikazovy interpret BASH ma specialne premenne pre argumenty, napr. skript "ashow.sh":
 
 #!/usr/bin/env bash
@@ -568,6 +574,7 @@ echo Vypisujem vsetky argumenty: $@
 # koniec skriptu
 #
 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
  - ulozime do suboru "ashow.sh" a nastavime prava, napr.: $ chmod u+rx ashow.sh
  - nasledne mozeme skript spustit: $ ./ashow.sh raz dva tri
 
@@ -620,7 +627,7 @@ Pozriet dalsi program na spracovanie textu: $ man sed
 
 Pozriet tematiku "BASH Subshell"
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Praca s prenosom suborov po sieti:
 
 Ako spustit jednoduchy HTTP server (Python modul) v danom adresary: $ python3 -m http.server
