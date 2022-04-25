@@ -18,11 +18,9 @@ https://www.server-world.info/en/
 - ^^^ nevedno do kedy bude online a chyba tam IPv6 :-(
 
 - nastavenie siete v systeme Debian11:
- - edituje sa /etc/network/interfaces
- - a potom nieco taketo:
-
--=-=-=-=-=-=-=-=-
-# The loopback network interface
+  - edituje sa "/etc/network/interfaces"
+  - a vlozime napr.:
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 auto lo
 iface lo inet loopback
 
@@ -37,7 +35,7 @@ dns-nameservers 193.17.47.1 185.43.135.1
 
 a nasledne aplikujeme config:
 
-# systemctl restart ifup@ens33 
+$ sudo systemctl restart ifup@ens33 
 
 Dodatok k nastaveniu statickej IPv6 addr.:
  - bolo potrebne do suboru "/etc/sysctl.conf" vlozit riadky:
@@ -45,70 +43,71 @@ Dodatok k nastaveniu statickej IPv6 addr.:
 net.ipv6.conf.ens37.autoconf = 0
 net.ipv6.conf.ens37.accept_ra = 0
 
- - ulozit, nasledne treba reboot alebo prikaz: # sysctl -p
+ - ulozit, nasledne treba reboot alebo prikaz: $ sudo sysctl -p
 
 Nasledne do suboru /etc/network/interfaces pridat riadky napr.:
 
-# The secondary network interface
 auto ens37
 allow-hotplug ens37
 iface ens37 inet6 static
     address 2001:db8:cafe::242/64
-    gateway 2001:db8:cafe::42
-    dns-nameservers 2001:db8:7ea::1 2001:db8:7ea::2
+    gateway 2001:db8:cafe::1
+    dns-nameservers 2001:148f:ffff::1 2001:148f:fffe::1
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 - nastavenie siete na CentOS:
   - pouzil som nejake hanbate GNOME GUI, neviem preco sa to hned neaplikovalo
+  - alternativne sa da pouzit nastroj "nmtui", instalujeme: $ sudo dnf -y in NetworkManager-tui
 
 - nastavenie siete na Fedora 35 Server:
+  - pouzil som cli nastroj "nmcli" z balika "NetworkManager"
+  - syntax napr. takto:
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+- nastavime hostname napr.:
 
-- pouzil som cli nastroj "nmcli" z balika "NetworkManager"
-- syntax je takto nejako:
+$ sudo hostnamectl set-hostname ubuntu1.example.com
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-	 
-# if you did not set HostName, set it like follows
+- vypiseme sietove zariadenia:
 
-[root@localhost ~]# hostnamectl set-hostname dlp.srv.world
-
-# display devices
-
-[root@localhost ~]# nmcli device
+$ sudo nmcli device
 
 DEVICE  TYPE      STATE      CONNECTION
 ens33  ethernet  connected  ens33
 lo      loopback  unmanaged  --
 
-# set IPv4 address
+- nastavime IPv4 adresu:
 
-[root@localhost ~]# nmcli connection modify ens33 ipv4.addresses 10.0.0.30/24
+$ sudo nmcli connection modify ens33 ipv4.addresses 10.0.0.30/24
 
-# set default gateway
+- nastavime IPv4 predvolenu branu:
 
-[root@localhost ~]# nmcli connection modify ens33 ipv4.gateway 10.0.0.1
+$ sudo nmcli connection modify ens33 ipv4.gateway 10.0.0.1
 
-# set DNS
+- nastavime IPv4 adresu DNS serverov:
 
-# if set multiple DNS, specify with space separated ipv4.dns "10.0.0.10 10.0.0.11 10.0.0.12"
+$ sudo nmcli connection modify ens33 ipv4.dns "193.17.47.1 185.43.135.1
 
-[root@localhost ~]# nmcli connection modify ens33 ipv4.dns 10.0.0.10
+- nastavime prehladavanie domeny, aby sme nemuseli zadavat cele FQDN:
 
-# set DNS search base (your domain name)
+$ sudo nmcli connection modify ens33 ipv4.dns-search example.com
 
-[root@localhost ~]# nmcli connection modify ens33 ipv4.dns-search srv.world
+- nastavime manualnu staticku konfiguraciu rozhrania "ens33"
 
-# set manual for static setting (it's [auto] for DHCP)
+# sudo nmcli connection modify ens33 ipv4.method manual
 
-[root@localhost ~]# nmcli connection modify ens33 ipv4.method manual
+- "restartujeme" konfiguraciu rozhrania "ens33"
 
-# restart the interface to reload settings
+$ sudo nmcli connection down ens33; nmcli connection up ens33 
 
-[root@localhost ~]# nmcli connection down ens33; nmcli connection up ens33 
-
-Nasledne overime config:
+- nasledne overime config:
 
 # nmcli device show ens33 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Poznamka: ak system nepreklada DNS zaznami, treba skontrolovat subor "/etc/resolv.conf"
+ - pripadne restartovat DNS resolver proces: $ sudo systemctl restart systemd-resolved.service
+ - overime s: $ sudo systemctl status systemd-resolved.service 
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako  v unix-like systemoch konvertovat video:
 
 1. nainstalujeme ffmpeg (apt install ffmpeg, yum install ffmpeg, brew install ffmpeg a pod.)
