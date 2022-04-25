@@ -457,11 +457,11 @@ Cisla TCP/UDP portov sa daju zistit z referencneho .txt suboru "/etc/services"
 Ako rucne spustit DHCP klienta: $ sudo dhclient ens33
 
 Ako overit, ci je v kerneli zapnuty packet routing: $ sysctl net.ipv4.ip_forward
- - smerovanie IPv4 paketov zapneme s: # sysctl -w net.ipv4.ip_forward=1
- - smerovanie IPv6 paketov zapneme s: # sysctl -w net.ipv6.conf.all.forwarding=1
+ - smerovanie IPv4 paketov zapneme s: $ sudo sysctl -w net.ipv4.ip_forward=1
+ - smerovanie IPv6 paketov zapneme s: $ sudo sysctl -w net.ipv6.conf.all.forwarding=1
  - perzistentne nastavenie co prezije reboot je v subore: /etc/sysctl.conf
    - do suboru vlozime riadky "net.ipv4.ip_forward=1" alebo/aj "net.ipv6.conf.all.forwarding=1" 
-   - zmeny v subore ulozime a aplikujeme s: # sysctl -p
+   - zmeny v subore ulozime a aplikujeme s: $ sudo sysctl -p
 
 Ako vypisat pravidla firewallu IPtables: $ iptables -L
 
@@ -475,9 +475,10 @@ Ako si vytvorime pravidla firewallu: vytvorime subor /etc/network/iptables.up.ru
 -A INPUT -s 192.168.1.242/32 -j DROP
 COMMIT
 
-Nasledne aplikujeme zmeny tak, ze ak sa "odrezeme", konfiguracia sa obnovi po 20 sek: # iptables-apply -t 20
+Aplikujeme zmeny tak, ze ak sa "odrezeme", konf. sa obnovi po 20 sek: # iptables-apply -t 20
 
-Je dobre si uvedomit, ze IPtables su nahradene nastrojom NFtables, vid.: www.netfilter.org/projects/nftables/index.html 
+Je dobre si uvedomit, ze IPtables su nahradene komplexnym nastrojom NFtables (aj ked zlozitejsim) 
+ - vid.: www.netfilter.org/projects/nftables/index.html 
 
 Ako vypisat IPv4 ARP tabulku a zaroven aj IPv6 ND tabulku: $ ip neigh
  - opat sa da skratit na: $ ip n
@@ -490,37 +491,43 @@ Ako vytvorit testovaci TCP socket co pocuva na danom porte: # nc -l 23
  - na socket sa so vzdialenej stanice pripojime napr.: $ telnet A.B.C.D 23
  - pripadne opat s programom "nc": $ nc A.B.C.D 23
 
-Ako "stopovat" pripojenie programu "curl" k TCP HTTP socketu: $ curl --trace-ascii tracelog.txt http://example.com
+Ako "stopovat" pripojenie programu "curl" k TCP HTTP socketu:
+ - prikaz: $ curl --trace-ascii tracelog.txt http://example.com
  - nasledne si pozrieme zaznam v subore "tracelog.txt"
 
-Ako si vygenerovat PKi par klucov na asymetricke syfrovanie a auth.: $ ssh-keygen -t rsa -N '' -f /home/user1/.ssh/id_rsa
+Ako si vygenerovat PKi par klucov na asymetricke syfrovanie a auth.: 
+ - prikaz: $ ssh-keygen -t rsa -N '' -f /home/user1/.ssh/id_rsa
  - podobne pre DSA par klucov: $ ssh-keygen -t dsa -N '' -f /home/user1/.ssh/id_dsa
 
-Pozriet si projekt/program "fail2ban", pripadne "sshguard" alebo "denyhosts".
+Pozn.: pozriet si projeky/programy "fail2ban", pripadne "sshguard" alebo "denyhosts"
 
-Ako pomocou protokolu SCP kopirovat z jednej vzdialenej IP na inu vzdialenu IP: $ scp user1@host1:file user2@host2:file
+Ako pomocou protokolu SCP kopirovat z jednej vzdialenej IP na inu vzdialenu IP:
+ - prikaz:  $ scp user1@host1:file user2@host2:file
 
-Ako vypisat vsetky TCP sockety, bez bez DNS prekladu adries: # lsof -i -n
+Ako vypisat vsetky TCP sockety, bez DNS prekladu adries: $ sudo lsof -i -n
 
-Ako vypisat aktivne procesy pre konkretny TCP/UDP port: # lsof -i:22
- - daju sa pouzit aj nazvy protokolov podla suboru "/etc/services", teda: # lsof -i:ssh
- - ked chceme spcifikovat len TCP sockety: # lsof -iTCP:22
- - ked chceme este presnejsie specifikovat pre IPv6: # lsof -i6TCP:22
- - este napr. bez prekladu na PTR DNS: # lsof -n -i6:22
- - vypise aktivne a pocuvajuce UDP "streamy": # lsof -n -iUDP
- - vypise stav pre konkretny protokol:port a IP adresu servera (nie klienta): # lsof -iTCP@192.168.1.240:22
+Ako vypisat aktivne procesy pre konkretny TCP/UDP port: $ sudo lsof -i:22
+ - daju sa pouzit aj nazvy protokolov podla suboru "/etc/services", teda: $ sudo lsof -i:ssh
+ - ked chceme spcifikovat len TCP sockety: $ sudo lsof -iTCP:22
+ - ked chceme este presnejsie specifikovat pre IPv6: $ sudo lsof -i6TCP:22
+ - este napr. bez prekladu na PTR DNS: $ sudo lsof -n -i6:22
+ - vypise aktivne a pocuvajuce UDP "streamy": $ sudo lsof -n -iUDP
+ - vypise stav pripojeni "protokol:port" na servery s IP "192.168.1.240" na TCP porte "22"
+   - prikaz: $ sudo lsof -iTCP@192.168.1.240:22
 
 Pozriet si nastroj "tcpdump", velmi vela moznosti.
  - da sa napr. zacat s manualom: $ man tcpdump
- - napr. packet sniffing len ICMP paketov z/na konkretnu IPv4 adresu: # tcpdump -nv icmp and host 192.168.1.240
- - napr. komunikaciu na IPv6 TCP socket na porte 22, pre interface "ens38": # tcpdump -nv -i ens38 ip6 and port 22
+ - napr. packet sniffing len ICMP paketov z/na konkretnu IPv4 adresu: 
+   - prikaz: $ sudo tcpdump -nv icmp and host 192.168.1.240
+ - napr. komunikaciu na IPv6 TCP socket na porte 22, pre interface "ens38":
+   - prikaz: $ sudo tcpdump -nv -i ens38 ip6 and port 22
 
-Pozriet si nastroj "nmap", velmi vela moznosti.
- - POZOR na legislativne dosledky skenovania sieti, ktore nevlastnim/nespravujem, bez povolenia spravcu/majitela.
+Pozriet si nastroj "nmap", velmi vela moznosti:
+ - POZOR na legislativne dosledky skenovania sieti, ktore nevlastnim/nespravujem
  - napr. sa da zacat s manualom: $ man nmap
 
 Ako vypisat lokalne Unix Domain sockety, pre aktualneho uzivatela: $ lsof -U
- - vypisanie vsetkych Unix Domain socketov (ako root): # lsof -U
+ - vypisanie vsetkych Unix Domain socketov: $ sudo lsof -U
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 *Praca s BASH skriptami*
