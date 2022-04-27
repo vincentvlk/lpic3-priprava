@@ -3364,8 +3364,11 @@ Poznamka k bezpecnosti systemov, dva webove zdroje s info. k typom a kategoriam 
 https://www.nsa.gov/Press-Room/Cybersecurity-Advisories-Guidance/
 
 https://attack.mitre.org/
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako vypisat vsetky ".dotfile" a ".dotdirectory": $ ls -ld .??*
+
+Ako zalohovat pomocou programu "rsync" vsetky ".dotfile" / ".dotdirectory":
+ - prikaz: $ rsync -av /zdrojova/cesta/.??* /cielova/cesta/
 
 
