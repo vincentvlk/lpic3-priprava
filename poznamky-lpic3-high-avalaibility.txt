@@ -3365,4 +3365,7 @@ https://www.nsa.gov/Press-Room/Cybersecurity-Advisories-Guidance/
 
 https://attack.mitre.org/
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Dalsie poznamky k VM a HA technologiam v prostredi OS GNU/Linux
+
+Ako vypisat vsetky ".dotfile" a ".dotdirectory": $ ls -ld .??*
+
+
