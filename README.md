@@ -4,7 +4,7 @@ Poznamky k priprave na skusku LPIC3-304-200 - High Availability and Virtualizati
 
 {toc}
 
-MOJ skromny nazor a priority pri realizacii projektov na OS GNU/Linux:
+MOJ skromny nazor na priority pri realizacii projektov na OS GNU/Linux:
 ----------------------------------------------------------------------
 
     Bezpecnost + Zalohovanie + Kontrola pouzitelnosti zaloh + Dokumentacia
@@ -14,7 +14,7 @@ MOJ skromny nazor a priority pri realizacii projektov na OS GNU/Linux:
 
 Zakladne tipy a triky:
 ----------------------
-- ako na Linuxe vypnut PC-speaker: 
+**ako na Linuxe vypnut PC-speaker:**
 
     $ sudo rmmod pcspkr
 
@@ -24,7 +24,6 @@ Zakladne tipy a triky:
 
 - ale nevedno do kedy bude online a chyba tam IPv6 :-(
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 - nastavenie siete v systeme Debian11:
   - editujeme konf. subor "/etc/network/interfaces"
   - a vlozime napr.:
