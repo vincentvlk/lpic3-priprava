@@ -390,57 +390,75 @@ Ako zadat ulohu pre systemd:
 
 Ako vypisat cron ulohy pre daneho uzivatela: `$ crontab -l`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Praca s monitorovanim procesov:
+### Praca s monitorovanim procesov:
 
-Ako ovladat program "top":
+Ako ovladat program `top`:
 
-- medzernik obnovuje stav okamzite
-- "M" usporiada procesy podla rezidentnej pamate (case sensitive)
-- "T" usporiada podla celkoveho kumulativneho procesoroveho casu
-- "P" default nastavenie podla aktualnej CPU zataze
-- "u" zobrazi len procesy daneho uzivatela
-- "?" zobrazi pomoc s interaktivnymi prikazmi
+- `medzernik` obnovuje stav okamzite
 
-Dalsie monitorovacie alternativy su: "atop" a "htop"
+- `M` usporiada procesy podla rezidentnej pamate (case sensitive)
 
-Ako mozeme vypisat otvorene subory, napr. pre 1 uzivatela: $ lsof | grep vlkv
-- vhodne pozriet $ man 8 lsof
-- napr. prikaz, ktory vypise otvorene subory, pre dany PID: $ lsof -p 1234
-- prikaz vypise otvorene sietove sockety: $ sudo lsof -i
-- pripadne bez reverzneho prekladu DNS (da sa filtrovat s grep-om): $ sudo lsof -n -i
-- vypisat pouzitie vsetkych suborov v danom adresary: # lsof +D /usr/
+- `T` usporiada podla celkoveho kumulativneho procesoroveho casu
 
-Ako mozeme vypisat systemove volania nejakeho programu, napr.: $ strace cat /dev/null
- - na presmerovanie do suboru treba pouzit err redirect: 2>
+- `P` default nastavenie podla aktualnej CPU zataze
 
-Ako mozem vypisat nacitane kniznice nejakeho programu: $ man 1 ltrace 
- - da sa pozriet aj program "ldd": $ man 8 ldd
+- `u` zobrazi len procesy daneho uzivatela
 
-Ako vypisat vsetky vlakna spustenych procesov: $ ps m
- - vypis sa da vylepsit s: $ ps m -o pid,tid,command  
+- `?` zobrazi pomoc s interaktivnymi prikazmi
 
-Ako zmerat cas trvania nejakeho spusteneho programu/ulohy: $ time <uloha>
- - priklad: $ time lsof +D /usr/
+Dalsie monitorovacie alternativy su: `atop`, `htop` alebo `btop`
 
-Ako vypisat strom spustenych procesov: $ ps axjf
+Ako mozeme vypisat otvorene subory, napr. pre 1 uzivatela: `$ lsof | grep student`
 
-Ako vypisat CPU prioritu (tzv. Niceness, stlpec "NI") spustenych procesov: $ ps al
- - vhodne pozriet $ man ps
+- vhodne pozriet: `$ man 8 lsof`
+
+- napr. prikaz, ktory vypise otvorene subory, pre dany PID: `$ lsof -p 1234`
+
+- prikaz vypise otvorene sietove sockety: `$ sudo lsof -i`
+
+- pripadne bez reverzneho prekladu DNS (da sa filtrovat s grep-om): `$ sudo lsof -n -i`
+
+- vypisat pouzitie vsetkych suborov v danom adresary: `$ sudo lsof +D /usr/`
+
+Ako mozeme vypisat systemove volania nejakeho programu, napr.: `$ strace cat /dev/null`
+
+ - na presmerovanie do suboru treba pouzit err redirect: `2>`
+
+Ako mozem vypisat nacitane kniznice nejakeho programu: `$ man 1 ltrace`
+
+ - da sa pouzit aj program `ldd`: `$ man 8 ldd`
+
+Ako vypisat vsetky vlakna spustenych procesov: `$ ps m`
+
+ - vypis sa da vylepsit s: `$ ps m -o pid,tid,command`
+
+Ako zmerat cas trvania nejakeho spusteneho programu/ulohy: `$ time <uloha>`
+
+ - priklad: `$ time lsof +D /usr/`
+
+Ako vypisat strom spustenych procesov: `$ ps axjf`
+
+Ako vypisat CPU prioritu (tzv. Niceness, stlpec `NI`) spustenych procesov: `$ ps al`
+
+ - vhodne pozriet: `$ man ps`
 
 Ako zmenit CPU prioritu (Niceness, zhovievavost k inym procesom) daneho procesu:
- - prikaz: $ sudo renice 20 <PID>
- - default hodnota je "0", rozsah je "-20" az "20", ani hodnota "-20" sa NEDOPORUCUJE.
- - top prioritu, teda najnizsiu zhovievavost (NEDOPORUCUJE SA) nastavime s: 
-   - prikaz: $ sudo renice -20 <PID> 
 
-Ako vypisat stav operacnej pamate: $ free -m
- - je dobre si uvedomit, co je realna spotreba a co je file cashe/buffer
+ - prikaz: `$ sudo renice 20 <PID>`
 
-Ako vypisat, ake parametre ma nastaveny kernel a system: $ getconf -a
+ - default hodnota je `0`, rozsah je `-20` az `20`, ani hodnota `20` sa `NEDOPORUCUJE`.
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Praca so sietovymi nastrojmi (IPv4, IPv6, WiFi):
+ - top prioritu, teda najnizsiu zhovievavost (NEDOPORUCUJE SA) nastavime s:
+
+   - prikaz: `$ sudo renice -20 <PID>` 
+
+Ako vypisat stav operacnej pamate: `$ free -m`
+
+ - je dobre si uvedomit, co je realna spotreba a co je `file cache/buffer`
+
+Ako vypisat, ake parametre ma nastaveny kernel a system: `$ getconf -a`
+
+### Praca so sietovymi nastrojmi (IPv4, IPv6, WiFi):
 
 Ako vypisat sietove rozhrania a ich parametre: $ ip address show
  - prikaz sa da skracovat napr.: $ ip a s
