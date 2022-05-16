@@ -252,12 +252,9 @@ Zakladny konfig. subor pre GRUB2, ktory je vygenerovany a nema sa upravovat: `/b
 
 Skripty, ktore podla poradia generuju konfig. subor GRUB2: `$ ls /etc/grub.d/*`
 
-Ako nainstalovat GRUB2 v MBR mode: $ sudo grub-install --boot-directory=/mnt/boot /dev/sdc
+Ako nainstalovat GRUB2 v MBR mode: `$ sudo grub-install --boot-directory=/mnt/boot /dev/sdc`
 
-Ako zistit s akymi parametrami bol nacitany kernel: $ cat /proc/cmdline
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Praca s init systemom "systemd":
+### Zaklady prace s inicializacnym systemom "systemd":
 
 Ako vypisat logy pre proces podla urciteho string patternu: $ journalctl --unit=ssh
 Ako vypisat status nejakeho spusteneho daemona: $ systemctl status sshd.service
