@@ -749,6 +749,7 @@ Jednoduchy priklad na kompilaciu zdrojoveho kodu v jazyku "C", vytvorime subor `
 Tip: Ako vypisat zdielane kniznice, ktore ma nalinkovane dany program: `$ sudo ldd /usr/bin/bash`
 
 Ako kompilovat zdrojove subory v kazyku "Java":
+
 Je potrebne nainstalovat vyvojarske nastroje: `$ sudo apt install default-jdk-headless`
 Vytvorime jednoduchy cvicny zdrojovy subor `pokus.java`:
 
