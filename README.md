@@ -217,9 +217,9 @@ Nasledne upravou suboru `/etc/fstab` pridame riadok, ktory zabezpeci mount po re
 
 `/dev/disk/by-uuid/4c1d7f90-0dcb-4ed1-acce-0062c2c8c186 /mnt/lvnas2 ext4 defaults 0 1`
 
-Potom si uz napr. v $HOME mozeme vytvorit link na svoju NAS particiu: $ ln -s /mnt/lvnas1 nas
+Potom si napr. v `$HOME` adresary vytvorime link na svoju NAS particiu: `$ ln -s /mnt/lvnas1 nas`
 
-Ako ostranit LV z VG: $ sudo lvremove vg-nas/lvnas3
+Ako ostranit LV z VG: `$ sudo lvremove vg-nas/lvnas3`
 
 Ako zvacsit nejake LV z VG poolu (moze byt mounted): $ sudo lvresize -r -L +5g vg-nas/lvnas1
 Overime s: $ df -h /mnt/lvnas1
