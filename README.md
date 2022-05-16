@@ -699,13 +699,14 @@ Ked chceme vynechat subor, specifikujeme absolutnu cestu:
 
 Ked chceme prenos overit kontrolnym suctom, pouzijeme parameter `-c` alebo `--checksum`
 
-Pozriet v `$ man 1 rsync` dalsie parametre ohladom zalohovania: `-b` a `--suffix=.old` a `-u` 
+Pozriet v `$ man 1 rsync` dalsie parametre ohladom zalohovania: `-b`, `--suffix=.old` a `-u` 
 
 Ako obmedzit Bandwidth prenosu, napr. na **50MBytes/s** (cca 400Mbit/s):
  - prikaz: `$ rsync -a --bwlimit=50000 same_nuly.txt ubu2.lab:`
  - priklad ako vytvorit testovaci 1GiB subor: `$ dd if=/dev/zero of=same_nuly.txt bs=1024 count=1M`
   
-**Dalej pozriet dokumentaciu a manualy k projektu "Samba File/Printer Sharing"**
+**Pripadne  pozriet dokumentaciu a manualy k projektu "Samba File/Printer Sharing"**
+ - nie je predmetom tejto skusky
 
 #### Praca s projektom SSHFS:
 
@@ -713,7 +714,7 @@ Ako si pripojit vzdialny adresar cez SSH, napr.: `$ sshfs userABC@ubu2.lab:/mnt/
  - kombinovatelne s PKI auth (prihlasovanie verejnym klucom)
  - ako vykonat u-mount pripojeneho disku: `$ fusermount -u sshnas.d/`
 
-### Praca s premennymi prostredia v interprete BASH
+### Praca s premennymi prostredia v interprete BASH:
 
 Premenne prostredia pre interpret BASH su definovane v **skrytych** suboroch: `.bash_profile`
 alebo `.profile`
