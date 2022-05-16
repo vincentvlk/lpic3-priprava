@@ -214,6 +214,7 @@ Nasledne upravou suboru `/etc/fstab` pridame riadok, ktory zabezpeci mount po re
 - pomoze prikaz `$ sudo blkid`
 
 `/dev/disk/by-uuid/20067ff2-0599-4fd3-9cfc-dbbd6aa07aec /mnt/lvnas1 ext4 defaults 0 1`
+
 `/dev/disk/by-uuid/4c1d7f90-0dcb-4ed1-acce-0062c2c8c186 /mnt/lvnas2 ext4 defaults 0 1`
 
 Potom si uz napr. v $HOME mozeme vytvorit link na svoju NAS particiu: $ ln -s /mnt/lvnas1 nas
