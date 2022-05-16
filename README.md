@@ -349,7 +349,7 @@ Ako zistit s akymi argumentami je spusteny program/daemon: `$ ps aux | grep gett
     Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: failed to get sysfs uid: Invalid argument
     Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: failed to get sgio uid: No such file or directory
 
-- upravime obsah suboru `/etc/multipath.conf` nasledovne:
+Upravime obsah suboru `/etc/multipath.conf` nasledovne:
 
 Vlozime riadky: 
 
@@ -360,18 +360,19 @@ Vlozime riadky:
         devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st|sda)[0-9]*"
     }
 
-Po ulozeni, treba restartovat proces multipathd: `$ sudo systemctl restart multipathd.service`
+Po ulozeni treba restartovat proces `multipathd`: `$ sudo systemctl restart multipathd.service`
  
 - dodatocne mozeme skontrolovat stav procesu: `$ systemctl status multipathd.service`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Cron a planovanie v kratkosti:
+### Cron a planovanie v kratkosti:
 
-Ako vytvorit cron job, aby sa vystup aj error presmerovali do "/dev/null", vytvorime zaznam: 
- - pre daneho uzivatela pouzijeme napr. prikaz: $ crontab -e
- - zaznam:
+Ako vytvorit cron job, aby sa vystup aj error presmerovali do `/dev/null`, vytvorime zaznam: 
 
-10 5 * * * /usr/bin/xyz > /dev/null 2>&1
+ - pre daneho uzivatela pouzijeme napr. prikaz: `$ crontab -e`
+
+ - riadok zaznamu:
+
+    10 5 * * * /usr/bin/xyz > /dev/null 2>&1
 
 Ako spustit jednorazovo nejaky prikaz: $ at 15:00
 - nasledne do promptu zadame prikaz, ukoncime s Ctrl-d
