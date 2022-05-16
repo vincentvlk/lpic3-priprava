@@ -248,9 +248,9 @@ Zjednodusene konfiguracne moznosti su v subore: `/etc/default/grub`
 
 - da sa precitat manual pre vsetky moznosti: `$ info -f grub -n 'Simple configuration'`
 
-Zakladny konfig. subor pre GRUB2, ktory je vygenerovany, nema sa upravovat: /boot/grub/grub.cfg
+Zakladny konfig. subor pre GRUB2, ktory je vygenerovany a nema sa upravovat: `/boot/grub/grub.cfg`
 
-Skripty, ktore podla poradia generuju konfig. subor GRUB2: $ ls /etc/grub.d/* 
+Skripty, ktore podla poradia generuju konfig. subor GRUB2: `$ ls /etc/grub.d/*`
 
 Ako nainstalovat GRUB2 v MBR mode: $ sudo grub-install --boot-directory=/mnt/boot /dev/sdc
 
