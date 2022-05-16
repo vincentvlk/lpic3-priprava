@@ -18,7 +18,7 @@ Zakladne tipy a triky:
 
     $ sudo rmmod pcspkr
 
-###Dobra stranka na zaciatocnu konfiguraciu znamych distribucii Linuxu:###
+### Dobra stranka na zaciatocnu konfiguraciu znamych distribucii Linuxu:###
 
     https://www.server-world.info/en/
     
