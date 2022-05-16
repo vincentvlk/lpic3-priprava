@@ -117,14 +117,14 @@ Nasledne overime config:
 
 2. podla tohto popisu dame konvertovat:
 
-    Update 2020: This answer was written in 2009.
-    Since 2013 a video format much better than H.264 is widely available, 
-    namely H.265 (better in that it compresses more for the same quality, or 
-    gives higher quality for the same size). 
-    To use it, replace the libx264 codec with libx265, and push the compression lever further 
-    by increasing the CRF value — add, say, 4 or 6, since
-    a reasonable range for H.265 may be 24 to 30. Note that lower CRF values correspond to 
-    higher bitrates, and hence produce higher quality videos.
+    >Update 2020: This answer was written in 2009.
+    >Since 2013 a video format much better than H.264 is widely available, 
+    >namely H.265 (better in that it compresses more for the same quality, or 
+    >gives higher quality for the same size). 
+    >To use it, replace the libx264 codec with libx265, and push the compression lever further 
+    >by increasing the CRF value — add, say, 4 or 6, since
+    >a reasonable range for H.265 may be 24 to 30. Note that lower CRF values correspond to 
+    >higher bitrates, and hence produce higher quality videos.
 
  `$ ffmpeg -i input.mp4 -vcodec libx265 -crf 28 output.mp4`
 
