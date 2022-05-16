@@ -220,8 +220,8 @@ Potom si napr. v `$HOME` adresary vytvorime link na svoju NAS particiu: `$ ln -s
 
 Ako ostranit LV z VG: `$ sudo lvremove vg-nas/lvnas3`
 
-Ako zvacsit nejake LV z VG poolu (moze byt mounted): $ sudo lvresize -r -L +5g vg-nas/lvnas1
-Overime s: $ df -h /mnt/lvnas1
+Ako zvacsit nejake LV z VG poolu (moze byt mounted): `$ sudo lvresize -r -L +5g vg-nas/lvnas1`
+Overime s: `$ df -h /mnt/lvnas1`
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Praca s inode-ami:
