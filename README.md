@@ -302,38 +302,45 @@ Ako vypisat od zaciatku log z bootovania: `$ journalctl -b`
 
 Ako vypisat vsetky ID jednotlivych boot-ov: `$ journalctl --list-boots`
 
-Alternativy pre logovanie v Linuxe: syslog-ng (/etc/syslog-ng) a rsyslogd /etc/rsyslog.cfg)
+Alternativy pre logovanie v Linuxe: `syslog-ng (/etc/syslog-ng)` a `rsyslogd /etc/rsyslog.cfg)`
   
-Ako vypisat, kto bol kedy naposledy prihlaseny: $ lastlog *alebo* $ last
+Ako vypisat, kto bol kedy naposledy prihlaseny: `$ lastlog` alebo `$ last`
 
-Ako vypisat log pre konkretne Process ID: $ journalctl _PID=XYZ
+Ako vypisat log pre konkretne Process ID: `$ journalctl _PID=XYZ`
 
-Ako vypisat log spred 4 hodin: $ journalctl -S -4h
- - dalsi priklad presne zadaneho casu: $ journalctl -S 06:00:00 
- - dalsi priklad presne zadaneho datumu: $ journalctl -S 2022-01-10
+Ako vypisat log spred 4 hodin: `$ journalctl -S -4h`
 
-Ako vypisat logy pre konkretny proces/program/daemon/unit: $ journalctl -u ssh
- - pripadne prikaz vypise vsetky logovacie unit-y: $ journalctl -F _SYSTEMD_UNIT
+ - dalsi priklad presne zadaneho casu: `$ journalctl -S 06:00:00`
 
-Vypisovanie logov podla string match patternu: $ journalctl -g 'kernel.'
- - da sa skombinovat, ked chceme hladat ine logy v case okolo hladaneho stringu s: $ journalctl -S 
+ - dalsi priklad presne zadaneho datumu: `$ journalctl -S 2022-01-10`
 
-Ako vypisat logy podla Severity level: $ journalctl -p 3
- - pripadne s rozsahom: $ journalctl -p 2..3
+Ako vypisat logy pre konkretny proces/program/daemon/unit: `$ journalctl -u ssh`
 
-Ako sledovat real-time priebeh systemoveho logu: $ journalctl -f
- - logy sa daju vypisovat a sledovat napr. aj v json formate: $ journalctl -f -o json-pretty
+ - pripadne prikaz vypise vsetky logovacie unit-y: `$ journalctl -F _SYSTEMD_UNIT`
 
-Ako ulozit urcite logy v text formate: $ journalctl -u ssh -o old > sshd.log
- - ako ulozit rovnaky log napr. vo formate "json": $ journalctl -u ssh -o json > sshd.log.json
+Vypisovanie logov podla string match patternu: `$ journalctl -g 'kernel.'`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Praca s zivatelskymi uctami:
+ - da sa skombinovat, ak chceme hladat ine logy v case okolo hladaneho stringu s: `$ journalctl -S`
 
-Ako zmenit default shell uzivatela: $ chsh vlkv -s /bin/bash
- - dany SHELL by mal byt v subore: /etc/shells
+Ako vypisat logy podla Severity level: `$ journalctl -p 3`
 
-Ako zistit s akymi argumentami je spusteny program/daemon: $ ps aux | grep getty
+ - pripadne s rozsahom: `$ journalctl -p 2..3`
+
+Ako sledovat real-time priebeh systemoveho logu: `$ journalctl -f`
+
+ - logy sa daju vypisovat a sledovat napr. aj v json formate: `$ journalctl -f -o json-pretty`
+
+Ako ulozit urcite logy v text formate: `$ journalctl -u ssh -o old > sshd.log`
+
+ - ako ulozit rovnaky log napr. vo formate "json": `$ journalctl -u ssh -o json > sshd.log.json`
+
+### Praca s zivatelskymi uctami:
+
+Ako zmenit default shell uzivatela: `$ chsh vlkv -s /bin/bash`
+
+ - dany SHELL by mal byt v subore: `/etc/shells`
+
+Ako zistit s akymi argumentami je spusteny program/daemon: `$ ps aux | grep getty`
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako zabezpecit, aby sa na Ubuntu 20.04 systemovy log neplnil hlaskami:
