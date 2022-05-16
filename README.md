@@ -186,17 +186,17 @@ Prikaz na interaktivne CLI: `$ sudo lvm`
 
 Nasledne mozeme pouzit: `lvm> help`
 
-Prikaz vypise Physical Volumes: pvs
-Prikaz detailne vypise Physical Volumes: pvdisplay
-Prikaz vypise Volume Groups: vgs
-Prikaz detailne vypise Volume Groups: vgdispaly
-Prikaz vipise Logical Volumes: lvs
-Prikaz detailne vypise Logical Volumes: lvdisplay
+    Prikaz vypise Physical Volumes: pvs
+    Prikaz detailne vypise Physical Volumes: pvdisplay
+    Prikaz vypise Volume Groups: vgs
+    Prikaz detailne vypise Volume Groups: vgdispaly
+    Prikaz vipise Logical Volumes: lvs
+    Prikaz detailne vypise Logical Volumes: lvdisplay
 
 Na pracu s LVM vytvorime jednu alebo viac PV particii na realnych diskoch s
-cfdisk/fdisk/parted a nasledne "mkfs.XYZ": 
+nastrojmi `cfdisk`, `fdisk`, `parted` a nasledne `mkfs.XYZ`: 
 
-Prikaz vytvori VG s nazvom "vg-nas" a pouzije prve PV (particiu): # vgcreate vg-nas /dev/sdb1   
+Prikaz vytvori VG s nazvom `vg-nas` a pouzije prve PV (particiu): `# vgcreate vg-nas /dev/sdb1`
  - nasledne rozsirime tuto VG (pool) o dalsiu PV particiu: $ sudo vgextend vg-nas /dev/sdc1
 
 Prikaz vytvori LV particiu "lvnas1" z danej VG "vg-nas": 
