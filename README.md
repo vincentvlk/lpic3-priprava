@@ -4,7 +4,7 @@ Poznamky k priprave na skusku LPIC3-304-200 - High Availability and Virtualizati
 
 {toc}
 
-MOJ skromny nazor na priority pri realizacii projektov na OS GNU/Linux:
+Moj skromny nazor na priority pri realizacii projektov na OS GNU/Linux:
 ----------------------------------------------------------------------
 
     Bezpecnost + Zalohovanie + Kontrola pouzitelnosti zaloh + Dokumentacia
@@ -14,7 +14,7 @@ MOJ skromny nazor na priority pri realizacii projektov na OS GNU/Linux:
 
 Zakladne tipy a triky:
 ----------------------
-###Ako na Linuxe vypnut PC-speaker:###
+### Ako na Linuxe vypnut PC-speaker: ###
 
     $ sudo rmmod pcspkr
 
