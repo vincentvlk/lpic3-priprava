@@ -467,8 +467,8 @@ Ako vypisat smerovaciu tabulku systemu: `$ ip route show`
  - podobne sa da skracovat: `$ ip r s`
  - smerovacuiu tab. pre IPv6 vypiseme s: `$ ip -6 route show`
 
-Ako vypisat, akym rozhranim bude smerovany paket s danou cielovou adresou: $ ip route get 9.9.9.9  
- - resp. pre IPv6: $ ip -6 route get 2620:fe::9 
+Ako vypisat, akym rozhranim bude smerovany paket s danou cielovou adresou: `$ ip route get 9.9.9.9`
+ - resp. pre IPv6: `$ ip -6 route get 2620:fe::9`
 
 Ako nastavit predvolenu branu: `$ sudo ip route add default via 192.168.100.1`
  - predvolenu branu vymazeme s: `$ sudo ip route del default`
@@ -490,10 +490,10 @@ Pozriet nastroje `NetworkManager` a `systemd.networkd(5)`
 Konf. subory, ktore zabezpecuju DNS preklad: `/etc/nsswitch.conf`, `/etc/hosts`, `/etc/resolv.conf`
  - zvycajne vsak konfigurovane s inymi nastrojmi ako `Networkmanager`, `Netplan`, alebo 'nmtui'
 
-Ako overit ze na DNS preklady sa pouziva Cache: $ nslookup -debug quad9.net
- - vo vypise vidime riadky: "Server: 127.0.0.53" a "Address: 127.0.0.53#53"
- - alebo pouzijeme novsi nastroj "dig": $ dig +trace quad9.net
-   - napr.: $ dig +trace quad9.net | grep bytes
+Ako overit, ze na DNS preklady sa pouziva Cache: `$ nslookup -debug quad9.net`
+ - vo vypise vidime riadky: `Server: 127.0.0.53` a `Address: 127.0.0.53#53`
+ - alebo pouzijeme novsi nastroj `dig` napr.: `$ dig +trace quad9.net`
+   - alebo napr.: `$ dig +trace quad9.net | grep bytes`
 
 Ako overit nastavenia DNS v systeme: $ resolvectl status
 
