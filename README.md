@@ -170,13 +170,13 @@ Prikaz vytvori Ext4 particiu: `$ sudo mkfs.ext4 /dev/sdb1`
 
 Ako vytvorit Swap subor, nie particiu: 
 
-Prikaz vypise stav Swap-u:
-$ sudo free -m
+    Prikaz vypise stav Swap-u:
+    $ sudo free -m
 
-$ sudo dd if=/dev/zero of=swap_file bs=1024k count=pocet_MB
-$ sudo mkswap swap_file
-$ sudo swapon swap_file
-$ sudo swapoff swap_file	<< pozor treba mat nahradnu Swap kapacitu
+    $ sudo dd if=/dev/zero of=swap_file bs=1024k count=pocet_MB
+    $ sudo mkswap swap_file
+    $ sudo swapon swap_file
+    $ sudo swapoff swap_file	<< pozor treba mat nahradnu Swap kapacitu
  
 V kontexte Swap-u existuje v kerneli tzv. OOM-killer, ktory pri nedostatku pamate zabija procesy
 
