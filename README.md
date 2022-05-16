@@ -625,34 +625,34 @@ Pozriet riadenie toku BASH skriptu, resp. rozhodovanie s:
 
 ### Priklad na riadenie toku v BASH skripte s `if`, vytvorime si skript `ifPriklad.sh`:
 
-#!/usr/bin/env bash
-#
-# jednoduchy BASH skript demonstruje riadenie toku s "if"
-#
-# testujeme obsah prveho argumentu:
-if [ "$1" = ahoj ]
-then
-    echo 'Zadany argument bol ahoj.'
-#
-# testujeme pocet zadanych argumentov:
-elif [ "$#" = 0  ]
-then
-    echo "Nezadal si ziaden argument."
-#
-# pokrocilejsie testovanie regularneho vyrazu (regexp):
-elif [[ "$1" =~ a.*j  ]]
-then
-    echo "Skoro dobre, zadal si argument: $1"
-#
-# posledna moznost, ked nic ine nevyhovie podmienkam:
-else
-    echo "Sme vedla od slova ahoj, zadal si argument $1"
-fi
-#
-echo "Koniec skriptu, exit code: $?"
-#
+    #!/usr/bin/env bash
+    #
+    # jednoduchy BASH skript demonstruje riadenie toku s "if"
+    #
+    # testujeme obsah prveho argumentu:
+    if [ "$1" = ahoj ]
+    then
+        echo 'Zadany argument bol ahoj.'
+    #
+    # testujeme pocet zadanych argumentov:
+    elif [ "$#" = 0  ]
+    then
+        echo "Nezadal si ziaden argument."
+    #
+    # pokrocilejsie testovanie regularneho vyrazu (regexp):
+    elif [[ "$1" =~ a.*j  ]]
+    then
+        echo "Skoro dobre, zadal si argument: $1"
+    #
+    # posledna moznost, ked nic ine nevyhovie podmienkam:
+    else
+        echo "Sme vedla od slova ahoj, zadal si argument $1"
+    fi
+    #
+    echo "Koniec skriptu, exit code: $?"
+    #
 
-Dalej zdroje k zakladom BASH skriptov:
+Dalsie zdroje k zakladom BASH skriptov:
  - napr. v knihe: `https://www.root.cz/knihy/bash-ocima-bohdana-milara/`
  - pokrocilejsie skriptovanie, napr. v knihe: `https://tldp.org/LDP/abs/abs-guide.pdf`
  - pripadne pozriet 11. kapitolu v knihe `How Linux Works by Brian Ward, ISBN-13: 9781718500402`
