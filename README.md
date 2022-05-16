@@ -575,14 +575,13 @@ Pozriet si nastroj `nmap`, velmi vela moznosti:
 Ako vypisat lokalne Unix Domain sockety, pre aktualneho uzivatela: `$ lsof -U`
  - vypisanie vsetkych Unix Domain socketov: `$ sudo lsof -U`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Praca s BASH skriptami:
+### Praca s BASH skriptami:
 
 Ako zabezpecit, aby sa skript spustal aj na inych systemoch (portability): 
- - skript zacina riadkom: #!/usr/bin/env bash
+ - skript zacina riadkom: `#!/usr/bin/env bash`
  - nevyhoda je, ze skript je spustany s prvym najdenym interpretom (BASH, Python, etc.)
 
-V BASHi sa rozlisuje "Quoting" alebo 'Literals'.
+V BASHi sa rozlisuje `"Quoting"` alebo `'Literals'`:
  - teda je rozdiel v prikaze: $ echo "$100" ... a v prikaze: $ echo '$100'
  - treba si vsak davat pozor na pouzitie s inymi programami, napr.: $ grep 'r.*t' /etc/passwd
    - napr. uvedeny prikaz dava neocakavany vysledok: $ grep 'r.*t /etc/passwd'
