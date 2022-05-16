@@ -18,13 +18,13 @@ Zakladne tipy a triky:
 
     $ sudo rmmod pcspkr
 
-### Dobra stranka na zaciatocnu konfiguraciu znamych distribucii Linuxu:###
+### Dobra stranka na zaciatocnu konfiguraciu znamych distribucii Linuxu:
 
     https://www.server-world.info/en/
     
     - ale nevedno do kedy bude online a chyba tam IPv6 :-(
 
-###Zakladne nastavenie siete v systeme Debian11:###
+### Zakladne nastavenie siete v systeme Debian11:
 
 Editujeme konf. subor: `/etc/network/interfaces`, nasledne vlozime napr.:
 
@@ -42,7 +42,7 @@ Editujeme konf. subor: `/etc/network/interfaces`, nasledne vlozime napr.:
 
 Po uprave aplikujeme config: `$ sudo systemctl restart ifup@ens33`
 
-###Dodatok k nastaveniu statickej IPv6 adrese v systeme Debian11:###
+#### Dodatok k nastaveniu statickej IPv6 adrese v systeme Debian11:
 
 Bolo potrebne do suboru `/etc/sysctl.conf` vlozit riadky:
 
