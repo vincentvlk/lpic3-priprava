@@ -24,13 +24,13 @@ Zakladne tipy a triky:
     
     - ale nevedno do kedy bude online a chyba tam IPv6 :-(
 
-**Nastavenie siete v systeme Debian11:**
+**Zakladne nastavenie siete v systeme Debian11:**
 
 - editujeme konf. subor: `/etc/network/interfaces`
   - nasledne vlozime napr.:
 
-    auto lo
-    iface lo inet loopback
+    `auto lo`
+    `iface lo inet loopback`
 
     allow-hotplug ens33
     iface ens33 inet static
