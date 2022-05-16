@@ -221,22 +221,22 @@ Potom si napr. v `$HOME` adresary vytvorime link na svoju NAS particiu: `$ ln -s
 Ako ostranit LV z VG: `$ sudo lvremove vg-nas/lvnas3`
 
 Ako zvacsit nejake LV z VG poolu (moze byt mounted): `$ sudo lvresize -r -L +5g vg-nas/lvnas1`
+
 Overime s: `$ df -h /mnt/lvnas1`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Praca s inode-ami:
+Tip: ako pridat uzivatela do dalsej group: `# usermod -a -G examplegroup exampleusername`
 
-Prikaz vypise prava a inode informacie o subore: $ stat subor.xyz
-- da sa pouzit aj prikaz:  $ ls -li
+Tip: ako zmenit vlastnikov na adresary alebo subore: `# chown -R root:vgnas /mnt/lvnas1`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Ako pridat uzivatela do dalsej group: # usermod -a -G examplegroup exampleusername
-
-Ako zmenit vlastnikov na adresary alebo subore: # chown -R root:vgnas /mnt/lvnas1
-
-Ako nastavit prava na subore alebo adresary: # chmod g+w /mnt/lvnas1
+Tip: ako nastavit prava na subore alebo adresary: `# chmod g+w /mnt/lvnas1`
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+### Zakladna praca s inode-ami:
+
+Prikaz vypise prava a inode informacie o subore: `$ stat subor.xyz`
+Da sa pouzit aj prikaz: `$ ls -li`
+
 Ako vypisat parametre kernelu, s ktorymi nabootoval: $ cat /proc/cmdline
 
 Ako zistit ake KILL signaly system podporuje: $ kill -l
