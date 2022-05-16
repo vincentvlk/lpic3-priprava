@@ -131,26 +131,26 @@ Nasledne overime config:
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 **Ako konfigurovat siet v systeme Ubuntu 20.04**
 
-- treba `presunut/zalohovat` povodny config file:
+Treba `presunut/zalohovat` povodny config file:
 
     $ sudo mv /etc/netplan/00-installer-config.yaml /etc/netplan/00-installer-config.yaml.disabled
 
-- dalej vytvorime novy config file:
+Dalej vytvorime novy config file:
 
-$ sudo vim /etc/netplan/00-installer-config.yaml
+    $ sudo vim /etc/netplan/00-installer-config.yaml
 
-- nasledne pridame riadky napr.:
+Nasledne pridame riadky napr.:
 
-network:
-  ethernets:
-    ens33:
-      dhcp4: no
-      addresses: [192.168.1.244/24]
-      gateway4: 192.168.1.1
-      nameservers:
-        addresses: [193.17.47.1, 185.43.135.1]
-      dhcp6: yes
-  version: 2
+    network:
+    ethernets:
+        ens33:
+        dhcp4: no
+        addresses: [192.168.1.244/24]
+        gateway4: 192.168.1.1
+        nameservers:
+            addresses: [193.17.47.1, 185.43.135.1]
+        dhcp6: yes
+    version: 2
 
 - ulozit subor a potom zadat (prikaz vykona aj syntax check):
 
