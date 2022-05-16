@@ -1,6 +1,6 @@
 Poznamky k priprave na skusku LPIC3-304-200 - High Availability and Virtualization
 ======================================================================================
-**Obsah:**
+###Obsah:###
 
 {toc}
 
@@ -14,17 +14,17 @@ MOJ skromny nazor na priority pri realizacii projektov na OS GNU/Linux:
 
 Zakladne tipy a triky:
 ----------------------
-**Ako na Linuxe vypnut PC-speaker:**
+###Ako na Linuxe vypnut PC-speaker:###
 
     $ sudo rmmod pcspkr
 
-**Dobra stranka na zaciatocnu konfiguraciu znamych distribucii Linuxu:**
+###Dobra stranka na zaciatocnu konfiguraciu znamych distribucii Linuxu:###
 
     https://www.server-world.info/en/
     
     - ale nevedno do kedy bude online a chyba tam IPv6 :-(
 
-**Zakladne nastavenie siete v systeme Debian11:**
+###Zakladne nastavenie siete v systeme Debian11:###
 
 Editujeme konf. subor: `/etc/network/interfaces`, nasledne vlozime napr.:
 
@@ -42,7 +42,7 @@ Editujeme konf. subor: `/etc/network/interfaces`, nasledne vlozime napr.:
 
 Po uprave aplikujeme config: `$ sudo systemctl restart ifup@ens33`
 
-**Dodatok k nastaveniu statickej IPv6 adrese v systeme Debian11:**
+###Dodatok k nastaveniu statickej IPv6 adrese v systeme Debian11:###
 
 Bolo potrebne do suboru `/etc/sysctl.conf` vlozit riadky:
 
@@ -60,13 +60,13 @@ Potom do suboru `/etc/network/interfaces` pridat `IPv6` riadky napr.:
         gateway 2001:db8:cafe::1
         dns-nameservers 2001:148f:ffff::1 2001:148f:fffe::1
 
-**Nastavenie siete v systeme CentOS:**
+###Nastavenie siete v systeme CentOS:###
 
 Pouzil som nejake hanbate GNOME GUI, neviem preco sa to hned neaplikovalo.
   - alternativne sa da pouzit nastroj `nmtui`, instalujeme: `$ sudo dnf -y in NetworkManager-tui`
   - nasledne uz len spustime: `$ sudo nmtui`
 
-**Nastavenie siete v systeme Fedora 35 Server:**
+###Nastavenie siete v systeme Fedora 35 Server:###
 
 - pouzil som cli nastroj `nmcli` z balika `NetworkManager`
 
@@ -106,12 +106,12 @@ Nasledne overime config:
 
     $ sudo nmcli device show ens33
 
-**Poznamka: ak system nepreklada DNS zaznami, hlasi: "Temporary failure in name resolution"**
+###Poznamka: ak system nepreklada DNS zaznami, hlasi: "Temporary failure in name resolution"###
  - treba skontrolovat syntax suboru `/etc/resolv.conf`
  - pripadne restartovat DNS resolver proces: `$ sudo systemctl restart systemd-resolved.service`
  - overime s: `$ sudo systemctl status systemd-resolved.service`
 
-**Ako  v unix-like systemoch konvertovat video kodekom H.265:**
+###Ako v unix-like systemoch konvertovat video kodekom H.265:###
 
 1. instalujeme `ffmpeg` (`apt install ffmpeg`, `dnf install ffmpeg`, `brew install ffmpeg` a pod.)
 
