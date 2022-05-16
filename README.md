@@ -70,15 +70,15 @@ Pouzil som nejake hanbate GNOME GUI, neviem preco sa to hned neaplikovalo.
 
 - pouzil som cli nastroj `nmcli` z balika `NetworkManager`
 
-- nastavime hostname napr.:
+Nastavime hostname napr.:
 
-$ sudo hostnamectl set-hostname ubuntu1.example.com
+    $ sudo hostnamectl set-hostname ubuntu1.example.com
 
-- vypiseme sietove zariadenia:
+Vypiseme sietove zariadenia:
 
-$ sudo nmcli device
+    $ sudo nmcli device
 
-- nastavime IPv4 adresu:
+Nastavime IPv4 adresu:
 
 $ sudo nmcli connection modify ens33 ipv4.addresses 10.0.0.30/24
 
