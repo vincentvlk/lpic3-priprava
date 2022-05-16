@@ -26,10 +26,9 @@ Zakladne tipy a triky:
 
 **Zakladne nastavenie siete v systeme Debian11:**
 
-Editujeme konf. subor: `/etc/network/interfaces`
-Nasledne vlozime napr.:
+Editujeme konf. subor: `/etc/network/interfaces`, nasledne vlozime napr.:
 
-    <p>auto lo
+    auto lo
     iface lo inet loopback
 
     allow-hotplug ens33
@@ -39,7 +38,7 @@ Nasledne vlozime napr.:
     netmask 255.255.255.0
     broadcast 192.168.1.255
     gateway 192.168.1.1
-    dns-nameservers 193.17.47.1 185.43.135.1</p>
+    dns-nameservers 193.17.47.1 185.43.135.1
 
 - nasledne aplikujeme config:
 
