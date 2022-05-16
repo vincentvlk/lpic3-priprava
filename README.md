@@ -29,8 +29,8 @@ Zakladne tipy a triky:
 - editujeme konf. subor: `/etc/network/interfaces`
 - nasledne vlozime napr.:
 
-    `auto lo`
-    `iface lo inet loopback`
+    <p>auto lo
+    iface lo inet loopback
 
     allow-hotplug ens33
     iface ens33 inet static
@@ -39,7 +39,7 @@ Zakladne tipy a triky:
     netmask 255.255.255.0
     broadcast 192.168.1.255
     gateway 192.168.1.1
-    dns-nameservers 193.17.47.1 185.43.135.1
+    dns-nameservers 193.17.47.1 185.43.135.1</p>
 
 - nasledne aplikujeme config:
 
