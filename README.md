@@ -4,8 +4,7 @@ Poznamky na skusku LPIC3-304-200 - Virtualization & High Availability
 
 {toc}
 
-Moj skromny nazor na priority pri realizacii projektov na OS GNU/Linux:
-----------------------------------------------------------------------
+### Moj skromny nazor na priority pri realizacii projektov na OS GNU/Linux:
 
     Bezpecnost + Zalohovanie + Kontrola pouzitelnosti zaloh + Dokumentacia
     Security + Backups + Backups usability check + Documentation
