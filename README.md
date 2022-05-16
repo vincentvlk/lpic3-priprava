@@ -180,9 +180,10 @@ Ako vytvorit Swap subor, nie particiu:
  
 V kontexte Swap-u existuje v kerneli tzv. OOM-killer, ktory pri nedostatku pamate zabija procesy
 
-**Praca s LVM, aktualna verzia je LVM2
+**Praca s LVM, aktualna verzia je LVM2**
 
 Prikaz na interaktivne CLI: `$ sudo lvm`
+
 Nasledne mozeme pouzit: `lvm> help`
 
 Prikaz vypise Physical Volumes: pvs
