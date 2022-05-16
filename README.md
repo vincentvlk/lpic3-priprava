@@ -277,18 +277,18 @@ Ako vyipsat, na com zavisi dany proces a co vyzaduje:
 
 Nastroj na spustanie viacerych programov/skriptov v jednom adresary: `run-parts(8)`
  
-- v suvislosti so starsim init-om podla `System V Init`
+- v suvislosti so starsim Init-om podla `System V Init`
 
-Ako zistit v akom run-level-y bezi system: $ who -r
+Tip: Ako zistit v akom run-level-y bezi system: `$ who -r`
 
-V akom adresary sa nachadzaju system V init skripty: $ cd /etc/rc5.d/
+Tip: V akom adresary sa nachadzaju `System V Init` skripty: `$ cd /etc/rc5.d/`
 
-Ako prepnut rn-level do single-user modu: $ sudo telinit -s
+Tip: Ako prepnut `run-level` do `single-user` modu: `$ sudo telinit -s`
 
-Ako restartovat system: $ sudo shutdown -r now
- - pripadne za 10 min.: $ sudo shutdown -r +10
+Tip: Ako restartovat system: `$ sudo shutdown -r now`
+ - pripadne za 10 min.: `$ sudo shutdown -r +10`
 
-Ako zabezpecit, aby sa do systemu mohol prihlasit len superuser, vytvorime subor: "/etc/nologin"
+Tip: Ako "zapnut", aby do systemu mohol prihlasit len superuser, vytvorime subor: `/etc/nologin`
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Logovanie a diasgnostika user-space nastrojov:
