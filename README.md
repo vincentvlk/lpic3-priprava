@@ -693,6 +693,7 @@ nove subory v cieli:
 
 Chceme kopirovat **LEN** obsah lokalneho adresara po sieti, dolezity znak `/`:
  - prikaz: `$ rsync -av dir1/ ubu2.lab:`
+
 Ked chceme vynechat subor, specifikujeme absolutnu cestu: 
  - prikaz: `$ rsync -av --exclude=dir1/junk.txt dir1 ubu2.lab:`
 
