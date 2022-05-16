@@ -159,8 +159,8 @@ Alebo:
 
     $ sudo netplan apply
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Sprava diskov, particii, SWAPu:
+-------------------------------
 
 Prikaz vypise blokove zariadenia: $ sudo lsblk
 Prikaz vypise UUID aktivnych particii: $ sudo blkid
