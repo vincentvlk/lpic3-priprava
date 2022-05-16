@@ -719,70 +719,68 @@ Ako si pripojit vzdialny adresar cez SSH, napr.: `$ sshfs userABC@ubu2.lab:/mnt/
 Premenne prostredia pre interpret BASH su definovane v **skrytych** suboroch: `.bash_profile`
 alebo `.profile`
 
- - priklad na definiciu premennej shellu: $ TEST=123 
- - priklad na definiciu premennej prostredia: $ export TESTENV=567 
+ - priklad na definiciu premennej shellu: `$ TEST=123`
+ - priklad na definiciu premennej prostredia: `$ export TESTENV=567`
 
 Dolezite adresare na spustanie binarnych aplikacii a skriptov su ulozene
-v premennej $PATH: "/usr/local/bin" a "/usr/bin" a "/bin"
+v premennej `$PATH`: `/usr/local/bin`, `/usr/bin` a `/bin`
 
- - overime s prikazom: $ echo $PATH
+ - overime s prikazom: `$ echo $PATH`
 
-V definicii promptu, teda v premennej $PS1 by sme sa mali vyhnut znakom: { } = & < >
- - dalsie detaily najdeme v manualy, v sekcii "PROMPTING" vid.: $ man bash
+V definicii promptu, teda v premennej `$PS1` by sme sa mali vyhnut znakom: `{ } = & < >`
+ - dalsie detaily najdeme v manualy, v sekcii `PROMPTING` vid.: `$ man bash`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Praca s vyvojarskymi nastrojmi
+### Zaklady prace s vyvojarskymi nastrojmi:
 
-Jednoduchy priklad na kompilaciu zdrojoveho kodu v jazyku "C", vytvorime subor "pokus.c":
+Jednoduchy priklad na kompilaciu zdrojoveho kodu v jazyku "C", vytvorime subor `pokus.c`:
 
-#include <stdio.h>
+    #include <stdio.h>
 
-int main(void) {
+    int main(void) {
 
-    printf("Hello, World.\n");
-}
+        printf("Hello, World.\n");
+    }
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-- nasledne skompilujeme, treba nainstalovat dev. nastroje: $ sudo apt install build-essential
-- na kompilaciu pouzijeme program "cc", teda "C Compiler": $ cc pokus.c
-- vystupom bude spustitelny binarny subor "a.out": $ ./a.out
-- pri kompilacii mozeme specifikovat nazov vystupneho suboru: $ cc -o pokus pokus.c 
+- nasledne skompilujeme, treba nainstalovat dev. nastroje: `$ sudo apt install build-essential`
+- na kompilaciu pouzijeme program `cc`, teda "C Compiler": `$ cc pokus.c`
+- vystupom bude spustitelny binarny subor `a.out`, spustime: `$ ./a.out`
+- pri kompilacii mozeme specifikovat nazov vystupneho suboru: `$ cc -o pokus pokus.c`
 
-Ako, ake zdielane kniznice ma nalinkovane dany program: $ sudo ldd /usr/bin/bash
+Tip: Ako vypisat zdielane kniznice, ktore ma nalinkovane dany program: `$ sudo ldd /usr/bin/bash`
 
 Ako kompilovat zdrojove subory v kazyku "Java":
- - je potrebne nainstalovat vyvojarske nastroje: # apt install default-jdk-headless
- - vytvorime jednoduchy cvicny zdrojovy subor "pokus.java":
+ - je potrebne nainstalovat vyvojarske nastroje: `$ sudo apt install default-jdk-headless`
+ - vytvorime jednoduchy cvicny zdrojovy subor `pokus.java`:
 
-class MyFirstProgram {
+    class MyFirstProgram {
 
-    public static void main(String args[]){
-        System.out.println("Hello World!");
+        public static void main(String args[]){
+            System.out.println("Hello World!");
+        }
     }
-}
 
- - nasledne program skompilujeme do tzv. "byte code" formatu s priponou ".class": $ javac pokus.java
- - vznikne bytecode subor "MyFirstProgram.class", ktory spustime prikazom: $ java MyFirstProgram
+ - program skompilujeme do tzv. "byte code" formatu s priponou `.class`: `$ javac pokus.java`
+ - vznikne bytecode subor `MyFirstProgram.class`, ktory spustime prikazom: `$ java MyFirstProgram`
 
 Ako kompilovat a instalovat zdrojove baliky:
- - na test si vytvorime adresar "test_coreutils": $ mkdir test_coreutils 
+ - na test si vytvorime adresar `test_coreutils` prikazom: `$ mkdir test_coreutils`
  - do vytvoreneho adresara stiahneme zdrojovy balik:
-   - prikaz: $ wget https://ftp.gnu.org/gnu/coreutils/coreutils-9.0.tar.gz
- - rozbalime zdrojovy archiv: $ tar -xvzf coreutils-9.0.tar.gz
- - v rozbalenom adresary "coreutils-9.0" spustime konfiguracny "GNU Autoconf" skript "configure"
- - tento skript konfiguruje parametre kompilacie a naslednej instalacie...
+   - prikaz: `$ wget https://ftp.gnu.org/gnu/coreutils/coreutils-9.0.tar.gz`
+ - rozbalime zdrojovy archiv: `$ tar -xvzf coreutils-9.0.tar.gz`
+ - v rozbalenom adresary `coreutils-9.0` spustime konfiguracny "GNU Autoconf" skript `configure`
+ - tento skript konfiguruje parametre kompilacie a naslednej instalacie
  - skript spustime s parametrom cieloveho adresara kompilacie a instalacie: 
-   - prikaz: $ ./configure --prefix=$HOME/test_coreutils
- - nasledne po konfiguracii spustime v danom adresary kompilaciu: $ make
- - skompilovane programy a binarne objekty najdeme v adresary "coreutils-9.0/src/"
- - po kompilacii mozeme spustit rozsiahle overenie kompilacie: $ make check
- - po kompilacii mozeme "na sucho / dry run" spustit test instalacie: $ make -n install
- - po overeni mozeme spustit samotnu instalaciu: $ make install
- - po instalacii v adresary "test_coreutils" vzniknu adresare "bin", "libexec", "share"
- - na Debian-based distr. je nastroj na nastavenie parametrov ".deb" balickov "checkinstall":
-   - prikaz: $ sudo apt install checkinstall
- - POZOR, na svojej testovacej instalacii sa da spustit tvorba balicka: # checkinstall make install
- - ^^^ uvedenym prikazom sa da rozbit system, tak si treba na test VM spravit snapshot, atd.
+   - prikaz: `$ ./configure --prefix=$HOME/test_coreutils`
+ - nasledne po konfiguracii spustime v danom adresary kompilaciu: `$ make`
+ - skompilovane programy a binarne objekty najdeme v adresary `coreutils-9.0/src/`
+ - po kompilacii mozeme spustit rozsiahle overenie kompilacie: `$ make check`
+ - po kompilacii mozeme "na sucho / dry run" spustit test instalacie: `$ make -n install`
+ - po overeni mozeme spustit samotnu instalaciu: `$ make install`
+ - po instalacii v adresary `test_coreutils` vzniknu adresare `bin`, `libexec`, `share`
+ - na Debian-based distr. je nastroj na nastavenie parametrov `.deb` balickov `checkinstall`:
+   - prikaz: `$ sudo apt install checkinstall`
+ - **POZOR** na testovacej instalacii sa da spustit tvorba balicka: `$ sudo checkinstall make install`
+ - ^^^ uvedenym prikazom sa da rozbit system, tak si treba na test VM spravit snapshot / backup
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Praca s kontajnermi, zaklady Docker-u
