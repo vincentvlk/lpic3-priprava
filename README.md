@@ -533,47 +533,47 @@ Ako vypisat IPv4 ARP tabulku a zaroven aj IPv6 ND tabulku: `$ ip neigh`
 
 ### Praca s TCP/UDP aplikaciami, socketmi:
 
-Ako vytvorit testovaci TCP socket co pocuva na danom porte: # nc -l 23
- - na socket sa so vzdialenej stanice pripojime napr.: $ telnet A.B.C.D 23
- - pripadne opat s programom "nc": $ nc A.B.C.D 23
+Ako vytvorit testovaci TCP socket co pocuva na danom porte: `$ sudo nc -l 23`
+ - na socket sa so vzdialenej stanice pripojime napr.: `$ telnet A.B.C.D 23`
+ - pripadne opat s programom `nc` napr.: `$ nc A.B.C.D 23`
 
-Ako "stopovat" pripojenie programu "curl" k TCP HTTP socketu:
- - prikaz: $ curl --trace-ascii tracelog.txt http://example.com
- - nasledne si pozrieme zaznam v subore "tracelog.txt"
+Ako "stopovat" pripojenie programu `curl` k TCP HTTP socketu:
+ - prikaz: `$ curl --trace-ascii tracelog.txt http://example.com`
+ - nasledne si pozrieme zaznam v subore `tracelog.txt`
 
-Ako si vygenerovat PKi par klucov na asymetricke syfrovanie a auth.: 
- - prikaz: $ ssh-keygen -t rsa -N '' -f /home/user1/.ssh/id_rsa
- - podobne pre DSA par klucov: $ ssh-keygen -t dsa -N '' -f /home/user1/.ssh/id_dsa
+Ako si vygenerovat PKI par klucov na asymetricke sifrovanie a auth.: 
+ - prikaz: `$ ssh-keygen -t rsa -N '' -f /home/user1/.ssh/id_rsa`
+ - podobne pre DSA par klucov: `$ ssh-keygen -t dsa -N '' -f /home/user1/.ssh/id_dsa`
 
-Pozn.: pozriet si projeky/programy "fail2ban", pripadne "sshguard" alebo "denyhosts"
+Pozn.: pozriet si projekty/programy `fail2ban`, pripadne `sshguard` alebo `denyhosts`
 
 Ako pomocou protokolu SCP kopirovat z jednej vzdialenej IP na inu vzdialenu IP:
- - prikaz:  $ scp user1@host1:file user2@host2:file
+ - prikaz: `$ scp user1@host1:file user2@host2:file`
 
-Ako vypisat vsetky TCP sockety, bez DNS prekladu adries: $ sudo lsof -i -n
+Ako vypisat vsetky TCP sockety, bez DNS prekladu adries: `$ sudo lsof -i -n`
 
-Ako vypisat aktivne procesy pre konkretny TCP/UDP port: $ sudo lsof -i:22
- - daju sa pouzit aj nazvy protokolov podla suboru "/etc/services", teda: $ sudo lsof -i:ssh
- - ked chceme spcifikovat len TCP sockety: $ sudo lsof -iTCP:22
- - ked chceme este presnejsie specifikovat pre IPv6: $ sudo lsof -i6TCP:22
- - este napr. bez prekladu na PTR DNS: $ sudo lsof -n -i6:22
- - vypise aktivne a pocuvajuce UDP "streamy": $ sudo lsof -n -iUDP
- - vypise stav pripojeni "protokol:port" na servery s IP "192.168.1.240" na TCP porte "22"
-   - prikaz: $ sudo lsof -iTCP@192.168.1.240:22
+Ako vypisat aktivne procesy pre konkretny TCP/UDP port: `$ sudo lsof -i:22`
+ - daju sa pouzit aj nazvy protokolov podla suboru `/etc/services`, teda: `$ sudo lsof -i:ssh`
+ - ked chceme spcifikovat len TCP sockety: `$ sudo lsof -iTCP:22`
+ - ked chceme este presnejsie specifikovat pre IPv6: `$ sudo lsof -i6TCP:22`
+ - este napr. bez prekladu na PTR DNS: `$ sudo lsof -n -i6:22`
+ - vypise aktivne a pocuvajuce UDP "streamy": `$ sudo lsof -n -iUDP`
+ - vypise stav pripojeni `protokol:port` na servery s IP `192.168.1.240` na TCP porte `22`
+   - prikaz: `$ sudo lsof -iTCP@192.168.1.240:22`
 
-Pozriet si nastroj "tcpdump", velmi vela moznosti.
- - da sa napr. zacat s manualom: $ man tcpdump
+Pozriet si nastroj `tcpdump`, velmi vela moznosti.
+ - da sa napr. zacat s manualom: `$ man tcpdump`
  - napr. packet sniffing len ICMP paketov z/na konkretnu IPv4 adresu: 
-   - prikaz: $ sudo tcpdump -nv icmp and host 192.168.1.240
- - napr. komunikaciu na IPv6 TCP socket na porte 22, pre interface "ens38":
-   - prikaz: $ sudo tcpdump -nv -i ens38 ip6 and port 22
+   - prikaz: `$ sudo tcpdump -nv icmp and host 192.168.1.240`
+ - napr. komunikaciu na IPv6 TCP socket na porte 22, pre interface `ens38`:
+   - prikaz: `$ sudo tcpdump -nv -i ens38 ip6 and port 22`
 
-Pozriet si nastroj "nmap", velmi vela moznosti:
- - POZOR na legislativne dosledky skenovania sieti, ktore nevlastnim/nespravujem
- - napr. sa da zacat s manualom: $ man nmap
+Pozriet si nastroj `nmap`, velmi vela moznosti:
+ - **POZOR** na legislativne dosledky skenovania sieti a portov, ktore nevlastnim/nespravujem
+ - napr. sa da zacat s manualom: `$ man nmap`
 
-Ako vypisat lokalne Unix Domain sockety, pre aktualneho uzivatela: $ lsof -U
- - vypisanie vsetkych Unix Domain socketov: $ sudo lsof -U
+Ako vypisat lokalne Unix Domain sockety, pre aktualneho uzivatela: `$ lsof -U`
+ - vypisanie vsetkych Unix Domain socketov: `$ sudo lsof -U`
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Praca s BASH skriptami:
