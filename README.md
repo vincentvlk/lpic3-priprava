@@ -49,19 +49,19 @@ Bolo potrebne do suboru `/etc/sysctl.conf` vlozit riadky:
     net.ipv6.conf.ens37.autoconf = 0
     net.ipv6.conf.ens37.accept_ra = 0
 
-Nasledne ulozit a reboot alebo prikaz: $ sudo sysctl -p
+Nasledne ulozit a reboot alebo prikaz: `$ sudo sysctl -p`
 
-Nasledne do suboru /etc/network/interfaces pridat riadky napr.:
+Potom do suboru `/etc/network/interfaces` pridat `IPv6` riadky napr.:
 
-auto ens37
-allow-hotplug ens37
-iface ens37 inet6 static
-    address 2001:db8:cafe::242/64
-    gateway 2001:db8:cafe::1
-    dns-nameservers 2001:148f:ffff::1 2001:148f:fffe::1
+    auto ens37
+    allow-hotplug ens37
+    iface ens37 inet6 static
+        address 2001:db8:cafe::242/64
+        gateway 2001:db8:cafe::1
+        dns-nameservers 2001:148f:ffff::1 2001:148f:fffe::1
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Nastavenie siete na CentOS:
+Nastavenie siete v systeme CentOS:
 
   - pouzil som nejake hanbate GNOME GUI, neviem preco sa to hned neaplikovalo
   - alternativne sa da pouzit nastroj "nmtui", instalujeme: $ sudo dnf -y in NetworkManager-tui
