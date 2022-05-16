@@ -4,7 +4,7 @@ Obsah:
 
 {toc}
 
-*MOJ skromny nazor a priority pri realizacii projektov na OS GNU/Linux:*
+***MOJ skromny nazor a priority pri realizacii projektov na OS GNU/Linux:***
 
 Bezpecnost + Zalohovanie + Kontrola pouzitelnosti zaloh + Dokumentacia
 Security + Backups + Backups usability check + Documentation
