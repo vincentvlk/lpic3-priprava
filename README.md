@@ -372,7 +372,7 @@ Ako vytvorit cron job, aby sa vystup aj error presmerovali do `/dev/null`, vytvo
 
  - riadok zaznamu:
 
-    10 5 * * * /usr/bin/xyz > /dev/null 2>&1
+    `10 5 * * * /usr/bin/xyz > /dev/null 2>&1`
 
 Ako spustit jednorazovo nejaky prikaz: $ at 15:00
 - nasledne do promptu zadame prikaz, ukoncime s Ctrl-d
