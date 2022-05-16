@@ -461,7 +461,6 @@ Ako vypisat, ake parametre ma nastaveny kernel a system: `$ getconf -a`
 ### Praca so sietovymi nastrojmi (IPv4, IPv6, WiFi):
 
 Ako vypisat sietove rozhrania a ich parametre: `$ ip address show`
-
  - prikaz sa da skracovat napr.: `$ ip a s`
 
 Ako vypisat smerovaciu tabulku systemu: `$ ip route show`
@@ -471,25 +470,25 @@ Ako vypisat smerovaciu tabulku systemu: `$ ip route show`
 Ako vypisat, akym rozhranim bude smerovany paket s danou cielovou adresou: $ ip route get 9.9.9.9  
  - resp. pre IPv6: $ ip -6 route get 2620:fe::9 
 
-Ako nastavit predvolenu branu: $ sudo ip route add default via 192.168.100.1   
- - predvolenu branu vymazeme s: $ sudo ip route del default
- - staticku cestu nastavime s: $ sudo ip route add 192.168.16.0/24 via 10.1.2.3
- - staticku cestu vymazeme s: $ sudo ip route del 192.168.16.0/24
+Ako nastavit predvolenu branu: `$ sudo ip route add default via 192.168.100.1`
+ - predvolenu branu vymazeme s: `$ sudo ip route del default`
+ - staticku cestu nastavime s: `$ sudo ip route add 192.168.16.0/24 via 10.1.2.3`
+ - staticku cestu vymazeme s: `$ sudo ip route del 192.168.16.0/24`
 
-Ako overit konektivitu sietoveho zariadenia: $ ping 9.9.9.9
- - ekvivalent pre IPv6: $ ping6 2620:fe::9
+Ako overit konektivitu sietoveho zariadenia: `$ ping 9.9.9.9`
+ - ekvivalent pre IPv6: `$ ping6 2620:fe::9`
 
-Ako vypisat vsetky TCP a UDP sockety: $ sudo ss -tupa
- - vhodne pozriet: $ man 8 ss
+Ako vypisat vsetky TCP a UDP sockety: `$ sudo ss -tupa`
+ - vhodne pozriet: `$ man 8 ss`
 
-Ako vypisat reverzny PTR zaznam pre danu IP adresu: $ host 9.9.9.9
- - pre IPv6: $ host 2620:fe::9
- - pripadne detailna diagnostika: $ dig -x 9.9.9.9
+Ako vypisat reverzny PTR zaznam pre danu IP adresu: `$ host 9.9.9.9`
+ - pre IPv6: `$ host 2620:fe::9`
+ - pripadne detailna diagnostika: `$ dig -x 9.9.9.9`
 
-Pozriet nastroje NetworkManager a systemd.networkd(5)
+Pozriet nastroje `NetworkManager` a `systemd.networkd(5)`
 
-Konf. subory, ktore zabezpecuju DNS preklad: /etc/nsswitch.conf , /etc/hosts , /etc/resolv.conf
- - zvycajne vsak konfigurovane s inymi nastrojmi ako Networkmanager alebo Netplan
+Konf. subory, ktore zabezpecuju DNS preklad: `/etc/nsswitch.conf`, `/etc/hosts`, `/etc/resolv.conf`
+ - zvycajne vsak konfigurovane s inymi nastrojmi ako `Networkmanager`, `Netplan`, alebo 'nmtui'
 
 Ako overit ze na DNS preklady sa pouziva Cache: $ nslookup -debug quad9.net
  - vo vypise vidime riadky: "Server: 127.0.0.53" a "Address: 127.0.0.53#53"
