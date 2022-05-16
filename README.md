@@ -40,9 +40,7 @@ Editujeme konf. subor: `/etc/network/interfaces`, nasledne vlozime napr.:
     gateway 192.168.1.1
     dns-nameservers 193.17.47.1 185.43.135.1
 
-Po uprave aplikujeme config:
-
-    $ sudo systemctl restart ifup@ens33 
+Po uprave aplikujeme config: `$ sudo systemctl restart ifup@ens33`
 
 Dodatok k nastaveniu statickej IPv6 addr.:
  - bolo potrebne do suboru "/etc/sysctl.conf" vlozit riadky:
