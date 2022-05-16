@@ -727,7 +727,7 @@ v premennej `$PATH`: `/usr/local/bin`, `/usr/bin` a `/bin`
 
  - overime s prikazom: `$ echo $PATH`
 
-V definicii promptu, teda v premennej `$PS1` by sme sa mali vyhnut znakom: `{ } = & < >`
+Tip: V definicii promptu, teda v premennej `$PS1` by sme sa mali vyhnut znakom: `{ } = & < >`
  - dalsie detaily najdeme v manualy, v sekcii `PROMPTING` vid.: `$ man bash`
 
 ### Zaklady prace s vyvojarskymi nastrojmi:
@@ -749,8 +749,8 @@ Jednoduchy priklad na kompilaciu zdrojoveho kodu v jazyku "C", vytvorime subor `
 Tip: Ako vypisat zdielane kniznice, ktore ma nalinkovane dany program: `$ sudo ldd /usr/bin/bash`
 
 Ako kompilovat zdrojove subory v kazyku "Java":
- - je potrebne nainstalovat vyvojarske nastroje: `$ sudo apt install default-jdk-headless`
- - vytvorime jednoduchy cvicny zdrojovy subor `pokus.java`:
+Je potrebne nainstalovat vyvojarske nastroje: `$ sudo apt install default-jdk-headless`
+Vytvorime jednoduchy cvicny zdrojovy subor `pokus.java`:
 
     class MyFirstProgram {
 
