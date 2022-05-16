@@ -614,15 +614,16 @@ Dalsi priklad rozvijania specialnych znakov v BASHi:
  - nasledne mozeme skript spustit: `$ ./ashow.sh raz dva tri`
 
 Presmerovanie diagnostickych vypisov/vystupov:
- - Chybovy vypis/vystup mozeme presmerovat do standardneho vypisu/vystupu s: 2>&1
- - Opacny postup: 1>&2
+ - Chybovy vypis/vystup mozeme presmerovat do standardneho vypisu/vystupu s: `2>&1`
+ - Opacny postup: `1>&2`
 
 Pozriet riadenie toku BASH skriptu, resp. rozhodovanie s:
- - riadiace struktury: "if", "then", "else", "elif" "while", "until", "case"
- - zakladny rozcestnik $ man bash
- - dalsi uzitocny manual: $ man test 
+ - riadiace struktury: `if`, `then`, `else`, `elif`, `while`, `until`, `case`
+ - zakladny rozcestnik `$ man bash`
+ - dalsi uzitocny manual: `$ man test`
+ - alebo napr. `$ help if`
 
-Priklad na riadenie toku v BASH skripte s "if", vytvorime si skript "ifPriklad.sh":
+### Priklad na riadenie toku v BASH skripte s `if`, vytvorime si skript `ifPriklad.sh`:
 
 #!/usr/bin/env bash
 #
@@ -651,34 +652,33 @@ fi
 echo "Koniec skriptu, exit code: $?"
 #
 
-Dalej doporucujem pozriet zaklady BASH skriptovania:
- - napr. v knihe: https://www.root.cz/knihy/bash-ocima-bohdana-milara/
- - pokrocilejsie skriptovanie, napr. v knihe: https://tldp.org/LDP/abs/abs-guide.pdf
- - pripadne pozriet 11. kapitolu v knihe "How Linux Works by Brian Ward" ISBN-13: 9781718500402
+Dalej zdroje k zakladom BASH skriptov:
+ - napr. v knihe: `https://www.root.cz/knihy/bash-ocima-bohdana-milara/`
+ - pokrocilejsie skriptovanie, napr. v knihe: `https://tldp.org/LDP/abs/abs-guide.pdf`
+ - pripadne pozriet 11. kapitolu v knihe `How Linux Works by Brian Ward, ISBN-13: 9781718500402`
 
-Ako pomocou jazyka Awk vypisat deviaty stlpec z vypisu: $ ls -l | awk '{print $9}'
+Tip: Ako pomocou jazyka Awk vypisat deviaty stlpec z vypisu: `$ ls -l | awk '{print $9}'`
 
-Pozriet dalsi program na spracovanie textu: $ man sed
+Pozriet dalsi program na spracovanie textu: `$ man sed`
 
-Pozriet tematiku "BASH Subshell"
+Pozriet tematiku `BASH Subshell`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Praca s prenosom suborov po sieti:
+### Praca s prenasanim suborov po sieti:
 
-Ako spustit jednoduchy HTTP server (Python modul) v danom adresary: $ python3 -m http.server
- - standardne spusteny na TCP porte 8000, mozeme zmenit s: $ python3 -m http.server 5000
- - na TCP porty nizsie ako 1024 su potrebne prava "superuser":
-   - prikaz napr.: $ sudo python3 -m http.server 80
- - na starsich instalaciach sa da pouzit Python2 modul: $ python -m SimpleHTTPServer 5000
+Ako spustit jednoduchy HTTP server (Python modul) v danom adresary: `$ python3 -m http.server`
+ - standardne spusteny na TCP porte 8000, mozeme zmenit s: `$ python3 -m http.server 5000`
+ - na TCP porty nizsie ako 1024 su potrebne prava `superuser`:
+   - prikaz napr.: `$ sudo python3 -m http.server 80`
+ - na starsich instalaciach sa da pouzit Python2 modul: `$ python -m SimpleHTTPServer 5000`
 
-Na transfer suborov pomocou prgramu "rsync", musi byt program instalovany na "oboch stranach"
- - pre Debian based systemy $ sudo apt install rsync
- - alebo pre Fedora Server: # dnf install rsync 
+Na transfer suborov pomocou programu `rsync`, musi byt program instalovany **na oboch stranach**
+ - pre Debian based systemy `$ sudo apt install rsync`
+ - alebo pre Fedora Server: `$ sudo dnf install rsync`
 
 Zakladne pouzitie, skopirujeme 3 sobory s diagnostikou: 
- - prikaz napr.: $ rsync -v ifPriklad.sh casePriklad.sh ashow.sh 192.168.1.245:
+ - prikaz napr.: `$ rsync -v ifPriklad.sh casePriklad.sh ashow.sh 192.168.1.245:`
 
-Ako kopirovat vsetky adresare "dirX" na stroj s DNS nazvom "ubu2.lab" do adresara "nas":
+Ako kopirovat vsetky adresare `dirX` na stroj s DNS nazvom `ubu2.lab` do adresara `nas`:
  - parameter "-a" umoznuje skopirovat nastavenia suborovych prav, nastavenie UID bitov a pod.
  - teda pouzijeme prikaz: $ rsync -va dir* ubu2.lab:nas
  - aby netrebalo zadavat SSH heslo, moze nahrat verejny kluc PKI: $ ssh-copy-id userXYZ@ubu2.lab
