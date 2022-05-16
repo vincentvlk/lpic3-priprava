@@ -786,7 +786,7 @@ Vytvorime jednoduchy cvicny zdrojovy subor `pokus.java`:
 
 ### Praca s kontajnermi, zaklady prace s Docker-om:
 
-Instalacia najznamejsieho nastroja Docker nie je zlozita, ale ani trivialna, oficialny postup:
+Instalacia najznamejsieho nastroja Docker nie je zlozita, ale ani trivialna, jeden z postupov:
 
 `https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04`
 
@@ -804,28 +804,25 @@ Obsah suboru moze byt podla jednoducheho prikladu, kedy definujeme kontajner sys
 
 - po ulozeni suboru, mozeme zostavit image nasledovne: `$ docker build -t alpine_test1 .`
 
-Ako vypisat zakladne informacie o instalacii Docker a o systeme, na ktorom bezi: $ docker info
-Ako vypisat vytvorene Docker image: $ docker images
-Ako spustit kontajner (z image) a pripojit sa na jeho "konzolu": $ docker run -it alpine_test1
-Ako sledovat aktualnu alokaciu zdrojov: $ docker stats
+#### Zakladne prikazy pre nastroj Docker:
 
-Ako vypisat zoznam aktivnych kontajnerov: $ docker ps
-Ako vypisat aktivne aj neaktivne kontajnery: $ docker ps -a
-Ako vypisat posledny vytvoreny kontajner: $ docker ps -l
+Ako vypisat zakladne informacie o instalacii Docker a o systeme, na ktorom bezi: `$ docker info`
+Ako vypisat vytvorene Docker image: `$ docker images`
+Ako spustit kontajner (z image) a pripojit sa na jeho "konzolu": `$ docker run -it alpine_test1`
+Ako sledovat aktualnu alokaciu zdrojov: `$ docker stats`
+Ako vypisat zoznam aktivnych kontajnerov: `$ docker ps`
+Ako vypisat aktivne aj neaktivne kontajnery: `$ docker ps -a`
+Ako vypisat posledny vytvoreny kontajner: `$ docker ps -l`
+Ako zmazat neaktivny kontajner: `$ docker rm <ID/nazov>`
+Ako zmazat Docker image: `$ docker rmi <ID/nazov image>`
+Ako hladat image na Docker Hub-e: `$ docker search ubuntu`
+Ako stiahnut image z Docker Hub-u: `$ docker pull ubuntu`
+Ako zastavit kontajner: `$ docker stop <ID/nazov>`
+Ako spustit zastaveny kontajner: `$ docker start <ID/nazov>`
+Ako sa pripojit na "kozolu" kontajneru, ktory bezi: `$ docker attach <ID/nazov>`
+Ako sa odpojit od konzoly, v terminale za sebou skratky: `Ctrl+p` a `Ctrl+q`
 
-Ako zmazat neaktivny kontajner: $ docker rm <ID/nazov>
-Ako zmazat Docker image: $ docker rmi <ID/nazov image>
-
-Ako hladat image na Docker Hub-e: $ docker search ubuntu
-Ako stiahnut image z Docker Hub-u: $ docker pull ubuntu
-
-Ako zastavit kontajner: $ docker stop <ID/nazov>
-Ako spustit zastaveny kontajner: $ docker start <ID/nazov>
-Ako sa pripojit na "kozolu" kontajneru, ktory bezi: $ docker attach <ID/nazov>
-Ako sa odpojit od konzoly, v terminale za sebou skratky: "Ctrl+p a Ctrl+q"
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Praca s nastrojom Git a platformou GitHub:
+### Praca s nastrojom Git a platformou GitHub:
 
 Vytvorime adresar "git_ucenie", v ktorom inicializujeme *lokalny* Git repozitar: $ git init
  - aktualny stav repozitara overime s: $ git status
