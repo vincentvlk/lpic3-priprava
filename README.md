@@ -593,27 +593,25 @@ Dalsi priklad rozvijania specialnych znakov v BASHi:
  - prikaz: `$ echo "Nemam ziadnu * v mojich cestach: $PATH"`
  - porovnat s prikazom: `$ echo 'Nemam ziadnu * v mojich cestach: $PATH'`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Prikazovy interpret BASH ma specialne premenne pre argumenty, napr. skript "ashow.sh":
+#### Prikazovy interpret BASH ma specialne premenne pre argumenty, napr. skript `ashow.sh`:
 
-#!/usr/bin/env bash
-#
-# jednoduchy BASH skript demonstruje specialne premenne
-#
-echo Vypisujem prvy argument: $1
-echo Vypisujem druhy argument: $2
-echo Vypisujem treti argument: $3
-echo Vypisujem nazov skriptu: $0
-echo Vypisujem process ID skriptu: $$
-echo Vypisujem pocet odovzdanych argumentov: $#
-echo Vypisujem vsetky argumenty: $@
-#
-# koniec skriptu
-#
+    #!/usr/bin/env bash
+    #
+    # jednoduchy BASH skript demonstruje specialne premenne
+    #
+    echo Vypisujem prvy argument: $1
+    echo Vypisujem druhy argument: $2
+    echo Vypisujem treti argument: $3
+    echo Vypisujem nazov skriptu: $0
+    echo Vypisujem process ID skriptu: $$
+    echo Vypisujem pocet odovzdanych argumentov: $#
+    echo Vypisujem vsetky argumenty: $@
+    #
+    # koniec skriptu
+    #
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
- - ulozime do suboru "ashow.sh" a nastavime prava, napr.: $ chmod u+rx ashow.sh
- - nasledne mozeme skript spustit: $ ./ashow.sh raz dva tri
+ - ulozime do suboru `ashow.sh` a nastavime prava, napr.: `$ chmod u+rx ashow.sh`
+ - nasledne mozeme skript spustit: `$ ./ashow.sh raz dva tri`
 
 Presmerovanie diagnostickych vypisov/vystupov:
  - Chybovy vypis/vystup mozeme presmerovat do standardneho vypisu/vystupu s: 2>&1
