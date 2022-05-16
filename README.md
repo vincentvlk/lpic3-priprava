@@ -12,15 +12,15 @@ Security + Backups + Backups usability check + Documentation
 **+ zvazit nasadenie IPv6, ak je to mozne**
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Ako na linuxe vypnut PC-speaker: 
+- ako na Linuxe vypnut PC-speaker: 
 
-    $ sydo rmmod pcspkr
+    $ sudo rmmod pcspkr
 
 - dobra stranka na zaciatocnu konfiguraciu znamych distribucii:
 
-https://www.server-world.info/en/
+    https://www.server-world.info/en/
 
-- ^^^ nevedno do kedy bude online a chyba tam IPv6 :-(
+- ale nevedno do kedy bude online a chyba tam IPv6 :-(
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 - nastavenie siete v systeme Debian11:
