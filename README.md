@@ -14,17 +14,18 @@ MOJ skromny nazor na priority pri realizacii projektov na OS GNU/Linux:
 
 Zakladne tipy a triky:
 ----------------------
-**ako na Linuxe vypnut PC-speaker:**
+**Ako na Linuxe vypnut PC-speaker:**
 
     $ sudo rmmod pcspkr
 
-- dobra stranka na zaciatocnu konfiguraciu znamych distribucii:
+**Dobra stranka na zaciatocnu konfiguraciu znamych distribucii:**
 
     https://www.server-world.info/en/
+    
+    - ale nevedno do kedy bude online a chyba tam IPv6 :-(
 
-- ale nevedno do kedy bude online a chyba tam IPv6 :-(
+**Nastavenie siete v systeme Debian11:**
 
-- nastavenie siete v systeme Debian11:
   - editujeme konf. subor "/etc/network/interfaces"
   - a vlozime napr.:
 
