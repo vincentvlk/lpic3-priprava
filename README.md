@@ -10,7 +10,7 @@ MOJ skromny nazor na priority pri realizacii projektov na OS GNU/Linux:
     Bezpecnost + Zalohovanie + Kontrola pouzitelnosti zaloh + Dokumentacia
     Security + Backups + Backups usability check + Documentation
 
-    + zvazit nasadenie IPv6, ak je to mozne
+    + zvazit nasadenie IPv6, ak je to mozne (definitivne by malo byt)
 
 Zakladne tipy a triky:
 ----------------------
@@ -18,7 +18,7 @@ Zakladne tipy a triky:
 
     $ sudo rmmod pcspkr
 
-**Dobra stranka na zaciatocnu konfiguraciu znamych distribucii:**
+**Dobra stranka na zaciatocnu konfiguraciu znamych distribucii Linuxu:**
 
     https://www.server-world.info/en/
     
