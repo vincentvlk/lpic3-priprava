@@ -732,7 +732,7 @@ Tip: V definicii promptu, teda v premennej `$PS1` by sme sa mali vyhnut znakom: 
 
 ### Zaklady prace s vyvojarskymi nastrojmi:
 
-Jednoduchy priklad na kompilaciu zdrojoveho kodu v jazyku "C", vytvorime subor `pokus.c`:
+#### Jednoduchy priklad na kompilaciu zdrojoveho kodu v jazyku "C", vytvorime subor `pokus.c`:
 
     #include <stdio.h>
 
@@ -748,9 +748,10 @@ Jednoduchy priklad na kompilaciu zdrojoveho kodu v jazyku "C", vytvorime subor `
 
 Tip: Ako vypisat zdielane kniznice, ktore ma nalinkovane dany program: `$ sudo ldd /usr/bin/bash`
 
-Ako kompilovat zdrojove subory v kazyku "Java":
+#### Jednoduchy priklad ako kompilovat zdrojove subory v kazyku "Java":
 
 Je potrebne nainstalovat vyvojarske nastroje: `$ sudo apt install default-jdk-headless`
+
 Vytvorime jednoduchy cvicny zdrojovy subor `pokus.java`:
 
     class MyFirstProgram {
@@ -763,7 +764,7 @@ Vytvorime jednoduchy cvicny zdrojovy subor `pokus.java`:
  - program skompilujeme do tzv. "byte code" formatu s priponou `.class`: `$ javac pokus.java`
  - vznikne bytecode subor `MyFirstProgram.class`, ktory spustime prikazom: `$ java MyFirstProgram`
 
-Ako kompilovat a instalovat zdrojove baliky:
+#### Ako kompilovat a instalovat distribuovane  zdrojove baliky:
  - na test si vytvorime adresar `test_coreutils` prikazom: `$ mkdir test_coreutils`
  - do vytvoreneho adresara stiahneme zdrojovy balik:
    - prikaz: `$ wget https://ftp.gnu.org/gnu/coreutils/coreutils-9.0.tar.gz`
