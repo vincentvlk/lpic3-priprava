@@ -60,13 +60,13 @@ Potom do suboru `/etc/network/interfaces` pridat `IPv6` riadky napr.:
         gateway 2001:db8:cafe::1
         dns-nameservers 2001:148f:ffff::1 2001:148f:fffe::1
 
-###Nastavenie siete v systeme CentOS:###
+### Nastavenie siete v systeme CentOS:
 
 Pouzil som nejake hanbate GNOME GUI, neviem preco sa to hned neaplikovalo.
   - alternativne sa da pouzit nastroj `nmtui`, instalujeme: `$ sudo dnf -y in NetworkManager-tui`
   - nasledne uz len spustime: `$ sudo nmtui`
 
-###Nastavenie siete v systeme Fedora 35 Server:###
+### Nastavenie siete v systeme Fedora 35 Server:
 
 - pouzil som cli nastroj `nmcli` z balika `NetworkManager`
 
@@ -106,12 +106,12 @@ Nasledne overime config:
 
     $ sudo nmcli device show ens33
 
-###Poznamka: ak system nepreklada DNS zaznami, hlasi: "Temporary failure in name resolution"###
+### Poznamka: ak system nepreklada DNS zaznami, hlasi: "Temporary failure in name resolution"
  - treba skontrolovat syntax suboru `/etc/resolv.conf`
  - pripadne restartovat DNS resolver proces: `$ sudo systemctl restart systemd-resolved.service`
  - overime s: `$ sudo systemctl status systemd-resolved.service`
 
-###Ako v unix-like systemoch konvertovat video kodekom H.265:###
+### Ako v unix-like systemoch konvertovat video kodekom H.265:
 
 1. instalujeme `ffmpeg` (`apt install ffmpeg`, `dnf install ffmpeg`, `brew install ffmpeg` a pod.)
 
@@ -128,7 +128,7 @@ Nasledne overime config:
 
  `$ ffmpeg -i input.mp4 -vcodec libx265 -crf 28 output.mp4`
 
-**Ako konfigurovat siet v systeme Ubuntu 20.04**
+### Ako konfigurovat siet v systeme Ubuntu 20.04:
 
 Treba `presunut/zalohovat` povodny config file:
 
@@ -160,7 +160,7 @@ Alebo:
     $ sudo netplan apply
 
 Zaklady spravy diskov, particii a SWAPu:
--------------------------------
+----------------------------------------
 
 Prikaz vypise blokove zariadenia: `$ sudo lsblk`
 
