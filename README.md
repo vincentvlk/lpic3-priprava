@@ -4,7 +4,7 @@ Obsah:
 
 {toc}
 
-*MOJ skromny nazor, priority pri realizacii projektov na OS GNU/Linux:*
+*MOJ skromny nazor a priority pri realizacii projektov na OS GNU/Linux:*
 
 Bezpecnost + Zalohovanie + Kontrola pouzitelnosti zaloh + Dokumentacia
 Security + Backups + Backups usability check + Documentation
@@ -12,7 +12,9 @@ Security + Backups + Backups usability check + Documentation
 **+ zvazit nasadenie IPv6, ak je to mozne**
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Ako na linuxe vypnut PC-speaker: #rmmod pcspkr
+Ako na linuxe vypnut PC-speaker: 
+
+    $ sydo rmmod pcspkr
 
 - dobra stranka na zaciatocnu konfiguraciu znamych distribucii:
 
