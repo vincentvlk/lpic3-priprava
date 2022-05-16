@@ -460,12 +460,13 @@ Ako vypisat, ake parametre ma nastaveny kernel a system: `$ getconf -a`
 
 ### Praca so sietovymi nastrojmi (IPv4, IPv6, WiFi):
 
-Ako vypisat sietove rozhrania a ich parametre: $ ip address show
- - prikaz sa da skracovat napr.: $ ip a s
+Ako vypisat sietove rozhrania a ich parametre: `$ ip address show`
 
-Ako vypisat smerovaciu tabulku systemu: $ ip route show
- - podobne sa da skracovat: $ ip r s
- - smerovacuiu tab. pre IPv6 vypiseme s: $ ip -6 route show
+ - prikaz sa da skracovat napr.: `$ ip a s`
+
+Ako vypisat smerovaciu tabulku systemu: `$ ip route show`
+ - podobne sa da skracovat: `$ ip r s`
+ - smerovacuiu tab. pre IPv6 vypiseme s: `$ ip -6 route show`
 
 Ako vypisat, akym rozhranim bude smerovany paket s danou cielovou adresou: $ ip route get 9.9.9.9  
  - resp. pre IPv6: $ ip -6 route get 2620:fe::9 
