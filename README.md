@@ -675,46 +675,46 @@ Na transfer suborov pomocou programu `rsync`, musi byt program instalovany **na 
  - pre Debian based systemy `$ sudo apt install rsync`
  - alebo pre Fedora Server: `$ sudo dnf install rsync`
 
-Zakladne pouzitie, skopirujeme 3 sobory s diagnostikou: 
+Zakladne pouzitie, skopirujeme 3 subory s diagnostikou: 
  - prikaz napr.: `$ rsync -v ifPriklad.sh casePriklad.sh ashow.sh 192.168.1.245:`
 
 Ako kopirovat vsetky adresare `dirX` na stroj s DNS nazvom `ubu2.lab` do adresara `nas`:
- - parameter "-a" umoznuje skopirovat nastavenia suborovych prav, nastavenie UID bitov a pod.
- - teda pouzijeme prikaz: $ rsync -va dir* ubu2.lab:nas
- - aby netrebalo zadavat SSH heslo, moze nahrat verejny kluc PKI: $ ssh-copy-id userXYZ@ubu2.lab
- - ked chceme transfer/zalohu len otestovat, pouzijeme parameter "-n":
-   - prikaz: $ rsync -n -va dir* ubu2.lab:nas
+ - parameter `-a` umoznuje skopirovat nastavenia suborovych prav, nastavenie UID bitov a pod.
+ - teda pouzijeme prikaz: `$ rsync -va dir* ubu2.lab:nas`
+ - aby netrebalo zadavat SSH heslo, moze nahrat verejny kluc PKI: `$ ssh-copy-id userXYZ@ubu2.lab`
+ - ked chceme transfer/zalohu len otestovat, pouzijeme parameter `-n`:
+   - prikaz: `$ rsync -n -va dir* ubu2.lab:nas`
 
-POZOR, ked chceme v cieli vytvorit EXAKTNU kopiu lokalneho(ych) adresara(ov), ktora ZMAZE 
+**POZOR**, ked chceme v cieli vytvorit EXAKTNU kopiu lokalneho(ych) adresara(ov), ktora **ZMAZE**
 nove subory v cieli:
 
- - pouzijeme: $ rsync -va --delete dir* ubu2.lab:nas
- - diagnosticky parameter "-v" vypise, ktore subory v cieli boli vymazane
+ - pouzijeme: `$ rsync -va --delete dir* ubu2.lab:nas`
+ - diagnosticky parameter `-v` vypise, ktore subory v cieli boli vymazane
 
-Chceme kopirovat LEN obsah lokalneho adresara po sieti, dolezity znak "/":
- - prikaz: $ rsync -av dir1/ ubu2.lab:
+Chceme kopirovat **LEN** obsah lokalneho adresara po sieti, dolezity znak `/`:
+ - prikaz: `$ rsync -av dir1/ ubu2.lab:`
 Ked chceme vynechat subor, specifikujeme absolutnu cestu: 
- - prikaz: $ rsync -av --exclude=dir1/junk.txt dir1 ubu2.lab:
+ - prikaz: `$ rsync -av --exclude=dir1/junk.txt dir1 ubu2.lab:`
 
-Ked chceme prenos overit kontrolnym suctom, pouzijeme parameter "-c" alebo "--checksum"
-Pozriet v "$ man 1 rsync" dalsie parametre ohladom zalohovania: "-b" a "--suffix=.old" a "-u" 
+Ked chceme prenos overit kontrolnym suctom, pouzijeme parameter `-c` alebo `--checksum`
+Pozriet v `$ man 1 rsync` dalsie parametre ohladom zalohovania: `-b` a `--suffix=.old` a `-u` 
 
-Ako obmedzit BW, napr. na 50MBytes/s (cca 400Mbit/s):
- - prikaz:  rsync -a --bwlimit=50000 same_nuly.txt ubu2.lab: 
- - priklad ako vytvorit testovaci 1GiB subor: $ dd if=/dev/zero of=same_nuly.txt bs=1024 count=1M
+Ako obmedzit Bandwidth prenosu, napr. na **50MBytes/s** (cca 400Mbit/s):
+ - prikaz: `$ rsync -a --bwlimit=50000 same_nuly.txt ubu2.lab:`
+ - priklad ako vytvorit testovaci 1GiB subor: `$ dd if=/dev/zero of=same_nuly.txt bs=1024 count=1M`
   
-*Dalej pozriet dokumentaciu a manualy k projektu "Samba File/Printer Sharing"*
+**Dalej pozriet dokumentaciu a manualy k projektu "Samba File/Printer Sharing"**
 
-*Praca s SSHFS*
+#### Praca s projektom SSHFS:
 
-Ako si pripojit vzdialny adresar cez SSH, napr.: $ sshfs userABC@ubu2.lab:/mnt/lvnas1 sshnas.d/
+Ako si pripojit vzdialny adresar cez SSH, napr.: `$ sshfs userABC@ubu2.lab:/mnt/lvnas1 sshnas.d/`
  - kombinovatelne s PKI auth (prihlasovanie verejnym klucom)
- - ako vykonat u-mount pripojeneho disku: $ fusermount -u sshnas.d/
+ - ako vykonat u-mount pripojeneho disku: `$ fusermount -u sshnas.d/`
 
-*Praca s premennymi prostredia*
+### Praca s premennymi prostredia v interprete BASH
 
-Premenne prostredia pre interpret BASH su definovane v "skrytych" suboroch: ".bash_profile"
-alebo ".profile"
+Premenne prostredia pre interpret BASH su definovane v **skrytych** suboroch: `.bash_profile`
+alebo `.profile`
 
  - priklad na definiciu premennej shellu: $ TEST=123 
  - priklad na definiciu premennej prostredia: $ export TESTENV=567 
