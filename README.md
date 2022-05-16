@@ -1,4 +1,4 @@
-### Poznamky k priprave na skusku LPIC3-304-200 - High Availability and Virtualization
+Poznamky k priprave na skusku LPIC3-304-200 - High Availability and Virtualization
 ======================================================================================
 Obsah:
 
