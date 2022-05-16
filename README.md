@@ -201,18 +201,20 @@ Prikaz vytvori VG s nazvom `vg-nas` a pouzije prve PV (particiu): `# vgcreate vg
 
 Prikaz vytvori LV particiu `lvnas1` z danej VG `vg-nas`: 
  
- - zadame napr.: `$ sudo lvcreate --size 15g --type linear -n lvnas1 vg-nas`
+    $ sudo lvcreate --size 15g --type linear -n lvnas1 vg-nas
 
-Prikaz naformatuje LV particu na Ext4-FS: $ sudo mkfs.ext4 /dev/mapper/vg--nas-lvnas1
+Prikaz naformatuje LV particiu na Ext4-FS: `$ sudo mkfs.ext4 /dev/mapper/vg--nas-lvnas1`
 
-Prikaz rucne namountuje LV "lvnas1" do adresara "/mnt/lvnas1":
- - zadame napr. $ sudo mount /dev/mapper/vg--nas-lvnas1 lvnas1
+Prikaz rucne namountuje LV `lvnas1` do adresara `/mnt/lvnas1`:
 
-Nasledne upravou suboru "/etc/fstab" pridame riadok, ktory zabezpeci mount po boot-e: 
-- pomoze prikaz "blkid"
+    $ sudo mount /dev/mapper/vg--nas-lvnas1 lvnas1
 
-/dev/disk/by-uuid/20067ff2-0599-4fd3-9cfc-dbbd6aa07aec /mnt/lvnas1 ext4 defaults 0 1
-/dev/disk/by-uuid/4c1d7f90-0dcb-4ed1-acce-0062c2c8c186 /mnt/lvnas2 ext4 defaults 0 1
+Nasledne upravou suboru `/etc/fstab` pridame riadok, ktory zabezpeci mount po reboot-e:
+ 
+- pomoze prikaz `$ sudo blkid`
+
+    /dev/disk/by-uuid/20067ff2-0599-4fd3-9cfc-dbbd6aa07aec /mnt/lvnas1 ext4 defaults 0 1
+    /dev/disk/by-uuid/4c1d7f90-0dcb-4ed1-acce-0062c2c8c186 /mnt/lvnas2 ext4 defaults 0 1
 
 Potom si uz napr. v $HOME mozeme vytvorit link na svoju NAS particiu: $ ln -s /mnt/lvnas1 nas
 
