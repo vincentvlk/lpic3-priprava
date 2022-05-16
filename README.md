@@ -266,7 +266,7 @@ Ako restartovat nejaky proces: `# systemctl restart sshd.service`
 
 Ako vypisat vsetky systemd unit-y, ktore su nacitane v RAM: `$ sudo systemctl list-units`
 
- - ako vypisat vsetky unit-y, ktore su nacitane ale neaktivne: `$ sudo systemctl list-units --all`
+ - ako vypisat vsetky unit-y, ktore su nacitane aj neaktivne: `$ sudo systemctl list-units --all`
 
 Ako vypisat vsetky unit subory pre systemd: `$ sudo systemctl list-unit-files --all`
 
@@ -275,8 +275,9 @@ Ako vyipsat, na com zavisi dany proces a co vyzaduje:
     $ sudo systemctl show -p Requires sshd.service
     $ sudo systemctl show -p Wants sshd.service
 
-Nastroj na spustanie viacerych programov/skriptov v jednom adresary: run-parts(8)
- - v suvislosti so starsim init-om podla "System V Init"
+Nastroj na spustanie viacerych programov/skriptov v jednom adresary: `run-parts(8)`
+ 
+- v suvislosti so starsim init-om podla `System V Init`
 
 Ako zistit v akom run-level-y bezi system: $ who -r
 
