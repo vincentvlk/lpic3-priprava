@@ -782,7 +782,7 @@ Vytvorime jednoduchy cvicny zdrojovy subor `pokus.java`:
  - na Debian-based distr. je nastroj na nastavenie parametrov `.deb` balickov `checkinstall`:
    - prikaz: `$ sudo apt install checkinstall`
  - **POZOR** na testovacej instalacii sa da spustit tvorba balicka: `$ sudo checkinstall make install`
- - ^^^ uvedenym prikazom sa da rozbit system, tak si treba na test VM spravit snapshot / backup
+ - hore uvedenym prikazom sa da rozbit system, tak si treba na test VM spravit **snapshot/backup**
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Praca s kontajnermi, zaklady Docker-u
