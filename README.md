@@ -9,7 +9,7 @@ Obsah:
 Bezpecnost + Zalohovanie + Kontrola pouzitelnosti zaloh + Dokumentacia
 Security + Backups + Backups usability check + Documentation
 
-+ zvazit nasadenie IPv6, ak je to mozne
+**+ zvazit nasadenie IPv6, ak je to mozne**
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako na linuxe vypnut PC-speaker: #rmmod pcspkr
