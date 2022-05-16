@@ -582,12 +582,12 @@ Ako zabezpecit, aby sa skript spustal aj na inych systemoch (portability):
  - nevyhoda je, ze skript je spustany s prvym najdenym interpretom (BASH, Python, etc.)
 
 V BASHi sa rozlisuje `"Quoting"` alebo `'Literals'`:
- - teda je rozdiel v prikaze: $ echo "$100" ... a v prikaze: $ echo '$100'
- - treba si vsak davat pozor na pouzitie s inymi programami, napr.: $ grep 'r.*t' /etc/passwd
-   - napr. uvedeny prikaz dava neocakavany vysledok: $ grep 'r.*t /etc/passwd'
+ - teda je rozdiel v prikaze: `$ echo "$100"` a v prikaze: `$ echo '$100'`
+ - treba si vsak davat pozor na pouzitie s inymi programami, napr.: `$ grep 'r.*t' /etc/passwd`
+   - napr. uvedeny prikaz dava neocakavany vysledok: `$ grep 'r.*t /etc/passwd'`
  - avsak pre porovnanie tieto dva prikazy:
-   - prikaz 1: $ echo "I don't like unexpected bahavior in /etc/ directory." 
-   - prikaz 2: $ echo 'I don't like unexpected bahavior in /etc/ directory.'
+   - prikaz 1: `$ echo "I don't like unexpected bahavior in /etc/ directory."`
+   - prikaz 2: `$ echo 'I don't like unexpected bahavior in /etc/ directory.'`
 
 Dalsi priklad rozvijania specialnych znakov v BASHi: 
  - prikaz: $ echo "Nemam ziadnu * v mojich cestach: $PATH"
