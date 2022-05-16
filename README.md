@@ -129,11 +129,11 @@ Nasledne overime config:
  `$ ffmpeg -i input.mp4 -vcodec libx265 -crf 28 output.mp4`
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Ako v Ubuntu 20.04 konfigurovat siet:
+**Ako konfigurovat siet v systeme Ubuntu 20.04**
 
-- treba "presunut/zalohovat" povodny config file:
+- treba `presunut/zalohovat` povodny config file:
 
-$ sudo mv /etc/netplan/00-installer-config.yaml /etc/netplan/00-installer-config.yaml.disabled
+    $ sudo mv /etc/netplan/00-installer-config.yaml /etc/netplan/00-installer-config.yaml.disabled
 
 - dalej vytvorime novy config file:
 
