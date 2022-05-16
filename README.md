@@ -128,7 +128,6 @@ Nasledne overime config:
 
  `$ ffmpeg -i input.mp4 -vcodec libx265 -crf 28 output.mp4`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 **Ako konfigurovat siet v systeme Ubuntu 20.04**
 
 Treba `presunut/zalohovat` povodny config file:
@@ -152,13 +151,13 @@ Nasledne pridame riadky napr.:
         dhcp6: yes
     version: 2
 
-- ulozit subor a potom zadat (prikaz vykona aj syntax check):
+Ulozit subor a potom zadat (prikaz vykona aj syntax check):
 
-$ sudo netplan try
+    $ sudo netplan try
 
-- alebo:
+Alebo:
 
-$ sudo netplan apply
+    $ sudo netplan apply
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Sprava diskov, particii, SWAPu:
