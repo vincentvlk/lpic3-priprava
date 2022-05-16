@@ -159,7 +159,7 @@ Alebo:
 
     $ sudo netplan apply
 
-Zaklady spravy diskov, particii a SWAPu:
+Zaklady spravy diskov, particii a SWAP pristoru:
 ----------------------------------------
 
 Prikaz vypise blokove zariadenia: `$ sudo lsblk`
