@@ -334,7 +334,7 @@ Ako ulozit urcite logy v text formate: `$ journalctl -u ssh -o old > sshd.log`
 
  - ako ulozit rovnaky log napr. vo formate "json": `$ journalctl -u ssh -o json > sshd.log.json`
 
-### Praca s zivatelskymi uctami:
+### Tipy k praci s zivatelskymi uctami:
 
 Ako zmenit default shell uzivatela: `$ chsh vlkv -s /bin/bash`
 
@@ -342,32 +342,27 @@ Ako zmenit default shell uzivatela: `$ chsh vlkv -s /bin/bash`
 
 Ako zistit s akymi argumentami je spusteny program/daemon: `$ ps aux | grep getty`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Ako zabezpecit, aby sa na Ubuntu 20.04 systemovy log neplnil hlaskami:
+### Ako zabezpecit, aby sa v systeme Ubuntu 20.04 neplnil systemovy log spravami:
 	
- Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: add missing path
- Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: failed to get udev uid: Invalid argument
- Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: failed to get sysfs uid: Invalid argument
- Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: failed to get sgio uid: No such file or directory
+    Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: add missing path
+    Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: failed to get udev uid: Invalid argument
+    Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: failed to get sysfs uid: Invalid argument
+    Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: failed to get sgio uid: No such file or directory
 
-- obsah suboru sa moze prepisat nasledovne:
+- upravime obsah suboru `/etc/multipath.conf` nasledovne:
 
-$ sudo vim /etc/multipath.conf
+Vlozime riadky: 
 
-tam vlozit: 
+    defaults {
+        user_friendly_names yes
+    }
+    blacklist {
+        devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st|sda)[0-9]*"
+    }
 
-defaults {
-    user_friendly_names yes
-}
-blacklist {
-    devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st|sda)[0-9]*"
-}
-
-Po ulozeni, treba restartovat proces multipathd:
-
-$ sudo systemctl restart multipathd.service
+Po ulozeni, treba restartovat proces multipathd: `$ sudo systemctl restart multipathd.service`
  
-- dodatocne mozeme skontrolovat stav procesu: $ systemctl status multipathd.service
+- dodatocne mozeme skontrolovat stav procesu: `$ systemctl status multipathd.service`
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Cron a planovanie v kratkosti:
