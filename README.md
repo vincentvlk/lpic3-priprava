@@ -60,12 +60,11 @@ Potom do suboru `/etc/network/interfaces` pridat `IPv6` riadky napr.:
         gateway 2001:db8:cafe::1
         dns-nameservers 2001:148f:ffff::1 2001:148f:fffe::1
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Nastavenie siete v systeme CentOS:
+**Nastavenie siete v systeme CentOS:**
 
-  - pouzil som nejake hanbate GNOME GUI, neviem preco sa to hned neaplikovalo
-  - alternativne sa da pouzit nastroj "nmtui", instalujeme: $ sudo dnf -y in NetworkManager-tui
-    - nasledne uz len spustime: $ sudo nmtui
+Pouzil som nejake hanbate GNOME GUI, neviem preco sa to hned neaplikovalo
+  - alternativne sa da pouzit nastroj `nmtui`, instalujeme: `$ sudo dnf -y in NetworkManager-tui`
+   - nasledne uz len spustime: `$ sudo nmtui`
 
 - nastavenie siete na Fedora 35 Server:
   - pouzil som cli nastroj "nmcli" z balika "NetworkManager"
