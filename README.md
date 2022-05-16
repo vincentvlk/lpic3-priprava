@@ -42,7 +42,7 @@ Editujeme konf. subor: `/etc/network/interfaces`, nasledne vlozime napr.:
 
 Po uprave aplikujeme config: `$ sudo systemctl restart ifup@ens33`
 
-**Dodatok k nastaveniu statickej IPv6 adrese:**
+**Dodatok k nastaveniu statickej IPv6 adrese v systeme Debian11:**
 
 Bolo potrebne do suboru `/etc/sysctl.conf` vlozit riadky:
 
@@ -66,7 +66,7 @@ Pouzil som nejake hanbate GNOME GUI, neviem preco sa to hned neaplikovalo.
   - alternativne sa da pouzit nastroj `nmtui`, instalujeme: `$ sudo dnf -y in NetworkManager-tui`
   - nasledne uz len spustime: `$ sudo nmtui`
 
-**Nastavenie siete na Fedora 35 Server:**
+**Nastavenie siete v systeme Fedora 35 Server:**
 
 - pouzil som cli nastroj `nmcli` z balika `NetworkManager`
 
