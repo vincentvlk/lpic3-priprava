@@ -698,6 +698,7 @@ Ked chceme vynechat subor, specifikujeme absolutnu cestu:
  - prikaz: `$ rsync -av --exclude=dir1/junk.txt dir1 ubu2.lab:`
 
 Ked chceme prenos overit kontrolnym suctom, pouzijeme parameter `-c` alebo `--checksum`
+
 Pozriet v `$ man 1 rsync` dalsie parametre ohladom zalohovania: `-b` a `--suffix=.old` a `-u` 
 
 Ako obmedzit Bandwidth prenosu, napr. na **50MBytes/s** (cca 400Mbit/s):
