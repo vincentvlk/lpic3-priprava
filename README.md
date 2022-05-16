@@ -1,5 +1,5 @@
 Poznamky na skusku LPIC3-304-200 - Virtualization & High Availability
-=====================================================================
+-----------
 ### Obsah:
 
 {toc}
