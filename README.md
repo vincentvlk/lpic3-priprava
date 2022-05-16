@@ -230,21 +230,18 @@ Tip: ako zmenit vlastnikov na adresary alebo subore: `# chown -R root:vgnas /mnt
 
 Tip: ako nastavit prava na subore alebo adresary: `# chmod g+w /mnt/lvnas1`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Tip: Ako vypisat parametre kernelu, s ktorymi nabootoval: `$ cat /proc/cmdline`
+
+Tip: Ako zistit ake KILL signaly system podporuje: `$ kill -l`
+
+Tip> Nastroj na kontrolu syntaxe BASH skriptov: `shellcheck`
 
 ### Zakladna praca s inode-ami:
 
 Prikaz vypise prava a inode informacie o subore: `$ stat subor.xyz`
 Da sa pouzit aj prikaz: `$ ls -li`
 
-Ako vypisat parametre kernelu, s ktorymi nabootoval: $ cat /proc/cmdline
-
-Ako zistit ake KILL signaly system podporuje: $ kill -l
-
-Dobry nastroj na kontrolu syntaxe BASH skriptov: shellcheck
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Praca s GRUB2:
+### Zakladna praca s boot-loaderom GRUB2:
 
 Ulahcene konfiguracne moznosti su v subore: /etc/default/grub
 - da sa precitat manual pre vsetky moznosti: $ info -f grub -n 'Simple configuration' 
