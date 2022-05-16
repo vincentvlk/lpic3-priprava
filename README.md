@@ -159,7 +159,7 @@ Alebo:
 
     $ sudo netplan apply
 
-Zaklady spravy diskov, particii a SWAP pristoru:
+Zaklady spravy diskov, particii a SWAP priestoru:
 ----------------------------------------
 
 Prikaz vypise blokove zariadenia: `$ sudo lsblk`
@@ -178,9 +178,9 @@ Ako vytvorit Swap subor, nie particiu:
     $ sudo swapon swap_file
     $ sudo swapoff swap_file	<< pozor treba mat nahradnu Swap kapacitu
  
-V kontexte Swap-u existuje v kerneli tzv. OOM-killer, ktory pri nedostatku pamate zabija procesy
+V kontexte Swap-u existuje v kerneli tzv. `OOM Killer`, ktory pri nedostatku pamate zabija procesy.
 
-**Praca s LVM, aktualna verzia je LVM2**
+### Praca s LVM, aktualna verzia je LVM2
 
 Prikaz na interaktivne CLI: `$ sudo lvm`
 
