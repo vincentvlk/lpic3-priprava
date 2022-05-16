@@ -80,31 +80,31 @@ Vypiseme sietove zariadenia:
 
 Nastavime IPv4 adresu:
 
-$ sudo nmcli connection modify ens33 ipv4.addresses 10.0.0.30/24
+    $ sudo nmcli connection modify ens33 ipv4.addresses 10.0.0.30/24
 
-- nastavime IPv4 predvolenu branu:
+Nastavime IPv4 predvolenu branu:
 
-$ sudo nmcli connection modify ens33 ipv4.gateway 10.0.0.1
+    $ sudo nmcli connection modify ens33 ipv4.gateway 10.0.0.1
 
-- nastavime IPv4 adresu DNS serverov:
+Nastavime IPv4 adresu DNS serverov:
 
-$ sudo nmcli connection modify ens33 ipv4.dns "193.17.47.1 185.43.135.1
+    $ sudo nmcli connection modify ens33 ipv4.dns "193.17.47.1 185.43.135.1
 
-- nastavime prehladavanie domeny, aby sme nemuseli zadavat cele FQDN:
+Nastavime prehladavanie domeny, aby sme nemuseli zadavat cele FQDN:
 
-$ sudo nmcli connection modify ens33 ipv4.dns-search example.com
+    $ sudo nmcli connection modify ens33 ipv4.dns-search example.com
 
-- nastavime manualnu staticku konfiguraciu rozhrania "ens33"
+Nastavime manualnu staticku konfiguraciu rozhrania "ens33"
 
-# sudo nmcli connection modify ens33 ipv4.method manual
+    $ sudo nmcli connection modify ens33 ipv4.method manual
 
-- "restartujeme" konfiguraciu rozhrania "ens33"
+Dalej "restartujeme" konfiguraciu rozhrania "ens33"
 
-$ sudo nmcli connection down ens33; nmcli connection up ens33 
+    $ sudo nmcli connection down ens33; nmcli connection up ens33 
 
-- nasledne overime config:
+Nasledne overime config:
 
-$ sudo nmcli device show ens33
+    $ sudo nmcli device show ens33
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Poznamka: ak system nepreklada DNS zaznami, hlasi: "Temporary failure in name resolution"
