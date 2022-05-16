@@ -27,7 +27,7 @@ Zakladne tipy a triky:
 **Nastavenie siete v systeme Debian11:**
 
 - editujeme konf. subor: `/etc/network/interfaces`
-- a vlozime napr.:
+  - nasledne vlozime napr.:
 
     auto lo
     iface lo inet loopback
