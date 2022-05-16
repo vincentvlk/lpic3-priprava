@@ -288,17 +288,19 @@ Tip: Ako prepnut `run-level` do `single-user` modu: `$ sudo telinit -s`
 Tip: Ako restartovat system: `$ sudo shutdown -r now`
  - pripadne za 10 min.: `$ sudo shutdown -r +10`
 
-Tip: Ako "zapnut", aby do systemu mohol prihlasit len superuser, vytvorime subor: `/etc/nologin`
+Tip: Ako "zapnut", aby sa do systemu mohol prihlasit len superuser, vytvorime subor: `/etc/nologin`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Logovanie a diasgnostika user-space nastrojov:
+### Logovanie a diasgnostika user-space nastrojov:
 
-Ako vypisat od zaciatku log z bootovania: $ journalctl -b
- - pripadne v od konca do zaciatku: $ journalctl -b -r
- - pripadne vypisanie logu z predoslych bootov: $ journalctl -b -1
- - overenie, ze dany shutdown/reboot bol cisty: $ journalctl -r -b -1
+Ako vypisat od zaciatku log z bootovania: `$ journalctl -b`
 
-Ako vypisat vsetky ID jednotlivych boot-ov: $ journalctl --list-boots
+ - pripadne v od konca do zaciatku: `$ journalctl -b -r`
+
+ - pripadne vypisanie logu z predoslych bootov: `$ journalctl -b -1`
+
+ - overenie, ze dany shutdown/reboot bol cisty: `$ journalctl -r -b -1`
+
+Ako vypisat vsetky ID jednotlivych boot-ov: `$ journalctl --list-boots`
 
 Alternativy pre logovanie v Linuxe: syslog-ng (/etc/syslog-ng) a rsyslogd /etc/rsyslog.cfg)
   
