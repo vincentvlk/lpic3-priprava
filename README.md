@@ -11,7 +11,8 @@ Security + Backups + Backups usability check + Documentation
 
 **+ zvazit nasadenie IPv6, ak je to mozne**
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Zakladne tipy a triky:
+----------------------
 - ako na Linuxe vypnut PC-speaker: 
 
     $ sudo rmmod pcspkr
