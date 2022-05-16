@@ -26,22 +26,22 @@ Zakladne tipy a triky:
 
 **Nastavenie siete v systeme Debian11:**
 
-  - editujeme konf. subor `/etc/network/interfaces`
-  - a vlozime napr.:
+- editujeme konf. subor: `/etc/network/interfaces`
+- a vlozime napr.:
 
-auto lo
-iface lo inet loopback
+    auto lo
+    iface lo inet loopback
 
-allow-hotplug ens33
-iface ens33 inet static
-address 192.168.1.242
-network 192.168.1.0
-netmask 255.255.255.0
-broadcast 192.168.1.255
-gateway 192.168.1.1
-dns-nameservers 193.17.47.1 185.43.135.1
+    allow-hotplug ens33
+    iface ens33 inet static
+    address 192.168.1.242
+    network 192.168.1.0
+    netmask 255.255.255.0
+    broadcast 192.168.1.255
+    gateway 192.168.1.1
+    dns-nameservers 193.17.47.1 185.43.135.1
 
- - nasledne aplikujeme config:
+- nasledne aplikujeme config:
 
 $ sudo systemctl restart ifup@ens33 
 
