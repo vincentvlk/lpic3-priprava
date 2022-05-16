@@ -111,7 +111,7 @@ Nasledne overime config:
  - pripadne restartovat DNS resolver proces: `$ sudo systemctl restart systemd-resolved.service`
  - overime s: `$ sudo systemctl status systemd-resolved.service`
 
-**Ako  v unix-like systemoch konvertovat video:**
+**Ako  v unix-like systemoch konvertovat video kodekom H.265:**
 
 1. nainstalujeme `ffmpeg` (apt install ffmpeg, yum install ffmpeg, brew install ffmpeg a pod.)
 
