@@ -374,17 +374,21 @@ Ako vytvorit cron job, aby sa vystup aj error presmerovali do `/dev/null`, vytvo
 
     `10 5 * * * /usr/bin/xyz > /dev/null 2>&1`
 
-Ako spustit jednorazovo nejaky prikaz: $ at 15:00
-- nasledne do promptu zadame prikaz, ukoncime s Ctrl-d
-- naplanovane ulohy si mozeme vypisat s: $ atq
-- tretiu ulohu mozeme vymazat s: $ atrm 3
+Ako spustit jednorazovo nejaky prikaz: `$ at 15:00`
+
+- nasledne do promptu zadame prikaz, ukoncime s `Ctrl-d`
+
+- naplanovane ulohy si mozeme vypisat s: `$ atq`
+
+- tretiu ulohu mozeme vymazat s: `$ atrm 3`
 
 Ako zadat ulohu pre systemd:
 
-- zadame: $ systemd-run --on-calendar='2022-01-12 16:00' /bin/echo testovacie-echo
-  - tieto docasne (transient) unit-y mozeme vypisat s: $ systemctl list-units | grep timer 
+- zadame: `$ systemd-run --on-calendar='2022-01-12 16:00' /bin/echo testovacie-echo`
 
-Ako vypisat cron ulohy pre daneho uzivatela: $ crontab -l
+  - tieto docasne (transient) unit-y mozeme vypisat s: `$ systemctl list-units | grep timer`
+
+Ako vypisat cron ulohy pre daneho uzivatela: `$ crontab -l`
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Praca s monitorovanim procesov:
