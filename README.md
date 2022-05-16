@@ -515,17 +515,17 @@ Ako vypisat pravidla firewallu IPtables: `$ sudo iptables -L`
 Ako si vytvorime pravidla firewallu, vytvorime subor `/etc/network/iptables.up.rules`
  - do suboru mozeme pisat riadky napr.:
 
-`*filter
+    *filter
 
-:INPUT ACCEPT [8:631]
+    :INPUT ACCEPT [8:631]
 
-:FORWARD DROP [0:0]
+    :FORWARD DROP [0:0]
 
-:OUTPUT ACCEPT [5:576]
+    :OUTPUT ACCEPT [5:576]
 
--A INPUT -s 192.168.1.242/32 -j DROP
+    -A INPUT -s 192.168.1.242/32 -j DROP
 
-COMMIT`
+    COMMIT
 
 Aplikujeme zmeny tak, ze ak sa "odrezeme", konf. sa obnovi po 20 sek: `$ sudo iptables-apply -t 20`
 
