@@ -342,7 +342,7 @@ Ako zmenit default shell uzivatela: `$ chsh vlkv -s /bin/bash`
 
 Ako zistit s akymi argumentami je spusteny program/daemon: `$ ps aux | grep getty`
 
-### Ako zabezpecit, aby sa system Ubuntu 20.04 neplnil systemovy log spravami `multipathd`:
+### Ako zabezpecit, aby sa system Ubuntu 20.04 neplnil log spravami `multipathd`:
 	
     Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: add missing path
     Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: failed to get udev uid: Invalid argument
