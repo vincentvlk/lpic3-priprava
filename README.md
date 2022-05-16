@@ -159,12 +159,12 @@ Alebo:
 
     $ sudo netplan apply
 
-Sprava diskov, particii, SWAPu:
+Zaklady spravy diskov, particii a SWAPu:
 -------------------------------
 
-Prikaz vypise blokove zariadenia: $ sudo lsblk
-Prikaz vypise UUID aktivnych particii: $ sudo blkid
-Prikaz vytvori Ext4 particiu: $ sudo mkfs.ext4 /dev/sdb1
+Prikaz vypise blokove zariadenia: `$ sudo lsblk`
+Prikaz vypise UUID aktivnych particii: `$ sudo blkid`
+Prikaz vytvori Ext4 particiu: `$ sudo mkfs.ext4 /dev/sdb1`
 
 Ako vytvorit Swap subor, nie particiu: 
 
