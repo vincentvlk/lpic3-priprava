@@ -62,13 +62,13 @@ Potom do suboru `/etc/network/interfaces` pridat `IPv6` riadky napr.:
 
 **Nastavenie siete v systeme CentOS:**
 
-Pouzil som nejake hanbate GNOME GUI, neviem preco sa to hned neaplikovalo
+Pouzil som nejake hanbate GNOME GUI, neviem preco sa to hned neaplikovalo.
   - alternativne sa da pouzit nastroj `nmtui`, instalujeme: `$ sudo dnf -y in NetworkManager-tui`
-   - nasledne uz len spustime: `$ sudo nmtui`
+  - nasledne uz len spustime: `$ sudo nmtui`
 
-- nastavenie siete na Fedora 35 Server:
-  - pouzil som cli nastroj "nmcli" z balika "NetworkManager"
-  - syntax napr. takto:
+**Nastavenie siete na Fedora 35 Server:**
+
+- pouzil som cli nastroj `nmcli` z balika `NetworkManager`
 
 - nastavime hostname napr.:
 
