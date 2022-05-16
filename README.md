@@ -88,7 +88,7 @@ Nastavime IPv4 predvolenu branu:
 
 Nastavime IPv4 adresu DNS serverov:
 
-    $ sudo nmcli connection modify ens33 ipv4.dns "193.17.47.1 185.43.135.1
+    $ sudo nmcli connection modify ens33 ipv4.dns "193.17.47.1 185.43.135.1"
 
 Nastavime prehladavanie domeny, aby sme nemuseli zadavat cele FQDN:
 
@@ -113,7 +113,7 @@ Nasledne overime config:
 
 **Ako  v unix-like systemoch konvertovat video kodekom H.265:**
 
-1. nainstalujeme `ffmpeg` (apt install ffmpeg, yum install ffmpeg, brew install ffmpeg a pod.)
+1. instalujeme `ffmpeg` (`apt install ffmpeg`, `dnf install ffmpeg`, `brew install ffmpeg` a pod.)
 
 2. podla tohto popisu dame konvertovat:
 
