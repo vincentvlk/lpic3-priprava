@@ -834,7 +834,7 @@ Ako spustit zastaveny kontajner: `$ docker start <ID/nazov>`
 
 Ako sa pripojit na "kozolu" kontajneru, ktory bezi: `$ docker attach <ID/nazov>`
 
-Ako sa odpojit od konzoly, v terminale za sebou skratky: `Ctrl+p` a `Ctrl+q`
+Ako sa odpojit od konzoly kont., v terminale za sebou stlacime skratky: `Ctrl+p` a `Ctrl+q`
 
 ### Praca s nastrojom Git a platformou GitHub:
 
