@@ -105,8 +105,10 @@ Dalej "restartujeme" konfiguraciu rozhrania "ens33"
 Nasledne overime config:
 
     $ sudo nmcli device show ens33
+
 * * *
-Poznamka: ak system nepreklada DNS zaznami, hlasi: "Temporary failure in name resolution"
+
+**Poznamka: ak system nepreklada DNS zaznami, hlasi: "Temporary failure in name resolution"**
  - treba skontrolovat syntax suboru "/etc/resolv.conf"
  - pripadne restartovat DNS resolver proces: $ sudo systemctl restart systemd-resolved.service
  - overime s: $ sudo systemctl status systemd-resolved.service 
