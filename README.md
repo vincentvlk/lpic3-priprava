@@ -197,11 +197,11 @@ Na pracu s LVM vytvorime jednu alebo viac PV particii na realnych diskoch s
 nastrojmi `cfdisk`, `fdisk`, `parted` a nasledne `mkfs.XYZ`: 
 
 Prikaz vytvori VG s nazvom `vg-nas` a pouzije prve PV (particiu): `# vgcreate vg-nas /dev/sdb1`
- - nasledne rozsirime tuto VG (pool) o dalsiu PV particiu: $ sudo vgextend vg-nas /dev/sdc1
+ - nasledne rozsirime tuto VG (pool) o dalsiu PV particiu: `$ sudo vgextend vg-nas /dev/sdc1`
 
-Prikaz vytvori LV particiu "lvnas1" z danej VG "vg-nas": 
+Prikaz vytvori LV particiu `lvnas1` z danej VG `vg-nas`: 
  
- - zadame napr.: $ sudo lvcreate --size 15g --type linear -n lvnas1 vg-nas 
+ - zadame napr.: `$ sudo lvcreate --size 15g --type linear -n lvnas1 vg-nas`
 
 Prikaz naformatuje LV particu na Ext4-FS: $ sudo mkfs.ext4 /dev/mapper/vg--nas-lvnas1
 
