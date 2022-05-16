@@ -42,13 +42,14 @@ Editujeme konf. subor: `/etc/network/interfaces`, nasledne vlozime napr.:
 
 Po uprave aplikujeme config: `$ sudo systemctl restart ifup@ens33`
 
-Dodatok k nastaveniu statickej IPv6 addr.:
- - bolo potrebne do suboru "/etc/sysctl.conf" vlozit riadky:
+**Dodatok k nastaveniu statickej IPv6 adrese:**
 
-net.ipv6.conf.ens37.autoconf = 0
-net.ipv6.conf.ens37.accept_ra = 0
+Bolo potrebne do suboru `/etc/sysctl.conf` vlozit riadky:
 
- - ulozit, nasledne treba reboot alebo prikaz: $ sudo sysctl -p
+    net.ipv6.conf.ens37.autoconf = 0
+    net.ipv6.conf.ens37.accept_ra = 0
+
+Nasledne ulozit a reboot alebo prikaz: $ sudo sysctl -p
 
 Nasledne do suboru /etc/network/interfaces pridat riadky napr.:
 
