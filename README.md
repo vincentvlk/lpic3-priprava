@@ -590,8 +590,8 @@ V BASHi sa rozlisuje `"Quoting"` alebo `'Literals'`:
    - prikaz 2: `$ echo 'I don't like unexpected bahavior in /etc/ directory.'`
 
 Dalsi priklad rozvijania specialnych znakov v BASHi: 
- - prikaz: $ echo "Nemam ziadnu * v mojich cestach: $PATH"
- - porovnat s prikazom: $ echo 'Nemam ziadnu * v mojich cestach: $PATH'
+ - prikaz: `$ echo "Nemam ziadnu * v mojich cestach: $PATH"`
+ - porovnat s prikazom: `$ echo 'Nemam ziadnu * v mojich cestach: $PATH'`
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Prikazovy interpret BASH ma specialne premenne pre argumenty, napr. skript "ashow.sh":
