@@ -390,7 +390,7 @@ Ako zadat ulohu pre systemd:
 
 Ako vypisat cron ulohy pre daneho uzivatela: `$ crontab -l`
 
-### Praca s monitorovanim procesov:
+### Praca s monitorovanim procesov/programov:
 
 Ako ovladat program `top`:
 
@@ -458,7 +458,7 @@ Ako vypisat stav operacnej pamate: `$ free -m`
 
 Ako vypisat, ake parametre ma nastaveny kernel a system: `$ getconf -a`
 
-### Praca so sietovymi nastrojmi (IPv4, IPv6, WiFi):
+### Praca so sietovymi nastrojmi (IPv4, IPv6, DNS):
 
 Ako vypisat sietove rozhrania a ich parametre: `$ ip address show`
  - prikaz sa da skracovat napr.: `$ ip a s`
@@ -495,44 +495,43 @@ Ako overit, ze na DNS preklady sa pouziva Cache: `$ nslookup -debug quad9.net`
  - alebo pouzijeme novsi nastroj `dig` napr.: `$ dig +trace quad9.net`
    - alebo napr.: `$ dig +trace quad9.net | grep bytes`
 
-Ako overit nastavenia DNS v systeme: $ resolvectl status
+Ako overit nastavenia DNS v systeme: `$ resolvectl status`
 
-Ako vypisat vsetky sietove sockety v systeme: # netstat -tunap
+Ako vypisat vsetky sietove sockety v systeme: `$ sudo netstat -tunap`
 
-Cisla TCP/UDP portov sa daju zistit z referencneho .txt suboru "/etc/services"
+Cisla TCP/UDP portov sa daju zistit z referencneho .txt suboru `/etc/services`
 
-Ako rucne spustit DHCP klienta: $ sudo dhclient ens33
+Ako rucne spustit DHCP klienta: `$ sudo dhclient ens33`
 
-Ako overit, ci je v kerneli zapnuty packet routing: $ sysctl net.ipv4.ip_forward
- - smerovanie IPv4 paketov zapneme s: $ sudo sysctl -w net.ipv4.ip_forward=1
- - smerovanie IPv6 paketov zapneme s: $ sudo sysctl -w net.ipv6.conf.all.forwarding=1
- - perzistentne nastavenie co prezije reboot je v subore: /etc/sysctl.conf
-   - do suboru vlozime riadky "net.ipv4.ip_forward=1" alebo/aj "net.ipv6.conf.all.forwarding=1" 
-   - zmeny v subore ulozime a aplikujeme s: $ sudo sysctl -p
+Ako overit, ci je v kerneli zapnuty packet routing: `$ sysctl net.ipv4.ip_forward`
+ - smerovanie IPv4 paketov zapneme s: `$ sudo sysctl -w net.ipv4.ip_forward=1`
+ - smerovanie IPv6 paketov zapneme s: `$ sudo sysctl -w net.ipv6.conf.all.forwarding=1`
+ - perzistentne nastavenie co prezije reboot je v subore: `/etc/sysctl.conf`
+   - do suboru vlozime riadky `net.ipv4.ip_forward=1` alebo/aj `net.ipv6.conf.all.forwarding=1`
+   - zmeny v subore ulozime a aplikujeme s: `$ sudo sysctl -p`
 
-Ako vypisat pravidla firewallu IPtables: $ sudo iptables -L
+Ako vypisat pravidla firewallu IPtables: `$ sudo iptables -L`
 
-Ako si vytvorime pravidla firewallu: vytvorime subor /etc/network/iptables.up.rules
+Ako si vytvorime pravidla firewallu, vytvorime subor `/etc/network/iptables.up.rules`
  - do suboru mozeme pisat riadky napr.:
 
-*filter
-:INPUT ACCEPT [8:631]
-:FORWARD DROP [0:0]
-:OUTPUT ACCEPT [5:576]
--A INPUT -s 192.168.1.242/32 -j DROP
-COMMIT
+    *filter
+    :INPUT ACCEPT [8:631]
+    :FORWARD DROP [0:0]
+    :OUTPUT ACCEPT [5:576]
+    -A INPUT -s 192.168.1.242/32 -j DROP
+    COMMIT
 
-Aplikujeme zmeny tak, ze ak sa "odrezeme", konf. sa obnovi po 20 sek: # iptables-apply -t 20
+Aplikujeme zmeny tak, ze ak sa "odrezeme", konf. sa obnovi po 20 sek: `$ sudo iptables-apply -t 20`
 
-Je dobre si uvedomit, ze IPtables su nahradene komplexnym nastrojom NFtables (aj ked zlozitejsim) 
- - vid.: www.netfilter.org/projects/nftables/index.html 
+Je dobre si uvedomit, ze IPtables su nahradene komplexnym nastrojom `NFtables` (aj ked zlozitejsim) 
+ - vid.: `www.netfilter.org/projects/nftables/index.html`
 
-Ako vypisat IPv4 ARP tabulku a zaroven aj IPv6 ND tabulku: $ ip neigh
- - opat sa da skratit na: $ ip n
- - stary prikaz pre IPv4: $ arp -an
+Ako vypisat IPv4 ARP tabulku a zaroven aj IPv6 ND tabulku: `$ ip neigh`
+ - opat sa da skratit na: `$ ip n`
+ - stary prikaz pre IPv4: `$ arp -an`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Praca s TCP/UDP aplikaciami, socketmi:
+### Praca s TCP/UDP aplikaciami, socketmi:
 
 Ako vytvorit testovaci TCP socket co pocuva na danom porte: # nc -l 23
  - na socket sa so vzdialenej stanice pripojime napr.: $ telnet A.B.C.D 23
