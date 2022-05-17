@@ -1663,7 +1663,8 @@ Tip: Ako zistit, svoju verejnu IP, napr.: `$ curl ifconfig.me`, `$ curl -4 ident
  - deaktivujeme predvolenu **Landing Page** pre Apache2 na Debiane: `$ sudo a2dissite 000-default`
  - je este potrebne znova nacitat konfigy: `$ sudo systemctl reload apache2`
 
-#### Ako instalovat podporu PHP na server Apache2: `$ apt install php php-mysql libapache2-mod-php`
+#### Ako instalovat podporu PHP na server Apache2:
+ - instalujeme: `$ apt install php php-mysql libapache2-mod-php`
  - instalaciu overime napr. s: `$ php -v`
  - na otestovanie vo Web prehliadaci mozeme vytvorit jednoduchu stranku
    - v adresari `/var/www/priklad.xyz/` vytvorime subor `test.php` s obsahom:
@@ -1750,15 +1751,12 @@ Tip: Na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-
  - instalacia softwarovych **zaplat**: `$ sudo zypper patch`
  - dalsie informacie v: `$ man zypper`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Ako v OS "Fedora Server 35" nainstalovat NetworkManager-TUI: $ sudo dnf install NetworkManager-tui
+### Zaklady prace so SAN protokolom iSCSI
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Vytvorenie iSCSI targetu ("SAN-server") a Initiatora ("SAN-klient") v OS "Fedora Server 35"
+#### Vytvorenie iSCSI targetu ("SAN-server") na OS "Fedora Server 35":
 
  *ROZPRACOVANY Status*
 
-=-TARGET:=-
 
 [root@fed-stor1 ~]# targetcli
 targetcli shell version 2.1.54
@@ -1845,6 +1843,8 @@ success
 - konfiguraciu firewallu overime s: $ sudo firewall-cmd --list-all
 
 Poznamka, iSCSI target sa da prevadzkovat v Cluster-y nad systemom DRBD (nizsie v tomto texte)
+
+Tip: Ako v OS "Fedora Server 35" nainstalovat NetworkManager-TUI: `$ sudo dnf install NetworkManager-tui`
 
 -=-=-=-=-=-=INITIATOR na OS OpenSUSE Leap 15.3:=-=-=-=-=-=-
 
