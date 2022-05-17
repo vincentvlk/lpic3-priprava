@@ -1570,7 +1570,7 @@ Dalsi nastroj na **Rootkit** detekciu, instalujeme s: `$ sudo apt install chkroo
 - v cieli sa subor desifruje: `$ gpg -o povodny.txt -d sprava.dat`
 - dalsie informacie napr. v: `$ man gpg` alebo `$ gpg --help`
 
-### Zaklady prace s DNS serverom **BIND 9**:
+### Zaklady prace s DNS serverom BIND 9:
 
 - instalujeme: `$ sudo apt install bind9 bind9-utils bind9-doc`
 - dalsie implementacie autoritativnych DNS serverov: `Knot DNS`, `Dnsmasq`, `PowerDNS`, ...
@@ -1712,30 +1712,33 @@ Ako vypnut **podpis** servera, napr.: `Apache/2.4.41 (Ubuntu) Server at 192.168.
  - je este vhodne zmenit `ServerTokens OS` na `ServerTokens Prod` a restartovat Apache2
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Ako programom "Ansible" nainstalovat program "nmap" pomocou systemu "APT":
- - instalujeme balik "ansible": $ sudo apt install ansible
- - vytvorime si "inventar" zariadeni, napr. vytvorime subor "hosts", kde napr. vlozime:
 
-[servers]
-vps1 ansible_host=192.168.1.242 ansible_user=ansmin
-vps2 ansible_host=192.168.1.245 ansible_user=ansmin
-vps3 ansible_host=192.168.1.246 ansible_user=ansmin
+### Zaklady prace s autmatizacnym nastrojom Ansible:
 
- - ulozime subor s nastaveniami, tento priklad pocita s "PKI Auth" prihlasovanim (SSH klucom)
- - spustime: $ ansible -i hosts servers -m apt -a "name=nmap state=present" --become -K
-   - prikaz vyziada "SUDO" heslo s "--become -K" pre zariadenia zo skupiny "servers"
-   - porikaz vyuziva modul "apt" s nastavenim "name=nmap state=present"
-   - ked chceme balik odstranit zmenime nastavenie modulu: "name=nmap state=absent"
-   - ked chceme spustit "APT full-upgrade" zmenime nastavenie modulu: "upgrade=full"
-   - ked chceme vycistit nepotrebne zavislosti: "autoremove=yes autoclean=yes"
+Ako programom **Ansible** nainstalovat program `nmap` pomocou systemu **APT**:
+ - instalujeme balik `ansible`, zadame: `$ sudo apt install ansible`
+ - vytvorime si `inventar` zariadeni, napr. vytvorime subor `hosts`, kde napr. vlozime:
+```ansible
+    [servers]
+    vps1 ansible_host=192.168.1.242 ansible_user=ansmin
+    vps2 ansible_host=192.168.1.245 ansible_user=ansmin
+    vps3 ansible_host=192.168.1.246 ansible_user=ansmin
+```
+ - ulozime subor s nastaveniami, tento priklad pocita s **PKI Auth** prihlasovanim (SSH klucom)
+ - spustime: `$ ansible -i hosts servers -m apt -a "name=nmap state=present" --become -K`
+   - prikaz vyziada **SUDO** heslo s `--become -K` pre zariadenia zo skupiny `servers`
+   - prikaz vyuziva modul `apt` s nastavenim `name=nmap state=present`
+   - ked chceme balik odstranit, zmenime nastavenie modulu: `name=nmap state=absent`
+   - ked chceme spustit **APT full-upgrade** zmenime nastavenie modulu: `upgrade=full`
+   - ked chceme vycistit nepotrebne zavislosti: `autoremove=yes autoclean=yes`
 
-Tip: Ako vypisat dostupne ansible moduly: $ ansible-doc -l
+Tip: Ako vypisat dostupne ansible moduly: `$ ansible-doc -l`
 
-Tip: Na privatny SSH kluc mozeme nastavit prava "read-only": $ chmod u-w .ssh/id_rsa
- - pripadne sa mozu zvazit suborove ACLka
+Tip: Na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-w .ssh/id_rsa`
+ - pripadne sa mozu zvazit suborove **ACLka**
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Zakladna praca s balickovacim systemom "Zypper" v OS: "OpenSUSE Leap":
+### Zaklady prace s balickovacim systemom "Zypper" v systeme "OpenSUSE Leap":
+
  - aktualizacia DB balickov: $ sudo zypper refresh
  - instalacia aktualizacii:$ sudo zypper update 
  - instalacia balicka "nmap", bez dotazov: $ sudo zypper install --no-confirm nmap
