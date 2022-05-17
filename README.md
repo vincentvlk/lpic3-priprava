@@ -1554,7 +1554,7 @@ student		hard	nproc	1000
    - prikaz na overenie, kolko procesov ma spusteny uzivatel: `$ pgrep -wcu <uzivatel>`
  - dalej mozeme obmedzit max. velkost suboru (v kB), ktory moze uziv. vytvorit:
 
-`student		hard	fsize	1000`
+    `student		hard	fsize	1000`
 
  - dalsie informacie napr. v: `$ man limits.conf`
 
