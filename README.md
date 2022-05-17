@@ -837,48 +837,49 @@ Ako sa odpojit od konzoly kontajnera, v terminale za sebou stlacime skratky: `Ct
 
 ### Praca s nastrojom Git a platformou GitHub:
 
-Vytvorime adresar `git_ucenie`, v ktorom inicializujeme *lokalny* Git repozitar: `$ git init`
+Vytvorime adresar `git_ucenie`, v ktorom inicializujeme **lokalny** Git repozitar: `$ git init`
  - aktualny stav repozitara overime s: `$ git status`
  - nastavime identitu uzivatela na pridavanie zmien: `$ git config --global --edit`
  - vytvorime cvicny subor, napr. `poznamky.txt`
    - do suboru napiseme `moja prva poznamka`, subor ulozime
  - nasledne subor pridame do *Staging Cache* repozitara: `$ git add poznamky.txt`
  - overime s: `$ git status`
- - dalej pridame do *lokalneho* repo. novu zmenu, teda *commit* s popisom/spravou: 
+ - dalej pridame do **lokalneho** repo. novu zmenu, teda **commit** s popisom/spravou: 
 
    - prikaz: `$ git commit -m 'vytvoril som subor poznamky.txt a pridal 1. riadok'`
 
  - dalej upravime subor `poznamky.txt`, pridame riadok `dalsi riadok s poznamkou`
- - subor ulozime a overime stav *lokalneho* repo.: `$ git status`
- - podla vypisu je potrebne pridat upraveny subor do *Staging Cache*: `$ git add poznamky.txt`
+ - subor ulozime a overime stav **lokalneho** repo.: `$ git status`
+ - podla vypisu je potrebne pridat upraveny subor do **Staging Cache**: `$ git add poznamky.txt`
  - jednoduchsie mozeme pridat vsetky subory v danom adresary repozitara: `$ git add .`
  - aby sme sa vyhli pridavaniu suborov, ktore nechceme pridat do Staging Cache,
    vytvorime subor `.gitignore`
- - na ignorovanie tzv. *.dotfiles*, do suboru mozeme zapisat napr. riadok `.*`
+ - na ignorovanie tzv. **.dotfiles**, do suboru mozeme zapisat napr. riadok `.*`
  - ak chceme odstranit subor z Cache, pouzijeme: `$ git rm --cached <nazov_suboru>`
  - pridame novu zmenu: `$ git commit -m 'pridal som dalsi riadok'`
 
-Chceme napr. zmenit format zapisu poznamok, mozeme vytvorit vetvu, *branch*:
- - prikaz:  $ git checkout -b 'novy_format'
- - v novej vetve napr. vytvorime subor "poznamky_novy_format.txt" a ten pridat do Cache a commit.
-   - ^^ avsak uz do novej vetvy/branch s nazvom "novy_format"
- - overime s: $ git status
- - potom sa mozeme prepinat medzi vetvami, napr. sa vratit hlavnej "master" vetvy:
-   - prikaz: $ git checkout master
- - overime s: $ git status
+Chceme napr. zmenit format zapisu poznamok, mozeme vytvorit novu vetvu, **branch**:
+ - prikaz:  `$ git checkout -b 'novy_format'`
+ - v novej vetve napr. vytvorime subor `poznamky_novy_format.txt` a ten pridat do Cache a commit.
+   - ^^ avsak uz do **novej vetvy/branch** s nazvom `novy_format`
+ - overime s: `$ git status`
+ - potom sa mozeme prepinat medzi vetvami, napr. sa vratit do hlavnej **master** vetvy:
+   - prikaz: `$ git checkout master`
+ - overime s: `$ git status`
 
-Ked chceme replikovat repo. na vzdialeny server, napr. na (hanbaty) GitHub:
-- na platforme github.com si vytvorime uziv. ucet
-- je potrebne vytvorit si autentifikacny Token, tzv. "Personal Access Token", podla odkazu:
+Ako replikovat lokalny Git repozitar na vzdialeny server, napr. na GitHub:
 
-https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
+- na platforme `github.com` si vytvorime uzivatelsky ucet
+- je potrebne vytvorit si autentifikacny Token, tzv. **Personal Access Token**, podla odkazu:
 
-- vytvoreny Token nezabudame/nezatvarame
-- dalej vytvorime repozitar s nazvom "git_ucenie", portal GitHub nam vygeneruje zakladne prikazy
-- dalej si vytvorime vzdialeny pristup na repo., tzv. "Remote": 
-  - prikaz: $ git remote add origin https://github.com/<UZIVATEL>/git_ucenie.git 
-- nasledne zosynchronizujeme kolakny repo. so vzdialenym repo.: $ git push -u origin master
-- na autentifikaciu zadame svoje uziv. meno, ale *namiesto hesla zadame vygenerovany PAT Token*
+`https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token`
+
+- vytvoreny Token **nezabudame/nezatvarame**
+- dalej vytvorime repozitar s nazvom `git_ucenie`, portal GitHub nam vygeneruje zakladne prikazy
+- dalej si vytvorime vzdialeny pristup na repo., tzv. **Remote**: 
+  - prikaz: `$ git remote add origin https://github.com/<UZIVATEL>/git_ucenie.git`
+- nasledne zosynchronizujeme kolakny repo. so vzdialenym repo.: `$ git push -u origin master`
+- na autentifikaciu zadame svoje uziv. meno, ale **namiesto hesla zadame vygenerovany PAT Token**
 
 Na ulahcenie prace si mozeme pridat do svojho $HOME adresara do suboru ".gitconfig" aliasy, napr.:
 
