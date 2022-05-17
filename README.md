@@ -1543,10 +1543,10 @@ Dalsi nastroj na **Rootkit** detekciu, instalujeme s: `$ sudo apt install chkroo
 
 - je potrebne overit pocet spustitelnych procesov, skontrolujeme povolnene mznostvo: `$ ulimit -u`
 - do suboru `/etc/security/limits.conf` pridame tieto riadky:
-```
-student		hard	nproc	1000
-@team1		hard	nproc	4000
-```
+    ```
+    student		hard	nproc	1000
+    @team1		hard	nproc	4000
+    ```
  - prvy riadok obmedzi pocet procesov pre daneho uzivatela, druhy pre danu skupinu
  - **POZOR, LEN MIMO PRODUKCIE**, priklad na BASH fork-bomb, vytvorime skript s riadkom `$0 && $0 &`
    - skript do "nekonecna" spusta kopie sameho seba, kym nevycerpa systemove zdroje
