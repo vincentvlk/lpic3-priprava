@@ -962,25 +962,25 @@ Ako hladat programom `find` bez rozlisenia A/a: `$ find . -iname PriKlad.txt`
 
 V BASH-y sa tzv. **glob-y** volaju aj **Shell Meta Characters**, napr. `*`
 
-Prikaz najde, spocita adresare v "/etc", hlbka 3 adresarov s pravami "755": 
- - prikaz: $ sudo find /etc/ -maxdepth 3 -type d -perm 755 | wc -l 
+Prikaz najde a spocita adresare v `/etc`, hlbka 3 adresarov s pravami `755`: 
+ - prikaz: `$ sudo find /etc/ -maxdepth 3 -type d -perm 755 | wc -l`
 
-Ako vypisat subory s velkostou medzi 3G a 4G: $ find /home/nas/ -type f -size +3G -size -4G
+Ako vypisat subory s velkostou medzi 3G a 4G: `$ find /home/nas/ -type f -size +3G -size -4G`
  - da sa doplnit detailny vypis do suboru: 
-   - prikaz: $ find /home/nas/ -type f -size +3G -size -4G -ls > zoznam.txt
+   - prikaz: `$ find /home/nas/ -type f -size +3G -size -4G -ls > zoznam.txt`
 
-Asociacia medzi suborovou strukturou a nazvom suboru sa nazyva tzv. "hardlink"
- - pocet asosiacii overime s: $ stat subor.txt
- - ako hladat hardlink-y podla cisla "inode" (index node): $ find . -inum 12345
- - pozor, hardlink nemoze opustit hranice suboroveho systemu
- - koncept hardlink je napr. uzitocny pre "nadradeny" adresar, oznaceny ".."
+Asociacia medzi suborovou strukturou a nazvom suboru sa nazyva tzv. **hardlink**
+ - pocet asosiacii overime s: `$ stat subor.txt`
+ - ako hladat hardlink-y podla cisla **inode** (index node): `$ find . -inum 12345`
+ - pozor, hardlink **nemoze** opustit hranice **suboroveho systemu**
+ - koncept hardlink je napr. uzitocny pre **nadradeny** adresar, oznaceny `..`
 
-Ako naist a vypisat objekty s viac ako 1 hardlinkom: $ find /var/ -links +1 -ls
+Ako naist a vypisat objekty s viac ako 1 hardlinkom: `$ find /var/ -links +1 -ls`
 
-Ako presuvat subory len aktualnejsie alebo chybajuce subory: $ mv -u <zdroj> <ciel>
+Ako presuvat len aktualnejsie alebo chybajuce subory: `$ mv -u <zdroj> <ciel>`
 
 Quiz:
-V adresary /home/student/ vytvori uzivatel "root" subor "a.txt", moze ho uzivatel "student" vymazat?
+V adresary `/home/student/` vytvori uzivatel `root` subor `a.txt`, moze ho uzivatel `student` vymazat?
 
 Prikaz najde "chybove" hlasky v Syslogu: $ grep -win error /var/log/syslog
  - param. "-w" hlada presne slovo, param. "-i" nerozlisuje A/a, param. "-n" vypise c. riadku 
@@ -990,7 +990,7 @@ Ako naist v kernel ring buffery "error" a vypisat 3 riadky pred a za nim: # dmes
 Zaujimavost, ako vypisat citatelne znaky v aktualnom image RAM: $ sudo strings /dev/mem
  - dalsie informacie v "man mem" a v "man strings"
 
-Ako vo Vim-e spravit undo: ":e!" , alebo "command-mode" stlacime "u"
+Ako vo Vim-e spravit undo: `:e!` , alebo "command-mode" stlacime "u"
  - vo Vim-e vlozime novy riadok s: "o"
  - ak chceme rychlo ulozit subor a ukoncit Vim, stlacime: "Shift+zz"
  - cisla riadkov zapneme s: ":set nu"
