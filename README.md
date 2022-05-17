@@ -1178,7 +1178,7 @@ Ako v BASH skripte testujeme, ze premenna obsahuje substring: `if [[ "$str1" == 
 Testovanie BASH premennej s logickymi operatormi: `if [[ $vek -ge 0 ]] && [[ $vek -le 18 ]]`
 
 #### Priklad na cvicny input error handling (osetrenie chybneho vstupu) v jazyku BASH:
-
+```bash
     #!/bin/bash
     #
     # Cvicny skript ocakava cele cislo v ramci vymedzenych hodnot, 17.2.2022 by vlkv
@@ -1199,9 +1199,9 @@ Testovanie BASH premennej s logickymi operatormi: `if [[ $vek -ge 0 ]] && [[ $ve
     echo "Zadali ste vek $vek roky/rokov."
 
     # koniec skriptu
-
+```
 #### Priklad nacita vo "for" slucke hodnoty z .txt suboru do premennej $ip:
-
+```bash
     #!/bin/bash
     for ip in $(cat /home/dev1/ip_adresy.txt)
     do
@@ -1210,9 +1210,9 @@ Testovanie BASH premennej s logickymi operatormi: `if [[ $vek -ge 0 ]] && [[ $ve
     done
 
     # koniec skriptu
-
+```
 #### Ako vytvorit skript s jednoduchym "select" menu v jazyku BASH:
-
+```bash
     #!/bin/bash
     #
     #priklad na menu selection v jazyku BASH
@@ -1269,9 +1269,9 @@ Testovanie BASH premennej s logickymi operatormi: `if [[ $vek -ge 0 ]] && [[ $ve
     done
 
     #koniec skriptu
-
+```
 #### Jednoduchy priklad na hladanie substringu zo systemoveho vypisu:
-
+```bash
     #!/bin/bash
     #
     vystup="$(ping -f -i 0.5 -c 3 $1)"
@@ -1284,7 +1284,7 @@ Testovanie BASH premennej s logickymi operatormi: `if [[ $vek -ge 0 ]] && [[ $ve
     fi
 
     # koniec skpritu
-
+```
 ### Pokracovanie zakladov prace s Docker-om:
 
 Jednoduche web prostredie na ucenie/testovanie Docker-u: `https://labs.play-with-docker.com/`
