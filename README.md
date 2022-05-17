@@ -1558,19 +1558,18 @@ student		hard	nproc	1000
 
  - dalsie informacie napr. v: `$ man limits.conf`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Ako zasifrovat subor s citlivymi udajmi pomocou GNU-Pg: $ gpg -c povodny.txt
- - vznikne sifrovany subor "povodny.txt.gpg", ktory napr. premenujeme na "sprava.dat" a posleme
- - mozeme aj upresnit sifru a vystup: $ gpg -c --cipher-algo aes256 -o sprava.dat povodny.txt
- - OPATRNE, ak treba, mozeme spolahlivo "znicit" povodny subor: $ shred -uv -n 100 povodny.txt
- - v cieli sa subor desifruje: $ gpg -o povodny.txt -d sprava.dat
- - dalsie informacie napr. v "$ man gpg" alebo "$ gpg --help"
+#### Ako zasifrovat subor s citlivymi udajmi pomocou GNU-Pg
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Ako bez dalsej interakcie spustit APT update/upgrade: $ sudo apt update && sudo apt upgrade -y
+- prikaz: `$ gpg -c povodny.txt`
+- vznikne sifrovany subor `povodny.txt.gpg`, ktory napr. premenujeme na `sprava.dat` a posleme
+- mozeme aj upresnit sifru a vystup: `$ gpg -c --cipher-algo aes256 -o sprava.dat povodny.txt`
+- **OPATRNE**, ak treba, mozeme spolahlivo **znicit** povodny subor: `$ shred -uv -n 100 povodny.txt`
+- v cieli sa subor desifruje: `$ gpg -o povodny.txt -d sprava.dat`
+- dalsie informacie napr. v: `$ man gpg` alebo `$ gpg --help`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Ako nainstalovat DNS server "BIND 9", napr. $ sudo apt install bind9 bind9-utils bind9-doc
+### Zaklady prace s DNS serverom **BIND 9**:
+
+- instalujeme: `$ sudo apt install bind9 bind9-utils bind9-doc`
  - dalsie implementacie autoritativnych DNS serverov: "Knot DNS", "Dnsmasq", "PowerDNS", ...
  - standardna "bind9" Ubu/Deb instalacia spusti "Cache-only" server, pocuva na IPv4 aj IPv6
  - ^ ak chceme toto zmenit, upravime "/etc/default/named", do riadku
