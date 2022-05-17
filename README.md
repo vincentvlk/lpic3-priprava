@@ -1663,8 +1663,8 @@ Tip: Ako zistit, svoju verejnu IP, napr.: `$ curl ifconfig.me`, `$ curl -4 ident
  - deaktivujeme predvolenu **Landing Page** pre Apache2 na Debiane: `$ sudo a2dissite 000-default`
  - je este potrebne znova nacitat konfigy: `$ sudo systemctl reload apache2`
 
-#### Ako instalovat podporu PHP na server Apache2:
- - instalujeme: `$ apt install php php-mysql libapache2-mod-php`
+#### Ako nainstalovat podporu PHP na server Apache2:
+ - instalujeme baliky: `$ apt install php php-mysql libapache2-mod-php`
  - instalaciu overime napr. s: `$ php -v`
  - na otestovanie vo Web prehliadaci mozeme vytvorit jednoduchu stranku
    - v adresari `/var/www/priklad.xyz/` vytvorime subor `test.php` s obsahom:
@@ -1756,7 +1756,6 @@ Tip: Na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-
 #### Vytvorenie iSCSI targetu ("SAN-server") na OS "Fedora Server 35":
 
  *ROZPRACOVANY Status*
-
 
 [root@fed-stor1 ~]# targetcli
 targetcli shell version 2.1.54
