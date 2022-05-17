@@ -982,49 +982,50 @@ Ako presuvat len aktualnejsie alebo chybajuce subory: `$ mv -u <zdroj> <ciel>`
 Quiz:
 V adresary `/home/student/` vytvori uzivatel `root` subor `a.txt`, moze ho uzivatel `student` vymazat?
 
-Prikaz najde "chybove" hlasky v Syslogu: $ grep -win error /var/log/syslog
- - param. "-w" hlada presne slovo, param. "-i" nerozlisuje A/a, param. "-n" vypise c. riadku 
+Prikaz najde **chybove** hlasky v Syslogu: `$ grep -win error /var/log/syslog`
+ - param. `-w` hlada presne slovo, param. `-i` nerozlisuje A/a, param. `-n` vypise cislo riadku 
 
-Ako naist v kernel ring buffery "error" a vypisat 3 riadky pred a za nim: # dmesg | grep -C 3 error
+Ako naist v kernel ring buffery `error` a vypisat 3 riadky pred a za nim: `$ sudo dmesg | grep -C 3 error`
 
-Zaujimavost, ako vypisat citatelne znaky v aktualnom image RAM: $ sudo strings /dev/mem
- - dalsie informacie v "man mem" a v "man strings"
+Zaujimavost, ako vypisat citatelne znaky v aktualnom image RAM: `$ sudo strings /dev/mem`
+ - dalsie informacie v `$ man mem` a v `$ man strings`
 
-Ako vo Vim-e spravit undo: `:e!` , alebo "command-mode" stlacime "u"
- - vo Vim-e vlozime novy riadok s: "o"
- - ak chceme rychlo ulozit subor a ukoncit Vim, stlacime: "Shift+zz"
- - cisla riadkov zapneme s: ":set nu"
- - text oznacime v command mode s "V" + sipky, nasledne "y", potom vlozime pod kurzor s "p"
-   - alebo mozeme vystrihnut s "dd"
- - na konkretne cislo riadka sa prepneme s: ":<cislo>"
- - dva sposoby ako otvorit 2 subory: "vim -o a.txt b.txt" alebo "vim -d a.txt b.txt"
-   - medzi oknami sa prepiname s "Ctrl+ww"  
+Ako vo Vim-e spravit undo: `:e!` , alebo v "command-mode" stlacime "u"
+ - vo Vim-e vlozime novy riadok s: `o`
+ - ak chceme rychlo ulozit subor a ukoncit Vim, stlacime: `Shift+zz`
+ - cisla riadkov zapneme s: `:set nu`
+ - text oznacime v command mode s `V` + sipky, nasledne `y`, potom vlozime pod kurzor s `p`
+   - alebo mozeme vystrihnut s `dd`
+ - na konkretne cislo riadka sa prepneme s: `:<cislo>`
+ - dva sposoby ako otvorit 2 subory: `vim -o a.txt b.txt` alebo `vim -d a.txt b.txt`
+   - medzi oknami sa prepiname s `Ctrl+ww`
 
-Ako v realnom case sledovat prihlasovanie uzivatelov: $ sudo tail -f /var/log/auth.log
+Ako v realnom case sledovat prihlasovanie uzivatelov: `$ sudo tail -f /var/log/auth.log`
 
-Ako vytvorit uzivatela, ktoreho ucet exspiruje v urcity datum: # useradd -e 2022-2-13 u2
- - prikazom "chage" mozeme zadefinovat, kedy exspiruje heslo uzivatela
+Ako vytvorit uzivatela, ktoreho ucet exspiruje v urcity datum: `$ sudo useradd -e 2022-2-13 user1`
+ - prikazom `chage` mozeme zadefinovat, kedy exspiruje heslo uzivatela
 
-Ako pridat uzivatela "u1" do skupiny "sudo": # usermod -G sudo u1
+Ako pridat uzivatela `u1` do skupiny `sudo`, napr.: `$ sudo usermod -G sudo u1`
  - uziv. skupina sa neda vymazat, pokial sluzi ako primarna skupina uzivatela
 
-POZOR, ako vymazat uzivatela "u1" aj s jeho "home" adresarom: $ sudo userdel -r u1
+**POZOR**, ako vymazat uzivatela `u1` aj s jeho **home** adresarom: `$ sudo userdel -r u1`
 
-Ako premenovat uziv. skupinu: $ sudo groupmod -n <novy_nazov> <povodna_skupina>
+Ako premenovat uzivatelsku skupinu: `$ sudo groupmod -n <novy_nazov> <povodna_skupina>`
 
-Jednoduchym prikazom "w" vypiseme zakladny stav systemu a prihlasenych uzivatelov: $ w
- - historicky zaznam prihlasovania uzivatelov vypiseme napr. s: $ sudo last
-   - mozeme specifikovat aj konkretneho uzivatela "u1": $ sudo last u1
+Jednoduchym prikazom `w` vypiseme zakladny stav systemu a prihlasenych uzivatelov: `$ w`
+ - historicky zaznam prihlasovania uzivatelov vypiseme napr. s: `$ sudo last`
+   - mozeme specifikovat aj konkretneho uzivatela `u1`, napr.: `$ sudo last u1`
 
-Nastroj "nstat" doplna sietovu diagnostiku kernelu, je z balika "iproute2"
- - dalsie informacie "man ncast", je dobre spustat takto: $ nastat -s
+Nastroj `nstat` doplna sietovu diagnostiku kernelu, je z balika `iproute2`
+ - dalsie informacie `$ man nstat`, je dobre spustat takto: `$ nastat -s`
 
-Ako overit, ci kernel kvoli teplote nepodtaktoval jadra CPU: $ sudo dmesg | grep "cpu clock" 
+Ako overit, ci kernel kvoli teplote nepodtaktoval jadra CPU: `$ sudo dmesg | grep "cpu clock"`
 
-Ak nastavime na subor prava "$ chmod 000 subor.txt", moze ho niekto citat/upravovat?
+Quiz:
+Ak nastavime na subor prava `$ chmod 000 subor.txt`, moze ho niekto citat/upravovat?
 
-Hesla ulozene (Ubu 20.04) v subore "/etc/shadow" su vo formate: "$id$salt$hash"
- - napr. identifikator (id) "6" znamena "SHA-512"
+Hesla ulozene (Ubu 20.04) v subore `/etc/shadow` su vo formate: `$id$salt$hash`
+ - napr. identifikator (id) `6` znamena `SHA-512`
 
 Ako vypisat atriburty (nie prava) konkretneho suboru: $ lsattr subor.txt
  - vyznam atributov najdeme napr. v: $ man chattr
