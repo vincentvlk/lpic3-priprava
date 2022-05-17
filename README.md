@@ -1638,7 +1638,7 @@ Tip: Ako zistit, svoju verejnu IP, napr. `$ curl ifconfig.me`, `$ curl -4 ident.
  - nastavime prava: `$ sudo chmod 755 /var/www/priklad.xyz`
  - vytvorime konf. subor: `$ sudo vim /etc/apache2/sites-available/priklad.xyz.conf`
  - vlozime napr.:
-```
+```apache
     <VirtualHost *:80>
         ServerName priklad.xyz
         ServerAlias www.priklad.xyz
