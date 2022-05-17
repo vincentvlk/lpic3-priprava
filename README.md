@@ -1517,7 +1517,7 @@ Dalsi nastroj na **Rootkit** detekciu, instalujeme s: `$ sudo apt install chkroo
    - **POZOR**, automaticke mazanie: `$ sudo clamscan --infected --remove --recursive /home`
    - pre Linux-ove distribucie existuje aj GUI rozhranie **ClamTk**, instalujeme: `$ sudo apt install clamtk`
 
-### Ako na zabezpecnie zavadzaca "GRUB2":
+#### Ako na zabezpecnie zavadzaca "GRUB2":
 
  - vytvorime heslo: `$ sudo grub-mkpasswd-pbkdf2`
  - dalej upravime subor `/etc/grub.d/40_custom` pridame riadky, vygenerovany HASH, od slova `grub`
@@ -1527,19 +1527,19 @@ Dalsi nastroj na **Rootkit** detekciu, instalujeme s: `$ sudo apt install chkroo
 ```
  - nasledne ulozime a spustime skript na generovanie konfiguracie: `$ sudo update-grub2`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Zabezpecenie servera "OpenSSH", hlavna konfiguracia je ulozena v subore: "/etc/ssh/sshd_config"
- 
- - rozsiahly zdroj informacii: $ man sshd_config
- - zvazit zmenu pocuvajuceho TCP portu, upravime riadok "#Port 22" na "Port 5022"
- - po zmenach je potrebne: $ sudo systemctl restart ssh
- - overime s: $ sudo systemctl status ssh
- - deaktivujeme "root-login", zmena: "#PermitRootLogin prohibit-password" na "#PermitRootLogin no"
- - odpoji po 5 min. neaktivity, pridame 2 riadky "ClientAliveInterval 300" a "ClientAliveCountMax 0"
- - maximalny pocet pokusov pri zadavani hesla, zmenime: "#MaxAuthTries 6" na "MaxAuthTries 3"
- - dalej pozriet v "$ man sshd_config" parametre: "MaxStartups" a "LoginGracetime"
+#### Zabezpecenie servera **OpenSSH**:
 
-Ako zabranit tzv. "Fork bomb-am", je potrebne overit pocet spustitelnych procesov:
+- hlavna konfiguracia je ulozena v subore: `/etc/ssh/sshd_config`
+- rozsiahly zdroj informacii: `$ man sshd_config`
+- zvazit zmenu pocuvajuceho TCP portu, upravime riadok `#Port 22` na `Port 5022`
+- po zmenach je potrebne: `$ sudo systemctl restart ssh`
+- overime s: `$ sudo systemctl status ssh`
+- deaktivujeme **root-login**, zmena: `#PermitRootLogin prohibit-password` na `#PermitRootLogin no`
+- odpoji po 5 min. neaktivity, pridame 2 riadky `ClientAliveInterval 300` a `ClientAliveCountMax 0`
+- maximalny pocet pokusov pri zadavani hesla, zmenime: `#MaxAuthTries 6` na `MaxAuthTries 3`
+- dalej pozriet v `$ man sshd_config` parametre: `MaxStartups` a `LoginGracetime`
+
+#### Ako zabranit tzv. "Fork bomb-am", je potrebne overit pocet spustitelnych procesov:
  - skontrolujeme povolnene mznostvo: $ ulimit -u
  - do suboru "/etc/security/limits.conf" pridame tieto riadky:
 
