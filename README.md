@@ -1479,19 +1479,20 @@ Ako s Nmap TCP skenovanim "odhadnut" verziu OS a programov: `$ sudo nmap -A -Pn 
    - napr: `$ sudo nmap -sV -iL hosts.txt -n -oN output.txt`
  - program `nmap` pouziva koncept **Templates**, dalsie info v `$ man nmap`, vyhladat parameter: `-T`
 
-Nastroj na detekciu tzv. "Rootkit-ov", nainstalujeme: $ sudo apt install rkhunter
- - nasledne aktualizujeme "file-DB": $ sudo rkhunter --propupd
- - dalej spustime samotne skenovanie: $ sudo rkhunter --check
- - vysledok mozeme skontrolovat s: $ sudo less /var/log/rkhunter.log
- - mozeme spustit len "Warning" reportovanie: $ sudo rkhunter --check --report-warnings-only
-   - log sa da stale sledovat, napr.: $ sudo tail -f /var/log/rkhunter.log
-   - mozeme naist "False-positives", da sa pridat do "/etc/rkhunter.conf", co chceme ignorovat:
-   - pridame napr. riadok: "SCRIPTWHITELIST=/usr/bin/lwp-request"
-   - LEPSIE riesenie moze byt specifikovanie "Package" manazera, pridame: "PKGMGR=DPKG
+#### Nastroj na detekciu tzv. **Rootkit-ov**
+ - instalujeme: `$ sudo apt install rkhunter`
+ - nasledne aktualizujeme **file-DB**, zadame: `$ sudo rkhunter --propupd`
+ - dalej spustime samotne skenovanie: `$ sudo rkhunter --check`
+ - vysledok mozeme skontrolovat s: `$ sudo less /var/log/rkhunter.log`
+ - mozeme spustit len **Warning** reportovanie: `$ sudo rkhunter --check --report-warnings-only`
+   - log sa da stale sledovat, napr.: `$ sudo tail -f /var/log/rkhunter.log`
+   - mozeme naist `False-positives`, da sa pridat do `/etc/rkhunter.conf`, co chceme ignorovat:
+   - pridame napr. riadok: `SCRIPTWHITELIST=/usr/bin/lwp-request`
+   - lepsie riesenie moze byt specifikovanie **Package** manazera, pridame: `PKGMGR=DPKG`
 
-Dalsi nastroj na "Rootkit" detekciu, instalujeme: $ sudo apt install chkrootkit
- - jednoduche spustenie: $ sudo chkrootkit
-   - podobne sa da spustit, len vypise "Warnings": $ sudo chkrootkit -q
+Dalsi nastroj na **Rootkit** detekciu, instalujeme s: `$ sudo apt install chkrootkit`
+ - jednoduche spustenie: `$ sudo chkrootkit`
+   - podobne sa da spustit, len vypise **Warnings**, prikaz: `$ sudo chkrootkit -q`
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako hladat/mazat virusy, pouzijeme nastroj "Clam-AV": $ sudo apt install clamav clamav-daemon
