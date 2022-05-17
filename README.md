@@ -837,7 +837,7 @@ Ako sa odpojit od konzoly kontajnera, v terminale za sebou stlacime skratky: `Ct
 
 ### Praca s nastrojom Git a platformou GitHub:
 
-Vytvorime adresar "git_ucenie", v ktorom inicializujeme *lokalny* Git repozitar: $ git init
+Vytvorime adresar `git_ucenie`, v ktorom inicializujeme *lokalny* Git repozitar: `$ git init`
  - aktualny stav repozitara overime s: $ git status
  - nastavime identitu uzivatela na pridavanie zmien: $ git config --global --edit
  - vytvorime cvicny subor, napr. "poznamky.txt"
