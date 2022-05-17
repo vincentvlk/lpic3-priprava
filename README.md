@@ -1334,7 +1334,7 @@ Ako vytvorit perzistentne ulozisko pre kontajner **Docker Volume**: `$ docker vo
  - overime s `$ docker volume ls`
  - dalsie informacie: `$ docker volume --help`
 
-Ako vytvorit **nginx** kontajner s namapovanyn volume:
+Ako vytvorit **nginx** kontajner s namapovanyn **volume**:
 
 prikaz: `$ docker run -d --name moja_web_app -p 80:80 -v <nazov_vol>:/usr/share/nginx/html nginx`
  
@@ -1373,10 +1373,10 @@ Instalacia: `$ sudp apt install aide`
    - zmenime na `Checksums = sha256` cim dosiahneme zrychlenie, pokial nam postacuje len `SHA256`
    - mozeme nastavit ignorovanie niektorych adresarov/suborov, do konf. pridame riadok:
 
-     !/var/lib/aide/.*
+     `!/var/lib/aide/.*`
 
- - a nasledne inicializujeme s novou databazou: $ sudo aideinit
- - dalej je mozne vytvorit si vlastny config a vlastne pravidla, navody exsituju ;-)
+ - a nasledne inicializujeme s novou databazou: `$ sudo aideinit`
+ - dalej je mozne vytvorit si vlastny config a vlastne pravidla, navody existuju ;-)
 
 ### Na overovanie bezpecnosti hesla, mozeme pouzit nastroj **John the Ripper**
 
