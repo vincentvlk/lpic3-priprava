@@ -1093,53 +1093,53 @@ Ako v (hanbatom) MacOS -  Big Sur zistit presny typ CPU: `$ sysctl -a | grep bra
 
 Ako zmenit MAC adresu na Eth. rozhrani: `$ sudo ip link set dev ens33 address 12:34:56:78:9a:bc`
 
-Ako zistit, ake DNS servery pouzivaju distribucie so SystemD: $ systemd-resolve --status
- - alebo alternativne: $ resolvectl status
+Ako zistit, ake DNS servery pouzivaju distribucie so SystemD: `$ systemd-resolve --status`
+ - alebo alternativne: `$ resolvectl status`
  
-Ako zadat, uzivatelov, ktory maju povoleny SSH login, do suboru "/etc/ssh/sshd_config" vlozime:
+Ako zadat, uzivatelov, ktori maju povoleny SSH login, do suboru `/etc/ssh/sshd_config` vlozime:
 
-AllowUsers student1 user1 developer1
+    AllowUsers student1 user1 developer1
 
- - nasledne upravu ulozime a restartujeme SSH server: $ sudo systemctl restart ssh
- - overime s: $ sudo systemctl status ssh
+ - nasledne upravu ulozime a restartujeme SSH server: `$ sudo systemctl restart ssh`
+ - overime s: `$ sudo systemctl status ssh`
 
-Ako overit, ci sa proces/program spusti po restarte systemu: $ sudo systemctl is-enabled <nazov>
- - napr.: $ sudo systemctl is-enabled ssh 
+Ako overit, ci sa proces/program spusti po restarte systemu: `$ sudo systemctl is-enabled <nazov>`
+ - napr.: `$ sudo systemctl is-enabled ssh `
 
-Ako na jednoduchu zalohu adresara "/etc" pomocou "rsync": # rsync -av /etc/ /media/USBdisk1/zaloha/
+Ako na jednoduchu zalohu adresara `/etc` pomocou `rsync` zadame: `$ sudo # rsync -av /etc/ /media/USBdisk1/zaloha/`
 
-Tri divne sposoby, ako generovat 16 znakove heslo (bez instalacie dalsich programov):
+Tip: Tri **divne** sposoby, ako generovat 16 znakove heslo (bez instalacie dalsich programov):
 
-$ openssl rand -base64 12
-$ head /dev/urandom | base64 | cut -b 1-16
-$ echo $(head /dev/urandom | shasum | base64 | cut -b 1-11).$(date +%Y)
+    $ openssl rand -base64 12
+    $ head /dev/urandom | base64 | cut -b 1-16
+    $ echo $(head /dev/urandom | shasum | base64 | cut -b 1-11).$(date +%Y)
 
-Ako vytvorit/stiahnut kompletnu kopiu/mirror nejakeho webu, pouzijeme program "wget":
+Ako vytvorit/stiahnut kompletnu kopiu/mirror nejakeho webu, pouzijeme program `wget`:
 
-$ wget --mirror --convert-links --adjust-extension --page-requisites --no-parent http://example.com
- - alebo skratene: $ wget -mkEpnp http://example.com
+`$ wget --mirror --convert-links --adjust-extension --page-requisites --no-parent http://example.com`
+ - alebo skratene: `$ wget -mkEpnp http://example.com`
 
-Ako nainstalovat zakladne vyvojarske nastroje: $ sudo apt install build-essential
- - RedHat-based distribucie (Fedora/CentOS) napr.: $ sudo dnf group install "Development Tools" 
+Ako nainstalovat zakladne vyvojarske nastroje: `$ sudo apt install build-essential`
+ - RedHat-based distribucie (Fedora/CentOS) napr.: `$ sudo dnf group install "Development Tools"`
 
-Poznamka, adresar "/opt" znamena "Optional Software", sluzi zvycajne na kompilaciu programov
- - napr. kompilacia programu "ProFTPD", pouzijeme nastavenie: $ ./configure --prefix=/opt/proftpd
+Poznamka: adresar `/opt` znamena **Optional Software**, sluzi zvycajne na kompilaciu programov
+ - napr. kompilacia programu `ProFTPD`, pouzijeme nastavenie: `$ ./configure --prefix=/opt/proftpd`
 
-Ako prehladavat lokalnu DPKG databazu (Debu/Ubu): $ dpkg-query -l | grep ssh
- - dalej napr. mozeme vypisat obsah balicka: $ dpkg -L openssh-server
+Ako prehladavat lokalnu DPKG databazu (Debu/Ubu): `$ dpkg-query -l | grep ssh`
+ - dalej napr. mozeme vypisat obsah balicka: `$ dpkg -L openssh-server`
 
-Ako zistit, do akeho balika patri program "ls", najskor "$ which ls", nasledne: $ dpkg -L /bin/ls
- - znova mozeme prezriet obsah balika: $ dpkg -L coreutils | less
+Ako zistit, do akeho balika patri program `ls`, najskor `$ which ls`, nasledne: `$ dpkg -L /bin/ls`
+ - znova mozeme prezriet obsah balika: `$ dpkg -L coreutils | less`
  
-Ako overit obsah lokalnej "APT cache" (Deb/Ubu): $ ls -l /var/cache/apt/archives/
- - aka je jej velkost: $ sudo du -sh /var/cache/apt/archives/ 
- - mozeme vycistit pomocou: $ sudo apt clean
+Ako overit obsah lokalnej **APT cache** (Deb/Ubu): `$ ls -l /var/cache/apt/archives/`
+ - aka je jej velkost: `$ sudo du -sh /var/cache/apt/archives/`
+ - mozeme vycistit pomocou: `$ sudo apt clean`
 
-Ako zistit, ake su nainstalovane baliky: $ apt list --installed
+Ako zistit, ake su v systeme nainstalovane baliky: `$ apt list --installed`
 
-Ako vypisat info. o HW pod nainstalovanym systemom: $ sudo lshw > hw.txt
- - mozeme vypisat JSON resp. HTML format: "# lshw -json > hw.json" resp. "# lshw -html > hw.html"
- - uspornejsi vypis ziskame s: $ sudo lshw -short 
+Ako vypisat info. o HW pod nainstalovanym systemom: `$ sudo lshw > hw.txt`
+ - mozeme vypisat JSON resp. HTML format: `$ sudo lshw -json > hw.json` resp. `$ sudo lshw -html > hw.html`
+ - uspornejsi vypis ziskame s: `$ sudo lshw -short`
 
 Podrobne informacie o CPU ziskame s: $ lscpu
  - dalej ziskame informacie o RAM: $ sudo dmidecode -t memory
