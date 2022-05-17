@@ -1521,11 +1521,10 @@ Dalsi nastroj na **Rootkit** detekciu, instalujeme s: `$ sudo apt install chkroo
 
  - vytvorime heslo: `$ sudo grub-mkpasswd-pbkdf2`
  - dalej upravime subor `/etc/grub.d/40_custom` pridame riadky, vygenerovany HASH, od slova `grub`
-
-    set superusers="root"
-    
-    password_pbkdf2 root grub.pbkdf2.sha512.10000.C319ED4060EA...
-
+```
+ set superusers="root"
+ password_pbkdf2 root grub.pbkdf2.sha512.10000.C319ED4060EA...
+```
  - nasledne ulozime a spustime skript na generovanie konfiguracie: `$ sudo update-grub2`
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
