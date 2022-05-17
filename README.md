@@ -1453,29 +1453,32 @@ Aliasu `ADMINS` priradime povoleny prikaz `/user/bin/netstat` + alias prikazov `
 
  - dalsie informacie: `$ man sudoers`
 
-Poznamka: v oblasti Steganografie sa pouziva nastroj "steghide": $ sudo apt install steghide
- - dalsie informacie: https://en.wikipedia.org/wiki/Steganography
- - informacie o programe: $ man steghide
+#### V oblasti **Steganografie** sa pouziva nastroj `steghide`:
+ - instalujeme: `$ sudo apt install steghide`
+ - dalsie informacie: `https://en.wikipedia.org/wiki/Steganography`
+ - informacie o programe: `$ man steghide`
+
+#### Dalsie priklady prace s uzivatelskymi uctami:
  
-Ako docasne deaktivovat "password-auth" pre daneho uzivatela: $ sudo passwd -l <uzivatel>
- - overime s: $ sudo passwd --status <uzivatel>
-   - vo vyppise znak "L" znamena "Locked", dalej "P" = Valid Password, "NP" = No Password
- - uzivatleske heslo znova "odomkneme" s: $ sudo passwd -u <uzivatel>
- - overime s: $ sudo passwd --status <uzivatel>
- - dalsi psosob zamknutia, zmena datumu exspiracie hesla: $ sudo usermod --expiredate 1 <uzivatel>
- - overime s: $ sudo chage -l <uzivatel>
- - znova "aktivujeme" s: $ sudo usermod --expiredate "" <uzivatel>
+Ako docasne deaktivovat **password-auth** pre daneho uzivatela: `$ sudo passwd -l <uzivatel>`
+ - overime s: `$ sudo passwd --status <uzivatel>`
+   - vo vypise znak `L` znamena **Locked**, dalej `P` = Valid Password, `NP` = No Password
+ - uzivatleske heslo znova **odomkneme** s: `$ sudo passwd -u <uzivatel>`
+ - overime s: `$ sudo passwd --status <uzivatel>`
+ - dalsi psosob zamknutia, zmena datumu exspiracie hesla: `$ sudo usermod --expiredate 1 <uzivatel>`
+ - overime s: `$ sudo chage -l <uzivatel>`
+ - znova **aktivujeme** s: `$ sudo usermod --expiredate "" <uzivatel>`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Ako s Nmap TCP skenom s "odhadnut" verziu OS a programov: $ sudo nmap -A -Pn -sV 192.168.1.100
- - parameter "-Pn" zabezpeci, ze sa nepouzije "ping-check", nmap pokracuje aj ked sa ICMP zahadzuje
- - SEDA ZONA: mozeme pouzit "Decoys", napr.: $ sudo nmap 192.168.1.2 -D A.B.C.D,E.F.G.H,I.J.K.L
-   - tieto tzv. "Decoy" hosty musia byt UP
- - sken bez prekladu PTR "-n", zo zoznamu "-iL hosts.txt", vystup ide do suboru "-oN output.txt":
-   - napr: $ sudo nmap -sV -iL hosts.txt -n -oN output.txt
- - program "nmap" ma koncept "Templates", dalsie info v "$ man nmap", vyhladat parameter "-T"
+#### Zaklady prace s programom `nmap`:
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Ako s Nmap TCP skenovanim "odhadnut" verziu OS a programov: `$ sudo nmap -A -Pn -sV 192.168.1.100`
+ - parameter `-Pn` zabezpeci, ze sa nepouzije **ping-check**, nmap pokracuje aj ked sa ICMP pakety zahadzuju
+ - **SEDA ZONA:** mozeme pouzit tzv. **Decoys**, napr.: `$ sudo nmap 192.168.1.2 -D A.B.C.D,E.F.G.H,I.J.K.L`
+   - tieto tzv. "Decoy" hosty musia byt **UP**
+ - sken bez prekladu PTR `-n`, zo zoznamu `-iL hosts.txt`, vystup ide do suboru `-oN output.txt`:
+   - napr: `$ sudo nmap -sV -iL hosts.txt -n -oN output.txt`
+ - program `nmap` pouziva koncept **Templates**, dalsie info v `$ man nmap`, vyhladat parameter: `-T`
+
 Nastroj na detekciu tzv. "Rootkit-ov", nainstalujeme: $ sudo apt install rkhunter
  - nasledne aktualizujeme "file-DB": $ sudo rkhunter --propupd
  - dalej spustime samotne skenovanie: $ sudo rkhunter --check
