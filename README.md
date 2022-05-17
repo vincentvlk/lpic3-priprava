@@ -1622,51 +1622,51 @@ Ako pridat domenu/zonovy subor, tzv. **zone-file**, teda vytvorit autoritaivny D
     www	    IN	A	192.168.1.244
     mail    IN	A	192.168.1.244
 ```
- - nasledne je vhodne otestovat spravnost konfiguracie servera a zonovych suborov:
-   - kontrola konf. servera: $ sudo named-checkconf
-   - kontrola zonoveho suboru: $ sudo named-checkzone priklad.xyz. /etc/bind/db.priklad.xyz
- - po kontrole restartujeme DNS server: $ sudo systemctl reload-or-restart bind9.service
- - stav overime s: $ sudo systemctl status bind9.service
+ - dalej je vhodne otestovat spravnost konfiguracie servera a zonovych suborov:
+   - kontrola konf. servera: `$ sudo named-checkconf`
+   - kontrola zonoveho suboru: `$ sudo named-checkzone priklad.xyz. /etc/bind/db.priklad.xyz`
+ - po kontrole restartujeme DNS server: `$ sudo systemctl reload-or-restart bind9.service`
+ - stav overime s: `$ sudo systemctl status bind9.service`
 
-Ako zistit, svoju verejnu IP, napr. "$ curl ifconfig.me", "$ curl -4 ident.me", "$ curl -6 ident.me"
- - priklad: pouzitie v skripte: $ echo "Moja verejne IP je $(curl -s ident.me)"
+Tip: Ako zistit, svoju verejnu IP, napr. `$ curl ifconfig.me`, `$ curl -4 ident.me`, `$ curl -6 ident.me`
+ - priklad: pouzitie v skripte: `$ echo "Moja verejne IP je $(curl -s ident.me)"`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Ako zadefinovat tzv. "Virtual Hosting" pre Web server Apache2:
- - vytvorime adresar s webom: $ sudo mkdir /var/www/priklad.xyz
- - nastavime vlastnika: $ sudo chown -R www-data:www-data /var/www/priklad.xyz
- - nastavime prava: $ sudo chmod 755 /var/www/priklad.xyz
- - vytvorime konf. subor: $ sudo vim /etc/apache2/sites-available/priklad.xyz.conf
+### Ako zadefinovat tzv. **Virtual Hosting** pre Web server Apache2:
+
+ - vytvorime adresar s webom: `$ sudo mkdir /var/www/priklad.xyz`
+ - nastavime vlastnika: `$ sudo chown -R www-data:www-data /var/www/priklad.xyz`
+ - nastavime prava: `$ sudo chmod 755 /var/www/priklad.xyz`
+ - vytvorime konf. subor: `$ sudo vim /etc/apache2/sites-available/priklad.xyz.conf`
  - vlozime napr.:
+```
+    <VirtualHost *:80>
+        ServerName priklad.xyz
+        ServerAlias www.priklad.xyz
+        DocumentRoot "/var/www/priklad.xyz"
 
-<VirtualHost *:80>
-    ServerName priklad.xyz
-    ServerAlias www.priklad.xyz
-    DocumentRoot "/var/www/priklad.xyz"
+        ServerAdmin web@priklad.xyz
+        ErrorLog /var/log/apache2/priklad.xyz.error.log
+        CustomLog /var/log/apache2/priklad.xyz.access.log combined
 
-    ServerAdmin web@priklad.xyz
-    ErrorLog /var/log/apache2/priklad.xyz.error.log
-    CustomLog /var/log/apache2/priklad.xyz.access.log combined
+    </VirtualHost>
+```
+ - po ulozeni aktivujeme a pridame stranku do **Virtual Hosting**: `$ sudo a2ensite priklad.xyz`
+ - vznikne: `/etc/apache2/sites-available/vlkv.name.conf -> /etc/apache2/sites-enabled/vlkv.name.conf`
+ - nasledne znova nacitame konfiguracie servera: `$ sudo systemctl reload apache2`
+ - mozeme overit s: `$ sudo systemctl status apache2`
+ - mozeme aj deaktivovat ine "Virtual Host" stranky
+ - deaktivujeme predvolenu **Landing Page** pre Apache2 na Debiane: `$ sudo a2dissite 000-default`
+ - je este potrebne znova nacitat konfigy: `$ sudo systemctl reload apache2`
 
-</VirtualHost>
- 
- - po ulozeni aktivujeme a pridame stranku do "Virtual Hosting": $ sudo a2ensite priklad.xyz
- - vznikne: /etc/apache2/sites-available/vlkv.name.conf -> /etc/apache2/sites-enabled/vlkv.name.conf
- - nasledne znova nacitame konfiguracie: $ sudo systemctl reload apache2
- - mozeme overit s: $ sudo systemctl status apache2
- - mozeme aj deaktivovat ine Virtual Host stranky, napr.: $ sudo a2dissite 000-default
- - deaktivujeme predvolenu "Landing Page" pre Apache2 na Debiane
- - je este potrebne znova nacitat konfigy: $ sudo systemctl reload apache2
-
-Ako instalovat podporu PHP na server Apache2: $ apt install php php-mysql libapache2-mod-php
- - instalaciu overime napr. s: $ php -v
+Ako instalovat podporu PHP na server Apache2: `$ apt install php php-mysql libapache2-mod-php`
+ - instalaciu overime napr. s: `$ php -v`
  - na otestovanie vo Web prehliadaci mozeme vytvorit jednoduchu stranku
-   - v adresari "/var/www/priklad.xyz/" vytvorime subor "test.php" s obsahom:
-
-<?php
-	phpinfo();
-?>
-
+   - v adresari `/var/www/priklad.xyz/` vytvorime subor `test.php` s obsahom:
+```php
+    <?php
+    	phpinfo();
+    ?>
+```
  - ulozime a otvorime v prehliadaci, napr.: www.priklad.xyz/test.php
 
 Ako zapnut v Apache2 modul na kompresiu posielaneho obsahu: $ sudo a2enmod deflate
