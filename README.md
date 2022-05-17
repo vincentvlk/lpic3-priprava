@@ -881,27 +881,26 @@ Ako replikovat lokalny Git repozitar na vzdialeny server, napr. na GitHub:
 - nasledne zosynchronizujeme kolakny repo. so vzdialenym repo.: `$ git push -u origin master`
 - na autentifikaciu zadame svoje uziv. meno, ale **namiesto hesla zadame vygenerovany PAT Token**
 
-Na ulahcenie prace si mozeme pridat do svojho $HOME adresara do suboru ".gitconfig" aliasy, napr.:
+Na ulahcenie prace si mozeme pridat do svojho `$HOME` adresara, do suboru `.gitconfig` aliasy, napr.:
 
-#
-[alias]
-    s = status
-    co = checkout
-    cob = checkout -b
-    save = !git add -A && git commit -m 'Nic zasadne: len ukladam pripisany text'
-    lg = !git log --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\" --abbrev-commit -30
-    undo = reset HEAD~1 --mixed
-    strom = !git log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C$
+    #
+    [alias]
+        s = status
+        co = checkout
+        cob = checkout -b
+        save = !git add -A && git commit -m 'Nic zasadne: len ukladam pripisany text'
+        lg = !git log --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\" --abbrev-commit -30
+        undo = reset HEAD~1 --mixed
+        strom = !git log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C$
 
  - naslendne uz mozeme pouzivat napr. aliasy:
 
-$ git s
-$ git save
-$ git lg
-$ git strom
+    $ git s
+    $ git save
+    $ git lg
+    $ git strom
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Zaklady prace v BASH terminale:
+### Dalsie zaklady prace v BASH terminale/interprete:
 
 Ako vykonat upgrade balikov (Deb/Ubu): $ sudo apt update && sudo apt upgrade
 
