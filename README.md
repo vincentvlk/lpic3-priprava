@@ -20,7 +20,7 @@ Zakladne tipy a triky:
 ### Dobra stranka na zaciatocnu konfiguraciu znamych distribucii Linuxu:
 
     https://www.server-world.info/en/
-    
+ 
     - ale nevedno do kedy bude online a chyba tam IPv6 :-(
 
 ### Zakladne nastavenie siete v systeme Debian11:
@@ -1494,27 +1494,28 @@ Dalsi nastroj na **Rootkit** detekciu, instalujeme s: `$ sudo apt install chkroo
  - jednoduche spustenie: `$ sudo chkrootkit`
    - podobne sa da spustit, len vypise **Warnings**, prikaz: `$ sudo chkrootkit -q`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Ako hladat/mazat virusy, pouzijeme nastroj "Clam-AV": $ sudo apt install clamav clamav-daemon
- - dolezite komponenty: "$ man clamd", "$ man clamdscan", "$ man clamscan" (pouziva vlastnu Vir-DB)
- - nastroj na aktualizaciu "Virus DB": $ man freshclam
- - aktivnu aktualizaciu overime s: $ sudo systemctl status clamav-freshclam
- - verziu DB overime s: $ freshclam --version
- - dalej mozeme spustit proces Clam-AV process: $ sudo systemctl start clamav-daemon
-   - POZOR, moze byt narocne na RAM (u mna ca. 1,2 GB)
- - overime stav s: $ sudo systemctl status clamav-daemon
-   - ak chceme, aby proces startoval "on-boot", tak: $ sudo systemctl enable clamav-daemon
- - overime aj log, napr.: $ sudo less /var/log/clamav/clamav.log
- - mozeme stiahnut testovaci virus: $ wget -c www.eicar.org/download/eicar.com
-   - nasledne testovaci sken: $ sudo clamdscan --fdpass /home
-   - najdene subory mozeme presunut do karanteny: $ sudo clamdscan --move /karantena --fdpass /home
-   - POZOR, na vlastne riziko mozeme aj mazat: $ sudo clamdscan --remove --fdpass /home
- - mozeme pouzit nastroj "clamscan", ktory si nacita vlastnu DB:
-   - najskor zastavime "ClamAV-Daemon": $ sudo systemctl stop clamav-daemon
-   - nasledne spustime skeno: $ sudo clamscan --recursive /home 
-   - upravime vypis, aby zobrazil "nakazene" subory: $ sudo clamscan --infected --recursive /home
-   - POZOR a OPATRNE, automaticke mazanie: $ sudo clamscan --infected --remove --recursive /home
-   - pre Linux-ove distribucie existuje aj GUI rozhranie "ClamTk": $ sudo apt install clamtk
+### Ako hladat/mazat virusy, pouzijeme nastroj **Clam-AV**
+
+ - instalujeme: `$ sudo apt install clamav clamav-daemon`
+ - dolezite komponenty: `$ man clamd`, `$ man clamdscan`, `$ man clamscan` (pouziva vlastnu **Virus-DB**)
+ - nastroj na aktualizaciu **Virus-DB**, informacie: `$ man freshclam`
+ - aktivnu aktualizaciu overime s: `$ sudo systemctl status clamav-freshclam`
+ - verziu DB overime s: `$ freshclam --version`
+ - dalej mozeme spustit Clam-AV process: `$ sudo systemctl start clamav-daemon`
+   - **POZOR**, moze byt narocne na RAM (u mna cca. 1,2 GB)
+ - overime stav s: `$ sudo systemctl status clamav-daemon`
+   - ak chceme, aby proces startoval **on-boot**, tak: `$ sudo systemctl enable clamav-daemon`
+ - overime aj log, napr.: `$ sudo less /var/log/clamav/clamav.log`
+ - mozeme stiahnut testovaci virus: `$ wget -c www.eicar.org/download/eicar.com`
+   - nasledne testovaci sken: `$ sudo clamdscan --fdpass /home`
+   - najdene subory mozeme presunut do karanteny: `$ sudo clamdscan --move /karantena --fdpass /home`
+   - **POZOR**, na vlastne riziko mozeme aj mazat: `$ sudo clamdscan --remove --fdpass /home`
+ - mozeme pouzit nastroj `clamscan`, ktory si nacita vlastnu DB:
+   - najskor zastavime **ClamAV-Daemon**, prikaz: `$ sudo systemctl stop clamav-daemon`
+   - nasledne spustime skenovanie: `$ sudo clamscan --recursive /home`
+   - upravime vypis, aby zobrazil **nakazene** subory: `$ sudo clamscan --infected --recursive /home`
+   - **POZOR**, automaticke mazanie: `$ sudo clamscan --infected --remove --recursive /home`
+   - pre Linux-ove distribucie existuje aj GUI rozhranie **ClamTk**, instalujeme: `$ sudo apt install clamtk`
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako na zabezpecnie zavadzaca "GRUB2", vytvorime heslo: $ sudo grub-mkpasswd-pbkdf2
