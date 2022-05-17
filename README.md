@@ -1314,6 +1314,7 @@ prikaz: `$ docker container run -d -p 8080:80 --name=moj_lab nginx`
  - alternativne, image s web serverom Apache2, nazov image zmenime na: `httpd`
 
 Ako vypisat otvorene TCP porty kontajnera: `$ docker container port <contID/contNAME>`
+
 Ako vypisat logy z kontajnera (napr. server nginx): `$ docker container logs <contID/contNAME>`
  - sledovanie v realnom case, parameter: `logs -f`
 
