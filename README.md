@@ -1304,41 +1304,41 @@ Priklad ako vytvorit zmenu v Docker image a commitovat ju:
  - prikaz: `$ docker container rm $(docker container ls -a -q)`
  - pripadne, na **VLASTNE RIZIKO**, mozeme spustit s paramentrom `rm -f`
 
-Ako spustit testovaci webserver v kontajnery s nazvom "moj_lab" (vonkajsi port je TCP/8080):
+Ako spustit testovaci webserver v kontajnery s nazvom `moj_lab` (vonkajsi port je **TCP/8080**):
 
-$ docker container run -d -p 8080:80 --name=moj_lab nginx
+prikaz: `$ docker container run -d -p 8080:80 --name=moj_lab nginx`
 
- - overime s: $ docker ps
- - nasledne otestujeme pripojenie s browserom, alebo napr. $ curl localhost:8080
- - dalsie infromacie: $ docker container run --help
- - alternativne, image s web serverom Apache2: "httpd"
+ - overime s: `$ docker ps`
+ - nasledne otestujeme pripojenie s browserom, alebo napr. `$ curl localhost:8080`
+ - dalsie informacie: `$ docker container run --help`
+ - alternativne, image s web serverom Apache2, nazov image zmenime na: `httpd`
 
-Ako vypisat otvorene TCP porty kontajnera: $ docker container port <contID/contNAME>
-Ako vypisat logy z kontajnera (napr. server nginx): $ docker container logs <contID/contNAME>
- - sledovanie v realnom case, parameter: "logs -f"
+Ako vypisat otvorene TCP porty kontajnera: `$ docker container port <contID/contNAME>`
+Ako vypisat logy z kontajnera (napr. server nginx): `$ docker container logs <contID/contNAME>`
+ - sledovanie v realnom case, parameter: `logs -f`
 
-Ako sledovat zdroje konkretneho kontajnera: $ docker container stats <contID/contNAME>
-Ako vypisat detailne informacie o kontajnery: $ docker container inspect <contID/contNAME>
+Ako sledovat zdroje konkretneho kontajnera: `$ docker container stats <contID/contNAME>`
+Ako vypisat detailne informacie o kontajnery: `$ docker container inspect <contID/contNAME>`
 
 Ako spustit kontajner, hned s prikazovym riadkom: 
 
-$ docker container run --name=ubu-con1 -it ubuntu
- - alebo, spustime interaktivny BASH na uz vytvorenom kontajnery: $ docker exec -it ubu-con1 bash 
- - alebo, spustime (zastaveny) kontajner v interaktivnom mode: $ docker start -i ubu-con1
+prikaz: `$ docker container run --name=ubu-con1 -it ubuntu`
+ - alebo, spustime interaktivny BASH na uz vytvorenom kontajnery: `$ docker exec -it ubu-con1 bash`
+ - alebo, spustime (zastaveny) kontajner v interaktivnom mode: `$ docker start -i ubu-con1`
 
-Ako vypisat kolko miesta na disku zaberaju kontajnery: $ docker ps -as
+Ako vypisat kolko miesta na disku zaberaju kontajnery: `$ docker ps -as`
 
-Ako vytvorit perzistentne ulozisko pre kontajner "Docker Volume": $ docker volume create <nazov>
- - overime s $ docker volume ls
- - dalsie informacie: $ docker volume --help
+Ako vytvorit perzistentne ulozisko pre kontajner **Docker Volume**: `$ docker volume create <nazov>`
+ - overime s `$ docker volume ls`
+ - dalsie informacie: `$ docker volume --help`
 
-Ako vytvorit "nginx" kontajner s namapovanyn volume:
+Ako vytvorit **nginx** kontajner s namapovanyn volume:
 
-$ docker run -d --name moja_web_app -p 80:80 -v <nazov_vol>:/usr/share/nginx/html nginx
+prikaz: `$ docker run -d --name moja_web_app -p 80:80 -v <nazov_vol>:/usr/share/nginx/html nginx`
  
-- mozeme manipulovat s obsahom "web root" adresara teda: /var/lib/docker/volumes/mojvol/_data/
-- priklad: $ sudo cp /etc/services /var/lib/docker/volumes/mojvol/_data/index.html
-- overime napr. s: $ curl localhost:80
+- mozeme manipulovat s obsahom **web root** adresara v: `/var/lib/docker/volumes/mojvol/_data/`
+- priklad: `$ sudo cp /etc/services /var/lib/docker/volumes/mojvol/_data/index.html`
+- overime napr. s: `$ curl localhost:80`
 
 Poznamka, ak chceme vymazat Docker image, treba najskor pomazat z neho vytvorene kontajnery
 
