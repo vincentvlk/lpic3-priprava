@@ -1027,35 +1027,36 @@ Ak nastavime na subor prava `$ chmod 000 subor.txt`, moze ho niekto citat/upravo
 Hesla ulozene (Ubu 20.04) v subore `/etc/shadow` su vo formate: `$id$salt$hash`
  - napr. identifikator (id) `6` znamena `SHA-512`
 
-Ako vypisat atriburty (nie prava) konkretneho suboru: $ lsattr subor.txt
- - vyznam atributov najdeme napr. v: $ man chattr
- - napr. mozeme na subor nastavit tzv. "no append" atribut: $ chattr +a subor.txt
- - napr. mozeme nastavit tzv. "immutable" atribut, ktory "zmrazi" upravy: $ chattr +i subor.txt
- - atributy mozeme nastavit aj rekurzivne, pre obsah adresara: $ sudo chattr -R dir1/
+Ako vypisat atriburty (nie prava) konkretneho suboru: `$ lsattr subor.txt`
+ - vyznam atributov najdeme napr. v: `$ man chattr`
+ - napr. mozeme na subor nastavit tzv. `no append` atribut: `$ chattr +a subor.txt`
+ - napr. mozeme nastavit tzv. `immutable` atribut, ktory **zmrazi** upravy: `$ chattr +i subor.txt`
+ - atributy mozeme nastavit aj rekurzivne, pre obsah adresara: `$ sudo chattr -R dir1/`
 
-Ako nastavit "SET UID bit", absolutny mod "$ chmod 4XXX a.bin", relativny mod "chmod u+s a.bin" 
- - overime napr. prikazom: $ stat a.bin
+Ako nastavit **SET UID bit**, absolutny mod `$ chmod 4XXX a.bin`, relativny mod `$ chmod u+s a.bin` 
+ - overime napr. prikazom: `$ stat a.bin`
  - program/skript je spustany s pravami vlastnika, nie s pravami zadavatela prikazu
-   - typicky priklad napr.: $ cat /etc/shadow
+   - typicky priklad napr.: `$ cat /etc/shadow`
 
-Ako naist subory, ktore maju "aspon" prava "4000": $ find /usr/bin/ -perm -4000 -ls
+Ako naist subory, ktore maju **aspon** prava `4000`, zadame: `$ find /usr/bin/ -perm -4000 -ls`
 
-Ako nastavit "SET GID bit", absolutny mod "$ chmod 2XXX dir1/", relativny mod "chmod g+s dir1/"
- - subory vytvorene v adresary s "SGID" bitom budu mat vlastnika podla skupiny adresara "dir1/"
+Ako nastavit **SET GID bit**, absolutny mod `$ chmod 2XXX dir1/`, relativny mod `"chmod g+s dir1/`
+ - subory vytvorene v adresary s **SGID bitom** budu mat vlastnika podla skupiny adresara `dir1/`
  - uzitocne pre vytvaranie zdielanych adresarov
- - ako priklad mozeme vytvorit dedikovany adresar pre dvoch vyvojarov:
 
- # adduser dev1                       <-- vytvorime uzivatelov   
- # adduser dev2
- # usermod -aG developers dev1        <-- vytvorime skupinu a zaradime uzivatelov
- # usermod -aG developers dev2
- # mkdir /repo.d                      <-- vytvorime zdielany adresar
- # chown dev1:developers /repo.d/     <-- nastavime vlastnika/skupinu
- # chmod o-rx /repo.d/                <-- nastavome prava
- # chmod g+s /repo.d/                 <-- nastavime "SGID" bit
+Ako priklad mozeme vytvorit dedikovany adresar pre dvoch vyvojarov:
 
- - nasledne overime tak, ze uziv. "dev1" vytvori subor: $ touch program.c
- - so spravnym nastavenim ma editovaci pristup aj uzivatel "dev2"
+    # adduser dev1                       <-- vytvorime uzivatelov
+    # adduser dev2
+    # usermod -aG developers dev1        <-- vytvorime skupinu a zaradime uzivatelov
+    # usermod -aG developers dev2
+    # mkdir /repo.d                      <-- vytvorime zdielany adresar
+    # chown dev1:developers /repo.d/     <-- nastavime vlastnika/skupinu
+    # chmod o-rx /repo.d/                <-- nastavome prava
+    # chmod g+s /repo.d/                 <-- nastavime "SGID" bit
+
+ - nasledne overime tak, ze uziv. **dev1** vytvori subor: `$ touch program.c`
+ - so spravnym nastavenim ma editovaci pristup aj uzivatel **dev2**
 
 Ako nastavit "Sticky bit", absolutny mod "$ chmod 1XXX dir1/", relativny mod "chmod o+t dir1/"
  - zmena zabezpeci, ze sa v (zdielanom) adresary na novy subor "nalepia" prava tvorcu, nie adresara
