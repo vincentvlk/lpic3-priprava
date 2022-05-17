@@ -1543,7 +1543,6 @@ Dalsi nastroj na **Rootkit** detekciu, instalujeme s: `$ sudo apt install chkroo
 
 - je potrebne overit pocet spustitelnych procesov, skontrolujeme povolnene mznostvo: `$ ulimit -u`
 - do suboru `/etc/security/limits.conf` pridame tieto riadky:
-
     ```
     student		hard	nproc	1000
     @team1		hard	nproc	4000
