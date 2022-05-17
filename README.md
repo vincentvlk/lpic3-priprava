@@ -1685,18 +1685,19 @@ Tip: Ako zistit, svoju verejnu IP, napr. `$ curl ifconfig.me`, `$ curl -4 ident.
    - definujeme, z ktorych IP adries je mozne otvarat: `www.priklad.xyz/server-status`
  - restartujeme proces: `$ sudo systemctl reload apache2`
  - nasledne mozeme v prehliadaci otvorit: `www.priklad.xyz/server-status?refresh=2`
- - na test mozeme pouzit program "Apache Benchmark", z balika "apache2-utils"
-   - pouzijeme prikaz napr.: $ ab -n 1000 -c 100 http://192.168.1.244/
-   - prikaz vytvori 1000 poziadavok na server, s tym ze sucasnych dovoli max. 100
-   - dalsie informacie: $ man ab
+ - na test mozeme pouzit program **Apache Benchmark**, z balika `apache2-utils`
+   - pouzijeme prikaz napr.: `$ ab -n 1000 -c 100 http://192.168.1.244/`
+   - prikaz vytvori 1000 poziadavok na server, s tym, ze sucasnych dovoli max. `100`
+   - dalsie informacie: `$ man ab`
 
-Ako blokovat pre Apache2 indexovy vypis suborov, do konf. suboru "vhost" alebo glob. konf.:
+#### Ako blokovat pre Apache2 indexovy vypis suborov:
+- do konf. suboru `vhost` alebo globalnej konfiguracie vlozime:
+```apache
+    <Directory /var/www/html>
+            Options -Indexes
 
-<Directory /var/www/html>
-        Options -Indexes
-
-</Directory>
-
+    </Directory>
+```
 - POZOR, ak pouzijeme v konf. "+" alebo "-" vsetky moznosti "Options" musia obsahovat "+"/"-"
 - nasledne: $ sudo systemctl reload apache2
 
