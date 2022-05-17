@@ -1141,174 +1141,168 @@ Ako vypisat info. o HW pod nainstalovanym systemom: `$ sudo lshw > hw.txt`
  - mozeme vypisat JSON resp. HTML format: `$ sudo lshw -json > hw.json` resp. `$ sudo lshw -html > hw.html`
  - uspornejsi vypis ziskame s: `$ sudo lshw -short`
 
-Podrobne informacie o CPU ziskame s: $ lscpu
- - dalej ziskame informacie o RAM: $ sudo dmidecode -t memory
- - informacie o velkosti modulov a max. kapacite: $ sudo dmidecode -t memory | grep -i size
- - podobne ziskame informacie o zakladnej doske: $ sudo dmidecode -t baseboard
- - dalsie moznosti zistime s: $ sudo dmidecode -t
- - informacie o zberniciach PCI a USB ziskame s  "$ lscpi" resp. "$ lsusb"
- - informacie o HDD/SSD: $ sudo lshw -C disk 
- - ako ziskat detailne informacie o konkretnom SATA zariadeni: $ sudo hdparm -I /dev/sda
- - POZOR, test rychlosti citania SATA, bez cache (raw I/O): $ sudo hdparm -t --direct /dev/sda
- - informacie o Wireless zariadeniahc ziskame s: $ sudo iw list | less
- - ako obvykle dalsie informacie: $ man <lshw/lscpu/dmidecode/lspci/lsusb/hdparm/iw>
+Podrobne informacie o CPU ziskame s: `$ lscpu`
+ - dalej ziskame informacie o RAM: `$ sudo dmidecode -t memory`
+ - informacie o velkosti RAM modulov a max. kapacite: `$ sudo dmidecode -t memory | grep -i size`
+ - podobne ziskame informacie o zakladnej doske: `$ sudo dmidecode -t baseboard`
+ - dalsie moznosti zistime s: `$ sudo dmidecode -t`
+ - informacie o zberniciach PCI a USB ziskame s: `$ sudo lspci` resp. `$ sudo lsusb`
+ - informacie o HDD/SSD: `$ sudo lshw -C disk`
+ - ako ziskat detailne informacie o konkretnom SATA zariadeni: `$ sudo hdparm -I /dev/sda`
+ - POZOR, test rychlosti citania SATA, bez cache (raw I/O): `$ sudo hdparm -t --direct /dev/sda`
+ - informacie o Wireless zariadeniach ziskame s: `$ sudo iw list | less`
+ - ako obvykle, dalsie informacie: `$ man <lshw/lscpu/dmidecode/lspci/lsusb/hdparm/iw>`
 
-Ako zistit kolko trvalo bootovanie pomocou "SystemD": $ systemd-analyze
- - ak je to mozne, snaha "SystemD" je spustat jednotlive procesy/sluzby paralelne
- - da sa detailne vypisat, na com sa travilo najviac casu: $ systemd-analyze blame
+Ako zistit kolko trvalo bootovanie pomocou **SystemD**, zadame: `$ systemd-analyze`
+ - ak je to mozne, snaha **SystemD** je spustat jednotlive procesy/sluzby **paralelne**
+ - da sa detailne vypisat, na com sa travilo najviac casu: `$ systemd-analyze blame`
 
-Ako vypisat len "EXT4-FS" mount-pointy: $ mount -l -t ext4
- - dalsi priklad pre VFAT-FS, ktory byva na USB "klucoch": $ mount -l -t vfat
+Ako vypisat **len EXT4-FS** mount-pointy: `$ mount -l -t ext4`
+ - dalsi priklad pre VFAT-FS, ktory byva na USB "klucoch": `$ mount -l -t vfat`
 
-Ako vytvorit bitovu kopiu USB disku: # dd status=progress if=/dev/sdb of=/home/user1/usb-backup.img 
- - nasledne obnova z image-file: # dd status=progress if=/home/user1/usb-backup.img of=/dev/sdb
+Ako vytvorit bitovu kopiu USB disku: `$ sudo dd status=progress if=/dev/sdb of=/home/user1/usb-backup.img`
+ - nasledne obnova z image-file: `$ sudo dd status=progress if=/home/user1/usb-backup.img of=/dev/sdb`
 
-Ako vytvorit premennu prostredia (Env. var.) pre cely system, upravime subor "/etc/bash.bashrc"
- - alternativne mozeme pouzit subor "/etc/profile"
+Ako vytvorit premennu prostredia (Env. var.) pre cely system, upravime subor `/etc/bash.bashrc`
+ - alternativne mozeme pouzit subor `/etc/profile`
 
-Ako zadefinovat konstantu: $ declare -r nemenna="/var/log"
+Ako zadefinovat konstantu: `$ declare -r nemenna="/var/log"`
 
-Ako v BASH skripte zadefinovat lokalnu (len vo funkcii) premennu: "local var1=len_vo_funkcii"
+Ako v BASH skripte zadefinovat lokalnu (len vo funkcii) premennu: `local var1=len_vo_funkcii`
 
-Ako ulozit vystup zlozeneho prikazu do premennej: $ output="$(ps -ef | grep ssh)"
- - nasledne vypiseme (so zachovanym formatovanim) ako retazec/string: $ echo "$output" 
+Ako ulozit vystup zlozeneho prikazu do premennej: `$ output="$(ps -ef | grep ssh)"`
+ - nasledne vypiseme (so zachovanym formatovanim) ako retazec/string: `$ echo "$output"`
 
-Ako v BASH skripte testujeme, ze premenna obsahuje substring: if [[ "$str1" == *[lL]inux"* ]]
+Ako v BASH skripte testujeme, ze premenna obsahuje substring: `if [[ "$str1" == *[lL]inux"* ]]`
 
-Testovanie BASH premennej s logickymi operatormi: if [[ $vek -ge 0 ]] && [[ $vek -le 18 ]]
+Testovanie BASH premennej s logickymi operatormi: `if [[ $vek -ge 0 ]] && [[ $vek -le 18 ]]`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Priklad na cvicny input error handling (osetrenie chybneho vstupu) v jazyku BASH:
+#### Priklad na cvicny input error handling (osetrenie chybneho vstupu) v jazyku BASH:
 
-#!/bin/bash
-#
-# Cvicny skript ocakava cele cislo v ramci vymedzenych hodnot, 17.2.2022 by vlkv
-#
-vek=-1
-set -e
-echo
+    #!/bin/bash
+    #
+    # Cvicny skript ocakava cele cislo v ramci vymedzenych hodnot, 17.2.2022 by vlkv
+    #
+    vek=-1
+    set -e
+    echo
 
-while [[ $vek == -1 ]]; do
-    read -p "Zadajte vek (rozsah 0 az 120): " vek
-        if [[ $vek -le -1 ]] || [[ $vek -ge 120 ]] || ! [[ $vek =~ ^[1-9][0-9]*$ ]]; then
-            echo
-            echo "CHYBA: Zadany vek \"$vek\" je mimo povolenych hodnot"
-            vek=-1
-        fi
-done
+    while [[ $vek == -1 ]]; do
+        read -p "Zadajte vek (rozsah 0 az 120): " vek
+            if [[ $vek -le -1 ]] || [[ $vek -ge 120 ]] || ! [[ $vek =~ ^[1-9][0-9]*$ ]]; then
+                echo
+                echo "CHYBA: Zadany vek \"$vek\" je mimo povolenych hodnot"
+                vek=-1
+            fi
+    done
 
-echo "Zadali ste vek $vek roky/rokov."
+    echo "Zadali ste vek $vek roky/rokov."
 
-# koniec skriptu
+    # koniec skriptu
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Priklad nacita vo "for" slucke hodnoty z .txt suboru do premennej $ip:
+#### Priklad nacita vo "for" slucke hodnoty z .txt suboru do premennej $ip:
 
-#!/bin/bash
-for ip in $(cat /home/dev1/ip_adresy.txt)
-do
-    echo "Nacital som zo suboru IP adresu: $ip"
-    sleep 1
-done
+    #!/bin/bash
+    for ip in $(cat /home/dev1/ip_adresy.txt)
+    do
+        echo "Nacital som zo suboru IP adresu: $ip"
+        sleep 1
+    done
 
-# koniec skriptu
+    # koniec skriptu
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Ako vytvorit skript s jednoduchym "select" menu v jazyku BASH:
+#### Ako vytvorit skript s jednoduchym "select" menu v jazyku BASH:
 
-#!/bin/bash
-#
-#priklad na menu selection v jazyku BASH
-echo
-echo "Zakladna administraciu systemu:"
-echo
-PS3="Zvolte moznost (Enter vypise moznosti): "
-select ITEM in "Pridaj uzivatela" "Vypis procesy" "Zabi proces" "Nainstaluj program" "Koniec"
-do
+    #!/bin/bash
+    #
+    #priklad na menu selection v jazyku BASH
+    echo
+    echo "Zakladna administraciu systemu:"
+    echo
+    PS3="Zvolte moznost (Enter vypise moznosti): "
+    select ITEM in "Pridaj uzivatela" "Vypis procesy" "Zabi proces" "Nainstaluj program" "Koniec"
+    do
 
-	if [[ $REPLY -eq 1 ]]
-	then
-		read -p "Zadajte uzivatelske meno: " username
-		buffer="$(grep -w $username /etc/passwd)"
-		if [[ -n "$buffer"  ]]
-		then
-			echo "Uzivatel \"$username\" uz existuje"
-		else
-			sudo adduser $username
-			if [[ $? -eq 0 ]]
-			then
-				echo "Uzivatel \"$username\" uspesne vytvoreny."
-				tail -n 1 /etc/passwd
-			else
-				echo "Nastala chyba pri vytvarani uzvatela \"$username\""
-			fi
-		fi
+    	if [[ $REPLY -eq 1 ]]
+    	then
+    		read -p "Zadajte uzivatelske meno: " username
+    		buffer="$(grep -w $username /etc/passwd)"
+    		if [[ -n "$buffer"  ]]
+    		then
+    			echo "Uzivatel \"$username\" uz existuje"
+    		else
+    			sudo adduser $username
+    			if [[ $? -eq 0 ]]
+    			then
+    				echo "Uzivatel \"$username\" uspesne vytvoreny."
+    				tail -n 1 /etc/passwd
+    			else
+    				echo "Nastala chyba pri vytvarani uzvatela \"$username\""
+    			fi
+    		fi
 
-	elif [[ $REPLY -eq 2 ]]
-	then
-		echo "Vypisujem vsetky procesy..."
-		sleep 1
-		ps -ef
+    	elif [[ $REPLY -eq 2 ]]
+    	then
+    		echo "Vypisujem vsetky procesy..."
+    		sleep 1
+    		ps -ef
 
-        elif [[ $REPLY -eq 3 ]]
-	then
-		read -p "Zadajte nazov procesu: " proces
-		pkill $proces
+            elif [[ $REPLY -eq 3 ]]
+    	then
+    		read -p "Zadajte nazov procesu: " proces
+    		pkill $proces
 
-	elif [[ $REPLY -eq 4 ]]
-	then
-		read -p "Zadajte nazov balika: " balik
-		sudo apt update && sudo apt install $balik
+    	elif [[ $REPLY -eq 4 ]]
+    	then
+    		read -p "Zadajte nazov balika: " balik
+    		sudo apt update && sudo apt install $balik
 
-	elif [[ $REPLY -eq 5 ]]
-	then
-		echo "Koniec administracie."
-		sleep 1
-		exit
+    	elif [[ $REPLY -eq 5 ]]
+    	then
+    		echo "Koniec administracie."
+    		sleep 1
+    		exit
 
-        else
-		echo "Neplatna volba."
-        fi
-done
+            else
+    		echo "Neplatna volba."
+            fi
+    done
 
-#koniec skriptu
+    #koniec skriptu
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Jednoduchy priklad na hladanie substringu zo systemoveho vypisu:
+#### Jednoduchy priklad na hladanie substringu zo systemoveho vypisu:
 
-#!/bin/bash
-#
-vystup="$(ping -f -i 0.5 -c 3 $1)"
-#echo "$vystup"
+    #!/bin/bash
+    #
+    vystup="$(ping -f -i 0.5 -c 3 $1)"
 
-if [[ "$vystup" == *"100% packet loss"*  ]]
-then
-        echo "Internetova konektiva na $1 je nedostupna."
-else
-        echo "Konektiva (ako tak) funguje."
-fi
+    if [[ "$vystup" == *"100% packet loss"*  ]]
+    then
+            echo "Internetova konektiva na $1 je nedostupna."
+    else
+            echo "Konektiva (ako tak) funguje."
+    fi
 
-# koniec skpritu
+    # koniec skpritu
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Pokracovanie prace s Docker-om:
+### Pokracovanie zakladov prace s Docker-om:
 
-Jednoduche web prostredie na ucenie/testovanie Docker-u: https://labs.play-with-docker.com/
- - dalsie informacie: https://www.docker.com/play-with-docker
+Jednoduche web prostredie na ucenie/testovanie Docker-u: `https://labs.play-with-docker.com/`
+ - dalsie informacie: `https://www.docker.com/play-with-docker`
 
-Priklad ako spustit v "sandboxe" web server "nginx": $ docker container run -d -it nginx
+Priklad ako spustit v **sandboxe** web server `nginx`, zadame: `$ docker container run -d -it nginx`
 
-Pre pomoc s CLI, staci zadat prikaz bez parametrov, napr.: $ docker container
+Pre pomoc s CLI, staci zadat prikaz bez parametrov, napr.: `$ docker container`
 
 Priklad ako vytvorit zmenu v Docker image a commitovat ju:
- $ docker commit -m "pridany nmap" -a "Jan Novak" <cont-ID> <hub-repoID>/moje-ubu:latest 
+- zadame : `$ docker commit -m "pridany nmap" -a "Jan Novak" <cont-ID> <hub-repoID>/moje-ubu:latest`
 
- - nasledne overime s: $ docker image ls
- - mozeme napr. z noveho image spustit container s: $ docker container run -it ddnovak/moje-ubu
+ - nasledne overime s: `$ docker image ls`
+ - mozeme napr. z noveho image spustit container s: `$ docker container run -it ddnovak/moje-ubu`
 
-POZOR, prikaz vymaze *vsetky nebeziace* kontajnery: 
- - prikaz: $ docker container rm $(docker container ls -a -q)
- - pripadne, na VLASTNE RIZIKO, mozeme spustit s paramentrom "rm -f"
+**POZOR**, prikaz vymaze **vsetky nebeziace** kontajnery: 
+ - prikaz: `$ docker container rm $(docker container ls -a -q)`
+ - pripadne, na **VLASTNE RIZIKO**, mozeme spustit s paramentrom `rm -f`
 
 Ako spustit testovaci webserver v kontajnery s nazvom "moj_lab" (vonkajsi port je TCP/8080):
 
