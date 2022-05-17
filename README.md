@@ -1576,7 +1576,7 @@ Dalsi nastroj na **Rootkit** detekciu, instalujeme s: `$ sudo apt install chkroo
 - hlavna konfiguracia DNS servera **BIND9** je v subore `/etc/bind/named.conf`
 - ked chceme pridat tzv. **forwarder** servery, pridame do `/etc/bind/named.conf.options` riadky:
 
-```
+```apache
     forwarders {
                     193.17.47.1;
                     185.43.135.1;
@@ -1658,7 +1658,7 @@ Tip: Ako zistit, svoju verejnu IP, napr. `$ curl ifconfig.me`, `$ curl -4 ident.
  - deaktivujeme predvolenu **Landing Page** pre Apache2 na Debiane: `$ sudo a2dissite 000-default`
  - je este potrebne znova nacitat konfigy: `$ sudo systemctl reload apache2`
 
-Ako instalovat podporu PHP na server Apache2: `$ apt install php php-mysql libapache2-mod-php`
+#### Ako instalovat podporu PHP na server Apache2: `$ apt install php php-mysql libapache2-mod-php`
  - instalaciu overime napr. s: `$ php -v`
  - na otestovanie vo Web prehliadaci mozeme vytvorit jednoduchu stranku
    - v adresari `/var/www/priklad.xyz/` vytvorime subor `test.php` s obsahom:
@@ -1667,23 +1667,24 @@ Ako instalovat podporu PHP na server Apache2: `$ apt install php php-mysql libap
     	phpinfo();
     ?>
 ```
- - ulozime a otvorime v prehliadaci, napr.: www.priklad.xyz/test.php
+ - ulozime a otvorime v prehliadaci, napr.: `www.priklad.xyz/test.php`
 
-Ako zapnut v Apache2 modul na kompresiu posielaneho obsahu: $ sudo a2enmod deflate
- - dalej mozeme uprafit konf. subor "/etc/apache2/mods-enabled/deflate.conf":
- - medzi tag-y "<IfModule mod_filter.c>" a "</IfModule>" vlozime "DeflateCompressionLevel 7"
-   - napr. tato direktiva zvysi uroven kompresie z predvoleneho stupna "6" na "7" 
-   - vyssia kompresia prenasa menej dat, ale zvysuje naroky na CPU, rozsah je 1 az 10
+#### Ako zapnut v Apache2 modul na kompresiu posielaneho obsahu: $ sudo a2enmod deflate
+ - dalej mozeme upravit konf. subor `/etc/apache2/mods-enabled/deflate.conf`:
+ - medzi tag-y `<IfModule mod_filter.c>` a `</IfModule>` vlozime `DeflateCompressionLevel 7`
+   - napr. tato direktiva zvysi uroven kompresie z predvoleneho stupna `6` na `7` 
+   - vyssia kompresia prenasa menej dat, ale zvysuje naroky na CPU, rozsah je **1 az 10**
 
-Ako zapnut vstavane monitorovanie servera Apache2, zapneme modul: $ sudo a2enmod status
- - dalej upravime konfiguraciu v subore: /etc/apache2/mods-available/status.conf
-   - v sekcii medzi "<Location /server-status>" a "</Location>" pridame napr. riadok:
-    
-    Require ip 192.168.1.0/24 1.2.3.4 192.0.2.150
-   
-   - definujeme, z ktorych IP adr. je mozne otvarat: www.priklad.xyz/server-status
- - restartujeme proces: $ sudo systemctl reload apache2
- - nasledne mozeme v prehliadaci otvorit: www.priklad.xyz/server-status?refresh=2
+#### Ako zapnut vstavane monitorovanie servera Apache2, zapneme modul:
+ - prikaz: `$ sudo a2enmod status`
+ - dalej upravime konfiguraciu v subore: `/etc/apache2/mods-available/status.conf`
+   - v sekcii medzi `<Location /server-status>` a `</Location>` pridame napr. riadok:
+ 
+    `Require ip 192.168.1.0/24 1.2.3.4 192.0.2.150`
+ 
+   - definujeme, z ktorych IP adries je mozne otvarat: `www.priklad.xyz/server-status`
+ - restartujeme proces: `$ sudo systemctl reload apache2`
+ - nasledne mozeme v prehliadaci otvorit: `www.priklad.xyz/server-status?refresh=2`
  - na test mozeme pouzit program "Apache Benchmark", z balika "apache2-utils"
    - pouzijeme prikaz napr.: $ ab -n 1000 -c 100 http://192.168.1.244/
    - prikaz vytvori 1000 poziadavok na server, s tym ze sucasnych dovoli max. 100
