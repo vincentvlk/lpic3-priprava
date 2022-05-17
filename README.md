@@ -1601,7 +1601,7 @@ Ako pridat domenu/zonovy subor, tzv. **zone-file**, teda vytvorit autoritaivny D
  - nasledne si zo sablony skopirujeme zonovy subor `/etc/bind/db.priklad.xyz`
    - prikaz: `$ sudo cp /etc/bind/db.empty /etc/bind/db.priklad.xyz`
  - tento subor upravime napr. nasledovne:
-```
+```apache
     ;
     ; Priklad na zonovy subor domeny "priklad.xyz"
     ;
