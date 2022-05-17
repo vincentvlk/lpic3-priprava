@@ -1435,22 +1435,23 @@ Ako nastavit cas expiracie hesla na 30 dni: `$ sudo chage -M 30 <uzivatel>`
  - cache sa da zmanzat s: `$ sudo -k`
  - toto nastavenie mozeme zmenit, napr. na 10 min., otvorime konfiguraciu `sudoers`, zadame: `$ sudo visudo`
  - nasledne riadok `Defaults env_reset` upravime na: `Defaults env_reset, timestamp_timeout=10` 
- - mozeme nadefinovat, povolene prikazy, dopiseme: "user1  ALL=(root)      /usr/bin/ls,/usr/bin/cat"
- - zjednodusenie, definujeme aliasy, priklad v subore "/etc/sudoers" moze cast vyzerat takto:
-   - vytvorime alias uzivatelov "ADMINS" v ktorom su 3 uziv., dalej alias na prikazy "FILE_OPER"
-   - aliasu "ADMINS" priradime povoleny prikaz "/user/bin/netstat" + alias prikazov "FILE_OPER"
+ - mozeme nadefinovat povolene prikazy, dopiseme: `user1  ALL=(root)      /usr/bin/ls,/usr/bin/cat`
+ - na zjednodusenie definujeme aliasy, priklad v subore `/etc/sudoers` moze cast vyzerat takto:
+   - vytvorime alias uzivatelov **ADMINS** v ktorom su 3 uziv., dalej alias na prikazy **FILE_OPER**
 
-# User alias specification
-User_Alias ADMINS=user1,user2,dev1
+Aliasu `ADMINS` priradime povoleny prikaz `/user/bin/netstat` + alias prikazov `FILE_OPER`:
 
-# Cmnd alias specification
-Cmnd_Alias FILE_OPER=/usr/bin/cp,/usr/bin/ls/,/usr/bin/touch/,/usr/bin/rm
+    # User alias specification
+    User_Alias ADMINS=user1,user2,dev1
 
-# User privilege specification
-root    ALL=(ALL:ALL) ALL
-ADMINS  ALL=(root)      /usr/bin/netstat,FILE_OPER
+    # Cmnd alias specification
+    Cmnd_Alias FILE_OPER=/usr/bin/cp,/usr/bin/ls/,/usr/bin/touch/,/usr/bin/rm
 
- - dalsie informacie: $ man sudoers 
+    # User privilege specification
+    root    ALL=(ALL:ALL) ALL
+    ADMINS  ALL=(root)      /usr/bin/netstat,FILE_OPER
+
+ - dalsie informacie: `$ man sudoers`
 
 Poznamka: v oblasti Steganografie sa pouziva nastroj "steghide": $ sudo apt install steghide
  - dalsie informacie: https://en.wikipedia.org/wiki/Steganography
