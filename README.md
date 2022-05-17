@@ -4,7 +4,7 @@ Poznamky na skusku LPIC3-304-200 - Virtualization & High Availability
 
 {toc}
 
-### Moj skromny nazor na priority pri realizacii projektov na OS GNU/Linux:
+#### Moj skromny nazor na priority pri realizacii projektov na OS GNU/Linux:
 
     Bezpecnost + Zalohovanie + Kontrola pouzitelnosti zaloh + Dokumentacia
     Security + Backups + Backups usability check + Documentation
@@ -838,7 +838,7 @@ Ako sa odpojit od konzoly kontajnera, v terminale za sebou stlacime skratky: `Ct
 ### Praca s nastrojom Git a platformou GitHub:
 
 Vytvorime adresar `git_ucenie`, v ktorom inicializujeme *lokalny* Git repozitar: `$ git init`
- - aktualny stav repozitara overime s: $ git status
+ - aktualny stav repozitara overime s: `$ git status`
  - nastavime identitu uzivatela na pridavanie zmien: $ git config --global --edit
  - vytvorime cvicny subor, napr. "poznamky.txt"
    - do suboru napiseme "moja prva poznamka", subor ulozime
