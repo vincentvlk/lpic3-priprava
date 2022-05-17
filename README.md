@@ -1539,21 +1539,22 @@ Dalsi nastroj na **Rootkit** detekciu, instalujeme s: `$ sudo apt install chkroo
 - maximalny pocet pokusov pri zadavani hesla, zmenime: `#MaxAuthTries 6` na `MaxAuthTries 3`
 - dalej pozriet v `$ man sshd_config` parametre: `MaxStartups` a `LoginGracetime`
 
-#### Ako zabranit tzv. "Fork bomb-am", je potrebne overit pocet spustitelnych procesov:
- - skontrolujeme povolnene mznostvo: $ ulimit -u
- - do suboru "/etc/security/limits.conf" pridame tieto riadky:
+#### Ako zabranit tzv. "Fork bomb-am"
 
+- je potrebne overit pocet spustitelnych procesov, skontrolujeme povolnene mznostvo: `$ ulimit -u`
+- do suboru `/etc/security/limits.conf` pridame tieto riadky:
+```
 student		hard	nproc	1000
 @team1		hard	nproc	4000
-
+```
  - prvy riadok obmedzi pocet procesov pre daneho uzivatela, druhy pre danu skupinu
- - POZOR, LEN MIMO PRODUKCIE, priklad na BASH fork-bomb, vytvorime skript s riadkom "$0 && $0 &"
+ - **POZOR, LEN MIMO PRODUKCIE**, priklad na BASH fork-bomb, vytvorime skript s riadkom `$0 && $0 &`
    - skript do "nekonecna" spusta kopie sameho seba, kym nevycerpa systemove zdroje
-   - ESTE VIAC POZOR, vo forme prikazu: $ :(){ :|:& };:
-   - prikaz na overenie, kolko procesov ma spusteny uzivatel: $ pgrep -wcu <uzivatel>
+   - **ZNOVA POZOR**, vo forme prikazu: `$ :(){ :|:& };:`
+   - prikaz na overenie, kolko procesov ma spusteny uzivatel: `$ pgrep -wcu <uzivatel>`
  - dalej mozeme obmedzit max. velkost suboru (v kB), ktory moze uziv. vytvorit:
 
-student		hard	fsize	1000
+`student		hard	fsize	1000`
 
  - dalsie informacie napr. v: $ man limits.conf
 
