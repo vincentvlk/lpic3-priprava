@@ -1592,7 +1592,7 @@ Tip: Ako zistit, ake NS servery pouziva dana domena: `$ dig -t ns example.com`
 
 Ako pridat domenu/zonovy subor, tzv. **zone-file**, teda vytvorit autoritaivny DNS server pre domenu:
  - do suboru `/etc/bind/named.config.local` pridame riadky:
-```apache2
+```apache
     zone "priklad.xyz" {
     	type master;
     	file "/etc/bind/db.priklad.xyz";
