@@ -1628,10 +1628,12 @@ Ako pridat domenu/zonovy subor, tzv. **zone-file**, teda vytvorit autoritaivny D
  - po kontrole restartujeme DNS server: `$ sudo systemctl reload-or-restart bind9.service`
  - stav overime s: `$ sudo systemctl status bind9.service`
 
-Tip: Ako zistit, svoju verejnu IP, napr. `$ curl ifconfig.me`, `$ curl -4 ident.me`, `$ curl -6 ident.me`
- - priklad: pouzitie v skripte: `$ echo "Moja verejne IP je $(curl -s ident.me)"`
+Tip: Ako zistit, svoju verejnu IP, napr.: `$ curl ifconfig.me`, `$ curl -4 ident.me`, `$ curl -6 ident.me`
+ - priklad, pouzitie v skripte: `$ echo "Moja verejne IP je $(curl -s ident.me)"`
 
-### Ako zadefinovat tzv. **Virtual Hosting** pre Web server Apache2:
+### Zaklady prace s webovym serverom Apache2:
+
+#### Ako zadefinovat tzv. **Virtual Hosting** pre Web server Apache2:
 
  - vytvorime adresar s webom: `$ sudo mkdir /var/www/priklad.xyz`
  - nastavime vlastnika: `$ sudo chown -R www-data:www-data /var/www/priklad.xyz`
@@ -1699,12 +1701,12 @@ Tip: Ako zistit, svoju verejnu IP, napr. `$ curl ifconfig.me`, `$ curl -4 ident.
     </Directory>
 ```
 - **POZOR**, ak pouzijeme v konf. `+` alebo `-` vsetky moznosti `Options` **musia** obsahovat `+`/`-`
-- nasledne: $ sudo systemctl reload apache2
+- nasledne: `$ sudo systemctl reload apache2`
 
-Ako vypnut "podpis" servera, napr.: "Apache/2.4.41 (Ubuntu) Server at 192.168.1.244 Port 80"
- - upravime subor: "/etc/apache2/conf-available/security.conf" najdeme "ServerSignature On"
- - zmenime na: "ServerSignature Off" potom: $ sudo systemctl reload-or-restart apache2
- - je este vhodne zmenit "ServerTokens OS" na "ServerTokens Prod" a restartovat Apache2
+Ako vypnut **podpis** servera, napr.: `Apache/2.4.41 (Ubuntu) Server at 192.168.1.244 Port 80`
+ - upravime subor: `/etc/apache2/conf-available/security.conf` najdeme `ServerSignature On`
+ - zmenime na: `ServerSignature Off` potom: `$ sudo systemctl reload-or-restart apache2`
+ - je este vhodne zmenit `ServerTokens OS` na `ServerTokens Prod` a restartovat Apache2
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako programom "Ansible" nainstalovat program "nmap" pomocou systemu "APT":
