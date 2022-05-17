@@ -1698,7 +1698,7 @@ Tip: Ako zistit, svoju verejnu IP, napr. `$ curl ifconfig.me`, `$ curl -4 ident.
 
     </Directory>
 ```
-- POZOR, ak pouzijeme v konf. "+" alebo "-" vsetky moznosti "Options" musia obsahovat "+"/"-"
+- **POZOR**, ak pouzijeme v konf. `+` alebo `-` vsetky moznosti `Options` **musia** obsahovat `+`/`-`
 - nasledne: $ sudo systemctl reload apache2
 
 Ako vypnut "podpis" servera, napr.: "Apache/2.4.41 (Ubuntu) Server at 192.168.1.244 Port 80"
