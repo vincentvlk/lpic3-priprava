@@ -1348,7 +1348,7 @@ Poznamka, ak chceme vymazat Docker image, treba najskor pomazat z neho vytvorene
  - dalsie informacie: `$ docker system prune --help`
  - celkom uzitocna diagnostika zabrateho miesta: `$ docker system df`
 
-### Nastroj na ochranu integrity suborov a adresarov **AIDE**
+### Nastroj na ochranu integrity suborov a adresarov: **AIDE**
 
 Instalacia: `$ sudp apt install aide`
  
@@ -1378,63 +1378,63 @@ Instalacia: `$ sudp apt install aide`
  - a nasledne inicializujeme s novou databazou: `$ sudo aideinit`
  - dalej je mozne vytvorit si vlastny config a vlastne pravidla, navody existuju ;-)
 
-### Na overovanie bezpecnosti hesla, mozeme pouzit nastroj **John the Ripper**
+### Na overovanie bezpecnosti hesla, mozeme pouzit nastroj: **John the Ripper**
 
- - instalacia na Ubu/Deb: $ sudo apt install john
- - zlucime "/etc/passwd" a "/etc/shadow": $ sudo unshadow /etc/passwd /etc/shadow > unshadow.out.txt
- - na test spustime jednoduchy "single mode": $ sudo john -single unshadow.out.txt
- - overime s: $ sudo john --show unshadow.out.txt
- - vysledok pozrieme ulozeny v: $ sudo less /root/.john/john.pot
- - slovnikovy utok: $ sudo john --wordlist=/usr/share/john/password.lst --rule unshadow.out.txt
-   - stlacenim napr. "medzernika" ziskame stav priebehu
-   - stlacenim "Ctrl+c" alebo "q" prerusime prelamovanie, ale nestratime priebeh
-   - priebezne vysledky ziskame s: $ sudo john --show unshadow.out.txt
-   - prelamovanie mozeme obnovit s: $ sudo john -restore
+ - instalacia na Ubu/Deb: `$ sudo apt install john`
+ - zlucime `/etc/passwd` a `/etc/shadow` prikazom: `$ sudo unshadow /etc/passwd /etc/shadow > unshadow.out.txt`
+ - na test spustime jednoduchy **single mode**, zadame : `$ sudo john -single unshadow.out.txt`
+ - overime s: `$ sudo john --show unshadow.out.txt`
+ - vysledok pozrieme ulozeny v: `$ sudo less /root/.john/john.pot`
+ - slovnikovy utok: `$ sudo john --wordlist=/usr/share/john/password.lst --rule unshadow.out.txt`
+   - stlacenim napr. **medzernika** ziskame **stav** priebehu
+   - stlacenim `Ctrl+c` alebo `q` prerusime prelamovanie, ale nestratime priebeh
+   - priebezne vysledky ziskame s: `$ sudo john --show unshadow.out.txt`
+   - prelamovanie mozeme obnovit s: `$ sudo john -restore`
 
-Politiku systemovyh hesiel najdeme v subore "/etc/login.defs"
- - dalsie informacie v: $ man login.defs
+Politiku systemovyh hesiel najdeme v subore `/etc/login.defs`
+ - dalsie informacie v: `$ man login.defs`
 
-Ako nastavit cas expiracie hesla na 30 dni: $ sudo chage -M 30 <uzivatel>
- - overime s: $ sudo chage -l <uzivatel>
+Ako nastavit cas expiracie hesla na 30 dni: `$ sudo chage -M 30 <uzivatel>`
+ - overime s: `$ sudo chage -l <uzivatel>`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Dalsie politiky hesla, ako napr. zlozitost spravuju "PAM - Pluggable Authentification Modules"
- - treba instalovat balik: $ sudo apt install libpam-pwquality
- - konfiguracia v subore "/etc/pam.d/common-password"
- - na upravu politiky pridame do riadku "password requisite pam_pwquality.so retry=3"
+### Dalsie politiky hesla, ako napr. zlozitost spravuju **PAM - Pluggable Authentification Modules**
+ - treba instalovat balik: `$ sudo apt install libpam-pwquality`
+ - konfiguracia v subore: `/etc/pam.d/common-password`
+ - na upravu politiky pridame do riadku `password requisite pam_pwquality.so retry=3`
    - dalsie atributy:
 
-   minlen=10 difok=3 ucredit=-1 lcredit=-1 dcredit=-1 ocredit=-1
+    `minlen=10 difok=3 ucredit=-1 lcredit=-1 dcredit=-1 ocredit=-1`
 
  - kde jednotlive atributy znamenaju:
-   - "retry=" kolko krat sa login process spyta na heslo 
-   - "minlen=" minimalna dzlka hesla
-   - "difok=" minimalny pocet znakov odlisnych od povodneho hesla
-   - "ucredit=" atribut s "-1" vyzaduje aspon jedno velke pismeno (upper case)
-   - "lcredit=" atribut s "-1" vyzaduje aspon jedno male pismeno (lower cace)
-   - "dcredit=" atribut s "-1" vyzaduje aspon jeden numericky znak (numeric character)
-   - "ocredit=" atribut s "-1" vyzaduje aspon jeden specialny znak (special character)
-   - na "RedHat-based" distribuciach sa pouziva konf. subor: "/etc/pam.d/system-auth"
+   - `retry=` kolko krat sa login process spyta na heslo 
+   - `minlen=` minimalna dzlka hesla
+   - `difok=` minimalny pocet znakov odlisnych od povodneho hesla
+   - `ucredit=` atribut s `-1` vyzaduje aspon jedno velke pismeno (upper case)
+   - `lcredit=` atribut s `-1` vyzaduje aspon jedno male pismeno (lower cace)
+   - `dcredit=` atribut s `-1` vyzaduje aspon jeden numericky znak (numeric character)
+   - `ocredit=` atribut s `-1` vyzaduje aspon jeden specialny znak (special character)
+   - na **RedHat-based** distribuciach sa pouziva konf. subor: `/etc/pam.d/system-auth`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Ako vytvorit sifrovanu particiu na HDD/SSD, potrebne nainstalovat: $ sudo apt install cryptsetup
- - disk, ktory chceme sifrovat, musi byt "unmounted"
- - dalej spustime sifrovanie a nastavime kluc/heslo: $ sudo cryptsetup -y -v luksFormat /dev/sdX
- - nasledne vytvorime mapovacie zariadenie: $ sudo cryptsetup luksOpen /dev/sdb crypt1
-   - vytvori sa symbolicky link "/dev/mapper/crypt1 -> /dev/dm-X"
- - overime s: $ sudo cryptsetup status crypt1
- - po overeni vytvorime particu/FS, napr. Ext4: $ sudo mkfs.ext4 /dev/mapper/crypt1
- - dalej "namountujeme" novu particiu na adresar: $ sudo mount /dev/mapper/crypt1 /mnt/crypt1/
- - volitelne nastavime vlastnika/prava, napr.: $ sudo chown user1:user1 /mnt/crypt1/
- - po ukonceni prace: "$ sudo umount /mnt/crypt1" nasledne: $ sudo cryptsetup luksClose crypt1
- - nova uloha: $ sudo cryptsetup luksOpen /dev/sdb crypt1
-   - nasledne: $ sudo mount /dev/mapper/crypt1 /mnt/crypt1/
+### Ako vytvorit sifrovanu particiu na HDD/SSD
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Relacia vytvorena prikazom "sudo" ma pristupove prava v "cache" presne 15 min.
- - cache sa da zmanzat s: $ sudo -k
- - toto nastavenie mozeme zmenit, napr. na 10 min., otvorime konfiguraciu "sudoers": $ sudo visudo
- - nasledne riadok "Defaults env_reset" upravime na: "Defaults env_reset, timestamp_timeout=10" 
+- je potrebne nainstalovat: `$ sudo apt install cryptsetup`
+ - disk, ktory chceme sifrovat, musi byt **unmounted**
+ - dalej spustime sifrovanie a nastavime kluc/heslo: `$ sudo cryptsetup -y -v luksFormat /dev/sdX`
+ - nasledne vytvorime mapovacie zariadenie: `$ sudo cryptsetup luksOpen /dev/sdb crypt1`
+   - vytvori sa symbolicky link `/dev/mapper/crypt1 -> /dev/dm-X`
+ - overime s: `$ sudo cryptsetup status crypt1`
+ - po overeni vytvorime particu/FS, napr. Ext4: `$ sudo mkfs.ext4 /dev/mapper/crypt1`
+ - dalej **namountujeme** novu particiu na adresar: `$ sudo mount /dev/mapper/crypt1 /mnt/crypt1/`
+ - volitelne nastavime vlastnika/prava, napr.: `$ sudo chown user1:user1 /mnt/crypt1/`
+ - po ukonceni prace: `$ sudo umount /mnt/crypt1` nasledne: `$ sudo cryptsetup luksClose crypt1`
+ - nova uloha: `$ sudo cryptsetup luksOpen /dev/sdb crypt1`
+   - nasledne: `$ sudo mount /dev/mapper/crypt1 /mnt/crypt1/`
+
+### Relacia vytvorena prikazom `sudo` ma pristupove prava v `cache` presne 15 min
+
+ - cache sa da zmanzat s: `$ sudo -k`
+ - toto nastavenie mozeme zmenit, napr. na 10 min., otvorime konfiguraciu `sudoers`, zadame: `$ sudo visudo`
+ - nasledne riadok `Defaults env_reset` upravime na: `Defaults env_reset, timestamp_timeout=10` 
  - mozeme nadefinovat, povolene prikazy, dopiseme: "user1  ALL=(root)      /usr/bin/ls,/usr/bin/cat"
  - zjednodusenie, definujeme aliasy, priklad v subore "/etc/sudoers" moze cast vyzerat takto:
    - vytvorime alias uzivatelov "ADMINS" v ktorom su 3 uziv., dalej alias na prikazy "FILE_OPER"
