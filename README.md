@@ -1556,7 +1556,7 @@ student		hard	nproc	1000
 
 `student		hard	fsize	1000`
 
- - dalsie informacie napr. v: $ man limits.conf
+ - dalsie informacie napr. v: `$ man limits.conf`
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako zasifrovat subor s citlivymi udajmi pomocou GNU-Pg: $ gpg -c povodny.txt
