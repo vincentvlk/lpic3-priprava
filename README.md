@@ -1058,40 +1058,40 @@ Ako priklad mozeme vytvorit dedikovany adresar pre dvoch vyvojarov:
  - nasledne overime tak, ze uziv. **dev1** vytvori subor: `$ touch program.c`
  - so spravnym nastavenim ma editovaci pristup aj uzivatel **dev2**
 
-Ako nastavit "Sticky bit", absolutny mod "$ chmod 1XXX dir1/", relativny mod "chmod o+t dir1/"
- - zmena zabezpeci, ze sa v (zdielanom) adresary na novy subor "nalepia" prava tvorcu, nie adresara
- - typicky priklad je systemovy adresar "/tmp", aby si v nom zuivatelia navzajom nemazali subory
+Ako nastavit **Sticky bit**, absolutny mod `$ chmod 1XXX dir1/`, relativny mod `chmod o+t dir1/`
+ - zmena zabezpeci, ze sa v (zdielanom) adresary na novy subor **nalepia** prava tvorcu, nie adresara
+ - typicky priklad je systemovy adresar `/tmp`, aby si v nom uzivatelia navzajom nemazali subory
 
-Ako nastavovat prava suborov/adresarov napr. v skripte: $ chmod ug=rw,o=r subor.txt
- - ako nastavit prava, podla nejakeho vzoroveho suboru: $ chmod --reference=prvy.txt druhy.txt
+Ako nastavovat prava suborov/adresarov napr. v skripte: `$ chmod ug=rw,o=r subor.txt`
+ - ako nastavit prava, podla nejakeho vzoroveho suboru: `$ chmod --reference=prvy.txt druhy.txt`
 
-Ako hromadne nastavovat prava suborov, napr.: $ find $HOME -type f -exec chmod 640 {} \;
+Ako hromadne nastavovat prava suborov, napr.: `$ find $HOME -type f -exec chmod 640 {} \;`
 
-Ako nastavit predvolene prava na vytvorene subory na "0640": $ umask 0026 subor.txt
- - overime s "$ ls -l subor.txt" alebo "$ stat subor.txt"
- - je dobre si uvedomit, ze pri prikaze "umask" odpocitavame od 0666, teda (0666 - 0026) = 0640
- - pre perzistentne nastavenie vlozime do suborov ".profile" alebo ".bashrc" riadok "umask 0026" 
+Ako nastavit predvolene prava na vytvorene subory na `0640`, zadame: `$ umask 0026 subor.txt`
+ - overime s `$ ls -l subor.txt` alebo `$ stat subor.txt`
+ - je dobre si uvedomit, ze pri prikaze `umask` odpocitavame od 0666, teda (0666 - 0026) = 0640
+ - pre perzistentne nastavenie vlozime do suborov `.profile` alebo `.bashrc` riadok `umask 0026` 
 
-Pozriet nastroje eBPF zo sady "BCC Tools" a "BPF trace tools", napr: # apt install bpfcc-tools
- - napr.: opensnoop-bpfcc, "execsnoop-bpfcc", "tcplife-bpfcc", "ext4slower-bpfcc", "biosnoop-bpfcc"
- - ohladom disk-IO je este uzitocny nastroj "biotop-bpfcc"
- - dalsie info (kto vie do kedy online): https://github.com/iovisor/bcc/blob/master/INSTALL.md
- - dalsie nastroje od Brendana Gregga: https://brendangregg.com/linuxperf.html
+Pozriet nastroje **eBPF zo sady BCC Tools** a **BPF trace tools**, napr: `$ sudo apt install bpfcc-tools`
+ - napr.: `opensnoop-bpfcc`, `execsnoop-bpfcc`, `tcplife-bpfcc`, `ext4slower-bpfcc`, `biosnoop-bpfcc`
+ - ohladom disk-IO je este uzitocny nastroj `biotop-bpfcc`
+ - dalsie info (kto vie do kedy online): `https://github.com/iovisor/bcc/blob/master/INSTALL.md`
+ - dalsie nastroje od Brendana Gregga: `https://brendangregg.com/linuxperf.html`
 
-Typy procesov v operacnom systeme GNU/Linux: Parent, Child, Daemon, Zombie (defunct), Orphan
+Typy procesov v operacnom systeme GNU/Linux: **Parent, Child, Daemon, Zombie (defunct), Orphan**
 
-Ako vypisat 3 iteracie programu "top" s oneskorenim 2 s. do suboru: $ top -d 2 -n 3 -b > stav.txt  
+Ako vypisat 3 iteracie programu `top` s oneskorenim 2 s. do suboru: `$ top -d 2 -n 3 -b > stav.txt` 
  
-Klavesy v "top": "d" oneskorenie, "e" jednotky RAM, "M" podla RAM, "P" podla CPU, "1" zob. CPU
+Klavesy v `top` znamenaju: `d` oneskorenie, `e` jednotky RAM, `M` podla RAM, `P` podla CPU, `1` zob. CPU
 
-Ako spustit proces/program, aby ho nezabilo zatvorenie/odpojenie BASH session: $ nohup <prikaz> &
+Ako spustit proces/program, aby ho nezabilo zatvorenie/odpojenie BASH session: `$ nohup <prikaz> &`
 
-Zakladne programy na spravu procesov: "ps", "pgrep", "pstree", "pkill", "pidof", "kill", "killall"
- - dalsie informacie v: $ man <nazov>
+Zakladne programy na spravu procesov: `ps`, `pgrep`, `pstree`, `pkill`, `pidof`, `kill`, `killall`
+ - dalsie informacie v: `$ man <nazov>`
 
-Ako v (hanbatom) MacOS Big Sur zistit presny typ CPU: $ sysctl -a | grep brand
+Ako v (hanbatom) MacOS -  Big Sur zistit presny typ CPU: `$ sysctl -a | grep brand`
 
-Ako zmenit MAC adresu na Eth. rozhrani: $ sudo ip link set dev ens33 address 12:34:56:78:9a:bc
+Ako zmenit MAC adresu na Eth. rozhrani: `$ sudo ip link set dev ens33 address 12:34:56:78:9a:bc`
 
 Ako zistit, ake DNS servery pouzivaju distribucie so SystemD: $ systemd-resolve --status
  - alebo alternativne: $ resolvectl status
