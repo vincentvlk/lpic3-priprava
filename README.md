@@ -902,67 +902,65 @@ Naslendne uz mozeme pouzivat napr. aliasy:
 
 ### Dalsie zaklady prace v BASH terminale/interprete:
 
-Ako vykonat upgrade balikov (Deb/Ubu): $ sudo apt update && sudo apt upgrade
+Ako vykonat upgrade balikov (Deb/Ubu): `$ sudo apt update -y && sudo apt upgrade -y`
 
 Ako vymazat nepotrebne baliky (Deb/Ubu), po overeni funkcnosti:
- - prikaz: $ sudo apt autoclean && sudo apt autoremove 
+ - prikaz: `$ sudo apt autoclean && sudo apt autoremove`
 
- - pozriet distribucie MX Linux, Rocks Clusters, Pop!_OS, Lakka Gaming Distro
+Prikazy ako `cd`, alebo `umask` su tzv. **Shell BuiltIn**, nemaju manpage, preto: `$ help cd`
+ - dalsi priklad: `$ help help`
+ - priklad: `$ help if`
+ - priklad: `$ help jobs`
 
-Prikazy ako "cd", alebo "umask" su Shell BuiltIn, nemaju manpage, preto: $ help cd
- - dalsi priklad :): $ help help
- - priklad: $ help if
- - priklad: $ help jobs
+Ako prehladat manualove stranky: `$ man -k "copy files"`
+ - podobne mozeme pouzit: `$ apropos "copy files"`
 
-Ako prehladat manualove stranky: $ man -k "copy files"
- - podobne mozeme pouzit: $ apropos "copy files"
-
-Ako nastavit velkost historie BASH interpretu (v RAM): $ export HISTSIZE=2000
- - pre subor ".bash_history" nastavime napr.: $ export HISTFILESIZE=2000
+Ako nastavit velkost historie BASH interpretu (v RAM): `$ export HISTSIZE=2000`
+ - pre subor `.bash_history` nastavime napr.: `$ export HISTFILESIZE=2000`
  
-Ako nastavit do BASH historie, datum a cas: $ export HISTTIMEFORMAT="%d/%m/%y %T "
- - overime s prikazom: $ history
+Ako nastavit do BASH historie, datum a cas: `$ export HISTTIMEFORMAT="%d/%m/%y %T "`
+ - overime s prikazom: `$ history`
 
-Ako spustit prikaz, aby sa neulozil do historie, prefixujeme ho medzerou: $  prikaz
- - napr. prikaz "$ ping linux.com" sa ulozi do historie, ale prikaz "$  ping linux.com" nie 
- - da sa nastavit premenna, aby hist. ignorovala duplicity a " ": $ export HISTCONTROL=ignoreboth  
+Ako spustit prikaz, aby sa neulozil do historie, prefixujeme ho "medzerou": `$  prikaz`
+ - napr. prikaz `$ ping linux.com` sa ulozi do historie, ale prikaz `$  ping linux.com` nie 
+ - da sa nastavit premenna, aby hist. ignorovala duplicity a " ": `$ export HISTCONTROL=ignoreboth`
 
-Ako vypisat stromovu strukturu suborov, napr.: $ tree /home/student1 > strom.fs.student1.txt
- - je potrebne nainstalovat balicek "tree", dalsie informacie v: $ man tree
+Ako vypisat stromovu strukturu suborov, napr.: `$ tree /home/student1 > strom.fs.student1.txt`
+ - je potrebne nainstalovat balicek `tree`, dalsie informacie v: `$ man tree`
 
-Ako vypisat (priblizne) podla velkosti adresare a subory: $ du -hd 1 | sort 
+Ako vypisat (priblizne) podla velkosti adresare a subory: `$ du -hd 1 | sort`
 
 Ako vyfiltrovat MAC adresy z vypisu a ulozit ich zaroven do suboru: 
- - prikaz: $ ip a s | grep ether | cut -d" " -f6 | tee mac-adresy.txt 
+ - prikaz: `$ ip a s | grep ether | cut -d" " -f6 | tee mac-adresy.txt`
 
-Ako porovnat dva subory s detailnejsim rozpisom: $ diff -c a b
- - dva subory mmozeme porovnat vedla seba: $ diff -y a b
- - dalsie info v: $ man diff
+Ako porovnat dva subory s detailnejsim rozpisom: `$ diff -c a b`
+ - dva subory mmozeme porovnat vedla seba: `$ diff -y a b`
+ - dalsie info v: `$ man diff`
 
-Ako vytvorit komprimovany (BZip2) archiv: $ tar -cvjf subory.tar.bz2 a.txt b.txt c.txt 
- - ekvivalent pre GNUzip kompresiu: $ tar -cvzf subory.tar.gz a.txt b.txt c.txt
- - mozeme kombinovat subory/adresare: $ tar -cvzf dalsie_subory.tgz dir1/ dir2/ a.txt b.txt
- - extrakcia do vopred vytvoreneho adresara: $ tar -xvjf subory.tar.bz2 -C zaloha.d/
+Ako vytvorit komprimovany **BZip2** archiv: `$ tar -cvjf subory.tar.bz2 a.txt b.txt c.txt`
+ - ekvivalent pre **GNUzip** kompresiu: `$ tar -cvzf subory.tar.gz a.txt b.txt c.txt`
+ - mozeme kombinovat subory/adresare: `$ tar -cvzf dalsie_subory.tgz dir1/ dir2/ a.txt b.txt`
+ - extrakcia do vopred vytvoreneho adresara: `$ tar -xvjf subory.tar.bz2 -C zaloha.d/`
 
-Ako vytvorit adresarovu strukturu huerarchiu jednym prikazom: $ mkdir -p prvy/druhy/treti
+Ako vytvorit adresarovu strukturu/hierarchiu jednym prikazom: `$ mkdir -p prvy/druhy/treti`
 
 Ako vypisat konf. subory, zmenene za posledny den:
- - prikaz: $ sudo find /etc -type f -mtime 0 -exec ls -l {} \;
+ - prikaz: `$ sudo find /etc -type f -mtime 0 -exec ls -l {} \;`
  - zaloha suborov, zmenenych za poslednych 7 dni:
-   - prikaz  $ sudo find /etc -type f -mtime -7 -exec cp {} /root/backup \;
- - aby sa "find" pytal, ci chceme napr. zmazat stare subory:
-   - prikaz: $ find . -type f -mtime +30 -ok rm {} \;  
- - ^ pripadne mozeme najskor (30 dni stare) subory len VYPISAT: $ find . -type f -mtime +30 -print
+   - prikaz  `$ sudo find /etc -type f -mtime -7 -exec cp {} /root/backup \;`
+ - aby sa `find` pytal, ci chceme napr. zmazat stare subory:
+   - prikaz: `$ find . -type f -mtime +30 -ok rm {} \;`
+   - pripadne mozeme najskor (30 dni stare) subory len **vypisat**: `$ find . -type f -mtime +30 -print`
 
-Ako hladat subory podla nazvu, nova implementacia "mlocate": $ sudo apt install mlocate
- - databazu suborov aktualizujeme pomocou "cron" alebo rucne: $ sudo updatedb 
- - stav databazy overime s: $ mlocate -S
- - da sa spustat aj symlinkom, napr.: $ locate .bashrc
- - dalsie informacie: $ man mlocate
+Ako hladat subory podla nazvu, nova implementacia `mlocate`: `$ sudo apt install mlocate`
+ - databazu suborov aktualizujeme pomocou **cron-u** alebo rucne: `$ sudo updatedb`
+ - stav databazy overime s: `$ mlocate -S`
+ - da sa spustat aj symlinkom, napr.: `$ locate .bashrc`
+ - dalsie informacie: `$ man mlocate`
 
-Ako hladat programom "find" bez rozlisenia A/a: $ find . -iname PriKlad.txt
+Ako hladat programom `find` bez rozlisenia A/a: `$ find . -iname PriKlad.txt`
 
-V BASH-y sa tzv. "glob-y" volaju aj "Shell Meta Characters", napr. "*"
+V BASH-y sa tzv. **glob-y** volaju aj **Shell Meta Characters**, napr. `*`
 
 Prikaz najde, spocita adresare v "/etc", hlbka 3 adresarov s pravami "755": 
  - prikaz: $ sudo find /etc/ -maxdepth 3 -type d -perm 755 | wc -l 
