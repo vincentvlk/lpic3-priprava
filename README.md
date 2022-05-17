@@ -1494,7 +1494,7 @@ Dalsi nastroj na **Rootkit** detekciu, instalujeme s: `$ sudo apt install chkroo
  - jednoduche spustenie: `$ sudo chkrootkit`
    - podobne sa da spustit, len vypise **Warnings**, prikaz: `$ sudo chkrootkit -q`
 
-### Ako hladat/mazat virusy, pouzijeme nastroj **Clam-AV**
+#### Ako hladat/mazat virusy, pouzijeme nastroj **Clam-AV**
 
  - instalujeme: `$ sudo apt install clamav clamav-daemon`
  - dolezite komponenty: `$ man clamd`, `$ man clamdscan`, `$ man clamscan` (pouziva vlastnu **Virus-DB**)
@@ -1517,14 +1517,16 @@ Dalsi nastroj na **Rootkit** detekciu, instalujeme s: `$ sudo apt install chkroo
    - **POZOR**, automaticke mazanie: `$ sudo clamscan --infected --remove --recursive /home`
    - pre Linux-ove distribucie existuje aj GUI rozhranie **ClamTk**, instalujeme: `$ sudo apt install clamtk`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Ako na zabezpecnie zavadzaca "GRUB2", vytvorime heslo: $ sudo grub-mkpasswd-pbkdf2
- - dalej upravime subor "/etc/grub.d/40_custom" pridame riadky, vygenerovany HASH, od slova "grub"
+### Ako na zabezpecnie zavadzaca "GRUB2":
 
-set superusers="root"
-password_pbkdf2 root grub.pbkdf2.sha512.10000.C319ED4060EA...
+ - vytvorime heslo: `$ sudo grub-mkpasswd-pbkdf2`
+ - dalej upravime subor `/etc/grub.d/40_custom` pridame riadky, vygenerovany HASH, od slova `grub`
 
- - nasledne ulozime a spustime skript na generovanie konfiguracie: $ sudo update-grub2
+    set superusers="root"
+    
+    password_pbkdf2 root grub.pbkdf2.sha512.10000.C319ED4060EA...
+
+ - nasledne ulozime a spustime skript na generovanie konfiguracie: `$ sudo update-grub2`
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Zabezpecenie servera "OpenSSH", hlavna konfiguracia je ulozena v subore: "/etc/ssh/sshd_config"
