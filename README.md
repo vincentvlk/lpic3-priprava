@@ -1692,7 +1692,7 @@ Tip: Ako zistit, svoju verejnu IP, napr.: `$ curl ifconfig.me`, `$ curl -4 ident
  - nasledne mozeme v prehliadaci otvorit: `www.priklad.xyz/server-status?refresh=2`
  - na test mozeme pouzit program **Apache Benchmark**, z balika `apache2-utils`
    - pouzijeme prikaz napr.: `$ ab -n 1000 -c 100 http://192.168.1.244/`
-   - prikaz vytvori 1000 poziadavok na server, s tym, ze sucasnych dovoli max. `100`
+   - prikaz vytvori `1000` poziadavok na server, s tym, ze sucasnych dovoli max. `100`
    - dalsie informacie: `$ man ab`
 
 #### Ako blokovat pre Apache2 indexovy vypis suborov:
@@ -1724,7 +1724,7 @@ Ako programom **Ansible** nainstalovat program `nmap` pomocou systemu **APT**:
     vps2 ansible_host=192.168.1.245 ansible_user=ansmin
     vps3 ansible_host=192.168.1.246 ansible_user=ansmin
 ```
- - ulozime subor s nastaveniami, tento priklad pocita s **PKI Auth** prihlasovanim (SSH klucom)
+ - ulozime subor s nastaveniami, tento priklad predpoklada **PKI Auth**, prihlasovanie (SSH klucom)
  - spustime: `$ ansible -i hosts servers -m apt -a "name=nmap state=present" --become -K`
    - prikaz vyziada **SUDO** heslo s `--become -K` pre zariadenia zo skupiny `servers`
    - prikaz vyuziva modul `apt` s nastavenim `name=nmap state=present`
@@ -1737,18 +1737,18 @@ Tip: Ako vypisat dostupne ansible moduly: `$ ansible-doc -l`
 Tip: Na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-w .ssh/id_rsa`
  - pripadne sa mozu zvazit suborove **ACLka**
 
-### Zaklady prace s balickovacim systemom "Zypper" v systeme "OpenSUSE Leap":
+### Zaklady prace s balickovacim systemom "Zypper" v systeme OpenSUSE Leap:
 
- - aktualizacia DB balickov: $ sudo zypper refresh
- - instalacia aktualizacii:$ sudo zypper update 
- - instalacia balicka "nmap", bez dotazov: $ sudo zypper install --no-confirm nmap
- - alebo skratena verzia: $ sudo zypper -n in nmap
- - vymazanie balika: $ sudo zypper remove nmap
-   - opatrne, bez dotazov, pramater "-n"
- - hladanie balickov v DB: $ sudo zypper search nmap
- - vypisanie dostupnych softwarovych "zaplat": $ sudo zypper patches
- - instalacia softwarovych "zaplat": $ sudo zypper patch
- - dalsie informacie: $ man zypper
+ - aktualizacia DB balickov: `$ sudo zypper refresh`
+ - instalacia aktualizacii: `$ sudo zypper update`
+ - instalacia balicka `nmap`, bez dotazov: `$ sudo zypper install --no-confirm nmap`
+ - alebo skratena verzia: `$ sudo zypper -n in nmap`
+ - vymazanie balika: `$ sudo zypper remove nmap`
+   - opatrne, bez dotazov, pramater `-n`
+ - hladanie balickov v DB: `$ sudo zypper search nmap`
+ - vypisanie dostupnych softwarovych **zaplat**: `$ sudo zypper patches`
+ - instalacia softwarovych **zaplat**: `$ sudo zypper patch`
+ - dalsie informacie v: `$ man zypper`
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako v OS "Fedora Server 35" nainstalovat NetworkManager-TUI: $ sudo dnf install NetworkManager-tui
