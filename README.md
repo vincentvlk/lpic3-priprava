@@ -1707,12 +1707,10 @@ Tip: Ako zistit, svoju verejnu IP, napr.: `$ curl ifconfig.me`, `$ curl -4 ident
 - **POZOR**, ak pouzijeme v konf. `+` alebo `-` vsetky moznosti `Options` **musia** obsahovat `+`/`-`
 - nasledne: `$ sudo systemctl reload apache2`
 
-#### Ako vypnut **podpis** servera, napr.: `Apache/2.4.41 (Ubuntu) Server at 192.168.1.244 Port 80`
+Tip: Ako vypnut **podpis** servera, napr.: `Apache/2.4.41 (Ubuntu) Server at 192.168.1.244 Port 80`
  - upravime subor: `/etc/apache2/conf-available/security.conf` najdeme `ServerSignature On`
  - zmenime na: `ServerSignature Off` potom: `$ sudo systemctl reload-or-restart apache2`
  - je este vhodne zmenit `ServerTokens OS` na `ServerTokens Prod` a restartovat Apache2
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 ### Zaklady prace s autmatizacnym nastrojom Ansible:
 
