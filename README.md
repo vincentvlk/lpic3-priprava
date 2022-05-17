@@ -1576,7 +1576,7 @@ Dalsi nastroj na **Rootkit** detekciu, instalujeme s: `$ sudo apt install chkroo
 - hlavna konfiguracia DNS servera **BIND9** je v subore `/etc/bind/named.conf`
 - ked chceme pridat tzv. **forwarder** servery, pridame do `/etc/bind/named.conf.options` riadky:
 
-```apache
+```bind
     forwarders {
                     193.17.47.1;
                     185.43.135.1;
@@ -1592,7 +1592,7 @@ Tip: Ako zistit, ake NS servery pouziva dana domena: `$ dig -t ns example.com`
 
 Ako pridat domenu/zonovy subor, tzv. **zone-file**, teda vytvorit autoritaivny DNS server pre domenu:
  - do suboru `/etc/bind/named.config.local` pridame riadky:
-```apache
+```bind
     zone "priklad.xyz" {
     	type master;
     	file "/etc/bind/db.priklad.xyz";
@@ -1601,7 +1601,7 @@ Ako pridat domenu/zonovy subor, tzv. **zone-file**, teda vytvorit autoritaivny D
  - nasledne si zo sablony skopirujeme zonovy subor `/etc/bind/db.priklad.xyz`
    - prikaz: `$ sudo cp /etc/bind/db.empty /etc/bind/db.priklad.xyz`
  - tento subor upravime napr. nasledovne:
-```apache
+```bind
     ;
     ; Priklad na zonovy subor domeny "priklad.xyz"
     ;
