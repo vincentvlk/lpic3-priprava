@@ -893,7 +893,7 @@ Na ulahcenie prace si mozeme pridat do svojho `$HOME` adresara, do suboru `.gitc
         undo = reset HEAD~1 --mixed
         strom = !git log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C$
 
- - naslendne uz mozeme pouzivat napr. aliasy:
+Naslendne uz mozeme pouzivat napr. aliasy:
 
     $ git s
     $ git save
