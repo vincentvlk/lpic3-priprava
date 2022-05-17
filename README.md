@@ -1109,11 +1109,11 @@ Ako overit, ci sa proces/program spusti po restarte systemu: `$ sudo systemctl i
 Ako na jednoduchu zalohu adresara `/etc` pomocou `rsync` zadame: `$ sudo # rsync -av /etc/ /media/USBdisk1/zaloha/`
 
 Tip: Tri **divne** sposoby, ako generovat 16 znakove heslo (bez instalacie dalsich programov):
-
+```bash
     $ openssl rand -base64 12
     $ head /dev/urandom | base64 | cut -b 1-16
     $ echo $(head /dev/urandom | shasum | base64 | cut -b 1-11).$(date +%Y)
-
+```
 Ako vytvorit/stiahnut kompletnu kopiu/mirror nejakeho webu, pouzijeme program `wget`:
 
 `$ wget --mirror --convert-links --adjust-extension --page-requisites --no-parent http://example.com`
