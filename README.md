@@ -1348,7 +1348,9 @@ Poznamka, ak chceme vymazat Docker image, treba najskor pomazat z neho vytvorene
  - dalsie informacie: `$ docker system prune --help`
  - celkom uzitocna diagnostika zabrateho miesta: `$ docker system df`
 
-### Nastroj na ochranu integrity suborov a adresarov: **AIDE**
+### Zaklady bezpecnosti v operacnom systeme **GNU/Linux**:
+
+#### Nastroj na ochranu integrity suborov a adresarov: **AIDE**
 
 Instalacia: `$ sudp apt install aide`
  
@@ -1378,7 +1380,7 @@ Instalacia: `$ sudp apt install aide`
  - a nasledne inicializujeme s novou databazou: `$ sudo aideinit`
  - dalej je mozne vytvorit si vlastny config a vlastne pravidla, navody existuju ;-)
 
-### Na overovanie bezpecnosti hesla, mozeme pouzit nastroj: **John the Ripper**
+#### Na overovanie bezpecnosti hesla, mozeme pouzit nastroj: **John the Ripper**
 
  - instalacia na Ubu/Deb: `$ sudo apt install john`
  - zlucime `/etc/passwd` a `/etc/shadow` prikazom: `$ sudo unshadow /etc/passwd /etc/shadow > unshadow.out.txt`
@@ -1397,7 +1399,7 @@ Politiku systemovyh hesiel najdeme v subore `/etc/login.defs`
 Ako nastavit cas expiracie hesla na 30 dni: `$ sudo chage -M 30 <uzivatel>`
  - overime s: `$ sudo chage -l <uzivatel>`
 
-### Dalsie politiky hesla, ako napr. zlozitost spravuju **PAM - Pluggable Authentification Modules**
+#### Dalsie politiky hesla, ako napr. zlozitost spravuju **PAM - Pluggable Authentification Modules**
  - treba instalovat balik: `$ sudo apt install libpam-pwquality`
  - konfiguracia v subore: `/etc/pam.d/common-password`
  - na upravu politiky pridame do riadku `password requisite pam_pwquality.so retry=3`
@@ -1415,7 +1417,7 @@ Ako nastavit cas expiracie hesla na 30 dni: `$ sudo chage -M 30 <uzivatel>`
    - `ocredit=` atribut s `-1` vyzaduje aspon jeden specialny znak (special character)
    - na **RedHat-based** distribuciach sa pouziva konf. subor: `/etc/pam.d/system-auth`
 
-### Ako vytvorit sifrovanu particiu na HDD/SSD
+#### Ako vytvorit sifrovanu particiu na HDD/SSD
 
 - je potrebne nainstalovat: `$ sudo apt install cryptsetup`
  - disk, ktory chceme sifrovat, musi byt **unmounted**
@@ -1430,8 +1432,9 @@ Ako nastavit cas expiracie hesla na 30 dni: `$ sudo chage -M 30 <uzivatel>`
  - nova uloha: `$ sudo cryptsetup luksOpen /dev/sdb crypt1`
    - nasledne: `$ sudo mount /dev/mapper/crypt1 /mnt/crypt1/`
 
-### Relacia vytvorena prikazom `sudo` ma pristupove prava v `cache` presne 15 min
+#### Zaklady prace s nastrojom **sudo**: 
 
+ - relacia vytvorena prikazom `sudo` ma pristupove prava v `cache` presne 15 min
  - cache sa da zmanzat s: `$ sudo -k`
  - toto nastavenie mozeme zmenit, napr. na 10 min., otvorime konfiguraciu `sudoers`, zadame: `$ sudo visudo`
  - nasledne riadok `Defaults env_reset` upravime na: `Defaults env_reset, timestamp_timeout=10` 
