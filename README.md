@@ -1316,9 +1316,10 @@ prikaz: `$ docker container run -d -p 8080:80 --name=moj_lab nginx`
 Ako vypisat otvorene TCP porty kontajnera: `$ docker container port <contID/contNAME>`
 
 Ako vypisat logy z kontajnera (napr. server nginx): `$ docker container logs <contID/contNAME>`
- - sledovanie v realnom case, parameter: `logs -f`
+ - sledovanie v realnom case, doplnime parameter: `logs -f`
 
 Ako sledovat zdroje konkretneho kontajnera: `$ docker container stats <contID/contNAME>`
+
 Ako vypisat detailne informacie o kontajnery: `$ docker container inspect <contID/contNAME>`
 
 Ako spustit kontajner, hned s prikazovym riadkom: 
