@@ -839,24 +839,24 @@ Ako sa odpojit od konzoly kontajnera, v terminale za sebou stlacime skratky: `Ct
 
 Vytvorime adresar `git_ucenie`, v ktorom inicializujeme *lokalny* Git repozitar: `$ git init`
  - aktualny stav repozitara overime s: `$ git status`
- - nastavime identitu uzivatela na pridavanie zmien: $ git config --global --edit
- - vytvorime cvicny subor, napr. "poznamky.txt"
-   - do suboru napiseme "moja prva poznamka", subor ulozime
- - nasledne subor pridame do Staging Cache repozitara: $ git add poznamky.txt
- - overime s: $ git status
+ - nastavime identitu uzivatela na pridavanie zmien: `$ git config --global --edit`
+ - vytvorime cvicny subor, napr. `poznamky.txt`
+   - do suboru napiseme `moja prva poznamka`, subor ulozime
+ - nasledne subor pridame do *Staging Cache* repozitara: `$ git add poznamky.txt`
+ - overime s: `$ git status`
  - dalej pridame do *lokalneho* repo. novu zmenu, teda *commit* s popisom/spravou: 
 
-   - prikaz: $ git commit -m 'vytvoril som subor poznamky.txt a pridal 1. riadok'
+   - prikaz: `$ git commit -m 'vytvoril som subor poznamky.txt a pridal 1. riadok'`
 
- - dalej upravime subor "poznamky.txt", pridame riadok "dalsi riadok s poznamkou"
- - subor ulozime a overime stav *lokalneho* repo.: $ git status
- - podla vypisu je potrebne pridat upraveny subor do Staging Cache: $ git add poznamky.txt
- - jednoduchsie mozeme pridat vsetky subory v "root" adresary repozitara: $ git add .
+ - dalej upravime subor `poznamky.txt`, pridame riadok `dalsi riadok s poznamkou`
+ - subor ulozime a overime stav *lokalneho* repo.: `$ git status`
+ - podla vypisu je potrebne pridat upraveny subor do *Staging Cache*: `$ git add poznamky.txt`
+ - jednoduchsie mozeme pridat vsetky subory v danom adresary repozitara: `$ git add .`
  - aby sme sa vyhli pridavaniu suborov, ktore nechceme pridat do Staging Cache,
-   vytvorime subor ".gitignore"
- - na ignorovali ".dotfiles" do suboru mozeme zapisat napr. riadok ".*" (bez uvodzoviek)
- - ak chceme odstranit subor z Cache, pouzijeme: $ git rm --cached <nazov_suboru>
- - pridame novu zmenu: $ git commit -m 'pridal som dalsi riadok'
+   vytvorime subor `.gitignore`
+ - na ignorovanie tzv. *.dotfiles*, do suboru mozeme zapisat napr. riadok `.*`
+ - ak chceme odstranit subor z Cache, pouzijeme: `$ git rm --cached <nazov_suboru>`
+ - pridame novu zmenu: `$ git commit -m 'pridal som dalsi riadok'`
 
 Chceme napr. zmenit format zapisu poznamok, mozeme vytvorit vetvu, *branch*:
  - prikaz:  $ git checkout -b 'novy_format'
