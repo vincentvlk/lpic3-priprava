@@ -1543,6 +1543,7 @@ Dalsi nastroj na **Rootkit** detekciu, instalujeme s: `$ sudo apt install chkroo
 
 - je potrebne overit pocet spustitelnych procesov, skontrolujeme povolnene mznostvo: `$ ulimit -u`
 - do suboru `/etc/security/limits.conf` pridame tieto riadky:
+
     ```
     student		hard	nproc	1000
     @team1		hard	nproc	4000
@@ -1570,58 +1571,58 @@ Dalsi nastroj na **Rootkit** detekciu, instalujeme s: `$ sudo apt install chkroo
 ### Zaklady prace s DNS serverom **BIND 9**:
 
 - instalujeme: `$ sudo apt install bind9 bind9-utils bind9-doc`
- - dalsie implementacie autoritativnych DNS serverov: "Knot DNS", "Dnsmasq", "PowerDNS", ...
- - standardna "bind9" Ubu/Deb instalacia spusti "Cache-only" server, pocuva na IPv4 aj IPv6
- - ^ ak chceme toto zmenit, upravime "/etc/default/named", do riadku
-   OPTIONS="-u bind"
-   pridame parameter "-4" alebo "-6", vzajomne sa vylucuju
- - hlavna konfiguracia DNS servera "BIND9" je v subore "/etc/bind/named.conf"
- - ked chceme pridat tzv. "forwarder" servery, pridame do "/etc/bind/named.conf.options" riadky:
+- dalsie implementacie autoritativnych DNS serverov: `Knot DNS`, `Dnsmasq`, `PowerDNS`, ...
+- standardna `bind9` Ubu/Deb instalacia spusti **Cache-only** server, pocuva na IPv4 aj IPv6
+- ak to chceme zmenit, upravime `/etc/default/named`, do riadku `OPTIONS="-u bind"`, pridame parameter `-4` alebo `-6`, vzajomne sa vylucuju
+- hlavna konfiguracia DNS servera **BIND9** je v subore `/etc/bind/named.conf`
+- ked chceme pridat tzv. **forwarder** servery, pridame do `/etc/bind/named.conf.options` riadky:
 
-forwarders {
-                193.17.47.1;
-                185.43.135.1;
-                2001:148f:ffff::1;
-                2001:148f:fffe::1;
-        };
+```
+    forwarders {
+                    193.17.47.1;
+                    185.43.135.1;
+                    2001:148f:ffff::1;
+                    2001:148f:fffe::1;
+            };
+```
+- poznamka, ako priklad som pouzil ODVR servery NIC.cz: `https://www.nic.cz/odvr/`
+- nasledne restartujeme proces/daemon servera: `$ sudo systemctl reload-or-restart bind9.service`
+- stav mozeme overit s: `$ sudo systemctl status bind9.service`
 
- - nasledne restartujeme proces/daemon servera: $ sudo systemctl reload-or-restart bind9.service
- - stav mozeme overit s: $ sudo systemctl status bind9.service
+Tip: Ako zistit, ake NS servery pouziva dana domena: `$ dig -t ns example.com`
 
-Ako zistit, ake NS servery pouziva dana domena: $ dig -t ns example.com
-
-Ako pridat domenu/zonovy subor, tzv. "zone-file", teda vytvorit autoritaivny DNS server pre domenu:
- - do suboru "/etc/bind/named.config.local" pridame riadky:
-
-zone "priklad.xyz" {
-	type master;
-	file "/etc/bind/db.priklad.xyz";
-};
-
- - nasledne si zo sablony skopirujeme zonovy subor "/etc/bind/db.priklad.xyz"
-   - prikaz: $ sudo cp /etc/bind/db.empty /etc/bind/db.vincentvlk.eu
+Ako pridat domenu/zonovy subor, tzv. **zone-file**, teda vytvorit autoritaivny DNS server pre domenu:
+ - do suboru `/etc/bind/named.config.local` pridame riadky:
+```
+    zone "priklad.xyz" {
+    	type master;
+    	file "/etc/bind/db.priklad.xyz";
+    };
+```
+ - nasledne si zo sablony skopirujeme zonovy subor `/etc/bind/db.priklad.xyz`
+   - prikaz: `$ sudo cp /etc/bind/db.empty /etc/bind/db.priklad.xyz`
  - tento subor upravime napr. nasledovne:
-
-;
-; Priklad na zonovy subor domeny "priklad.xyz"
-;
-$TTL	86400
-@	IN	SOA	ns1.priklad.xyz root.localhost. (
-			      2		; Serial
-			 604800		; Refresh
-			  86400		; Retry
-			2419200		; Expire
-			  86400 )	; Negative Cache TTL
-;
-@	    IN	NS	ns1.priklad.xyz
-@	    IN	NS	ns2.priklad.xyz
-ns1	    IN	A	192.168.1.244
-ns2	    IN	A	192.168.1.242
-mail	IN	MX 10	mail.priklad.xyz.
-priklad.xyz.	IN	A	192.168.1.244
-www	    IN	A	192.168.1.244
-mail    IN	A	192.168.1.244
-
+```
+    ;
+    ; Priklad na zonovy subor domeny "priklad.xyz"
+    ;
+    $TTL	86400
+    @	IN	SOA	ns1.priklad.xyz root.localhost. (
+    			      2		; Serial
+    			 604800		; Refresh
+    			  86400		; Retry
+    			2419200		; Expire
+    			  86400 )	; Negative Cache TTL
+    ;
+    @	    IN	NS	ns1.priklad.xyz
+    @	    IN	NS	ns2.priklad.xyz
+    ns1	    IN	A	192.168.1.244
+    ns2	    IN	A	192.168.1.242
+    mail	IN	MX 10	mail.priklad.xyz.
+    priklad.xyz.	IN	A	192.168.1.244
+    www	    IN	A	192.168.1.244
+    mail    IN	A	192.168.1.244
+```
  - nasledne je vhodne otestovat spravnost konfiguracie servera a zonovych suborov:
    - kontrola konf. servera: $ sudo named-checkconf
    - kontrola zonoveho suboru: $ sudo named-checkzone priklad.xyz. /etc/bind/db.priklad.xyz
