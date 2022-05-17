@@ -1045,7 +1045,7 @@ Ako nastavit **SET GID bit**, absolutny mod `$ chmod 2XXX dir1/`, relativny mod 
  - uzitocne pre vytvaranie zdielanych adresarov
 
 Ako priklad mozeme vytvorit dedikovany adresar pre dvoch vyvojarov:
-
+```bash
     # adduser dev1                       <-- vytvorime uzivatelov
     # adduser dev2
     # usermod -aG developers dev1        <-- vytvorime skupinu a zaradime uzivatelov
@@ -1054,7 +1054,7 @@ Ako priklad mozeme vytvorit dedikovany adresar pre dvoch vyvojarov:
     # chown dev1:developers /repo.d/     <-- nastavime vlastnika/skupinu
     # chmod o-rx /repo.d/                <-- nastavome prava
     # chmod g+s /repo.d/                 <-- nastavime "SGID" bit
-
+```
  - nasledne overime tak, ze uziv. **dev1** vytvori subor: `$ touch program.c`
  - so spravnym nastavenim ma editovaci pristup aj uzivatel **dev2**
 
