@@ -2335,7 +2335,7 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
  - konfiguracia sa nachadza v subore "/etc/multipath.conf"
  - zariadenie dostupne cez "dm-multipath" sa nachadzaju v "/dev/mapper"
 
-#### Priklad instalacie riesenia "Device Mapper Mulltipath" v OS CentOS Stream 9
+#### Priklad instalacie riesenia "Device Mapper Multipath" v OS CentOS Stream 9:
  - instalujeme (zvycajne byva uz nainstalovany): $ sudo dnf -y in device-mapper-multipath
  - zapneme proces "multipathd": $ sudo mpathconf --enable --with_multipathd y
    - prikaz zaroven vygeneruje konfig. subor "/etc/multipath.conf"
@@ -2345,6 +2345,7 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
    - toto sa snazi "Multipathing" riesit tym, ze spoji viacere cesty do jedneho zariadenia 
  - stav dostupnych multipath zariadeni overime s: $ sudo multipath -ll
  - tieto zariadenia su dostupne ako "/dev/mapper/mpathX" , "/dev/mapper/mpathX" a pod.
+- Poznamka: Alternativy k systemu CentOS: `CentOS Stream`, `Alma Linux`, `Rocky Linux`, `Oracle Linux`
 
 #### Doplnenie: Zaklady prace s LVM v Cluster prostredi:
 - logicke LV particie sa zvycajne mapuju napr. ako: /dev/mapper/ubuntu--vg-ubuntu--lv"
@@ -2370,7 +2371,7 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
 - su potrebne technologie DLM a cLVM na koordinaciu zamykania suborov (file locking)
 - maximalna podporovana kapacita je 100TiB (nemam zatial overene)
 
-#### Priprava pred instalaciou
+#### Priprava pred instalaciou na RedHat based systemoch (CentOS/Rocky Linux):
 - treba vytvorit minimalne 2 LUNy, jeden maly (1 MB) na Fencing a druhy na storage napr. 10GB
 - ako vypisat dostupne repozitare: $ sudo dnf repolist all 
 
@@ -2382,94 +2383,10 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
 - zapneme repozitare: $ sudo dnf config-manager --set-enabled ha,resilient-storage
   - instalacia: $ sudo dnf -y in fence-agents-scsi lvm2-lockd gfs2-utils dlm
 
-- zapneme sluzbu "LVMlockd": $ sudo systemctl enable lvmlockd.service
-  - overime s: $ sudo systemctl status lvmlockd.service
+- Tip: Prepisanie *zaciatku* disku nulami: `$ sudo dd if=/dev/zero of=/dev/sda bs=1M count=100`
+- Tip: Ako v RedHat based OS zistit, ktory balik poskytuje dany "prikaz", napr.: $ dnf provides showmount
 
-v subore "/etc/iscsi/iscsid.conf" upravime konfiguraciu na:
-
-node.session.auth.authmethod = CHAP
-node.startup = automatic
-node.session.auth.username = gfsnode
-node.session.auth.password = gfs.2022
-
-pridame napr. do suboru "/etc/iscsi/initiatorname.iscsi"
-
-InitiatorName=iqn.2022-03.lpic3.lab:gfs.node1.init1
-
-nasledne: $ sudo iscsiadm -m discovery -t sendtargets -p 192.168.255.X
-
-ak discovery najde viac targetov, treba ich zmazat, napr. na CentOS 9 Stream:
-
-rm -rf /var/lib/iscsi/nodes/iqn.2022-03.lpic3.suse1\:www.target01/
-
-nasledne: $ sudo iscsiadm -m node --login
-
-v subore "/etc/lvm/lvm.conf"
-
-    pridat riadok "use_lvmlockd = 1"
-    odstranit riadok "volume_list = [ XYZ ]"
-    odstranit riadok "locking_type = XYZ"
-
-overime s: $ sudo lvmconfig
-
-zapneme STONITH mna cluster-y a upravime konfiguraciu technologie Qourum:
-
-$ sudo pcs property set stonith-enabled=true
-$ sudo pcs property set no-quorum-policy=freeze
-
-overime s:
-$ sudo pcs property config
-
-- zistime WWN pre SCSI Stonith:
-ll /dev/disk/by-id | grep sda | grep wwn 
-
-- vytvorime Fencing STONITH pomocou SCSI:
-
-$ sudo pcs stonith create scsi-Fence fence_scsi pcmk_host_list="cent1 cent2 cent3" \
-devices=/dev/disk/by-id/wwn-0x600140520845b9b2586439fa1949df69 meta provides=unfencing
-
-- vytvorime "DLM Locking" zdroj:
-
-$ sudo pcs resource create dlm ocf:pacemaker:controld op monitor interval=30s \
-on-fail=fence --group locking
-
-- dalej zdroj klonujeme na ostatne uzly: $ sudo pcs resource clone locking interleave=true
-
-- vytvorime "LVMlockd" zdroj: 
-
-$ sudo pcs resource create lvmlockdd ocf:heartbeat:lvmlockd op monitor interval=30s \
-on-fail=fence --group locking
-
-- na node c. 1 vytvorime LVM:
-
-- skontrolujeme stav LVM na uzloch: $ sudo lvs; echo; sudo vgs; echo; sudo pvs
-
-Na prvom uzle vytvorime LVM disk:
-
-# parted --script /dev/sda "mklabel gpt"
-# parted --script /dev/sda "mkpart primary 0% 100%"
-# parted --script /dev/sda "set 1 lvm on"
-
-- overime napr s: $ sudo fdisk -l /dev/sda
-
-- nasledne zaradime do LVM: $ sudo  pvcreate /dev/sda1
-
-- dalej zaradime PV do VG: $ sudo vgcreate --shared vg_gfs2 /dev/sda1
-
-- poznamka, prepisanie "zaciatku" disku nulami: $ sudo dd if=/dev/zero of=/dev/sda bs=1M count=100
-
-[root@lpic3-cent1 ~]# vgcreate --shared vg_gfs2 /dev/sda1
-  Volume group "vg_gfs2" successfully created
-  VG vg_gfs2 starting dlm lockspace
-  Starting locking.  Waiting until locks are ready...
-
-** zatial nedokoncene, zasa som sa zasekol, problem s cLVM na CentOS 9 Stream **
-
-- poznamka: alternativy k CentOS: CentOS Stream, Alma Linux, Rocky Linux, Oracle Linux
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Pacemaker/Corosync (Unicast) WebServer Cluster na OS "Rocky Linux 8.5":
-
+### Pacemaker/Corosync (Unicast) WebServer Cluster s GFS2 na OS "Rocky Linux 8.5":
  - vytvorime DNS zaznamy uzlov, alebo "/etc/hosts"
  - na uzloch zapneme repo.: $ sudo dnf config-manager --set-enabled ha,resilient-storage
  - na uzloch instalujeme: $ sudo dnf -y in pacemaker pcs fence-agents-scsi iscsi-initiator-utils
@@ -2754,9 +2671,6 @@ $ sudo pcs resource create nfs_share1_exp ocf:heartbeat:exportfs \
   - overime s: $ df -hT /mnt/nfs
   - pre NFSv3 prikaz: $ sudo mount -t nfs 192.168.255.28:/home/nfs-server/nfs-root/share1 /mnt/nfs
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Ako v RedHat based OS zistit, ktory balik poskytuje dany "prikaz", napr.: $ dnf provides showmount
-
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- 
 Praca s Load-Balancingom sluzieb, teda rozkladanim zataze na viacero aplikacnych uzlov
  - zakladne metody L.B.: 
@@ -2836,9 +2750,8 @@ backend backend_servers
 
   - rozkladanie zataze requestov overime pripojenim na LB TCP port 80, browserom alebo curl-om
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Praca s virtualizacnymi nastrojmi/platformami pre OS GNU/Linux:
-
+---------------
 - zakladne koncepty: virtualizacia vie delit fyzicke vypoctove zdroje na viacero oddelenych casti
   - teda uzmonuje "bezat" viacero virtualnych pocitacov na spolocnom zdielanom HW
   - tzv. Hypervizor alebo aj "VMM - Viatual Machine Monitor" spravuje a monitoruje virtualizaciu 
@@ -2849,7 +2762,8 @@ Poznamka, ako pridat do LVM predtym pouzivane zariadenie, treba pouzit: $ sudo w
  - inak LVM moze hlasit chybu: "Device /dev/sdb excluded by a filter."
  - prikazy LVM sa daju ciastocne debugovat,  napr.: $ sudo pvcreate -vvv /dev/sdb
 
-Praca s Virt. platformou Xen Server, boliky boli z RHEL a klonov odstranene, treba pridat repo.
+### Praca s Virt. platformou Xen Server,
+- baliky boli z RHEL a klonov odstranene, treba pridat repozitar
 - tento postup je instalacia na OS Debian 11
 - na "Host" systeme instalujeme balik LVM2: $ sudo apt install lvm2
 - dalej napr. z dvoch diskov si spravime LVM2 VG "vgxen", na instalaciu virtualizovanych systemov:
@@ -2860,7 +2774,7 @@ $ sudo vgcreate vgxen /dev/sdb /dev/sdc
 
 - dalej instalujeme sietove balicky: $ sudo apt install ifupdown bridge-utils
 - upravime subor "/etc/network/interfaces" nasledovne:
-
+```
 # Definicia loopback interface
 auto lo
 iface lo inet loopback
@@ -2880,7 +2794,7 @@ netmask 255.255.255.0
 broadcast 192.168.255.255
 gateway 192.168.255.1
 dns-nameservers 193.17.47.1 185.43.135.1 
-
+```
 - nasledne restartujeme "networking" sluzbu: $ sudo systemctl restart networking.service
   - podla vypisu "$ ip address" by mal byt povodny staticky IP conf. na novom "bridge" iface
 - instalujeme nastroje a kernel Hypervizora "Xen": $ sudo apt install xen-system-amd64
@@ -2973,7 +2887,7 @@ Z tohto dovodu OSS komunita viac preferuje kombinaciu projetov ako je KVM, QEMU,
 Preto tato cast poznamok nepokracuje dalej.
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Praca s virtualizacnou platformou "KVM" a pridruzenymi projektami "QEMU" a "libvirt":
+### Praca s virtualizacnou platformou "KVM" a pridruzenymi projektami "QEMU" a "libvirt":
  - KVM - Kernel based Virtual Machine, sluzi ako "akcelerator" pre nastroje QEMU
  - QEMU - genericky emulator a virtualizator pocitacov
  - KVM+QEMU podporuju viacero suborovych diskov, ako napr. raw, qcow2, vdi, vmdk, ...
@@ -3087,20 +3001,22 @@ lxc.idmap = g 0 165536 65536
 
 **Praca s platformou Docker je uz vyssie popisana v tychto poznamkach.**
 
-Virt. nastroj "VirtualBox" je "hosted hypervisor / Type-2 hypervisor", ktory sa instaluje ako App.
- - dalsie informacie: https://www.virtualbox.org/
+#### Virtualizacny nastroj "VirtualBox":
+ - je *hosted hypervisor / Type-2 hypervisor*, ktory sa instaluje ako Aplikacia na OS
+ - dalsie informacie: `https://www.virtualbox.org/`
 
-Nastroj "Packer" sluzi na automatizovanu tvorbu a konfiguraciu VM imagov
- - nastroj dalej vyuziva automatizacne projekty Puppet a Chef
- - dalsie informacie napr.: https://www.packer.io/
+#### Nastroj *Packer* sluzi na automatizovanu tvorbu a konfiguraciu VM imagov:
+ - nastroj dalej vyuziva automatizacne projekty *Puppet* a *Chef*
+ - dalsie informacie napr.: `https://www.packer.io/`
 
-Nastroj "Vagrant" sa vyuziva na automaticku tvorbu a manazment VM prostredi, ktore su prenositelne
- - nastroj je integrovany s projektami Puppet, Chef a Ansible
- - na definiciu VM prostredi a ich parametrov vyuziva tzv. "VagrantFile"
- - dalsie informacie napr.: https://www.vagrantup.com/
+#### Nastroj "Vagrant" sa vyuziva:
+ - na automaticku tvorbu a manazment VM prostredi, ktore su prenositelne
+ - nastroj je integrovany s projektami *Puppet*, *Chef* a *Ansible*
+ - na definiciu VM prostredi a ich parametrov vyuziva tzv. *VagrantFile*
+ - dalsie informacie napr.: `https://www.vagrantup.com/`
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Praca s kniznicou/nastrojmi/API pod nazvom projektu "libvirt"
+Praca s kniznicou/nastrojmi/API pod nazvom projektu `libvirt`:
  - sluzi na unifikovany manazment virtualnych zdrojov roznych typov (KVM,QEMU,VMware,LXC,Xen,...)   
  - poskytuje CLI nastroje na manazment, ako su napr. "virsh", "virt-install", "virt-manger"
  - informacie a konfiguraciu VM instanacii uklada vo "formate" XML
@@ -3272,12 +3188,12 @@ http://{engine_url}/ovirt-engine/services/pki-resource?resource=ca-certificate&f
 
 $ brew tap jeffreywildman/homebrew-virt-manager
 $ brew install virt-viewer 
-   
+ 
       - po instalacii som otvoril subor, ktory poskytne oVirt Engine: $ remote-viewer console.vv
       - pripojenie je podobne ako VNC, text editorom sa da nahliadnut do suboru "console.vv"
         - je vidiet, ze subor ".vv" ma platnost 120 sekund, potom exspiruje vygenerovane heslo
 
-Poznamky k projektu OpenStack, definovany ako Cloud Operating System
+#### Poznamky k projektu OpenStack, definovany ako Cloud Operating System
  - je urceny na manazment cloudovych zdrojov compute, storage, network v datovom centre
  - na manzment a provisioning zdrojov vyuziva webove dashboard rozhranie
  - zdroje typu "Compute" mozu byt: bare metal HW, VMs, kontajnery
@@ -3295,7 +3211,7 @@ Poznamky k projektu OpenStack, definovany ako Cloud Operating System
    - Glance: poskytuje sluzby na pracu s image-mi, ako su .iso, .ovf, .vmdk, ...
    - OpenStack ma vela dalsich sluzieb a sub-projektov, ktore nie su predmetom tychto poznamok
 
-Projekt CloudStack, je definovany ako OSS produkt na nasadenia a spravu velkych VM prostredi
+#### Projekt CloudStack, je definovany ako OSS produkt na nasadenia a spravu velkych VM prostredi
  - je to full-stack Infrastructure as a Service (IaaS) riesenie pre public/private/hybrid cloud
  - zakladne vlastnosti:
    - vysoka skalovatelnost, nasiel som realne nasadenie s viac ako 30 tisic Host servermi
@@ -3316,12 +3232,12 @@ Projekt CloudStack, je definovany ako OSS produkt na nasadenia a spravu velkych 
    - bezi ako kontajner na platforme Apache Tomcat
    - vyzaduje databazu, napr. MySQL/MariaDB, pripadne jej Cluster riresenie "Galera MariaDB Cluster"
 
-Projekt Eucalyptus je OSS riesenie pre IaaS platformi, ktore su kompatibilne s Amazon AWS
+#### Projekt Eucalyptus je OSS riesenie pre IaaS platformi, ktore su kompatibilne s Amazon AWS
  - umoznuje vytvorit privatny aj public cloud
  - architektura postavena na GNU/Linux, ktora umoznuje vyuzit svoje vlastne zdroje kompati. s AWS
  - dalsie infomacie napr.: https://www.eucalyptus.cloud/
 
-Projekt OpenNebula kombinuje virtualizaciu a kontajnery na budovanie multi-tenant cloud rieseni
+#### Projekt OpenNebula kombinuje virtualizaciu a kontajnery na budovanie multi-tenant cloud rieseni
  - umoznuje vybudovat private/public/hybrid cloud riesenia + edge computing
  - komercny produkt s profesionalnou/garantovanou podporou
  - plne automatizovany provisioning a elasticita na poskytovanie on-demand vypoctovych prostriedkov
@@ -3330,11 +3246,9 @@ Projekt OpenNebula kombinuje virtualizaciu a kontajnery na budovanie multi-tenan
  - dalsie informacie napr.: https://opennebula.io
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+Tip: Ako vypisat vsetky *.dotfile* a *.dotdirectory*, prikaz: `$ ls -ld .??*`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Ako vypisat vsetky ".dotfile" a ".dotdirectory": $ ls -ld .??*
-
-Ako zalohovat pomocou programu "rsync" vsetky ".dotfile" / ".dotdirectory":
- - prikaz: $ rsync -av /zdrojova/cesta/.??* /cielova/cesta/
+Tip: Ako zalohovat pomocou programu `rsync` vsetky *.dotfile* / *.dotdirectory*:
+ - prikaz: `$ rsync -av /zdrojova/cesta/.??* /cielova/cesta/`
 
 
