@@ -1893,8 +1893,8 @@ Poznamka: V OS OpenSUSE Leap sa da pouzit na konf. iSCSI Initatora TUI nastroj: 
  - v menu volime `Network Services` -> `iSCSI Initiator` -> `sipkou doprava` na `Connected Targets`
    - v tomto submenu sa uz mozeme klavesom `Tab` prepnut na moznosti `Add` / `Edit` / `Disconnect`
 
-### Zaklady prace s HA - High Availability Cultermi v systeme GNU/Linux
-
+Zaklady prace s HA - High Availability Cultermi v systeme GNU/Linux
+-----------------
 Hlavne stavebne kamene HA Cluster-ov na systeme GNU/Linux: `Pacemaker` a `Corosync`.
 
 Na pracu s HA-lusterom je vhodne mat **DNS zaznami typu A/PTR uzlov**, pripadne zaznami v `/etc/hosts`
@@ -2232,7 +2232,7 @@ Tip: Ako vypisat/vlozit skrateny datum: `$ date +%H%h%Y` resp. v skripte: `$(dat
  - mozeme pouzit spolocne logy Systemd: `$ sudo journalctl -lu pacemaker.service -u corosync.service`
    - pripadne ich sledovat: `$ sudo journalctl -fu pacemaker.service -u corosync.service`
 
-#### Dalsie Priklady na manazment Clustra s nastrojom `pcs`:
+#### Dalsie priklady na manazment Clustra s nastrojom `pcs`:
  - vytvori zdroj: `$ sudo pcs resource create myDummy ocf:heartbeat:Dummy op monitor interval=60s`
  - aplikujeme obmedzenie na zdroj: `$ sudo pcs constraint location myDummy prefers <adresa-nodeX>`
  - overime s: `$ sudo pcs status`
@@ -2249,24 +2249,25 @@ Tip: Ako vypisat/vlozit skrateny datum: `$ date +%H%h%Y` resp. v skripte: `$(dat
  - po teste zmazeme: `$ sudo pcs resource disable myDummy` a `$ sudo pcs resource remove myDummy`
 
 #### Dalsie priklady na manazment Clustra s nastrojom "crm":
- - edit konf. a pridame zdroj "myDummy" a obmedzenie "myDummy-location": $ sudo crm configure edit
-
+ - editujeme konf. a pridame zdroj `myDummy` a obmedzenie `myDummy-location`:
+ - prikaz: `$ sudo crm configure edit` a nasledne vlozime:
+```
 primitive myDummy ocf:pacemaker:Dummy \
         op monitor interval=60
 location myDummy-location myDummy 10000: lpic3-suse1
- 
-- overime s: "$ sudo crm status" resp. s: "$ sudo crm configure show"
-- presunieme zdroj na iny uzol "lpic3-suse2": $ sudo crm resource move myDummy lpic3-suse2
-- tuto migraciu mozeme zmazat v configu alebo s: $ sudo crm resource clear myDummy
-- prikaz zmeni uzol "lpic3-suse1" do "standby" modu: $ sudo crm node standby lpic3-suse1
-- prikaz zmeni uzol "lpic3-suse1" do "online" modu: $ sudo crm node online lpic3-suse1
-- vypneme manazment zdroja "myDummy", umozni zmeny na uzle: $ sudo crm resource unmanage myDummy
-- znova aktivujeme manazment zdroja "myDummy": $ sudo crm resource manage myDummy
-- prepneme uzol do stavu "maintenance", teda udrzby: $ sudo crm node maintenance lpic3-suse1
-- vratime uzol do stavu "ready", teda pripraveny na cinnost: $ sudo crm node ready lpic3-suse1
+```
+- overime s: `$ sudo crm status` resp. s: `$ sudo crm configure show`
+- presunieme zdroj na iny uzol `lpic3-suse2`, zadame: `$ sudo crm resource move myDummy lpic3-suse2`
+- tuto migraciu mozeme zmazat v configu alebo s: `$ sudo crm resource clear myDummy`
+- prikaz prepne uzol `lpic3-suse1` do `standby` modu: `$ sudo crm node standby lpic3-suse1`
+- prikaz prepne uzol `lpic3-suse1` do `online` modu: `$ sudo crm node online lpic3-suse1`
+- vypneme manazment zdroja `myDummy`, umozni zmeny na uzle: `$ sudo crm resource unmanage myDummy`
+- znova aktivujeme manazment zdroja `myDummy` s: `$ sudo crm resource manage myDummy`
+- prepneme uzol do stavu `maintenance`, teda udrzby: `$ sudo crm node maintenance lpic3-suse1`
+- vratime uzol do stavu `ready`, teda pripraveny na cinnost: `$ sudo crm node ready lpic3-suse1`
 - vsetky zmeny overime s: "$ sudo crm status" resp. "$ sudo crm configure show"
  
-Praca s Cluster Storage riesenim "DRBD - Distributed Replicated Block Device"
+### Praca s Cluster Storage riesenim "DRBD - Distributed Replicated Block Device":
  - riesenie v podstate realizuje RAID1 ale cez sietove prepojenia
  - zvycajne sa pouzivaju 2 storage uzly, ktore si navzajom synchronizuju data
  - zakladny M/S model vyuziva standardne FS, napr. Ext4, XFS, ...
