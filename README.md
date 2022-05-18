@@ -1901,14 +1901,16 @@ Poznamka: V OS OpenSUSE Leap sa da pouzit na konf. iSCSI Initatora TUI nastroj: 
 
 ### Zaklady prace s HA - High Availabolity Cultermi v systeme GNU/Linux
 
+Hlavne stavebne kamene HA Cluster-ov na systeme GNU/Linux: `Pacemaker` a `Corosync`.
+
 Na pracu s HA-lusterom je vhodne mat **DNS zaznami typu A/PTR uzlov**, pripadne zaznami v `/etc/hosts`
 
-#### Trocha teorie: CIB - Cluster Information Base: Stav cluster-a v pamati
- - ako kopia existuje na kazdom uzle, subor sa NESMIE rucne upravovat
- - na spravu CIB sa pouziva nastroj "cibadmin", napr. vypis databazy: $ sudo cibadmin -Q | less
- - proces Cluster Resource Management Daemon "crmd" umoznuje prsitup k tejto databaze
+#### Trocha teorie: CIB - Cluster Information Base: Stav cluster-a v pamati systemu
+ - ako kopia existuje na kazdom uzle, subor sa **NESMIE** rucne upravovat
+ - na spravu CIB sa pouziva nastroj `cibadmin`, napr. vypis databazy: `$ sudo cibadmin -Q | less`
+ - proces **Cluster Resource Management Daemon** `crmd`, umoznuje pristup k tejto databaze
    - zabezpecuje dalej riadiacu komunikaciu medzi uzlami cluster-a
- - dalsi komponent, Local Resource Management Daemon "lrmd" zabezpecuje restart lokalnych zdrojov
+ - dalsi komponent, **Local Resource Management Daemon** `lrmd` zabezpecuje spravu lokalnych zdrojov
  - dalsi komponent Polocy Engine "pengine"
  - dalsi komponent Transition Engine "tengine"
  - dalsi komponent "stonithd" zabezpecuje "vybavovanie STONITH" poziadavok
