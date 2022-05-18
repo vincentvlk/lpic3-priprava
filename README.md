@@ -1946,7 +1946,7 @@ Tip: Ako ulozit nastrojom `crm` konfiguraciu clustera do suboru s datumom v nazv
  - **POZOR** na TESTOVANIE v "lab" prostredi mozeme zmazat CIB: `$ sudo cibadmin -E --force`
  - nasledne mozeme konfiguraciu obnovit: `$ sudo crm configure load push zaloha-clus-12-03-2022.txt`
 
-#### Priklad: Instalacia Unicast clustra v systeme CentOS Stream 9 - nastroj `pcs`
+#### Priklad: Instalacia Unicast clustra v systeme CentOS Stream 9 - nastroj `pcs`:
  - pridame repozitar: `$ sudo dnf install epel-release`
  - aktivujeme v `/etc/yum.repos.d/centos-addons.repo` repo. `highavailability` uprava na `enabled=1`
  - aktualizujeme repo.: `$ sudo dnf update`
@@ -2037,7 +2037,8 @@ Tip: Ako vypisat stav technologie **Quorum**, ktora zabranuje vzniku **split-bra
    - treba skombinovat s `--wait_for_all` a nasledne umoznuje postupne **vypinanie** uzlov z clustra 
  - parameter `--two_node` - umoznuje "bezat" cluster z 2 uzlov
 
-#### V distribucii OpenSUSE je konfiguracia kvora dostupna v subore `/etc/corosync/corosync.conf`
+#### V distribucii OpenSUSE je konfiguracia Cluster kvora:
+ - dostupna v subore `/etc/corosync/corosync.conf`
  - priklad na konfiguraciu kvora v subore `corosync.conf`:
  - zmeny samozrejme robime v LABe, inak treba robit **off-peak udrzbu** a mat pripravene zalohy konf.
 ```
@@ -2075,14 +2076,14 @@ Poznamka: Ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
  - na **OpenSUSE** vypiseme agentov: `$ sudo stonith -L`
    - presnejsie informacie o agentoch ziskame s: `$ sudo stonith -h | less`
 
-#### Konfiguracia Fencing-u v systeme CentOS Stream 9 (RedHat based OS) 
+#### Konfiguracia Fencing-u v systeme CentOS Stream 9 (RedHat based OS):
  - da sa pouzit **Hypervisor** Fencing "device"/agent, instalujeme: `$ sudo dnf -y in fence-virtd `
    - tento agent sa pouziva pri hypervizore **KVM**, kazdy hypervizor musi mat `fence-virtd`
    - hypervizory musia byt na spolocnom Multicast segmente a musia zdielat spolocny **PSK kluc**
  - **POZOR, na TEST** mozeme odstavit VM instanciu prikazom: `$ sudo echo c > /proc/sysrq-trigger `
  - akciu STONITH mozeme rucne vykonat aj prikazom: `# sudo pcs stonith <hotname>`
 
-#### Ked chceme pouzivat SBD Fencing na VM, je potrebne do kernelu nacitat modul `softdog`
+#### Ked chceme pouzivat SBD Fencing na VM, je potrebne do kernelu nacitat modul `softdog`:
  - **SBD** - STONITH Based on Disk
  - na rozdiel od fyz. HW, na VM chyba SCSI **Watchdog**, preto treba nacitat software verziu:
  - overime loading kernel modulov pomocou SystemD: `$ sudo systemctl status systemd-modules-load`
