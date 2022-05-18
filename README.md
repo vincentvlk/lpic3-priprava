@@ -11,7 +11,7 @@ Poznamky na skusku LPIC3-304-200 - Virtualization & High Availability
 
     + zvazit nasadenie IPv6, ak je to mozne (definitivne by malo byt)
 
-Zakladne tipy a triky:
+Zakladne tipy a triky pre operacny system GNU/Linux:
 ----------------------
 #### Ako na Linuxe vypnut PC-speaker: ###
 
