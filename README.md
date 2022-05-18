@@ -2134,11 +2134,10 @@ Poznamka: Ako na **troubleshooting**, teda hladanie a riesenie problemov s "Reso
 
 #### Praca s konceptom "Resource Clones", umoznuje bezat primitivy alebo skupiny na viacerych uzloch:
  - pocet klonov byva zvycajne rovnaky ako pocet uzlov, ale moze sa obmedzit pocet klonov
- - typicky sa pouziva nastavenie "interleave=true", ktore umoznuje bezat ostatne klony nezavisle
+ - typicky sa pouziva nastavenie `interleave=true`, ktore umoznuje bezat ostatne klony nezavisle
    - napr. ked sa jeden z klonov zruti
 
-
-#### Priklad ako vytvorit Cluster s FTP server "resource" pomocou `pcs`:
+#### Priklad ako vytvorit Cluster s FTP server "Resource" pomocou `pcs`:
  - najskor na vsetkych uzloch instalujeme FTP server: `$ sudo dnf -y in vsftpd`
  - aktivujeme na uzloch FTP server: `$ sudo systemctl enable vsftpd && sudo systemctl start vsftpd`
  - potom pomocou nastroja `pcs` vytvorime 2 zdroje a zaradime ich to skupiny `ftp-service`:
@@ -2162,64 +2161,67 @@ primitive ftp-ip IPaddr2 \
 primitive ftp-service systemd:vsftpd
 group ftp-group ftp-ip ftp-service
 ```
-   - aplikujeme zmeny a overime napr. s: $ sudo crm status
- - dalej pridame do konfiguracie podobne obmedzenia/constraints: $ sudo crm configure edit
-
+   - aplikujeme zmeny a overime napr. s: `$ sudo crm status`
+ - dalej pridame do konfiguracie podobne obmedzenia/constraints: `$ sudo crm configure edit`
+```
 order ftp-after-apache apache-group ftp-group
 colocation web-not-ftp -10000: ftp-group apache-group
-
-   - aplikujeme zmeny a overime napr. s: $ sudo crm status
+```
+   - aplikujeme zmeny a overime napr. s: `$ sudo crm status`
  - na testovanie je potrebne povolit FTP sluzbu na firewalle:
-   - prikazy: $ sudo firewall-cmd --permanent --add-service=ftp && sudo firewall-cmd --reload
- - nasledne mozeme dostupnost FTP sluzby overit napr. prikazom: $ nc 192.168.X.Y 21
-   - dalsie informacie o nastroji "netcat" napr. v: $ man nc
+   - prikazy: `$ sudo firewall-cmd --permanent --add-service=ftp && sudo firewall-cmd --reload`
+ - nasledne mozeme dostupnost FTP sluzby overit napr. prikazom: `$ nc 192.168.X.Y 21`
+   - dalsie informacie o nastroji `netcat` napr. v: `$ man nc`
 
-Ako spravovat zdroje cluster-a, prikazy "$ sudo pcs resource enable" a "$ sudo pcs resource disable"
- - uvedene prikazy zapinaju / vypinaju zdroje clustera
- - prikazmi restartujeme zdroje: "$ sudo pcs resource restart" a "$ sudo crm resource restart"
- - prikazmi upravujeme zdroje: "$ sudo pcs resource update" resp. "$ sudo crm configure edit"
- - na ladenie pouzijeme $ sudo pcs resource debug-start <resource>
- - na restart resetujeme tzv. "Failcount": $ sudo pcs resource refresh
- - na udrzbu mozeme vypnut / zapnut manazment zdroja cluster stackom:
-   - prikazy: "$ sudo pcs resource [un]manage" resp. "$ sudo crm resource [un]manage"
- - ako presuvat zdroje na ine uzly: "$ sudo pcs resource relocate"
- - ako definovat limity zdrojov, priklad: $ sudo pcs resource utilization <resource> ram=20 cpu=10
-   - pre nastroj "crm": $ sudo crm resource utilization <resource> ram=20 cpu=10
-     - treba pozriet presnejsie...
- - na udrzbu, mozeme vypnut cluster sluzby na uzle: $ sudo pcs cluster stop <adresa-nodeX>
- - po upravach / udrzbe, znova spustime: $ sudo pcs cluster stop <adresa-nodeX>
- - stav overime s: $ sudo pcs status
- - zapneme / vypneme prihlasovanie do clustera: $ sudo pcs cluster {disable|enable} <adresa-nodeX>
- - pridavanie / odstranovanie uzlov: $ sudo pcs cluster node {add|remove} <adresa-nodeX>
-   - nasledne je potrebne autentifikovat novy uzol: $ sudo pcs host auth <adresa-nodeX>
-   - overime s: $ sudo pcs status
- - na odstranenie uzlu pouzijeme uvedene: $ sudo pcs cluster node remove <adresa-nodeX>
-   - dalej je potrebne odstranit STONITH proces: $ sudo pcs stonith delete <adresa-nodeX>
- - ked potrebujeme docasne vyradit uzol: $ sudo pcs node [un]standby <adresa-nodeX>
-   - rozdiel oproti vypnutiu, je ucast Qourum procese
-   - overime s: "$ sudo pcs status" alebo s: $ sudo pcs status nodes
+#### Zaklady, ako spravovat zdroje cluster-a s nastrojom `pcs` a `crm`:
+ - prikaz: `$ sudo pcs resource enable` zapne zdroj
+ - prikaz: `$ sudo pcs resource disable` vypne zdroj
+ - prikazmi restartujeme zdroje: `$ sudo pcs resource restart` a `$ sudo crm resource restart`
+ - prikazmi upravujeme zdroje: `$ sudo pcs resource update` resp.: `$ sudo crm configure edit`
+ - na ladenie pouzijeme: `$ sudo pcs resource debug-start <resource>`
+ - na restart resetujeme tzv. **Failcount**: `$ sudo pcs resource refresh`
+ - na udrzbu mozeme vypnut/zapnut manazment zdroja cluster stackom:
+   - prikazy: `$ sudo pcs resource [un]manage` resp.: `$ sudo crm resource [un]manage`
+ - ako presuvat zdroje na ine uzly: `$ sudo pcs resource relocate`
+ - ako definovat limity zdrojov, priklad: `$ sudo pcs resource utilization <resource> ram=20 cpu=10`
+   - pre nastroj `crm`: `$ sudo crm resource utilization <resource> ram=20 cpu=10`
+     - treba mi pozriet presnejsie
+ - na udrzbu, mozeme vypnut cluster sluzby na uzle: `$ sudo pcs cluster stop <adresa-nodeX>`
+ - po upravach/udrzbe, znova spustime: `$ sudo pcs cluster stop <adresa-nodeX>`
+ - stav overime s: `$ sudo pcs status`
+ - zapneme/vypneme prihlasovanie do clustera: `$ sudo pcs cluster {disable|enable} <adresa-nodeX>`
+ - pridavanie/odstranovanie uzlov: `$ sudo pcs cluster node {add|remove} <adresa-nodeX>`
+   - nasledne je potrebne autentifikovat novy uzol: `$ sudo pcs host auth <adresa-nodeX>`
+   - overime s: `$ sudo pcs status`
+ - na odstranenie uzla pouzijeme uvedene: `$ sudo pcs cluster node remove <adresa-nodeX>`
+   - dalej je potrebne odstranit STONITH proces: `$ sudo pcs stonith delete <adresa-nodeX>`
+ - ked potrebujeme docasne vyradit uzol: `$ sudo pcs node [un]standby <adresa-nodeX>`
+   - rozdiel oproti vypnutiu, je ucast na Qourum procese
+   - overime s: `$ sudo pcs status` alebo s: `$ sudo pcs status nodes`
 
-Nastroj "crm" pouziva na pridavanie uzlov prikaz: $ sudo crm cluster add
- - nastroj "crm" na mod "standby": $ sudo crm node standby <nazov-uzla>
-   - po upravach "zapneme": $ sudo crm node online <nazov-uzla>
-   - nazov uzla ziskame napr z: $ sudo crm status
+#### Dalsie tipy a triky pre nastroje `crm` a `pcs` na spravu uzlov a zdrojov v Clustroch:
+ - prikaz: `$ sudo crm cluster add`
+ - nastroj `crm` na uvedenie uzla do modu `standby`: `$ sudo crm node standby <nazov-uzla>`
+   - po upravach **zapneme**: `$ sudo crm node online <nazov-uzla>`
+   - nazov uzla ziskame napr z: `$ sudo crm status`
 
-Ako dat uzol tzv. "Maintenance Mode", mod umoznuje udrzbu cluster software ale nema dosah na zdroje
- - prikaz nastavi "Maintenance" mod: $ sudo crm node maintenance <nazov-uzla>
- - nasledne po upravach: $ sudo crm node ready <nazov-uzla>
- - overime s: $ sudo crm status
+Tip: Ako dat uzol do tzv. **Maintenance Mode**:
+ - mod umoznuje udrzbu cluster software ale nema dosah na zdroje
+ - prikaz nastavi **Maintenance** mod: `$ sudo crm node maintenance <nazov-uzla>`
+ - nasledne po upravach: `$ sudo crm node ready <nazov-uzla>`
+ - overime s: `$ sudo crm status`
 
-Ako na presuvanie zdrojov klustera na definovane uzly:
- - prikaz presunie resource group na iny uzol: $ sudo crm resource move apache-group <nazov-uzla>
- - ak chceme predoslemu uzlu vratit moznost bezat zdroj, tak: $ sudo crm resource clear apache-group
-   - pozor, spravanie tohto prikazu meni koncept "Resource Stickiness" 
- - overime s: $ sudo crm status
+Tip: Ako na presuvanie zdrojov Clustra na definovane uzly:
+ - prikaz presunie resource group na iny uzol: `$ sudo crm resource move apache-group <nazov-uzla>`
+ - ak chceme predoslemu uzlu vratit moznost bezat zdroj, tak: `$ sudo crm resource clear apache-group`
+   - *POZOR*, spravanie tohto prikazu meni koncept **Resource Stickiness**
+ - overime s: `$ sudo crm status`
 
-Ako na reset Failcount-erov: "$ sudo pcs resource cleanup" resp. "$ sudo crm resource cleanup"
+Tip: Ako na reset Failcount-erov: `$ sudo pcs resource cleanup` resp.: `$ sudo crm resource cleanup`
 
-Poznamka, ako vypisat/vlozit skrateny datum: "$ date +%H%h%Y" resp. v skripte $(date +%H%h%Y)
+Tip: Ako vypisat/vlozit skrateny datum: `$ date +%H%h%Y` resp. v skripte `$(date +%H%h%Y)`
 
-Praca s Cluter logmi, loguje sa na 2 urovniach, na urovniach "Corosync" a "Pacemaker"
+#### Praca s Cluter logmi, loguje sa na 2 urovniach, na urovniach `Corosync` a `Pacemaker`:
  - logy z Corosync-u mozeme sledovat v: $ sudo tail -f /var/log/cluster/corosync.log
  - logovanie sa zapina v "/etc/corosync/corosync.conf", direktiva "to_logfile: yes"
  - logovanie do "std::err", ktore zachytava Systemd, teda "journalctl" zapneme s "to_stderr: yes"
