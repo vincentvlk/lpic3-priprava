@@ -2099,7 +2099,7 @@ Poznamka: Ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
    - typ `Multi State (Master/Slave)` - zdroje bezia v hierarchii, priklad je **DRBD**
    - typ `Group` - skupina zdrojov, teda skupina `Primitives` a `Clones`, napr. **HA Webserver**
      - umoznuje definovat **obmedzenia zdrojov/Resource constraints**, ktore poskytuje cluster
- - pojem **Resource Stickines** definuje, **kde sa ma rozbehnut** zdroj po obnove z fail situacie
+ - pojem **Resource Stickiness** definuje, **kde sa ma rozbehnut** zdroj po obnove z fail situacie
  - ako hladat urcity **Resource script** na disku, napr. **IPaddr2**, prikaz: `$ sudo find / -name IPaddr2`
  - nastrojom `crm` mozeme otvorit interaktivny **Cluster Management** shell: `$ sudo crm`
    - definovane zdroje vypiseme s `crm(live/suse1)# resource status` alebo s: `$ sudo crm_mon`
@@ -2127,7 +2127,7 @@ Poznamka: Ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
     group IPgroup admin-ip dalsiaIP
  - subor ulozime a overime, napr. prikazom: `$ sudo crm_mon`
 
-Ako na **troubleshooting**, teda hladanie a riesenie problemov s "Resource Groups":
+Poznamka: Ako na **troubleshooting**, teda hladanie a riesenie problemov s "Resource Groups":
  - nastrojom `pcs` overime stav clustra: `$ sudo pcs status`
  - dalej mozeme skontrolovat log `/var/log/messages` alebo s `$ sudo journalctl`
    - v programe `journalctl` sa klavesovou skratkou `Shift + g` resp. `G` prepnema na koniec logu
