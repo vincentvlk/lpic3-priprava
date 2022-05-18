@@ -2387,7 +2387,7 @@ Zaklady prace so *Storage* rieseniami v Cluster prostredi GNU/Linux
 - Tip: Prepisanie *zaciatku*, teda aj FS disku nulami: `$ sudo dd if=/dev/zero of=/dev/sda bs=1M count=100`
 - Tip: Ako v RedHat based OS zistit, ktory balik poskytuje dany *prikaz*, napr.: `$ dnf provides showmount`
 
-#### Pacemaker/Corosync (Unicast) WebServer Cluster s GFS2 na OS "Rocky Linux 8.5":
+### Pacemaker/Corosync (Unicast) WebServer Cluster s GFS2 na OS "Rocky Linux 8.5":
  - vytvorime DNS zaznamy uzlov, alebo "/etc/hosts"
  - na uzloch zapneme repo.: $ sudo dnf config-manager --set-enabled ha,resilient-storage
  - na uzloch instalujeme: $ sudo dnf -y in pacemaker pcs fence-agents-scsi iscsi-initiator-utils
