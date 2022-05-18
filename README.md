@@ -2214,41 +2214,41 @@ Tip: Ako dat uzol do tzv. **Maintenance Mode**:
 Tip: Ako na presuvanie zdrojov Clustra na definovane uzly:
  - prikaz presunie resource group na iny uzol: `$ sudo crm resource move apache-group <nazov-uzla>`
  - ak chceme predoslemu uzlu vratit moznost bezat zdroj, tak: `$ sudo crm resource clear apache-group`
-   - *POZOR*, spravanie tohto prikazu meni koncept **Resource Stickiness**
+   - **POZOR**, spravanie tohto prikazu meni koncept **Resource Stickiness**
  - overime s: `$ sudo crm status`
 
 Tip: Ako na reset Failcount-erov: `$ sudo pcs resource cleanup` resp.: `$ sudo crm resource cleanup`
 
-Tip: Ako vypisat/vlozit skrateny datum: `$ date +%H%h%Y` resp. v skripte `$(date +%H%h%Y)`
+Tip: Ako vypisat/vlozit skrateny datum: `$ date +%H%h%Y` resp. v skripte: `$(date +%H%h%Y)`
 
 #### Praca s Cluter logmi, loguje sa na 2 urovniach, na urovniach `Corosync` a `Pacemaker`:
- - logy z Corosync-u mozeme sledovat v: $ sudo tail -f /var/log/cluster/corosync.log
- - logovanie sa zapina v "/etc/corosync/corosync.conf", direktiva "to_logfile: yes"
- - logovanie do "std::err", ktore zachytava Systemd, teda "journalctl" zapneme s "to_stderr: yes"
- - zmenu mozeme replikovat s: $ sudo pcs cluster sync
- - nasledne restartujeme "Crosync": $ sudo pcs cluster reload corosync
- - je vhodne zvazit strategiu a nastroje "logrotate"
- - logy nastroja Pacemaker najdeme v "/var/log/pacemaker/pacemaker.log" 
- - mozeme pouzit spolocne logy Systemd: $ sudo journalctl -lu pacemaker.service -u corosync.service
-   - pripadne ich sledovat: $ sudo journalctl -fu pacemaker.service -u corosync.service
+ - logy z Corosync-u mozeme sledovat v: `$ sudo tail -f /var/log/cluster/corosync.log`
+ - logovanie sa zapina v `/etc/corosync/corosync.conf`, direktiva `to_logfile: yes`
+ - logovanie do `std::err`, ktore zachytava Systemd, teda `journalctl` zapneme s `to_stderr: yes`
+ - zmenu mozeme replikovat s: `$ sudo pcs cluster sync`
+ - nasledne restartujeme "Crosync": `$ sudo pcs cluster reload corosync`
+ - je vhodne zvazit strategiu a nastroje `logrotate`
+ - logy nastroja **Pacemaker** najdeme v `/var/log/pacemaker/pacemaker.log`
+ - mozeme pouzit spolocne logy Systemd: `$ sudo journalctl -lu pacemaker.service -u corosync.service`
+   - pripadne ich sledovat: `$ sudo journalctl -fu pacemaker.service -u corosync.service`
 
-Priklady na manazment clustra s nastrojom "pcs":
- - vytvori zdroj: $ sudo pcs resource create myDummy ocf:heartbeat:Dummy op monitor interval=60s
- - aplikujeme obmedzenie na zdroj: $ sudo pcs constraint location myDummy prefers <adresa-nodeX>
- - overime s: $ sudo pcs status
- - vypiseme obmedzenia: "$ sudo pcs constraint list" alebo s "$ sudo pcs constraint config"
- - ked chceme hladat napr. "location" obmedzenie, hladame toto slovo v: $ sudo cibadmin -Q | less
- - dalej dane obmedzenie odstranime: $ sudo pcs constraint remove location-myDummy-cent2-INFINITY
- - presunieme zdroj na iny uzol: $ sudo pcs resource move myDummy
- - overime s "$ sudo pcs status" alebo s: $ sudo pcs resource status
- - prikazom "odstavime" uzol: $ sudo pcs node standby <adresa-nodeX>
- - nasledne "zapneme" uzol: $ sudo pcs node unstandby <adresa-nodeX>
- - vypneme manazment zdroja, umozni zmeny na uzle: $ sudo pcs resource unmanage myDummy
- - overime s: $ sudo pcs resource status
- - dalej znova aktivujeme manazment zdroja: $ sudo pcs resource manage myDummy
- - po teste zmazeme: "$ sudo pcs resource disable myDummy" a "$ sudo pcs resource remove myDummy"
+#### Dalsie Priklady na manazment Clustra s nastrojom `pcs`:
+ - vytvori zdroj: `$ sudo pcs resource create myDummy ocf:heartbeat:Dummy op monitor interval=60s`
+ - aplikujeme obmedzenie na zdroj: `$ sudo pcs constraint location myDummy prefers <adresa-nodeX>`
+ - overime s: `$ sudo pcs status`
+ - vypiseme obmedzenia: `$ sudo pcs constraint list` alebo s `$ sudo pcs constraint config`
+ - ked chceme hladat napr. `location` obmedzenie, hladame toto slovo v: `$ sudo cibadmin -Q | less`
+ - dalej dane obmedzenie odstranime: `$ sudo pcs constraint remove location-myDummy-cent2-INFINITY`
+ - presunieme zdroj na iny uzol: `$ sudo pcs resource move myDummy`
+ - overime s: `$ sudo pcs status` alebo s: `$ sudo pcs resource status`
+ - prikazom *odstavime* uzol: `$ sudo pcs node standby <adresa-nodeX>`
+ - nasledne *zapneme* uzol: `$ sudo pcs node unstandby <adresa-nodeX>`
+ - prikazom vypneme manazment zdroja, umozni zmeny na uzle: `$ sudo pcs resource unmanage myDummy`
+ - overime s: `$ sudo pcs resource status`
+ - dalej znova aktivujeme manazment zdroja: `$ sudo pcs resource manage myDummy`
+ - po teste zmazeme: `$ sudo pcs resource disable myDummy` a `$ sudo pcs resource remove myDummy`
 
-Priklady na manazment clustra s nastrojom "crm":
+#### Dalsie priklady na manazment Clustra s nastrojom "crm":
  - edit konf. a pridame zdroj "myDummy" a obmedzenie "myDummy-location": $ sudo crm configure edit
 
 primitive myDummy ocf:pacemaker:Dummy \
