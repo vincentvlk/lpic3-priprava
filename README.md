@@ -1965,19 +1965,19 @@ Tip: Ako ulozit nastrojom `crm` konfiguraciu clustera do suboru s datumom v nazv
  - stav vsetkych potrebnych sluzieb overime s: `$ sudo systemctl status pacemaker corosync pcsd`
 
 #### Dalsia praca s nastrojom `pcs`, tiez podporuje "TAB completion", s niekolkymi vynimkami:
- - je potrebne nainstalovat balicek: $ sudo dnf in bash-completion
- - najskor overime ci bezi proces "pcsd": $ sudo systemctl status pcsd
- - ako rucne upravit CIB konfiguraciu s "pcs": $ sudo pcs cluster edit
-   - ak nemame definovanu premennu $EDITOR tak: $ sudo export EDITOR=$(which vim)
-   - dalsie editory: emacs, nano, pico, joe, mcedit, ...
- - ako vypisat dostupne zdroje clustera: $ sudo pcs resource list | less
- - ako vypisat popis urciteho zdroja "IPaddr2" pre cluster: $ sudo pcs resource describe IPaddr2
- - ako vytvorit zdroj "Virtualna HA IP adresa" nastrojom "pcs"
-   - prikaz: $ sudo pcs resource create mojaIP IPaddr2 ip=192.168.255.30 cidr_netmask=24
-   - overime s: $ sudo pcs resource status mojaIP
-   - minimalne v danom L2 segmente by malo odpovedat aj: $ ping -c2 192.168.255.30 
+ - je potrebne nainstalovat balicek: `$ sudo dnf in bash-completion`
+ - najskor overime ci bezi proces `pcsd`, prikaz: `$ sudo systemctl status pcsd`
+ - ako rucne upravit CIB konfiguraciu s `pcs`, prikaz: `$ sudo pcs cluster edit`
+   - ak nemame definovanu premennu `$EDITOR`, tak: `$ sudo export EDITOR=$(which vim)`
+   - dalsie editory: `emacs`, `nano`, `pico`, `joe`, `mcedit`, ...
+ - ako vypisat dostupne zdroje clustera: `$ sudo pcs resource list | less`
+ - ako vypisat popis urciteho zdroja `IPaddr2` pre cluster: `$ sudo pcs resource describe IPaddr2`
+ - ako vytvorit zdroj **Virtualna HA IP adresa** nastrojom `pcs`:
+   - prikaz: `$ sudo pcs resource create mojaIP IPaddr2 ip=192.168.255.30 cidr_netmask=24`
+   - overime s: `$ sudo pcs resource status mojaIP`
+   - minimalne v danom L2 segmente by malo odpovedat aj: `$ ping -c2 192.168.255.30`
 
-Mozeme menit aj tzv. genericke vlastnosti Cluster-a, ktre sa netykaju zdrojov (resources):
+Mozeme menit aj tzv. genericke vlastnosti Cluster-a, ktore sa priamo netykaju zdrojov (resources):
  - vypisanie vlastnosti: `$ sudo pcs property config --all | less`
  - napr. mozeme vlastnost `stonith-enabled` upravit: `$ sudo pcs property set stonith-enabled=true`
 
@@ -2068,37 +2068,36 @@ Poznamka: Ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
    - agent `test agent` - sluzi na testovanie fencingu, v praxi nedoporucovane
  - napr. v Systeme CentOS si mozeme nainstalovat agenta `fence-agents-apc`: 
    - prikaz: `$ sudo dnf -y in fence-agents-apc`
-   - dalsie informacie o agentovi ziskame napr. z: $ man fence_apc
- - dalsi agent "fence-agents-ipmilan" je uzitocny, pretoze vykovana Fencing cez standard IPMI
- - na CentOS mozeme ziskat informacie o STONITH/fencing agentoch pre Pacemaker: $ pcs stonith list
-   - dalsie info. o konkretnom agentovi ziskame napr. s $ sudo pcs stonith describe fence_ipmilan
- - na OpenSUSE vypiseme agentov: $ sudo stonith -L
-   - presnejsie informacie o agentoch ziskame s: $ sudo stonith -h | less
+   - dalsie informacie o agentovi ziskame napr. z: `$ man fence_apc`
+ - dalsi agent `fence-agents-ipmilan` je uzitocny, pretoze vykovana Fencing cez standard **IPMI**
+ - na **CentOS** mozeme ziskat informacie o *STONITH/Fencing* agentoch pre Pacemaker: `$ pcs stonith list`
+   - dalsie info. o konkretnom agentovi ziskame napr. s: `$ sudo pcs stonith describe fence_ipmilan`
+ - na **OpenSUSE** vypiseme agentov: `$ sudo stonith -L`
+   - presnejsie informacie o agentoch ziskame s: `$ sudo stonith -h | less`
 
-Konfiguracia Fencing-u v systeme CentOS Stream 9 (RedHat based OS) 
- - da sa pouzit "Hypervisor" Fencing "device"/agent, instalujeme: $ sudo dnf -y in fence-virtd 
-   - tento agent sa pouziva pri hypervizore "KVM", kazdy hyperviz. musi mat "fence-virtd"
-   - hypervizory musia byt na spolocnom mCast segmente a musia zdielat spolocny PSK kluc
- - POZOR, na *TEST* mozeme odstavit VM instanciu prikazom: $ sudo echo c > /proc/sysrq-trigger 
- - akciu STONITH mozeme rucne vykonat aj prikazom: # sudo pcs stonith <hotname>
+#### Konfiguracia Fencing-u v systeme CentOS Stream 9 (RedHat based OS) 
+ - da sa pouzit **Hypervisor** Fencing "device"/agent, instalujeme: `$ sudo dnf -y in fence-virtd `
+   - tento agent sa pouziva pri hypervizore **KVM**, kazdy hypervizor musi mat `fence-virtd`
+   - hypervizory musia byt na spolocnom Multicast segmente a musia zdielat spolocny **PSK kluc**
+ - **POZOR, na TEST** mozeme odstavit VM instanciu prikazom: `$ sudo echo c > /proc/sysrq-trigger `
+ - akciu STONITH mozeme rucne vykonat aj prikazom: `# sudo pcs stonith <hotname>`
 
-Ked chceme pouzivat SBD Fencing na VM, je potrebne do kernelu nacitat modul "softdog"
- - SBD - STONITH Based on Disk
- - na rozdiel od fyz. HW, na VM chyba SCSI "Watchdog", preto treba nacitat software verziu:
- - overime loading kernel modulov pomocou SystemD: $ sudo systemctl status systemd-modules-load
- - na nacitanie modulu "softdog", vytvorime v "/etc/modules-load.d" subor "watchdog.conf"
- - nasledne do tohto suboru vlozime riadok s nazvom kernel modulu, teda: "softdog"
- - dalej restartujeme proces: $ sudo systemctl restart systemd-modules-load 
- - pritomnost modulu v kerneli overime s: $ sudo lsmod | grep soft
+#### Ked chceme pouzivat SBD Fencing na VM, je potrebne do kernelu nacitat modul `softdog`
+ - **SBD** - STONITH Based on Disk
+ - na rozdiel od fyz. HW, na VM chyba SCSI **Watchdog**, preto treba nacitat software verziu:
+ - overime loading kernel modulov pomocou SystemD: `$ sudo systemctl status systemd-modules-load`
+ - na nacitanie modulu `softdog`, vytvorime v `/etc/modules-load.d` subor `watchdog.conf`
+ - nasledne do tohto suboru vlozime riadok s nazvom kernel modulu, teda: `softdog`
+ - dalej restartujeme proces: `$ sudo systemctl restart systemd-modules-load`
+ - pritomnost modulu v kerneli overime s: `$ sudo lsmod | grep soft`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Praca s "Cluster Resources", teda zdroje, ktore dokaze cluster poskytovat:
- - mame k dispozicii tieto typy zdrojov: Primitive, Clone, Multi State (Master/Slave), Group
-   - typ "Primitive" - singularny zdroj spravovany resource manazerom clustra, ma "bezat" iba raz
-   - typ "Clone" - zdroj, ktori spravuje cluster a bezi na viacerych uzloch viac-krat, napr. cLVM
-   - typ "Multi State (Master/Slave)" - zdroje bezia v hierarchii, priklad je DRBD
-   - typ "Group" - skupina zdrojov, teda skupina "Primitives" a "Clones", napr. HA Webserver
-     - umoznuje definovat obmedzenia zdrojov/"Resource constraints", ktore poskytuje cluster
+#### Praca s "Cluster Resources", teda zdroje, ktore dokaze cluster poskytovat:
+ - mame k dispozicii tieto typy zdrojov: `Primitive`, `Clone`, `Multi State (Master/Slave)`, `Group`
+   - typ `Primitive` - singularny zdroj spravovany resource manazerom clustra, ma "bezat" iba raz
+   - typ `Clone` - zdroj, ktori spravuje cluster a bezi na viacerych uzloch viac-krat, napr. cLVM
+   - typ `Multi State (Master/Slave)` - zdroje bezia v hierarchii, priklad je **DRBD**
+   - typ `Group` - skupina zdrojov, teda skupina `Primitives` a `Clones`, napr. **HA Webserver**
+     - umoznuje definovat **obmedzenia zdrojov/Resource constraints**, ktore poskytuje cluster
  - pojem "Resource Stickines" definuje, kam sa ma "rozbehnut" zdroj po obnove z fail situacie
  - ako hladat urcity "Resource script" na disku, napr. "IPaddr2": $ sudo find / -name IPaddr2
  - nastrojom "crm" mozeme otvorit interaktivny "Cluster Management" shell: $ sudo crm
