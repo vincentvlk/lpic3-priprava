@@ -2313,80 +2313,18 @@ resource drbd0 {
  - dalej povolime definovany *DRBD TCP* port: `$ sudo firewall-cmd --add-port=7676/tcp --permanent`
  - nasledne restartujeme firewall: `$ sudo firewall-cmd --reload`
  - konfiguraciu firewallu overime s: `$ sudo firewall-cmd --list-all`
- - na uzloch vytvorime nove DRBD zariadenie "/dev/drbd0" prikazom: $ sudo drbdadm create-md drbd0 
- - na uzloch nasledne aktivujeme DRBD zariadenie: $ sudo drbdadm up drbd0
- - overime s: $ sudo drbdadm status
- - na jednom uzle inicializ. bitovu mapu: $ sudo drbdadm new-current-uuid --clear-bitmap drbd0/0
- - uzol "lpic3-suse1" nastavime ako primarny: $ sudo drbdadm primary --force drbd0
- - overime s: $ sudo drbdadm status
- - dalej mozeme uz vytvorit FS na zariadeni "/dev/drbd0", napr.: $ sudo mkfs.btrfs /dev/drbd0
+ - na uzloch vytvorime nove DRBD zariadenie `/dev/drbd0` prikazom: `$ sudo drbdadm create-md drbd0 `
+ - na uzloch nasledne aktivujeme DRBD zariadenie: `$ sudo drbdadm up drbd0`
+ - overime s: `$ sudo drbdadm status`
+ - na jednom uzle inicializujeme bitovu mapu: `$ sudo drbdadm new-current-uuid --clear-bitmap drbd0/0`
+ - uzol `lpic3-suse1` nastavime ako primarny: `$ sudo drbdadm primary --force drbd0`
+ - overime s: `$ sudo drbdadm status`
+ - dalej mozeme uz vytvorit FS na zariadeni `/dev/drbd0`, napr.: `$ sudo mkfs.btrfs /dev/drbd0`
 
-Poznamka, prikazy na vypisanie informacii o diskoch a particiach: "lsblk", "blkid", "lsscsi"
-Ako v Systemd "zapnut" sluzbu "po boote" a zaroven spustit: $ sudo systemctl enable --now <service>
+Poznamka: Prikazy na vypisanie informacii o diskoch a particiach: `lsblk`, `blkid`, `lsscsi`
+Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemctl enable --now <service>`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Ako vytvorit iSCSI target (SAN-Cluster) v Cluster-y nad systemom DRBD v OS OpenSUSE Leap 15.3:
-
- **PROBLEMATICKE TREBA DALSI VYSKUM**
-
- - overime stav DRBD zariadenia s: $ sudo drbdadm status
- - v LABe, ak mame DRBD z dvoch uzlov a Corosync clus. z 3 a viac, treba zvysne clus. uzly odstavit
-??   - elegantnejsie, definujeme "resource constraint", ktore obmedzi "bezat" z droj na 3. uzle
-??     - napr. konfiguracia "crm": "location drbd_drbd0-location drbd_drbd0 -10000: lpic3-suse3"
- - pokracujeme konfiguraciou "clustered DRBD", otvorime "$ sudo crm" a vlozime konf. napr.:
-
-configure
-
-rsc_defaults resource-stickiness="200"
-
-primitive drbd_drbd0 \
-  ocf:linbit:drbd \
-    params drbd_resource="drbd0" \
-  op monitor interval="15" role="Master" \
-  op monitor interval="30" role="Slave"
-
-ms ms-drbd_drbd0 drbd_drbd0 \
-  meta master-max="1" master-node-max="1" clone-max="2" \
-  clone-node-max="1" notify="true"
-
-commit
-cd
-
- - overime v "crmsh" prikazom "status" alebo s: $ sudo crm status
- - direktiva "ms ms-drbd_drbd0 drbd_drbd0" definuje v clustery parametre Master/Slave zdrojov
- - pred konf zdrojov instalujeme na uzloch iSCSI nastroje: $ sudo zypper -n in python3-targetcli-fb 
- - nasleduje konfiguracia "clustered" iSCSI Tragetu:
-
-configure
-
-primitive iscsi-ip IPaddr2 \
-        params nic=eth0 cidr_netmask=24 ip=192.168.255.100 \
-        op monitor interval=10 timeout=40
-
-primitive iscsitarget iSCSITarget \
-        params iqn="iqn.2022-03.com.example:target1"
-
-primitive iscsilun1 iSCSILogicalUnit \
-        params target_iqn="iqn.2022-03.com.example:target1" path="/dev/drbd0" lun=1 \
-        params allowed_initiators="iqn.2022-03.com.example:init1 iqn.2022-03.com.example:init2"
-
-group iscsigroup iscsi-ip iscsitarget iscsilun1
-order iscsigroup-after-drbd ms-drbd_drbd0 iscsigroup 
-
-commit
-
-cd
-status
-
- - povolime na firewalle: $ sudo firewall-cmd --add-service=iscsi-target --permanent
-   - restart firewallu: $ sudo firewall-cmd --reload
-
-**PROBLEMATICKE RIESENIE TREBA DALSI VYSKUM**
-
- - zvazit pouzitie LVM, resp. cLVM, alebo CEPH
-
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Ako na instalaciu technologie iSCSI multipath:
+### Ako na instalaciu/nasadenie technologie iSCSI Multipath:
  - vyuziva sa fakt, ze SAN iSCSI Target ma viac sietovych pripojeni, na ktore sa Initiator pripaja
    - zariadenie v role iSCSI Initiatora ma tiez k dispozicii dalsiu nezavislu SAN konektivitu
  - technologia umoznuje viacero zaloznych ciest na storage zariadenia (SAN)
@@ -2397,7 +2335,7 @@ Ako na instalaciu technologie iSCSI multipath:
  - konfiguracia sa nachadza v subore "/etc/multipath.conf"
  - zariadenie dostupne cez "dm-multipath" sa nachadzaju v "/dev/mapper"
 
-Priklad instalacie riesenia "Device Mapper Mulltipath" v OS CentOS Stream 9
+#### Priklad instalacie riesenia "Device Mapper Mulltipath" v OS CentOS Stream 9
  - instalujeme (zvycajne byva uz nainstalovany): $ sudo dnf -y in device-mapper-multipath
  - zapneme proces "multipathd": $ sudo mpathconf --enable --with_multipathd y
    - prikaz zaroven vygeneruje konfig. subor "/etc/multipath.conf"
