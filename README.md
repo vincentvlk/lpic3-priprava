@@ -1045,7 +1045,7 @@ Ako nastavit **SET GID bit**, absolutny mod `$ chmod 2XXX dir1/`, relativny mod 
  - uzitocne pre vytvaranie zdielanych adresarov
 
 Ako priklad mozeme vytvorit dedikovany adresar pre dvoch vyvojarov:
-```bash
+
     # adduser dev1                       <-- vytvorime uzivatelov
     # adduser dev2
     # usermod -aG developers dev1        <-- vytvorime skupinu a zaradime uzivatelov
@@ -1054,7 +1054,7 @@ Ako priklad mozeme vytvorit dedikovany adresar pre dvoch vyvojarov:
     # chown dev1:developers /repo.d/     <-- nastavime vlastnika/skupinu
     # chmod o-rx /repo.d/                <-- nastavome prava
     # chmod g+s /repo.d/                 <-- nastavime "SGID" bit
-```
+
  - nasledne overime tak, ze uziv. **dev1** vytvori subor: `$ touch program.c`
  - so spravnym nastavenim ma editovaci pristup aj uzivatel **dev2**
 
@@ -1493,7 +1493,8 @@ Ako s Nmap TCP skenovanim "odhadnut" verziu OS a programov: `$ sudo nmap -A -Pn 
    - pridame napr. riadok: `SCRIPTWHITELIST=/usr/bin/lwp-request`
    - lepsie riesenie moze byt specifikovanie **Package** manazera, pridame: `PKGMGR=DPKG`
 
-Dalsi nastroj na **Rootkit** detekciu, instalujeme s: `$ sudo apt install chkrootkit`
+Dalsi nastroj na **Rootkit** detekciu je `chkrootkit`
+ - instalujeme s: `$ sudo apt install chkrootkit`
  - jednoduche spustenie: `$ sudo chkrootkit`
    - podobne sa da spustit, len vypise **Warnings**, prikaz: `$ sudo chkrootkit -q`
 
@@ -1595,7 +1596,7 @@ Tip: Ako zistit, ake NS servery pouziva dana domena: `$ dig -t ns example.com`
 
 Ako pridat domenu/zonovy subor, tzv. **zone-file**, teda vytvorit autoritaivny DNS server pre domenu:
  - do suboru `/etc/bind/named.config.local` pridame riadky:
-```bind
+```named
     zone "priklad.xyz" {
     	type master;
     	file "/etc/bind/db.priklad.xyz";
@@ -1604,7 +1605,7 @@ Ako pridat domenu/zonovy subor, tzv. **zone-file**, teda vytvorit autoritaivny D
  - nasledne si zo sablony skopirujeme zonovy subor `/etc/bind/db.priklad.xyz`
    - prikaz: `$ sudo cp /etc/bind/db.empty /etc/bind/db.priklad.xyz`
  - tento subor upravime napr. nasledovne:
-```bind
+```named
     ;
     ; Priklad na zonovy subor domeny "priklad.xyz"
     ;
