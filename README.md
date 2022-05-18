@@ -702,17 +702,17 @@ Pozriet v `$ man 1 rsync` dalsie parametre ohladom zalohovania: `-b`, `--suffix=
 Ako obmedzit Bandwidth prenosu, napr. na **50MBytes/s** (cca 400Mbit/s):
  - prikaz: `$ rsync -a --bwlimit=50000 same_nuly.txt ubu2.lab:`
  - priklad ako vytvorit testovaci 1GiB subor: `$ dd if=/dev/zero of=same_nuly.txt bs=1024 count=1M`
-  
+ 
 **Pripadne  pozriet dokumentaciu a manualy k projektu "Samba File/Printer Sharing"**
  - nie je predmetom tejto skusky
 
-#### Praca s projektom SSHFS:
+#### Praca s projektom SSHFS - SSH File System:
 
 Ako si pripojit vzdialny adresar cez SSH, napr.: `$ sshfs userABC@ubu2.lab:/mnt/lvnas1 sshnas.d/`
  - kombinovatelne s PKI auth (prihlasovanie verejnym klucom)
  - ako vykonat u-mount pripojeneho disku: `$ fusermount -u sshnas.d/`
 
-### Praca s premennymi prostredia v interprete BASH:
+#### Praca s premennymi prostredia v interprete BASH:
 
 Premenne prostredia pre interpret BASH su definovane v **skrytych** suboroch: `.bash_profile`
 alebo `.profile`
@@ -833,6 +833,69 @@ Ako spustit zastaveny kontajner: `$ docker start <ID/nazov>`
 Ako sa pripojit na "kozolu" kontajneru, ktory bezi: `$ docker attach <ID/nazov>`
 
 Ako sa odpojit od konzoly kontajnera, v terminale za sebou stlacime skratky: `Ctrl+p` a `Ctrl+q`
+
+#### Dalsie poznamky k zakladom prace s Docker-om:
+
+Jednoduche web prostredie na ucenie/testovanie Docker-u: `https://labs.play-with-docker.com/`
+ - dalsie informacie: `https://www.docker.com/play-with-docker`
+
+Priklad ako spustit v **sandboxe** web server `nginx`, zadame: `$ docker container run -d -it nginx`
+
+Pre pomoc s CLI, staci zadat prikaz bez parametrov, napr.: `$ docker container`
+
+Priklad ako vytvorit zmenu v Docker image a commitovat ju:
+- zadame : `$ docker commit -m "pridany nmap" -a "Jan Novak" <cont-ID> <hub-repoID>/moje-ubu:latest`
+
+ - nasledne overime s: `$ docker image ls`
+ - mozeme napr. z noveho image spustit container s: `$ docker container run -it ddnovak/moje-ubu`
+
+**POZOR**, prikaz vymaze **vsetky nebeziace** kontajnery: 
+ - prikaz: `$ docker container rm $(docker container ls -a -q)`
+ - pripadne, na **VLASTNE RIZIKO**, mozeme spustit s paramentrom `rm -f`
+
+Ako spustit testovaci webserver v kontajnery s nazvom `moj_lab` (vonkajsi port je **TCP/8080**):
+
+prikaz: `$ docker container run -d -p 8080:80 --name=moj_lab nginx`
+
+ - overime s: `$ docker ps`
+ - nasledne otestujeme pripojenie s browserom, alebo napr. `$ curl localhost:8080`
+ - dalsie informacie: `$ docker container run --help`
+ - alternativne, image s web serverom Apache2, nazov image zmenime na: `httpd`
+
+Ako vypisat otvorene TCP porty kontajnera: `$ docker container port <contID/contNAME>`
+
+Ako vypisat logy z kontajnera (napr. server nginx): `$ docker container logs <contID/contNAME>`
+ - sledovanie v realnom case, doplnime parameter: `logs -f`
+
+Ako sledovat zdroje konkretneho kontajnera: `$ docker container stats <contID/contNAME>`
+
+Ako vypisat detailne informacie o kontajnery: `$ docker container inspect <contID/contNAME>`
+
+Ako spustit kontajner, hned s prikazovym riadkom: 
+
+prikaz: `$ docker container run --name=ubu-con1 -it ubuntu`
+ - alebo, spustime interaktivny BASH na uz vytvorenom kontajnery: `$ docker exec -it ubu-con1 bash`
+ - alebo, spustime (zastaveny) kontajner v interaktivnom mode: `$ docker start -i ubu-con1`
+
+Ako vypisat kolko miesta na disku zaberaju kontajnery: `$ docker ps -as`
+
+Ako vytvorit perzistentne ulozisko pre kontajner **Docker Volume**: `$ docker volume create <nazov>`
+ - overime s `$ docker volume ls`
+ - dalsie informacie: `$ docker volume --help`
+
+Ako vytvorit **nginx** kontajner s namapovanyn **volume**:
+
+prikaz: `$ docker run -d --name moja_web_app -p 80:80 -v <nazov_vol>:/usr/share/nginx/html nginx`
+ 
+- mozeme manipulovat s obsahom **web root** adresara v: `/var/lib/docker/volumes/mojvol/_data/`
+- priklad: `$ sudo cp /etc/services /var/lib/docker/volumes/mojvol/_data/index.html`
+- overime napr. s: `$ curl localhost:80`
+
+Poznamka, ak chceme vymazat Docker image, treba najskor pomazat z neho vytvorene kontajnery.
+
+**POZOR**, automaticky nastroj na cistenie tzv. **dangling** Docker image-ov: `$ docker system prune`
+ - dalsie informacie: `$ docker system prune --help`
+ - celkom uzitocna diagnostika zabrateho miesta: `$ docker system df`
 
 ### Praca s nastrojom Git a platformou GitHub:
 
@@ -1199,7 +1262,7 @@ Testovanie BASH premennej s logickymi operatormi: `if [[ $vek -ge 0 ]] && [[ $ve
 
     # koniec skriptu
 ```
-#### Priklad nacita vo "for" slucke hodnoty z .txt suboru do premennej $ip:
+#### Priklad: BASH skript nacita vo `for` slucke hodnoty z .txt suboru do premennej `$ip`:
 ```bash
     #!/bin/bash
     for ip in $(cat /home/dev1/ip_adresy.txt)
@@ -1284,68 +1347,6 @@ Testovanie BASH premennej s logickymi operatormi: `if [[ $vek -ge 0 ]] && [[ $ve
 
     # koniec skpritu
 ```
-### Pokracovanie zakladov prace s Docker-om:
-
-Jednoduche web prostredie na ucenie/testovanie Docker-u: `https://labs.play-with-docker.com/`
- - dalsie informacie: `https://www.docker.com/play-with-docker`
-
-Priklad ako spustit v **sandboxe** web server `nginx`, zadame: `$ docker container run -d -it nginx`
-
-Pre pomoc s CLI, staci zadat prikaz bez parametrov, napr.: `$ docker container`
-
-Priklad ako vytvorit zmenu v Docker image a commitovat ju:
-- zadame : `$ docker commit -m "pridany nmap" -a "Jan Novak" <cont-ID> <hub-repoID>/moje-ubu:latest`
-
- - nasledne overime s: `$ docker image ls`
- - mozeme napr. z noveho image spustit container s: `$ docker container run -it ddnovak/moje-ubu`
-
-**POZOR**, prikaz vymaze **vsetky nebeziace** kontajnery: 
- - prikaz: `$ docker container rm $(docker container ls -a -q)`
- - pripadne, na **VLASTNE RIZIKO**, mozeme spustit s paramentrom `rm -f`
-
-Ako spustit testovaci webserver v kontajnery s nazvom `moj_lab` (vonkajsi port je **TCP/8080**):
-
-prikaz: `$ docker container run -d -p 8080:80 --name=moj_lab nginx`
-
- - overime s: `$ docker ps`
- - nasledne otestujeme pripojenie s browserom, alebo napr. `$ curl localhost:8080`
- - dalsie informacie: `$ docker container run --help`
- - alternativne, image s web serverom Apache2, nazov image zmenime na: `httpd`
-
-Ako vypisat otvorene TCP porty kontajnera: `$ docker container port <contID/contNAME>`
-
-Ako vypisat logy z kontajnera (napr. server nginx): `$ docker container logs <contID/contNAME>`
- - sledovanie v realnom case, doplnime parameter: `logs -f`
-
-Ako sledovat zdroje konkretneho kontajnera: `$ docker container stats <contID/contNAME>`
-
-Ako vypisat detailne informacie o kontajnery: `$ docker container inspect <contID/contNAME>`
-
-Ako spustit kontajner, hned s prikazovym riadkom: 
-
-prikaz: `$ docker container run --name=ubu-con1 -it ubuntu`
- - alebo, spustime interaktivny BASH na uz vytvorenom kontajnery: `$ docker exec -it ubu-con1 bash`
- - alebo, spustime (zastaveny) kontajner v interaktivnom mode: `$ docker start -i ubu-con1`
-
-Ako vypisat kolko miesta na disku zaberaju kontajnery: `$ docker ps -as`
-
-Ako vytvorit perzistentne ulozisko pre kontajner **Docker Volume**: `$ docker volume create <nazov>`
- - overime s `$ docker volume ls`
- - dalsie informacie: `$ docker volume --help`
-
-Ako vytvorit **nginx** kontajner s namapovanyn **volume**:
-
-prikaz: `$ docker run -d --name moja_web_app -p 80:80 -v <nazov_vol>:/usr/share/nginx/html nginx`
- 
-- mozeme manipulovat s obsahom **web root** adresara v: `/var/lib/docker/volumes/mojvol/_data/`
-- priklad: `$ sudo cp /etc/services /var/lib/docker/volumes/mojvol/_data/index.html`
-- overime napr. s: `$ curl localhost:80`
-
-Poznamka, ak chceme vymazat Docker image, treba najskor pomazat z neho vytvorene kontajnery.
-
-**POZOR**, automaticky nastroj na cistenie tzv. **dangling** Docker image-ov: `$ docker system prune`
- - dalsie informacie: `$ docker system prune --help`
- - celkom uzitocna diagnostika zabrateho miesta: `$ docker system df`
 
 ### Zaklady bezpecnosti v operacnom systeme **GNU/Linux**:
 
