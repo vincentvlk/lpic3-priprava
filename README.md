@@ -13,15 +13,15 @@ Poznamky na skusku LPIC3-304-200 - Virtualization & High Availability
 
 Zakladne tipy a triky pre operacny system GNU/Linux:
 ----------------------
-#### Ako na Linuxe vypnut PC-speaker: ###
+#### Ako na Linuxe vypnut PC-speaker:
 
     $ sudo rmmod pcspkr
 
 #### Dobra stranka na zaciatocnu konfiguraciu znamych distribucii Linuxu:
 
-    https://www.server-world.info/en/
+    `https://www.server-world.info/en/`
  
-    - ale nevedno do kedy bude online a chyba tam IPv6 :-(
+- ale nevedno do kedy bude online a chyba tam IPv6 :-(
 
 #### Zakladne nastavenie siete v systeme Debian11:
 
