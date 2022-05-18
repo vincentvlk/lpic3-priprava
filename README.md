@@ -1693,7 +1693,7 @@ Tip: Ako zistit, svoju verejnu IP, napr.: `$ curl ifconfig.me`, `$ curl -4 ident
    - prikaz vytvori `1000` poziadavok na server, s tym, ze sucasnych dovoli max. `100`
    - dalsie informacie: `$ man ab`
 
-#### Ako blokovat pre Apache2 indexovy vypis suborov:
+#### Ako zablokovat na Apache2 indexovy vypis suborov, tzv. "file listing":
 - do konf. suboru `vhost` alebo globalnej konfiguracie vlozime:
 ```apache
     <Directory /var/www/html>
@@ -1709,7 +1709,7 @@ Tip: Ako vypnut **podpis** servera, napr.: `Apache/2.4.41 (Ubuntu) Server at 192
  - zmenime na: `ServerSignature Off` potom: `$ sudo systemctl reload-or-restart apache2`
  - je este vhodne zmenit `ServerTokens OS` na `ServerTokens Prod` a restartovat Apache2
 
-### Zaklady prace s autmatizacnym nastrojom Ansible:
+### Zaklady prace s automatizacnym nastrojom Ansible:
 Ako programom **Ansible** nainstalovat program `nmap` pomocou systemu **APT**:
  - instalujeme balik `ansible`, zadame: `$ sudo apt install ansible`
  - vytvorime si `inventar` zariadeni, napr. vytvorime subor `hosts`, kde napr. vlozime:
@@ -1744,7 +1744,7 @@ Tip: Na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-
  - instalacia softwarovych **zaplat**: `$ sudo zypper patch`
  - dalsie informacie v: `$ man zypper`
 
-### Zaklady prace so SAN protokolom iSCSI
+### Zaklady prace so SAN protokolom iSCSI:
 
 #### Vytvorenie iSCSI targetu ("SAN-server") na OS "Fedora Server 35":
 
@@ -1899,7 +1899,7 @@ Hlavne stavebne kamene HA Cluster-ov na systeme GNU/Linux: `Pacemaker` a `Corosy
 
 Na pracu s HA-lusterom je vhodne mat **DNS zaznami typu A/PTR uzlov**, pripadne zaznami v `/etc/hosts`
 
-#### Trocha teorie: CIB - Cluster Information Base: Stav cluster-a v pamati systemu
+#### Trocha teorie: CIB - Cluster Information Base, Stav Clustra v pamati systemu
  - ako kopia existuje na kazdom uzle, subor sa **NESMIE** rucne upravovat
  - na spravu CIB sa pouziva nastroj `cibadmin`, napr. vypis databazy: `$ sudo cibadmin -Q | less`
  - proces **Cluster Resource Management Daemon** `crmd`, umoznuje pristup k tejto databaze
@@ -1913,8 +1913,7 @@ Na pracu s HA-lusterom je vhodne mat **DNS zaznami typu A/PTR uzlov**, pripadne 
    - pouziva sa prikazy: `$ sudo pcs ...`
  - alternativne sa pouziva nastroj CRM Shell `crmsh`, ktory ma prikazy: `$ sudo crm ...`
 
-#### Priklad: Instalacia Multicast clustra Corosync na systeme "OpenSUSE Leap" - nastroj `crm`
-
+#### Priklad instalacie Multicast clustra Corosync na systeme "OpenSUSE Leap" - nastroj `crm`:
  - na uzloch instalujeme: `$ sudo zypper in ha-cluster-bootstrap`
  - nasladne na **hlavnom** uzle spustime: `$ sudo crm cluster init`
  - na dalsich clenoch spustime `join` na **hlavny** uzol: `$ sudo crm join -c <hostname>`
@@ -1946,7 +1945,7 @@ Tip: Ako ulozit nastrojom `crm` konfiguraciu clustera do suboru s datumom v nazv
  - **POZOR** na TESTOVANIE v "lab" prostredi mozeme zmazat CIB: `$ sudo cibadmin -E --force`
  - nasledne mozeme konfiguraciu obnovit: `$ sudo crm configure load push zaloha-clus-12-03-2022.txt`
 
-#### Priklad: Instalacia Unicast clustra v systeme CentOS Stream 9 - nastroj `pcs`:
+#### Priklad instalacie Unicast clustra v systeme CentOS Stream 9 - nastroj `pcs`:
  - pridame repozitar: `$ sudo dnf install epel-release`
  - aktivujeme v `/etc/yum.repos.d/centos-addons.repo` repo. `highavailability` uprava na `enabled=1`
  - aktualizujeme repo.: `$ sudo dnf update`
