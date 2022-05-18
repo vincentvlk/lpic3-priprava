@@ -2347,7 +2347,10 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
  - tieto zariadenia su dostupne ako "/dev/mapper/mpathX" , "/dev/mapper/mpathX" a pod.
 - Poznamka: Alternativy k systemu CentOS: `CentOS Stream`, `Alma Linux`, `Rocky Linux`, `Oracle Linux`
 
-#### Doplnenie: Zaklady prace s LVM v Cluster prostredi:
+
+### Zaklady prace so suborovym systemom GFS2 (Global File System)
+
+#### Priprava: Zaklady prace s LVM v Cluster prostredi:
 - logicke LV particie sa zvycajne mapuju napr. ako: /dev/mapper/ubuntu--vg-ubuntu--lv"
 - kde je teda VG (Volume Group) sa nazvom "ubuntu" a LV (Logical Volume) s nazvom "ubuntu" 
   - je to symbolicky link
@@ -2363,15 +2366,13 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
   - na riadenie dostupnosti particii, pre dany uzol, sa vyuziva "Volume Tagging", pre RedHat b.
 - alternativa HALVM mimo RedHat systemov je "exclusive LVM"
 
-### Zaklady prace so suborovym systemom GFS2 (Global File System)
+#### Priprava pred instalaciou GFS2 na RedHat based systemoch (CentOS/Rocky Linux):
 - rezim active/active, zhoda s normou POSIX - Portable Operating System Interface
 - pracuje *len* v cluster rieseni
 - kazdy uzol ma svoj vlastny FS journal
 - ostatne uzly clustra zreplikuju journal uzla, ktory zlyhava, po aplikovani Fencing-u
 - su potrebne technologie DLM a cLVM na koordinaciu zamykania suborov (file locking)
 - maximalna podporovana kapacita je 100TiB (nemam zatial overene)
-
-#### Priprava pred instalaciou na RedHat based systemoch (CentOS/Rocky Linux):
 - treba vytvorit minimalne 2 LUNy, jeden maly (1 MB) na Fencing a druhy na storage napr. 10GB
 - ako vypisat dostupne repozitare: $ sudo dnf repolist all 
 
@@ -2383,10 +2384,10 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
 - zapneme repozitare: $ sudo dnf config-manager --set-enabled ha,resilient-storage
   - instalacia: $ sudo dnf -y in fence-agents-scsi lvm2-lockd gfs2-utils dlm
 
-- Tip: Prepisanie *zaciatku* disku nulami: `$ sudo dd if=/dev/zero of=/dev/sda bs=1M count=100`
-- Tip: Ako v RedHat based OS zistit, ktory balik poskytuje dany "prikaz", napr.: $ dnf provides showmount
+- Tip: Prepisanie *zaciatku*, teda aj FS disku nulami: `$ sudo dd if=/dev/zero of=/dev/sda bs=1M count=100`
+- Tip: Ako v RedHat based OS zistit, ktory balik poskytuje dany *prikaz*, napr.: `$ dnf provides showmount`
 
-### Pacemaker/Corosync (Unicast) WebServer Cluster s GFS2 na OS "Rocky Linux 8.5":
+#### Pacemaker/Corosync (Unicast) WebServer Cluster s GFS2 na OS "Rocky Linux 8.5":
  - vytvorime DNS zaznamy uzlov, alebo "/etc/hosts"
  - na uzloch zapneme repo.: $ sudo dnf config-manager --set-enabled ha,resilient-storage
  - na uzloch instalujeme: $ sudo dnf -y in pacemaker pcs fence-agents-scsi iscsi-initiator-utils
