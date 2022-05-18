@@ -1899,7 +1899,7 @@ Poznamka: V OS OpenSUSE Leap sa da pouzit na konf. iSCSI Initatora TUI nastroj: 
  - v menu volime `Network Services` -> `iSCSI Initiator` -> `sipkou doprava` na `Connected Targets`
    - v tomto submenu sa uz mozeme klavesom `Tab` prepnut na moznosti `Add` / `Edit` / `Disconnect`
 
-### Zaklady prace s HA - High Availabolity Cultermi v systeme GNU/Linux
+### Zaklady prace s HA - High Availability Cultermi v systeme GNU/Linux
 
 Hlavne stavebne kamene HA Cluster-ov na systeme GNU/Linux: `Pacemaker` a `Corosync`.
 
@@ -1911,59 +1911,66 @@ Na pracu s HA-lusterom je vhodne mat **DNS zaznami typu A/PTR uzlov**, pripadne 
  - proces **Cluster Resource Management Daemon** `crmd`, umoznuje pristup k tejto databaze
    - zabezpecuje dalej riadiacu komunikaciu medzi uzlami cluster-a
  - dalsi komponent, **Local Resource Management Daemon** `lrmd` zabezpecuje spravu lokalnych zdrojov
- - dalsi komponent Polocy Engine "pengine"
- - dalsi komponent Transition Engine "tengine"
- - dalsi komponent "stonithd" zabezpecuje "vybavovanie STONITH" poziadavok
-   - STONITH - Shoot The Other Node in The Head, pripadne jemnejsie tzv. "Node fencing" :)
- - v RedHat based distribuciach sa pouziva nastroj "pcsd", ako rozhranie ku Corosync a Pacemaker
-   - pouziva sa prikazy: $ sudo pcs ...
- - alternativne sa pouziva nastroj CRM Shell "crmsh", ktory ma prikazy: $ sudo crm ...
+ - dalsi komponent **Policy Engine** `pengine`
+ - dalsi komponent **Transition Engine** `tengine`
+ - dalsi komponent `stonithd` zabezpecuje "vybavovanie **STONITH**" poziadavok
+   - **STONITH** - Shoot The Other Node in The Head, pripadne jemnejsie tzv. **Node fencing**
+ - v RedHat based distribuciach sa pouziva nastroj `pcsd`, ako rozhranie ku `Corosync` a `Pacemaker`
+   - pouziva sa prikazy: `$ sudo pcs ...`
+ - alternativne sa pouziva nastroj CRM Shell `crmsh`, ktory ma prikazy: `$ sudo crm ...`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Instalacia Mcast. clustra "Corosync" v "OpenSUSE", na uzloch: $ sudo zypper in ha-cluster-bootstrap
- - nasladne na "hlavnom" uzle spustime: $ sudo crm cluster init
- - na dalsich clenoch spustime "join" na "hlavny" uzol: $ sudo crm join -c <hostname>
-   - treba sa pripravit na manazment PKI klucov v SSH pre uzivatelov "root" a "hacluster"
+#### Priklad: Instalacia Multicast clustra Corosync na systeme "OpenSUSE Leap" - nastroj `crm`
+
+ - na uzloch instalujeme: `$ sudo zypper in ha-cluster-bootstrap`
+ - nasladne na **hlavnom** uzle spustime: `$ sudo crm cluster init`
+ - na dalsich clenoch spustime `join` na **hlavny** uzol: `$ sudo crm join -c <hostname>`
+   - treba sa pripravit na manazment PKI klucov v SSH pre uzivatelov `root` a `hacluster`
    - z tohto vyplvyva aj relevantne zabezpecenie/izolacia sietoveho segmentu
- - instalaciu overime s "$ sudo crm_mon" alebo: $ sudo crm status
-   - dalej mozeme pouzit: $ sudo systemctl status corosync
- - konfiguraciu mozeme overit s: $ sudo crm configure show
+ - instalaciu overime s `$ sudo crm_mon` alebo: `$ sudo crm status`
+   - dalej mozeme pouzit: `$ sudo systemctl status corosync`
+ - konfiguraciu mozeme overit s: `$ sudo crm configure show`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Instalacia Unicast clustra v CentOS Stream 9, pridame repo.: $ sudo dnf install epel-release
- - aktivujeme v "/etc/yum.repos.d/centos-addons.repo" repo. "highavailability" uprava na "enabled=1"
- - aktualizujeme repo.: $ sudo dnf update
- - instalacia: $ sudo dnf --enablerepo=highavailability -y install pacemaker corosync pcs
- - nastavime, aby sluzby startovali po reboote: $ sudo systemctl enable pacemaker corosync pcsd
- - overime s: $ sudo systemctl status pacemaker corosync pcsd | grep loaded
- - upravime konf. firewall-u: $ sudo firewall-cmd --permanent --add-service=high-availability
- - restartujem firewall proces: $ sudo firewall-cmd --reload
- - nastavime heslo pre specialneho uzivatela: $ sudo passwd hacluster
- - pokracujeme Autentifikaciou uzlov: $ sudo pcs host auth cent1 cent2 cent3
-   - na koniec prikazu mozeme pridat "--debug" 
- - diagnostika: $ sudo pcs status pcsd cent1 cent2 cent3
-   - detailensjie diagnostika: $ sudo pcs status --full
- - dalej zostavime cluster: $ sudo pcs cluster setup centos-clus1 cent1 cent2 cent3 --start --enable
- - overime s: $ sudo pcs status
- - stav vsetkych potrebnych sluzieb overime s: $ sudo systemctl status pacemaker corosync pcsd
+#### Dalsia praca s nastrojom `crm`
+ - interpret podporuje tzv. **TAB completion**, ked nevieme presne prikaz
+ - alebo sa da spustit v interaktivnom rezime s: `$ sudo crm`
+ - vypisanie konfiguracie cluster-a: `$ sudo crm configure show`
+   - mozeme vidiet ze pridelene zdroje v clustery sa definuje ako tzv. `primitive`
+ - ak chceme upravit konfiguraciu clustera, pouzijeme: `$ sudo configure edit`
+ - dalsie zdroje pridelime v interaktivnom shelly: `$ sudo crm configure`
+ - napr. v interaktivnom rezime pridame dalsiu **Virtual IP**, pouzijeme prikaz:
 
-Dalsia praca s nastrojom "crm", podporuje tzv. "TAB completion", ked nevieme presne prikaz
- - alebo sa da spustit v interaktivnom rezime s: $ sudo crm 
- - vypisanie konfiguracie cluster-a: $ sudo crm configure show 
-   - mozeme vidiet ze pridelene zdroje v clustery sa definuje ako tzv. "primitive"
- - ak chceme upravit konfiguraciu clustera, pouzijeme: $ sudo configure edit
- - dalsie zdroje pridelime v int. shelly: $ sudo crm configure
- - napr. v interaktivnom rezime pridame dalsiu "Virtual IP", pouzijeme prikaz:
+`crm(live)configure# primitive newIP ocf:heartbeat:IPaddr2 params ip=192.168.255.30 cidr_netmask=24`
+ - ak chceme po prikaze nieco upravit, pouzijeme prikaz `edit`, teda: `crm(live)configure# edit`
 
-crm(live)configure# primitive newIP ocf:heartbeat:IPaddr2 params ip=192.168.255.30 cidr_netmask=24  
- - ak chceme po prikaze nieco upravit, pouzijeme prikaz "edit": crm(live)configure# edit
+Praca **RA - Resource Agents**, ktore tiez spravuju zdroje, napr. **OCF - Open Cluster Framework**:
+ - vypiseme triedy zdrojov: `$ sudo crm ra classes`
+ - presnejsi vypis RA z triedy OCF: `$ sudo crm ra list ocf`
+ - OCF ma **svoje** skripty, ako napr. **SystemD**, info o konkretnom RA: `$ sudo crm ra info apache`
 
-Ako ulozit nastrojom "crm" konfiguraciu clustera do suboru s datumom v nazve:
- - napr. prikaz: $ sudo crm configure save zaloha-clus-$(date +%d-%m-%Y).txt
- - POZOR na TESTOVANIE v "lab" prostredi mozeme zmazat CIB: $ sudo cibadmin -E --force
- - nasledne mozeme konfiguraciu obnovit: $ sudo crm configure load push zaloha-clus-12-03-2022.txt 
+Tip: Ako ulozit nastrojom `crm` konfiguraciu clustera do suboru s datumom v nazve:
+ - napr. prikaz: `$ sudo crm configure save zaloha-clus-$(date +%d-%m-%Y).txt`
+ - **POZOR** na TESTOVANIE v "lab" prostredi mozeme zmazat CIB: `$ sudo cibadmin -E --force`
+ - nasledne mozeme konfiguraciu obnovit: `$ sudo crm configure load push zaloha-clus-12-03-2022.txt`
 
-Dalsia praca s nastrojom "pcs", tiez podporuje "TAB completion", s niekolkymi vynimkami:
+#### Priklad: Instalacia Unicast clustra v systeme CentOS Stream 9 - nastroj `pcs`
+ - pridame repozitar: `$ sudo dnf install epel-release`
+ - aktivujeme v `/etc/yum.repos.d/centos-addons.repo` repo. `highavailability` uprava na `enabled=1`
+ - aktualizujeme repo.: `$ sudo dnf update`
+ - instalacia: `$ sudo dnf --enablerepo=highavailability -y install pacemaker corosync pcs`
+ - nastavime, aby sluzby startovali po reboote: `$ sudo systemctl enable pacemaker corosync pcsd`
+ - overime s: `$ sudo systemctl status pacemaker corosync pcsd | grep loaded`
+ - upravime konf. firewall-u: `$ sudo firewall-cmd --permanent --add-service=high-availability`
+ - restartujem firewall proces: `$ sudo firewall-cmd --reload`
+ - nastavime heslo pre specialneho uzivatela: `$ sudo passwd hacluster`
+ - pokracujeme Autentifikaciou uzlov: `$ sudo pcs host auth cent1 cent2 cent3`
+   - pre diagnostiku mozeme na koniec prikazu pridat: `--debug` 
+ - diagnostika: `$ sudo pcs status pcsd cent1 cent2 cent3`
+   - detailensjie diagnostika: `$ sudo pcs status --full`
+ - dalej zostavime cluster: `$ sudo pcs cluster setup centos-clus1 cent1 cent2 cent3 --start --enable`
+ - overime s: `$ sudo pcs status`
+ - stav vsetkych potrebnych sluzieb overime s: `$ sudo systemctl status pacemaker corosync pcsd`
+
+#### Dalsia praca s nastrojom `pcs`, tiez podporuje "TAB completion", s niekolkymi vynimkami:
  - je potrebne nainstalovat balicek: $ sudo dnf in bash-completion
  - najskor overime ci bezi proces "pcsd": $ sudo systemctl status pcsd
  - ako rucne upravit CIB konfiguraciu s "pcs": $ sudo pcs cluster edit
@@ -1977,22 +1984,17 @@ Dalsia praca s nastrojom "pcs", tiez podporuje "TAB completion", s niekolkymi vy
    - minimalne v danom L2 segmente by malo odpovedat aj: $ ping -c2 192.168.255.30 
 
 Mozeme menit aj tzv. genericke vlastnosti Cluster-a, ktre sa netykaju zdrojov (resources):
- - vypisanie vlastnosti: $ sudo pcs property config --all | less
- - napr. mozeme vlastnost "stonith-enabled" upravit: $ sudo pcs property set stonith-enabled=true
+ - vypisanie vlastnosti: `$ sudo pcs property config --all | less`
+ - napr. mozeme vlastnost `stonith-enabled` upravit: `$ sudo pcs property set stonith-enabled=true`
 
-Podobne pracuje s vlastnostami/properties aj nastroj "crm": $ sudo crm configure get_property
- - podobne upravime vlastnost s: $ sudo crm configure property stonith-enabled=no
-
-Praca "RA - Resource Agents", ktore tiez spravuju zdroje, napr. "OCF - Open Cluster Framework":
- - vypiseme triedy zdrojov: $ sudo crm ra classes
- - presnejsi vypis RA z triedy OCF: $ sudo crm ra list ocf
- - OCF ma *svoje* skripty, ako napr. "SystemD", info o konkretnom RA: $ sudo crm ra info apache
+Podobne pracuje s vlastnostami/properties aj nastroj `crm`: `$ sudo crm configure get_property`
+ - podobne upravime vlastnost s: `$ sudo crm configure property stonith-enabled=no`
  
-Silne zjednoduseny priklad ako vytvorit WebServer cluster pomocou "crm" na OS OpenSUSE Leap 15.3:
- - je potrebne nainstalovat samotny WebServer Apache2: $ sudo zypper -n install apache2
- - otvorime konfiguraciu zdrojov cluster-a prikazom: $ sudo crm configure edit
+#### Zjednoduseny priklad ako vytvorit WebServer cluster pomocou `crm` na OS OpenSUSE Leap 15.3:
+ - je potrebne nainstalovat samotny WebServer Apache2: `$ sudo zypper -n install apache2`
+ - otvorime konfiguraciu zdrojov cluster-a prikazom: `$ sudo crm configure edit`
  - pridame dve definicie zdrojov, konkretne Virtualnu IP a samotny proces WebServera Apache2:
-
+```
 primitive ip-apache ocf:heartbeat:IPaddr2 \
         params cidr_netmask=24 ip=192.168.255.20 \
         op monitor interval=1 timeout=4
@@ -2000,50 +2002,51 @@ primitive service-apache ocf:heartbeat:apache \
         op stop interval=0 timeout=60 \
         op start interval=0 timeout=60 \
         op monitor interval=10 timeout=30
-
- - po ulozeni a zavreti editora sa zmeny aplikuju na Cluster
- - stav clustera overime s: $ sudo crm_mon
- - pripadne aktualizujeme stav a pridelenie zdrojov: $ sudo crm resource cleanup
- - nasledne je potrebne na *vsetkych* uzloch povolit HTTP port na firewalle:
-
+```
+ - po ulozeni a zavreti editora sa zmeny aplikuju na **Cluster**
+ - stav clustera overime s: `$ sudo crm_mon`
+ - pripadne aktualizujeme stav a pridelenie zdrojov: `$ sudo crm resource cleanup`
+ - nasledne je potrebne na **vsetkych** uzloch povolit HTTP port na firewalle:
+```bash
     $ sudo firewall-cmd --permanent --add-service=http
     $ sudo firewall-cmd --reload
+```
+Poznamka: Zdroj je kvoli zjednoduseniu dostupny len na fyz. IP uzla na ktorom bezi `service-apache`
+ - zistime s: `$ sudo crm_mon`
 
-POZNAMKA: Zdroj je kvoli zjednoduseniu dostupny len na fyz. IP uzla na ktorom bezi "service-apache"
- - zistime s: $ sudo crm_mon
-
-Silne zjednoduseny priklad ako vytvorit WebServer cluster pomocou "pcs" na CentOS Stream 9:
- - je potrebne nainstalovat samotny WebServer Apache2: $ sudo dnf -y in httpd
- - POZOR, na TEST je potrebne vypnut STONITH/Fencing: $ sudo pcs property set stonith-enabled=false
- - vytvorine vIP: $ sudo pcs resource create apache-ip IPaddr2 ip=192.168.255.29 cidr_netmask=24
- - overime s: $ sudo pcs resource status
- - nasledne vytvorime Apache2 zdroj clustera: $ sudo pcs resource create apache-service apache
- - overime s: $ sudo pcs resource status
- - otvorime konfiguraciu zdrojov cluster-a prikazom: $ sudo crm configure edit
- - nasledne je potrebne na *vsetkych* uzloch povolit HTTP port na firewalle:
-
+#### Zjednoduseny priklad ako vytvorit WebServer cluster pomocou `pcs` na CentOS Stream 9:
+ - je potrebne nainstalovat samotny WebServer Apache2: `$ sudo dnf -y in httpd`
+ - **POZOR**, na TEST je potrebne vypnut STONITH/Fencing: `$ sudo pcs property set stonith-enabled=false`
+ - vytvorine vIP: `$ sudo pcs resource create apache-ip IPaddr2 ip=192.168.255.29 cidr_netmask=24`
+ - overime s: `$ sudo pcs resource status`
+ - nasledne vytvorime Apache2 zdroj clustera: `$ sudo pcs resource create apache-service apache`
+ - overime s: `$ sudo pcs resource status`
+ - otvorime konfiguraciu zdrojov cluster-a prikazom: `$ sudo crm configure edit`
+ - nasledne je potrebne na **vsetkych** uzloch povolit HTTP port na firewalle:
+```bash
     $ sudo firewall-cmd --permanent --add-service=http
     $ sudo firewall-cmd --reload
-
-POZNAMKA: Web je kvoli zjednoduseniu dostupny len na real. IP uzla na ktorom bezi "service-apache"
- - zistime s: $ sudo pcs resource status
+```
+Poznamka: Web je kvoli zjednoduseniu dostupny len na real. IP uzla na ktorom bezi `service-apache`
+ - zistime s: `$ sudo pcs resource status`
  
-Ako vypisat stav technologie "Quorum", ktora zabranuje vzniku "split-brain" scenarov:
- - prilaz: $ sudo corosync-quorumtool
- - obvzvlast nebezpecny je efekt "split-brain" pre uloziska, teda "storage resources"
- - ciastocne sa da stav kvora sledovat prikazom: $ sudo crm_mon
+Tip: Ako vypisat stav technologie **Quorum**, ktora zabranuje vzniku **split-brain** scenarov:
+ - prilaz: `$ sudo corosync-quorumtool`
+ - obvzvlast nebezpecny je efekt **split-brain** pre uloziska, teda **storage resources**
+ - ciastocne sa da stav kvora sledovat prikazom: `$ sudo crm_mon`
 
-Pri zostavovani clustra nastrojom "pcs", teda prikazom: $ sudo pcs cluster setup, mame moznosti:
- - parameter "--wait_for_all" - vypocet kvora sa zacne az po zacleneni vsetkych uzlov/nodes
- - parameter "--auto_tie_breaker" - pri 50% "hlasov" sa vitaz urci ako uzol s najnizsim ID
- - parameter "--last_man_standing" - kvorum sa prepocitava kazdych 10s
-   - treba skombinovat s "--wait_for_all" a nasledne umoznuje postupne "vypinanie" uzlov z clustra 
- - parameter "--two_node" - umoznuje "bezat" cluster z 2 uzlov
+#### Pri zostavovani clustra nastrojom `pcs`:
+ - teda prikazom: `$ sudo pcs cluster setup`, mame moznosti:
+ - parameter `--wait_for_all` - vypocet kvora sa zacne az po zacleneni vsetkych uzlov/nodes
+ - parameter `--auto_tie_breaker` - pri 50% "hlasov" sa vitaz urci ako uzol s najnizsim ID
+ - parameter `--last_man_standing` - kvorum sa prepocitava kazdych 10s
+   - treba skombinovat s `--wait_for_all` a nasledne umoznuje postupne **vypinanie** uzlov z clustra 
+ - parameter `--two_node` - umoznuje "bezat" cluster z 2 uzlov
 
-Pri distribucii OpenSUSE je konfiguracia dostupna v subore "/etc/corosync/corosync.conf"
- - priklad na konfiguraciu kvora v subore "corosync.conf":
- - zmeny samozrejme robime v LABe, inak treba robit "off-peak udrzbu" a mat pripravene zalohy konf.
-
+#### V distribucii OpenSUSE je konfiguracia kvora dostupna v subore `/etc/corosync/corosync.conf`
+ - priklad na konfiguraciu kvora v subore `corosync.conf`:
+ - zmeny samozrejme robime v LABe, inak treba robit **off-peak udrzbu** a mat pripravene zalohy konf.
+```
 quorum {
         provider: corosync_votequorum
         last_man_standing: 1
@@ -2052,25 +2055,25 @@ quorum {
         auto_tie_breaker_node: lowest
         two_node: 1
 }
+```
+- po ulozeni nasledne restartujeme proces: `$ sudo systemctl restart corosync`
+- nove parametre overime s: `$ sudo corosync-quorumtool`
+Poznamka: Ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny distribuovat na ostatne uzly:
+  - pouzijeme prikaz: `$ sudo pcs cluster sync`
+  - nasledne je potrebne znova spustit cluster: `$ sudo pcs cluster reload corosync`
 
-- po ulozeni nasledne restartujeme proces: $ sudo systemctl restart corosync
-- nove parametre overime s: $ sudo corosync-quorumtool 
-- ak by sme robili upravy "corosync.conf" na OS s "pcs", mozeme zmeny distribuovat na ostatne uzly:
-  - pouzijeme prikaz: $ sudo pcs cluster sync
-  - nasledne je potrebne znova spustit cluster: $ sudo pcs cluster reload corosync
-
-Node Fencing/STONITH, problematicky uzol, treba "odrezat" z clustera, fencing ma viacero druhov:
- - druh "Power fencing": ked mamet pristup ku kontrolerom napajania, odrezeme napajenia uzla
- - druh "Fabric fencing": uzol odrezeme od storage konektivity, teda od iSCSI, resp. FibreChannel-u
+#### Node Fencing/STONITH, problematicky uzol treba "odrezat" z clustera, fencing ma viacero druhov:
+ - druh **Power fencing**: ked mame pristup ku kontrolerom napajania, odrezeme napajenia uzla (UPS/PDU)
+ - druh **Fabric fencing**: uzol odrezeme od storage konektivity, teda od iSCSI, resp. FibreChannel-u
  - samozrejme su k dispozicii dalsie moznosti Fencingu
- - k dispozicii su "Fencing" agenti: disk, hypervisor, power switch, management board, test agent
-   - agent "disk" - zmedzi uzlu pristup na disk(y)
-   - agent "hypervisor" - vypne VM uzol, v prostredi GNU/Liunux sa napr. pouziva projekt "libvirt"
-   - agent "power switch" - vypne napajanie, cez API kontrolera napajania na PDU/UPS...
-   - agent "management board" - vypne fyz. server cez Out-Of-Band Mng. (iLO, iDRAC, IBM-RSA, IPMI) 
-   - agent "test agent" - sluzi na testovanie fencingu, v praxi nedoporucovane
- - napr. v Systeme CentOS si mozeme instalovat agenta "fence-agents-apc": 
-   - prikaz: $ sudo dnf -y in fence-agents-apc
+ - k dispozicii su **Fencing agenti**, teda: `disk`, `hypervisor`, `power switch`, `management board`, `test agent`
+   - agent `disk` - zmedzi uzlu pristup na disk(y)
+   - agent `hypervisor` - vypne VM uzol, v prostredi GNU/Liunux sa napr. pouziva projekt `libvirt`
+   - agent `power switch` - vypne napajanie, cez API kontrolera napajania na PDU/UPS
+   - agent `management board` - vypne fyz. server cez Out-Of-Band Mng. (iLO, iDRAC, IBM-RSA, IPMI) 
+   - agent `test agent` - sluzi na testovanie fencingu, v praxi nedoporucovane
+ - napr. v Systeme CentOS si mozeme nainstalovat agenta `fence-agents-apc`: 
+   - prikaz: `$ sudo dnf -y in fence-agents-apc`
    - dalsie informacie o agentovi ziskame napr. z: $ man fence_apc
  - dalsi agent "fence-agents-ipmilan" je uzitocny, pretoze vykovana Fencing cez standard IPMI
  - na CentOS mozeme ziskat informacie o STONITH/fencing agentoch pre Pacemaker: $ pcs stonith list
