@@ -1840,16 +1840,15 @@ Tip: Ako v OS "Fedora Server 35" nainstalovat NetworkManager-TUI: `$ sudo dnf in
 
 #### Vytvorenie iSCSI initiatora ("SAN-klient") na OS "OpenSUSE Leap 15.3":
 
+- instalacia softwaroveho Initiatora: `$ sudo zypper -n install open-iscsi`
 - pracujeme so sluzbami `iscsi` a `iscsid`
 - dolezite konfiguracne subory: `/etc/iscsi/iscsid.conf` a `/etc/iscsi/initiatorname.iscsi`
 - initiator moze byt HW (napr. sietova karta s TCP/iSCSI offloadingom) alebo softwarovy
 
-Instalacia softwaroveho Initiatora: `$ sudo zypper -n install open-iscsi`
+- pridame Initiatora do zoznamu, podla vytvoreneho ACL IQN: `$ sudo vim /etc/iscsi/initiatorname.iscsi`
+- pridame riadok napr.: `InitiatorName=iqn.2022-03.lpic3.suse1:www.node01.init01`
 
-Pridame Initiatora do zoznamu, podla vytvoreneho ACL IQN: `$ sudo vim /etc/iscsi/initiatorname.iscsi`
- - pridame riadok napr.: `InitiatorName=iqn.2022-03.lpic3.suse1:www.node01.init01`
-
-Nasledne upravime konfiguraciu suboru: `/etc/iscsi/iscsid.conf`
+- nasledne upravime konfiguraciu suboru: `/etc/iscsi/iscsid.conf`
 - odkomentujeme: `node.session.auth.authmethod = CHAP`
 - odkomentujeme a pridame meno/heslo:
 ```
@@ -2264,24 +2263,25 @@ location myDummy-location myDummy 10000: lpic3-suse1
 - znova aktivujeme manazment zdroja `myDummy` s: `$ sudo crm resource manage myDummy`
 - prepneme uzol do stavu `maintenance`, teda udrzby: `$ sudo crm node maintenance lpic3-suse1`
 - vratime uzol do stavu `ready`, teda pripraveny na cinnost: `$ sudo crm node ready lpic3-suse1`
-- vsetky zmeny overime s: "$ sudo crm status" resp. "$ sudo crm configure show"
+- vsetky zmeny overime s: `$ sudo crm status` resp.: `$ sudo crm configure show`
  
 ### Praca s Cluster Storage riesenim "DRBD - Distributed Replicated Block Device":
- - riesenie v podstate realizuje RAID1 ale cez sietove prepojenia
- - zvycajne sa pouzivaju 2 storage uzly, ktore si navzajom synchronizuju data
- - zakladny M/S model vyuziva standardne FS, napr. Ext4, XFS, ...
- - rezim Multi-master umoznuje obom stroage uzlom read/write pristup, dvojcestna synchronizacia
- - specialny "Cluster filesystem" je nevyhnutny, napr. GlusterFS, CEPH, OCFS2
+ - riesenie v podstate realizuje *RAID1* ale cez sietove prepojenia
+ - zvycajne sa pouzivaju *2 storage uzly*, ktore si navzajom synchronizuju data
+ - zakladny *M/S* model vyuziva standardne FS, napr. Ext4, XFS, ...
+ - rezim *Multi-master* umoznuje obom stroage uzlom read/write pristup, dvojcestna synchronizacia
+ - specialny *Cluster filesystem* je nevyhnutny, napr. GlusterFS, OCFS2, GFS2
  - system DRBD pracuje s replikacnymi modmi:
-   - Protocol A: Asynchronne zapisovanie, vhodne na "long-distance" replikaciu, znizena spolahlivost
-   - Protocol B: Semi-synchronne zapisovanie
-   - Protocol C: Synchronne zapisovanie, najvyssia uroven spolahlivost, zvycajne predvoleny rezim
+   - `Protocol A`: Asynchronne zapisovanie, vhodne na "long-distance" replikaciu, znizena spolahlivost
+   - `Protocol B`: Semi-synchronne zapisovanie
+   - `Protocol C`: Synchronne zapisovanie, najvyssia uroven spolahlivost, zvycajne predvoleny rezim
 
-Instalacia DRBD balickov na OpenSUSE 15.3: $ sudo zypper -n in drbd drbd-utils drbdmanage
- - je potrebne mat nasjkor volnu particiu na oboch uzloch, ktore sa bude pouzivat, doporucene je LVM
- - na test sa da vytvorit napr. virtual-disk v roznych hypervizoroch (VMw, VBox, KVM, ...)
- - dalej vytvorime tzv. "resource file", nazov napr. "/etc/drbd.d/drbd0.res", do ktoreho vlozime:
-
+#### Instalacia technologie DRBD v systeme OpenSUSE 15.3:
+ - instalujeme: `$ sudo zypper -n in drbd drbd-utils drbdmanage`
+ - je potrebne mat nasjkor volnu particiu na oboch uzloch, ktora sa bude pouzivat, doporucene je LVM2
+ - na test sa da vytvorit napr. *virtual-disk* v roznych hypervizoroch (VMw, VBox, KVM-Qemu, ...)
+ - dalej vytvorime tzv. *resource file*, nazov napr. `/etc/drbd.d/drbd0.res`, do ktoreho vlozime:
+```
 resource drbd0 {
     volume 0 {
         device           /dev/drbd0 minor 0;
@@ -2307,12 +2307,12 @@ resource drbd0 {
         shared-secret    drbd.2022;
     }
 }
-
- - tato konfiguracia MUSI byt na oboch uzloch ZHODNA
- - nasledne konfiguraciu overime s: $ sudo drbdadm dump all
- - dalej povolime definovany DRBD TCP port: $ sudo firewall-cmd --add-port=7676/tcp --permanent
- - nasledne restartujeme firewall: $ sudo firewall-cmd --reload
- - konfiguraciu overime s: $ sudo firewall-cmd --list-all
+```
+ - tato konfiguracia *MUSI* byt na oboch uzloch **ZHODNA**
+ - nasledne konfiguraciu overime s: `$ sudo drbdadm dump all`
+ - dalej povolime definovany *DRBD TCP* port: `$ sudo firewall-cmd --add-port=7676/tcp --permanent`
+ - nasledne restartujeme firewall: `$ sudo firewall-cmd --reload`
+ - konfiguraciu firewallu overime s: `$ sudo firewall-cmd --list-all`
  - na uzloch vytvorime nove DRBD zariadenie "/dev/drbd0" prikazom: $ sudo drbdadm create-md drbd0 
  - na uzloch nasledne aktivujeme DRBD zariadenie: $ sudo drbdadm up drbd0
  - overime s: $ sudo drbdadm status
