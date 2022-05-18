@@ -1936,7 +1936,7 @@ Na pracu s HA-lusterom je vhodne mat **DNS zaznami typu A/PTR uzlov**, pripadne 
 `crm(live)configure# primitive newIP ocf:heartbeat:IPaddr2 params ip=192.168.255.30 cidr_netmask=24`
  - ak chceme po prikaze nieco upravit, pouzijeme prikaz `edit`, teda: `crm(live)configure# edit`
 
-Praca **RA - Resource Agents**, ktore tiez spravuju zdroje, napr. **OCF - Open Cluster Framework**:
+#### Praca s **RA - Resource Agents**, ktore tiez spravuju zdroje, napr. **OCF - Open Cluster Framework**:
  - vypiseme triedy zdrojov: `$ sudo crm ra classes`
  - presnejsi vypis RA z triedy OCF: `$ sudo crm ra list ocf`
  - OCF ma **svoje** skripty, ako napr. **SystemD**, info o konkretnom RA: `$ sudo crm ra info apache`
