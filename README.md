@@ -2139,29 +2139,29 @@ Poznamka: Ako na **troubleshooting**, teda hladanie a riesenie problemov s "Reso
 
 
 #### Priklad ako vytvorit Cluster s FTP server "resource" pomocou `pcs`:
- - najskor na vsetkych uzloch instalujeme FTP server: $ sudo dnf -y in vsftpd
- - aktivujeme na uzloch FTP server: $ sudo systemctl enable vsftpd && sudo systemctl start vsftpd
- - potom pomocou nastroja "pcs" vytvorime 2 zdroje a zaradime ich to skupiny "ftp-service":
- - prikaz: $ sudo pcs resource create ftp-ip IPaddr2 ip=10.0.0.123 cidr_netmask=24 --group ftp-group
- - prikaz: $ sudo pcs resource create ftp-service systemd:vsftpd --group ftp-group
- - overime prikazom: $ sudo pcs status
- - nasledne obmedzime, tak aby skupiny "apache-group" a "ftp-group" nebezali na rovnakom uzle:
-   - prikaz: $ sudo pcs constraint colocation add apache-group with ftp-group -10000
- - upravime poradie startovania zdrojov: $ sudo pcs constraint order apache-group then ftp-group
+ - najskor na vsetkych uzloch instalujeme FTP server: `$ sudo dnf -y in vsftpd`
+ - aktivujeme na uzloch FTP server: `$ sudo systemctl enable vsftpd && sudo systemctl start vsftpd`
+ - potom pomocou nastroja `pcs` vytvorime 2 zdroje a zaradime ich to skupiny `ftp-service`:
+ - prikaz: `$ sudo pcs resource create ftp-ip IPaddr2 ip=10.0.0.123 cidr_netmask=24 --group ftp-group`
+ - prikaz: `$ sudo pcs resource create ftp-service systemd:vsftpd --group ftp-group`
+ - overime prikazom: `$ sudo pcs status`
+ - nasledne obmedzime, tak aby skupiny `apache-group` a `ftp-group` nebezali na rovnakom uzle:
+   - prikaz: `$ sudo pcs constraint colocation add apache-group with ftp-group -10000`
+ - upravime poradie startovania zdrojov: `$ sudo pcs constraint order apache-group then ftp-group`
 
-Priklad tvorby zdrojov clustera s obmedzeniami / constraints pomocou nastroja "crm":
- - upravujeme konfiguraciu clustera pomocou $ sudo crm configure edit
- - ako priklad vytvorime podobne cluster "FTP server" v resource skupine "ftp-group":
-   - na uzloch instalujeme: $ sudo zypper -n in vsftpd
-   - na uzloch aktivujeme: $ sudo systemctl enable vsftpd && sudo systemctl start vsftpd
-   - nasledne definujeme zdroje do skupiny "ftp-group", upravime konf.: $ sudo crm configure edit
-
+#### Priklad tvorby zdrojov clustera s obmedzeniami/constraints pomocou nastroja `crm`:
+ - upravujeme konfiguraciu clustera pomocou: `$ sudo crm configure edit`
+ - ako priklad vytvorime podobne cluster **FTP server** v resource skupine `ftp-group`:
+   - na uzloch instalujeme: `$ sudo zypper -n in vsftpd`
+   - na uzloch aktivujeme server: `$ sudo systemctl enable vsftpd && sudo systemctl start vsftpd`
+   - nasledne definujeme zdroje do skupiny `ftp-group`, upravime konf.: `$ sudo crm configure edit`:
+```
 primitive ftp-ip IPaddr2 \
         params nic=eth0 cidr_netmask=24 ip=192.168.255.200 \
         op monitor interval=10 timeout=40
 primitive ftp-service systemd:vsftpd
 group ftp-group ftp-ip ftp-service
-  
+```
    - aplikujeme zmeny a overime napr. s: $ sudo crm status
  - dalej pridame do konfiguracie podobne obmedzenia/constraints: $ sudo crm configure edit
 
