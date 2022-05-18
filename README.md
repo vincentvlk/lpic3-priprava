@@ -1844,63 +1844,64 @@ Poznamka, iSCSI target sa da prevadzkovat v Cluster-y nad systemom DRBD (nizsie 
 
 Tip: Ako v OS "Fedora Server 35" nainstalovat NetworkManager-TUI: `$ sudo dnf install NetworkManager-tui`
 
--=-=-=-=-=-=INITIATOR na OS OpenSUSE Leap 15.3:=-=-=-=-=-=-
+#### Vytvorenie iSCSI initiatora ("SAN-klient") na OS "OpenSUSE Leap 15.3":
 
-- pracujeme so sluzbami "iscsi" a "iscsid"
-- dolezite konfiguracne subory: "/etc/iscsi/iscsid.conf" a "/etc/iscsi/initiatorname.iscsi"
-- initiator moze byt HW (sietova karta s TCP offloadingom) alebo softwarovy
+- pracujeme so sluzbami `iscsi` a `iscsid`
+- dolezite konfiguracne subory: `/etc/iscsi/iscsid.conf` a `/etc/iscsi/initiatorname.iscsi`
+- initiator moze byt HW (napr. sietova karta s TCP/iSCSI offloadingom) alebo softwarovy
 
-Instalacia softwaroveho Initiatora: $ sudo zypper -n install open-iscsi
+Instalacia softwaroveho Initiatora: `$ sudo zypper -n install open-iscsi`
 
-Pridame Initiatora do zoznamu, podla vytvoreneho ACL IQN: $ sudo vim /etc/iscsi/initiatorname.iscsi
- - pridame riadok napr.: "InitiatorName=iqn.2022-03.lpic3.suse1:www.node01.init01"
+Pridame Initiatora do zoznamu, podla vytvoreneho ACL IQN: `$ sudo vim /etc/iscsi/initiatorname.iscsi`
+ - pridame riadok napr.: `InitiatorName=iqn.2022-03.lpic3.suse1:www.node01.init01`
 
-Nasledne upravime konfiguraciu suboru: "/etc/iscsi/iscsid.conf"
-- odkomentujeme: "node.session.auth.authmethod = CHAP"
+Nasledne upravime konfiguraciu suboru: `/etc/iscsi/iscsid.conf`
+- odkomentujeme: `node.session.auth.authmethod = CHAP`
 - odkomentujeme a pridame meno/heslo:
-
+```
 node.session.auth.username = MOJE_MENO
 node.session.auth.password = MOJE_HESLO
+```
+Nasledne restartujeme iSCSI sluzby: `$ sudo systemctl restart iscsi iscsid`
 
-Nasledne restartujeme iSCSI sluzby: $ sudo systemctl restart iscsi iscsid
+Spustime **discovery** voci Target device: `$ sudo iscsiadm -m discovery -t sendtargets -p 192.168.2.X`
+ - v pozadi sa vytvoria adresare: `/etc/iscsi/nodes/` a `/etc/iscsi/send_targets/`
+ - mozeme overit status, napr. prikazom: `$ sudo iscsiadm -m node -o show`
 
-Spustime "discovery" voci Target device: $ sudo iscsiadm -m discovery -t sendtargets -p 192.168.2.X
- - v pozadi sa vytvoria adresare: "/etc/iscsi/nodes/" a "/etc/iscsi/send_targets/"
- - mozeme overit status, napr. prikazom: $ sudo iscsiadm -m node -o show
+Nasledne prihlasime/pripojime initiatora LUN/disku prikazom: `$ sudo iscsiadm -m node --login`
+ - overime prikazom `$ sudo iscsiadm -m session -o show`
 
-Nasledne prihlasime/pripojime initiatora LUN/disku prikazom: $ sudo iscsiadm -m node --login
- - overime prikazom $ sudo iscsiadm -m session -o show
+Pripojenie disku overime prikazmi napr. `$ cat /proc/partitions` alebo `$ lsblk`
+ - najdeme spravy o pripojeni noveho disku (napr. `/dev/sdb`) aj v Syslogu: `$ sudo journalctl -f`
 
-Pripojenie disku overime prikazmi napr. "$ cat /proc/partitions" alebo "$ lsblk"
- - najdeme spravy o pripojeni noveho disku (napr. "/dev/sdb") aj v: $ sudo journalctl -f
+Nasledne vytvorime particiu, napr. pomocou nastrojov `fdisk`, `cfdisk`, `parted`, a pod.
+ - potom novu particiu naformatujeme suborovym systemom podla poziadavky: `$ sudo mkfs.XYZ /dev/sdX`
 
-Nasledne vytvorime particiu, napr. pomocou nastrojov "fdisk", "cfdisk", "parted", a pod.
- - potom novu particiu naformatujeme systemom podla poziadavky: $ sudo mkfs.XYZ /dev/sdX
+Ak chceme automaticke pripajanie disku, v subore `/etc/iscsi/iscsid.conf` odkomentujeme riadok:
+`node.startup = automatic`
 
-Ak chceme automaticke pripajanie disku, v subore "/etc/iscsi/iscsid.conf" odkomentujeme riadok:
-"node.startup = automatic"
+Na vytvorenie **mount-pointu** po reboote si zistime `UUID` particie napr. s: `$ sudo blkid`
+ - nasledne do suboru `/etc/fstab` pridame riadok, napr.:
 
-Na vytvorenie "mount-pointu" po reboote si zistime UUID particie napr. s: $ sudo blkid
- - nasledne do suboru "/etc/fstab" pridame riadok, napr.:
+`UUID=aa03eabf-10a9-41d9-a1eb-149682d0c44f /mnt/san1d1 btrfs _netdev,x-systemd.automount 0 0`
 
-UUID=aa03eabf-10a9-41d9-a1eb-149682d0c44f /mnt/san1d1 btrfs _netdev,x-systemd.automount 0 0
+Po reboote systemu mozeme overit napr. s: `$ sudo mount | grep san1` alebo prikazom: `$ sudo lsblk`
+ - alebo napr. s: `$ sudo ls -l /dev/disk/by-path/`
 
-Po reboote systemu mozeme overit napr. s: "$ sudo mount | grep san1" alebo prikazom: $ sudo lsblk
- - alebo napr. s: $ sudo ls -l /dev/disk/by-path/
+Poznamka, ak je potrebne, je mozne **discovered** targety vymazat, alebo docasne odhlasit:
+ - vymazeme: `$ sudo iscsiadm -m node -T iqn.2022-03.lpic3.suse1:www.target01 -o delete`
+ - odhlasime: `$ sudo iscsiadm -m node -T iqn.2022-03.lpic3.suse1:www.target01 -u`
+   - po ukonceni cinnosti sa da znova pripojit restartom sluzieb `iscsi` a `iscsid`
 
-Poznamka, ak je potrebne, je mozne "discovered" targety, alebo docasne odhlasit:
- - vymazeme: $ sudo iscsiadm -m node -T iqn.2022-03.lpic3.suse1:www.target01 -o delete
- - odhlasime: $ sudo iscsiadm -m node -T iqn.2022-03.lpic3.suse1:www.target01 -u
-   - po ukonceni cinnosti sa da znova pripojit restartom sluzieb "iscsi" a "iscsid"
+Poznamka: V OS OpenSUSE Leap sa da pouzit na konf. iSCSI Initatora TUI nastroj: `$ sudo yast2`
+ - **TUI** - Terminal User Interface
+ - instalujeme: `$ sudo zypper -n in yast2-iscsi-client`
+ - v menu volime `Network Services` -> `iSCSI Initiator` -> `sipkou doprava` na `Connected Targets`
+   - v tomto submenu sa uz mozeme klavesom `Tab` prepnut na moznosti `Add` / `Edit` / `Disconnect`
 
-Poznamka, v OS OpenSUSE Leap sa da pouzit na konf. iSCSI Initatora TUI nastroj: $ sudo yast2
- - TUI - Terminal User Interface
- - instalujeme: $ sudo zypper -n in yast2-iscsi-client
- - v menu volime "Network Services" -> "iSCSI Initiator" -> "sipkou doprava" na "Connected Targets"
-   - v tomto submenu sa uz mozeme klavesom "Tab" prepnut na moznosti "Add" / "Edit" / "Disconnect"
+### Zaklady prace s HA - High Availabolity Cultermi v systeme GNU/Linux
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Na pracu s HA-lusterom je vhodne mat DNS-A zaznami uzlov, pripadne zaznami v "/etc/hosts"
+Na pracu s HA-lusterom je vhodne mat **DNS zaznami typu A/PTR uzlov**, pripadne zaznami v `/etc/hosts`
 
 Trocha teorie: CIB - Cluster Information Base: Stav cluster-a v pamati
  - ako kopia existuje na kazdom uzle, subor sa NESMIE rucne upravovat
