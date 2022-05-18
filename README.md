@@ -158,8 +158,7 @@ Alebo:
 
     $ sudo netplan apply
 
-Zaklady spravy diskov, particii a SWAP priestoru:
-----------------------------------------
+### Zaklady spravy diskov, particii a SWAP priestoru:
 
 Prikaz vypise blokove zariadenia: `$ sudo lsblk`
 
@@ -179,7 +178,7 @@ Ako vytvorit Swap subor, nie particiu:
  
 V kontexte Swap-u existuje v kerneli tzv. `OOM Killer`, ktory pri nedostatku pamate zabija procesy.
 
-### Praca s LVM, aktualna verzia je LVM2
+#### Praca s LVM, aktualna verzia je LVM2
 
 Prikaz na interaktivne CLI: `$ sudo lvm`
 
@@ -235,13 +234,13 @@ Tip: Ako zistit ake KILL signaly system podporuje: `$ kill -l`
 
 Tip: Nastroj na kontrolu syntaxe BASH skriptov: `shellcheck`
 
-### Zakladna praca s inode-ami:
+#### Zakladna praca s inode-ami:
 
 Prikaz vypise prava a inode informacie o subore: `$ stat subor.xyz`
 
 Da sa pouzit aj prikaz: `$ ls -li`
 
-### Zakladna praca s boot-loaderom GRUB2:
+#### Zakladna praca s boot-loaderom GRUB2:
 
 Zjednodusene konfiguracne moznosti su v subore: `/etc/default/grub`
 
@@ -253,7 +252,7 @@ Skripty, ktore podla poradia generuju konfig. subor GRUB2: `$ ls /etc/grub.d/*`
 
 Ako nainstalovat GRUB2 v MBR mode: `$ sudo grub-install --boot-directory=/mnt/boot /dev/sdc`
 
-### Zaklady prace s inicializacnym systemom "systemd":
+#### Zaklady prace s inicializacnym systemom "systemd":
 
 Ako vypisat logy pre proces podla urciteho string patternu: `$ journalctl --unit=ssh`
 
@@ -333,7 +332,7 @@ Ako ulozit urcite logy v text formate: `$ journalctl -u ssh -o old > sshd.log`
 
  - ako ulozit rovnaky log napr. vo formate "json": `$ journalctl -u ssh -o json > sshd.log.json`
 
-### Tipy k praci s uzivatelskymi uctami:
+#### Tipy k praci s uzivatelskymi uctami:
 
 Ako zmenit default shell uzivatela: `$ chsh vlkv -s /bin/bash`
 
@@ -341,7 +340,7 @@ Ako zmenit default shell uzivatela: `$ chsh vlkv -s /bin/bash`
 
 Ako zistit s akymi argumentami je spusteny program/daemon: `$ ps aux | grep getty`
 
-### Ako zabezpecit, aby sa system Ubuntu 20.04 neplnil log spravami `multipathd`:
+#### Ako zabezpecit, aby sa system Ubuntu 20.04 neplnil log spravami `multipathd`:
 	
     Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: add missing path
     Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: failed to get udev uid: Invalid argument
@@ -574,8 +573,7 @@ Pozriet si nastroj `nmap`, velmi vela moznosti:
 Ako vypisat lokalne Unix Domain sockety, pre aktualneho uzivatela: `$ lsof -U`
  - vypisanie vsetkych Unix Domain socketov: `$ sudo lsof -U`
 
-#### Praca s BASH skriptami:
-
+### Praca s BASH skriptami, interpretom a dalsimi nastrojmi v prostredi GNU/Linux:
 Ako zabezpecit, aby sa skript spustal aj na inych systemoch (portability): 
  - skript zacina riadkom: `#!/usr/bin/env bash`
  - nevyhoda je, ze skript je spustany s prvym najdenym interpretom (BASH, Python, etc.)
@@ -623,7 +621,7 @@ Pozriet riadenie toku BASH skriptu, resp. rozhodovanie s:
  - alebo napr. `$ help if`
 
 #### Priklad na riadenie toku v BASH skripte s `if`, vytvorime si skript `ifPriklad.sh`:
-
+```bash
     #!/usr/bin/env bash
     #
     # jednoduchy BASH skript demonstruje riadenie toku s "if"
@@ -650,320 +648,9 @@ Pozriet riadenie toku BASH skriptu, resp. rozhodovanie s:
     #
     echo "Koniec skriptu, exit code: $?"
     #
+```
 
-Dalsie zdroje k zakladom BASH skriptov:
- - napr. v knihe: `https://www.root.cz/knihy/bash-ocima-bohdana-milara/`
- - pokrocilejsie skriptovanie, napr. v knihe: `https://tldp.org/LDP/abs/abs-guide.pdf`
- - pripadne pozriet 11. kapitolu v knihe `How Linux Works by Brian Ward, ISBN-13: 9781718500402`
-
-Tip: Ako pomocou jazyka Awk vypisat deviaty stlpec z vypisu: `$ ls -l | awk '{print $9}'`
-
-Pozriet dalsi program na spracovanie textu: `$ man sed`
-
-Pozriet tematiku `BASH Subshell`
-
-#### Praca s prenosom suborov po sieti:
-
-Ako spustit jednoduchy HTTP server (Python modul) v danom adresary: `$ python3 -m http.server`
- - standardne spusteny na TCP porte 8000, mozeme zmenit s: `$ python3 -m http.server 5000`
- - na TCP porty nizsie ako 1024 su potrebne prava `superuser`:
-   - prikaz napr.: `$ sudo python3 -m http.server 80`
- - na starsich instalaciach sa da pouzit Python2 modul: `$ python -m SimpleHTTPServer 5000`
-
-Na transfer suborov pomocou programu `rsync`, musi byt program instalovany **na oboch stranach**
- - pre Debian based systemy `$ sudo apt install rsync`
- - alebo pre Fedora Server: `$ sudo dnf install rsync`
-
-Zakladne pouzitie, skopirujeme 3 subory s diagnostikou: 
- - prikaz napr.: `$ rsync -v ifPriklad.sh casePriklad.sh ashow.sh 192.168.1.245:`
-
-Ako kopirovat vsetky adresare `dirX` na stroj s DNS nazvom `ubu2.lab` do adresara `nas`:
- - parameter `-a` umoznuje skopirovat nastavenia suborovych prav, nastavenie UID bitov a pod.
- - teda pouzijeme prikaz: `$ rsync -va dir* ubu2.lab:nas`
- - aby netrebalo zadavat SSH heslo, moze nahrat verejny kluc PKI: `$ ssh-copy-id userXYZ@ubu2.lab`
- - ked chceme transfer/zalohu len otestovat, pouzijeme parameter `-n`:
-   - prikaz: `$ rsync -n -va dir* ubu2.lab:nas`
-
-**POZOR**, ak chceme v cieli vytvorit EXAKTNU kopiu lokalneho(ych) adresara(ov), ktora **ZMAZE** nove subory v cieli:
-
- - pouzijeme: `$ rsync -va --delete dir* ubu2.lab:nas`
- - diagnosticky parameter `-v` vypise, ktore subory v cieli boli vymazane
-
-Chceme kopirovat **LEN** obsah lokalneho adresara po sieti, dolezity znak `/`:
- - prikaz: `$ rsync -av dir1/ ubu2.lab:`
-
-Ked chceme vynechat subor, specifikujeme absolutnu cestu: 
- - prikaz: `$ rsync -av --exclude=dir1/junk.txt dir1 ubu2.lab:`
-
-Ked chceme prenos overit kontrolnym suctom, pouzijeme parameter `-c` alebo `--checksum`
-
-Pozriet v `$ man 1 rsync` dalsie parametre ohladom zalohovania: `-b`, `--suffix=.old` a `-u` 
-
-Ako obmedzit Bandwidth prenosu, napr. na **50MBytes/s** (cca 400Mbit/s):
- - prikaz: `$ rsync -a --bwlimit=50000 same_nuly.txt ubu2.lab:`
- - priklad ako vytvorit testovaci 1GiB subor: `$ dd if=/dev/zero of=same_nuly.txt bs=1024 count=1M`
- 
-**Pripadne  pozriet dokumentaciu a manualy k projektu "Samba File/Printer Sharing"**
- - nie je predmetom tejto skusky
-
-#### Praca s projektom SSHFS - SSH File System:
-
-Ako si pripojit vzdialny adresar cez SSH, napr.: `$ sshfs userABC@ubu2.lab:/mnt/lvnas1 sshnas.d/`
- - kombinovatelne s PKI auth (prihlasovanie verejnym klucom)
- - ako vykonat u-mount pripojeneho disku: `$ fusermount -u sshnas.d/`
-
-#### Praca s premennymi prostredia v interprete BASH:
-
-Premenne prostredia pre interpret BASH su definovane v **skrytych** suboroch: `.bash_profile`
-alebo `.profile`
-
- - priklad na definiciu premennej shellu: `$ TEST=123`
- - priklad na definiciu premennej prostredia: `$ export TESTENV=567`
-
-Dolezite adresare na spustanie binarnych aplikacii a skriptov su ulozene
-v premennej `$PATH`: `/usr/local/bin`, `/usr/bin` a `/bin`
-
- - overime s prikazom: `$ echo $PATH`
-
-Tip: V definicii promptu, teda v premennej `$PS1` by sme sa mali vyhnut znakom: `{ } = & < >`
- - dalsie detaily najdeme v manualy, v sekcii `PROMPTING` vid.: `$ man bash`
-
-### Zaklady prace s vyvojarskymi nastrojmi:
-
-#### Jednoduchy priklad na kompilaciu zdrojoveho kodu v jazyku "C", vytvorime subor `pokus.c`:
-
-    #include <stdio.h>
-
-    int main(void) {
-
-        printf("Hello, World.\n");
-    }
-
-- nasledne skompilujeme, treba nainstalovat dev. nastroje: `$ sudo apt install build-essential`
-- na kompilaciu pouzijeme program `cc`, teda "C Compiler": `$ cc pokus.c`
-- vystupom bude spustitelny binarny subor `a.out`, spustime: `$ ./a.out`
-- pri kompilacii mozeme specifikovat nazov vystupneho suboru: `$ cc -o pokus pokus.c`
-
-Tip: Ako vypisat zdielane kniznice, ktore ma nalinkovane dany program: `$ sudo ldd /usr/bin/bash`
-
-#### Jednoduchy priklad ako kompilovat zdrojove subory v kazyku "Java":
-
-Je potrebne nainstalovat vyvojarske nastroje: `$ sudo apt install default-jdk-headless`
-
-Vytvorime jednoduchy cvicny zdrojovy subor `pokus.java`:
-
-    class MyFirstProgram {
-
-        public static void main(String args[]){
-            System.out.println("Hello World!");
-        }
-    }
-
- - program skompilujeme do tzv. "byte code" formatu s priponou `.class`: `$ javac pokus.java`
- - vznikne bytecode subor `MyFirstProgram.class`, ktory spustime prikazom: `$ java MyFirstProgram`
-
-#### Ako kompilovat a instalovat distribuovane  zdrojove baliky:
- - na test si vytvorime adresar `test_coreutils` prikazom: `$ mkdir test_coreutils`
- - do vytvoreneho adresara stiahneme zdrojovy balik:
-   - prikaz: `$ wget https://ftp.gnu.org/gnu/coreutils/coreutils-9.0.tar.gz`
- - rozbalime zdrojovy archiv: `$ tar -xvzf coreutils-9.0.tar.gz`
- - v rozbalenom adresary `coreutils-9.0` spustime konfiguracny "GNU Autoconf" skript `configure`
- - tento skript konfiguruje parametre kompilacie a naslednej instalacie
- - skript spustime s parametrom cieloveho adresara kompilacie a instalacie: 
-   - prikaz: `$ ./configure --prefix=$HOME/test_coreutils`
- - nasledne po konfiguracii spustime v danom adresary kompilaciu: `$ make`
- - skompilovane programy a binarne objekty najdeme v adresary `coreutils-9.0/src/`
- - po kompilacii mozeme spustit rozsiahle overenie kompilacie: `$ make check`
- - po kompilacii mozeme "na sucho / dry run" spustit test instalacie: `$ make -n install`
- - po overeni mozeme spustit samotnu instalaciu: `$ make install`
- - po instalacii v adresary `test_coreutils` vzniknu adresare `bin`, `libexec`, `share`
- - na Debian-based distr. je nastroj na nastavenie parametrov `.deb` balickov `checkinstall`:
-   - prikaz: `$ sudo apt install checkinstall`
- - **POZOR** na testovacej instalacii sa da spustit tvorba balicka: `$ sudo checkinstall make install`
- - hore uvedenym prikazom sa da rozbit system, tak si treba na test VM spravit **snapshot/backup**
-
-### Praca s kontajnermi, zaklady prace s Docker-om:
-
-Instalacia najznamejsieho nastroja Docker nie je zlozita, ale ani trivialna, jeden z postupov:
-
-`https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04`
-
-Ako otestovat, instalaciu Docker-a a jeho pripojenie na Docker Hub: `$ docker run hello-world`
-
-Na zakladne vytvorenie Docker kontajneru je potrebne definovat Docker file, s nazvom `Dockerfile`:
-
-Tento Docker file je vhodne umiestnit do oddeleneho adresara.
-
-Obsah suboru moze byt podla jednoducheho prikladu, kedy definujeme kontajner systemu Alpine Linux:
-
-    FROM alpine:latest
-    RUN apk add bash
-    CMD ["/bin/bash"]
-
-- po ulozeni suboru, mozeme zostavit image nasledovne: `$ docker build -t alpine_test1 .`
-
-#### Zakladne prikazy pre nastroj Docker:
-
-Ako vypisat zakladne informacie o instalacii Docker a o systeme, na ktorom bezi: `$ docker info`
-
-Ako vypisat vytvorene Docker image: `$ docker images`
-
-Ako spustit kontajner (z image) a pripojit sa na jeho "konzolu": `$ docker run -it alpine_test1`
-
-Ako sledovat aktualnu alokaciu zdrojov: `$ docker stats`
-
-Ako vypisat zoznam aktivnych kontajnerov: `$ docker ps`
-
-Ako vypisat aktivne aj neaktivne kontajnery: `$ docker ps -a`
-
-Ako vypisat posledny vytvoreny kontajner: `$ docker ps -l`
-
-Ako zmazat neaktivny kontajner: `$ docker rm <ID/nazov>`
-
-Ako zmazat Docker image: `$ docker rmi <ID/nazov image>`
-
-Ako hladat image na Docker Hub-e: `$ docker search ubuntu`
-
-Ako stiahnut image z Docker Hub-u: `$ docker pull ubuntu`
-
-Ako zastavit kontajner: `$ docker stop <ID/nazov>`
-
-Ako spustit zastaveny kontajner: `$ docker start <ID/nazov>`
-
-Ako sa pripojit na "kozolu" kontajneru, ktory bezi: `$ docker attach <ID/nazov>`
-
-Ako sa odpojit od konzoly kontajnera, v terminale za sebou stlacime skratky: `Ctrl+p` a `Ctrl+q`
-
-#### Dalsie poznamky k zakladom prace s Docker-om:
-
-Jednoduche web prostredie na ucenie/testovanie Docker-u: `https://labs.play-with-docker.com/`
- - dalsie informacie: `https://www.docker.com/play-with-docker`
-
-Priklad ako spustit v **sandboxe** web server `nginx`, zadame: `$ docker container run -d -it nginx`
-
-Pre pomoc s CLI, staci zadat prikaz bez parametrov, napr.: `$ docker container`
-
-Priklad ako vytvorit zmenu v Docker image a commitovat ju:
-- zadame : `$ docker commit -m "pridany nmap" -a "Jan Novak" <cont-ID> <hub-repoID>/moje-ubu:latest`
-
- - nasledne overime s: `$ docker image ls`
- - mozeme napr. z noveho image spustit container s: `$ docker container run -it ddnovak/moje-ubu`
-
-**POZOR**, prikaz vymaze **vsetky nebeziace** kontajnery: 
- - prikaz: `$ docker container rm $(docker container ls -a -q)`
- - pripadne, na **VLASTNE RIZIKO**, mozeme spustit s paramentrom `rm -f`
-
-Ako spustit testovaci webserver v kontajnery s nazvom `moj_lab` (vonkajsi port je **TCP/8080**):
-
-prikaz: `$ docker container run -d -p 8080:80 --name=moj_lab nginx`
-
- - overime s: `$ docker ps`
- - nasledne otestujeme pripojenie s browserom, alebo napr. `$ curl localhost:8080`
- - dalsie informacie: `$ docker container run --help`
- - alternativne, image s web serverom Apache2, nazov image zmenime na: `httpd`
-
-Ako vypisat otvorene TCP porty kontajnera: `$ docker container port <contID/contNAME>`
-
-Ako vypisat logy z kontajnera (napr. server nginx): `$ docker container logs <contID/contNAME>`
- - sledovanie v realnom case, doplnime parameter: `logs -f`
-
-Ako sledovat zdroje konkretneho kontajnera: `$ docker container stats <contID/contNAME>`
-
-Ako vypisat detailne informacie o kontajnery: `$ docker container inspect <contID/contNAME>`
-
-Ako spustit kontajner, hned s prikazovym riadkom: 
-
-prikaz: `$ docker container run --name=ubu-con1 -it ubuntu`
- - alebo, spustime interaktivny BASH na uz vytvorenom kontajnery: `$ docker exec -it ubu-con1 bash`
- - alebo, spustime (zastaveny) kontajner v interaktivnom mode: `$ docker start -i ubu-con1`
-
-Ako vypisat kolko miesta na disku zaberaju kontajnery: `$ docker ps -as`
-
-Ako vytvorit perzistentne ulozisko pre kontajner **Docker Volume**: `$ docker volume create <nazov>`
- - overime s `$ docker volume ls`
- - dalsie informacie: `$ docker volume --help`
-
-Ako vytvorit **nginx** kontajner s namapovanyn **volume**:
-
-prikaz: `$ docker run -d --name moja_web_app -p 80:80 -v <nazov_vol>:/usr/share/nginx/html nginx`
- 
-- mozeme manipulovat s obsahom **web root** adresara v: `/var/lib/docker/volumes/mojvol/_data/`
-- priklad: `$ sudo cp /etc/services /var/lib/docker/volumes/mojvol/_data/index.html`
-- overime napr. s: `$ curl localhost:80`
-
-Poznamka, ak chceme vymazat Docker image, treba najskor pomazat z neho vytvorene kontajnery.
-
-**POZOR**, automaticky nastroj na cistenie tzv. **dangling** Docker image-ov: `$ docker system prune`
- - dalsie informacie: `$ docker system prune --help`
- - celkom uzitocna diagnostika zabrateho miesta: `$ docker system df`
-
-### Praca s nastrojom Git a platformou GitHub:
-
-Vytvorime adresar `git_ucenie`, v ktorom inicializujeme **lokalny** Git repozitar: `$ git init`
- - aktualny stav repozitara overime s: `$ git status`
- - nastavime identitu uzivatela na pridavanie zmien: `$ git config --global --edit`
- - vytvorime cvicny subor, napr. `poznamky.txt`
-   - do suboru napiseme `moja prva poznamka`, subor ulozime
- - nasledne subor pridame do *Staging Cache* repozitara: `$ git add poznamky.txt`
- - overime s: `$ git status`
- - dalej pridame do **lokalneho** repo. novu zmenu, teda **commit** s popisom/spravou: 
-
-   - prikaz: `$ git commit -m 'vytvoril som subor poznamky.txt a pridal 1. riadok'`
-
- - dalej upravime subor `poznamky.txt`, pridame riadok `dalsi riadok s poznamkou`
- - subor ulozime a overime stav **lokalneho** repo.: `$ git status`
- - podla vypisu je potrebne pridat upraveny subor do **Staging Cache**: `$ git add poznamky.txt`
- - jednoduchsie mozeme pridat vsetky subory v danom adresary repozitara: `$ git add .`
- - aby sme sa vyhli pridavaniu suborov, ktore nechceme pridat do Staging Cache,
-   vytvorime subor `.gitignore`
- - na ignorovanie tzv. **.dotfiles**, do suboru mozeme zapisat napr. riadok `.*`
- - ak chceme odstranit subor z Cache, pouzijeme: `$ git rm --cached <nazov_suboru>`
- - pridame novu zmenu: `$ git commit -m 'pridal som dalsi riadok'`
-
-Chceme napr. zmenit format zapisu poznamok, mozeme vytvorit novu vetvu, **branch**:
- - prikaz:  `$ git checkout -b 'novy_format'`
- - v novej vetve napr. vytvorime subor `poznamky_novy_format.txt` a ten pridat do Cache a commit.
-   - ^^ avsak uz do **novej vetvy/branch** s nazvom `novy_format`
- - overime s: `$ git status`
- - potom sa mozeme prepinat medzi vetvami, napr. sa vratit do hlavnej **master** vetvy:
-   - prikaz: `$ git checkout master`
- - overime s: `$ git status`
-
-Ako replikovat lokalny Git repozitar na vzdialeny server, napr. na GitHub:
-
-- na platforme `github.com` si vytvorime uzivatelsky ucet
-- je potrebne vytvorit si autentifikacny Token, tzv. **Personal Access Token**, podla odkazu:
-
-`https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token`
-
-- vytvoreny Token **nezabudame/nezatvarame**
-- dalej vytvorime repozitar s nazvom `git_ucenie`, portal GitHub nam vygeneruje zakladne prikazy
-- dalej si vytvorime vzdialeny pristup na repo., tzv. **Remote**: 
-  - prikaz: `$ git remote add origin https://github.com/<UZIVATEL>/git_ucenie.git`
-- nasledne zosynchronizujeme kolakny repo. so vzdialenym repo.: `$ git push -u origin master`
-- na autentifikaciu zadame svoje uziv. meno, ale **namiesto hesla zadame vygenerovany PAT Token**
-
-Na ulahcenie prace si mozeme pridat do svojho `$HOME` adresara, do suboru `.gitconfig` aliasy, napr.:
-
-    #
-    [alias]
-        s = status
-        co = checkout
-        cob = checkout -b
-        save = !git add -A && git commit -m 'Nic zasadne: len ukladam pripisany text'
-        lg = !git log --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\" --abbrev-commit -30
-        undo = reset HEAD~1 --mixed
-        strom = !git log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C$
-
-Naslendne uz mozeme pouzivat napr. aliasy:
-
-    $ git s
-    $ git save
-    $ git lg
-    $ git strom
-
-### Dalsie poznamky k zakladom prace v BASH terminale/interprete a prostredi OS GNU/Linux:
-
+#### Dalsie poznamky k zakladom prace v BASH terminale/interprete a prostredi OS GNU/Linux:
 Ako vykonat upgrade balikov (Deb/Ubu): `$ sudo apt update -y && sudo apt upgrade -y`
 
 Ako vymazat nepotrebne baliky (Deb/Ubu), po overeni funkcnosti:
@@ -1348,7 +1035,324 @@ Testovanie BASH premennej s logickymi operatormi: `if [[ $vek -ge 0 ]] && [[ $ve
     # koniec skpritu
 ```
 
+#### Dalsie zdroje k zakladom BASH skriptov:
+ - napr. v knihe: `https://www.root.cz/knihy/bash-ocima-bohdana-milara/`
+ - pokrocilejsie skriptovanie, napr. v knihe: `https://tldp.org/LDP/abs/abs-guide.pdf`
+ - pripadne pozriet 11. kapitolu v knihe `How Linux Works by Brian Ward, ISBN-13: 9781718500402`
+
+Tip: Ako pomocou jazyka Awk vypisat deviaty stlpec z vypisu: `$ ls -l | awk '{print $9}'`
+
+Pozriet dalsi program na spracovanie textu: `$ man sed`
+
+Pozriet tematiku `BASH Subshell`
+
+#### Praca s prenosom suborov po sieti:
+
+Ako spustit jednoduchy HTTP server (Python modul) v danom adresary: `$ python3 -m http.server`
+ - standardne spusteny na TCP porte 8000, mozeme zmenit s: `$ python3 -m http.server 5000`
+ - na TCP porty nizsie ako 1024 su potrebne prava `superuser`:
+   - prikaz napr.: `$ sudo python3 -m http.server 80`
+ - na starsich instalaciach sa da pouzit Python2 modul: `$ python -m SimpleHTTPServer 5000`
+
+Na transfer suborov pomocou programu `rsync`, musi byt program instalovany **na oboch stranach**
+ - pre Debian based systemy `$ sudo apt install rsync`
+ - alebo pre Fedora Server: `$ sudo dnf install rsync`
+
+Zakladne pouzitie, skopirujeme 3 subory s diagnostikou: 
+ - prikaz napr.: `$ rsync -v ifPriklad.sh casePriklad.sh ashow.sh 192.168.1.245:`
+
+Ako kopirovat vsetky adresare `dirX` na stroj s DNS nazvom `ubu2.lab` do adresara `nas`:
+ - parameter `-a` umoznuje skopirovat nastavenia suborovych prav, nastavenie UID bitov a pod.
+ - teda pouzijeme prikaz: `$ rsync -va dir* ubu2.lab:nas`
+ - aby netrebalo zadavat SSH heslo, moze nahrat verejny kluc PKI: `$ ssh-copy-id userXYZ@ubu2.lab`
+ - ked chceme transfer/zalohu len otestovat, pouzijeme parameter `-n`:
+   - prikaz: `$ rsync -n -va dir* ubu2.lab:nas`
+
+**POZOR**, ak chceme v cieli vytvorit EXAKTNU kopiu lokalneho(ych) adresara(ov), ktora **ZMAZE** nove subory v cieli:
+
+ - pouzijeme: `$ rsync -va --delete dir* ubu2.lab:nas`
+ - diagnosticky parameter `-v` vypise, ktore subory v cieli boli vymazane
+
+Chceme kopirovat **LEN** obsah lokalneho adresara po sieti, dolezity znak `/`:
+ - prikaz: `$ rsync -av dir1/ ubu2.lab:`
+
+Ked chceme vynechat subor, specifikujeme absolutnu cestu: 
+ - prikaz: `$ rsync -av --exclude=dir1/junk.txt dir1 ubu2.lab:`
+
+Ked chceme prenos overit kontrolnym suctom, pouzijeme parameter `-c` alebo `--checksum`
+
+Pozriet v `$ man 1 rsync` dalsie parametre ohladom zalohovania: `-b`, `--suffix=.old` a `-u` 
+
+Ako obmedzit Bandwidth prenosu, napr. na **50MBytes/s** (cca 400Mbit/s):
+ - prikaz: `$ rsync -a --bwlimit=50000 same_nuly.txt ubu2.lab:`
+ - priklad ako vytvorit testovaci 1GiB subor: `$ dd if=/dev/zero of=same_nuly.txt bs=1024 count=1M`
+ 
+**Pripadne  pozriet dokumentaciu a manualy k projektu "Samba File/Printer Sharing"**
+ - nie je predmetom tejto skusky
+
+#### Praca s projektom SSHFS - SSH File System:
+
+Ako si pripojit vzdialny adresar cez SSH, napr.: `$ sshfs userABC@ubu2.lab:/mnt/lvnas1 sshnas.d/`
+ - kombinovatelne s PKI auth (prihlasovanie verejnym klucom)
+ - ako vykonat u-mount pripojeneho disku: `$ fusermount -u sshnas.d/`
+
+#### Praca s premennymi prostredia v interprete BASH:
+
+Premenne prostredia pre interpret BASH su definovane v **skrytych** suboroch: `.bash_profile`
+alebo `.profile`
+
+ - priklad na definiciu premennej shellu: `$ TEST=123`
+ - priklad na definiciu premennej prostredia: `$ export TESTENV=567`
+
+Dolezite adresare na spustanie binarnych aplikacii a skriptov su ulozene
+v premennej `$PATH`: `/usr/local/bin`, `/usr/bin` a `/bin`
+
+ - overime s prikazom: `$ echo $PATH`
+
+Tip: V definicii promptu, teda v premennej `$PS1` by sme sa mali vyhnut znakom: `{ } = & < >`
+ - dalsie detaily najdeme v manualy, v sekcii `PROMPTING` vid.: `$ man bash`
+
+### Zaklady prace s vyvojarskymi nastrojmi:
+
+#### Jednoduchy priklad na kompilaciu zdrojoveho kodu v jazyku "C", vytvorime subor `pokus.c`:
+
+    #include <stdio.h>
+
+    int main(void) {
+
+        printf("Hello, World.\n");
+    }
+
+- nasledne skompilujeme, treba nainstalovat dev. nastroje: `$ sudo apt install build-essential`
+- na kompilaciu pouzijeme program `cc`, teda "C Compiler": `$ cc pokus.c`
+- vystupom bude spustitelny binarny subor `a.out`, spustime: `$ ./a.out`
+- pri kompilacii mozeme specifikovat nazov vystupneho suboru: `$ cc -o pokus pokus.c`
+
+Tip: Ako vypisat zdielane kniznice, ktore ma nalinkovane dany program: `$ sudo ldd /usr/bin/bash`
+
+#### Jednoduchy priklad ako kompilovat zdrojove subory v kazyku "Java":
+
+Je potrebne nainstalovat vyvojarske nastroje: `$ sudo apt install default-jdk-headless`
+
+Vytvorime jednoduchy cvicny zdrojovy subor `pokus.java`:
+
+    class MyFirstProgram {
+
+        public static void main(String args[]){
+            System.out.println("Hello World!");
+        }
+    }
+
+ - program skompilujeme do tzv. "byte code" formatu s priponou `.class`: `$ javac pokus.java`
+ - vznikne bytecode subor `MyFirstProgram.class`, ktory spustime prikazom: `$ java MyFirstProgram`
+
+#### Ako kompilovat a instalovat distribuovane zdrojove baliky:
+ - na test si vytvorime adresar `test_coreutils` prikazom: `$ mkdir test_coreutils`
+ - do vytvoreneho adresara stiahneme zdrojovy balik:
+   - prikaz: `$ wget https://ftp.gnu.org/gnu/coreutils/coreutils-9.0.tar.gz`
+ - rozbalime zdrojovy archiv: `$ tar -xvzf coreutils-9.0.tar.gz`
+ - v rozbalenom adresary `coreutils-9.0` spustime konfiguracny "GNU Autoconf" skript `configure`
+ - tento skript konfiguruje parametre kompilacie a naslednej instalacie
+ - skript spustime s parametrom cieloveho adresara kompilacie a instalacie: 
+   - prikaz: `$ ./configure --prefix=$HOME/test_coreutils`
+ - nasledne po konfiguracii spustime v danom adresary kompilaciu: `$ make`
+ - skompilovane programy a binarne objekty najdeme v adresary `coreutils-9.0/src/`
+ - po kompilacii mozeme spustit rozsiahle overenie kompilacie: `$ make check`
+ - po kompilacii mozeme "na sucho / dry run" spustit test instalacie: `$ make -n install`
+ - po overeni mozeme spustit samotnu instalaciu: `$ make install`
+ - po instalacii v adresary `test_coreutils` vzniknu adresare `bin`, `libexec`, `share`
+ - na Debian-based distr. je nastroj na nastavenie parametrov `.deb` balickov `checkinstall`:
+   - prikaz: `$ sudo apt install checkinstall`
+ - **POZOR** na testovacej instalacii sa da spustit tvorba balicka: `$ sudo checkinstall make install`
+ - hore uvedenym prikazom sa da rozbit system, tak si treba na test VM spravit **snapshot/backup**
+
+### Praca s kontajnermi, zaklady prace s Docker-om:
+
+Instalacia najznamejsieho nastroja Docker nie je zlozita, ale ani trivialna, jeden z postupov:
+
+`https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04`
+
+Ako otestovat, instalaciu Docker-a a jeho pripojenie na Docker Hub: `$ docker run hello-world`
+
+Na zakladne vytvorenie Docker kontajneru je potrebne definovat Docker file, s nazvom `Dockerfile`:
+
+Tento Docker file je vhodne umiestnit do oddeleneho adresara.
+
+Obsah suboru moze byt podla jednoducheho prikladu, kedy definujeme kontajner systemu Alpine Linux:
+
+    FROM alpine:latest
+    RUN apk add bash
+    CMD ["/bin/bash"]
+
+- po ulozeni suboru, mozeme zostavit image nasledovne: `$ docker build -t alpine_test1 .`
+
+#### Zakladne prikazy pre nastroj Docker:
+
+Ako vypisat zakladne informacie o instalacii Docker a o systeme, na ktorom bezi: `$ docker info`
+
+Ako vypisat vytvorene Docker image: `$ docker images`
+
+Ako spustit kontajner (z image) a pripojit sa na jeho "konzolu": `$ docker run -it alpine_test1`
+
+Ako sledovat aktualnu alokaciu zdrojov: `$ docker stats`
+
+Ako vypisat zoznam aktivnych kontajnerov: `$ docker ps`
+
+Ako vypisat aktivne aj neaktivne kontajnery: `$ docker ps -a`
+
+Ako vypisat posledny vytvoreny kontajner: `$ docker ps -l`
+
+Ako zmazat neaktivny kontajner: `$ docker rm <ID/nazov>`
+
+Ako zmazat Docker image: `$ docker rmi <ID/nazov image>`
+
+Ako hladat image na Docker Hub-e: `$ docker search ubuntu`
+
+Ako stiahnut image z Docker Hub-u: `$ docker pull ubuntu`
+
+Ako zastavit kontajner: `$ docker stop <ID/nazov>`
+
+Ako spustit zastaveny kontajner: `$ docker start <ID/nazov>`
+
+Ako sa pripojit na "kozolu" kontajneru, ktory bezi: `$ docker attach <ID/nazov>`
+
+Ako sa odpojit od konzoly kontajnera, v terminale za sebou stlacime skratky: `Ctrl+p` a `Ctrl+q`
+
+#### Dalsie poznamky k zakladom prace s Docker-om:
+
+Jednoduche web prostredie na ucenie/testovanie Docker-u: `https://labs.play-with-docker.com/`
+ - dalsie informacie: `https://www.docker.com/play-with-docker`
+
+Priklad ako spustit v **sandboxe** web server `nginx`, zadame: `$ docker container run -d -it nginx`
+
+Pre pomoc s CLI, staci zadat prikaz bez parametrov, napr.: `$ docker container`
+
+Priklad ako vytvorit zmenu v Docker image a commitovat ju:
+- zadame : `$ docker commit -m "pridany nmap" -a "Jan Novak" <cont-ID> <hub-repoID>/moje-ubu:latest`
+
+ - nasledne overime s: `$ docker image ls`
+ - mozeme napr. z noveho image spustit container s: `$ docker container run -it ddnovak/moje-ubu`
+
+**POZOR**, prikaz vymaze **vsetky nebeziace** kontajnery: 
+ - prikaz: `$ docker container rm $(docker container ls -a -q)`
+ - pripadne, na **VLASTNE RIZIKO**, mozeme spustit s paramentrom `rm -f`
+
+Ako spustit testovaci webserver v kontajnery s nazvom `moj_lab` (vonkajsi port je **TCP/8080**):
+
+prikaz: `$ docker container run -d -p 8080:80 --name=moj_lab nginx`
+
+ - overime s: `$ docker ps`
+ - nasledne otestujeme pripojenie s browserom, alebo napr. `$ curl localhost:8080`
+ - dalsie informacie: `$ docker container run --help`
+ - alternativne, image s web serverom Apache2, nazov image zmenime na: `httpd`
+
+Ako vypisat otvorene TCP porty kontajnera: `$ docker container port <contID/contNAME>`
+
+Ako vypisat logy z kontajnera (napr. server nginx): `$ docker container logs <contID/contNAME>`
+ - sledovanie v realnom case, doplnime parameter: `logs -f`
+
+Ako sledovat zdroje konkretneho kontajnera: `$ docker container stats <contID/contNAME>`
+
+Ako vypisat detailne informacie o kontajnery: `$ docker container inspect <contID/contNAME>`
+
+Ako spustit kontajner, hned s prikazovym riadkom: 
+
+prikaz: `$ docker container run --name=ubu-con1 -it ubuntu`
+ - alebo, spustime interaktivny BASH na uz vytvorenom kontajnery: `$ docker exec -it ubu-con1 bash`
+ - alebo, spustime (zastaveny) kontajner v interaktivnom mode: `$ docker start -i ubu-con1`
+
+Ako vypisat kolko miesta na disku zaberaju kontajnery: `$ docker ps -as`
+
+Ako vytvorit perzistentne ulozisko pre kontajner **Docker Volume**: `$ docker volume create <nazov>`
+ - overime s `$ docker volume ls`
+ - dalsie informacie: `$ docker volume --help`
+
+Ako vytvorit **nginx** kontajner s namapovanyn **volume**:
+
+prikaz: `$ docker run -d --name moja_web_app -p 80:80 -v <nazov_vol>:/usr/share/nginx/html nginx`
+ 
+- mozeme manipulovat s obsahom **web root** adresara v: `/var/lib/docker/volumes/mojvol/_data/`
+- priklad: `$ sudo cp /etc/services /var/lib/docker/volumes/mojvol/_data/index.html`
+- overime napr. s: `$ curl localhost:80`
+
+Poznamka, ak chceme vymazat Docker image, treba najskor pomazat z neho vytvorene kontajnery.
+
+**POZOR**, automaticky nastroj na cistenie tzv. **dangling** Docker image-ov: `$ docker system prune`
+ - dalsie informacie: `$ docker system prune --help`
+ - celkom uzitocna diagnostika zabrateho miesta: `$ docker system df`
+
+### Praca s nastrojom Git a platformou GitHub:
+
+Vytvorime adresar `git_ucenie`, v ktorom inicializujeme **lokalny** Git repozitar: `$ git init`
+ - aktualny stav repozitara overime s: `$ git status`
+ - nastavime identitu uzivatela na pridavanie zmien: `$ git config --global --edit`
+ - vytvorime cvicny subor, napr. `poznamky.txt`
+   - do suboru napiseme `moja prva poznamka`, subor ulozime
+ - nasledne subor pridame do *Staging Cache* repozitara: `$ git add poznamky.txt`
+ - overime s: `$ git status`
+ - dalej pridame do **lokalneho** repo. novu zmenu, teda **commit** s popisom/spravou: 
+
+   - prikaz: `$ git commit -m 'vytvoril som subor poznamky.txt a pridal 1. riadok'`
+
+ - dalej upravime subor `poznamky.txt`, pridame riadok `dalsi riadok s poznamkou`
+ - subor ulozime a overime stav **lokalneho** repo.: `$ git status`
+ - podla vypisu je potrebne pridat upraveny subor do **Staging Cache**: `$ git add poznamky.txt`
+ - jednoduchsie mozeme pridat vsetky subory v danom adresary repozitara: `$ git add .`
+ - aby sme sa vyhli pridavaniu suborov, ktore nechceme pridat do Staging Cache,
+   vytvorime subor `.gitignore`
+ - na ignorovanie tzv. **.dotfiles**, do suboru mozeme zapisat napr. riadok `.*`
+ - ak chceme odstranit subor z Cache, pouzijeme: `$ git rm --cached <nazov_suboru>`
+ - pridame novu zmenu: `$ git commit -m 'pridal som dalsi riadok'`
+
+Chceme napr. zmenit format zapisu poznamok, mozeme vytvorit novu vetvu, **branch**:
+ - prikaz:  `$ git checkout -b 'novy_format'`
+ - v novej vetve napr. vytvorime subor `poznamky_novy_format.txt` a ten pridat do Cache a commit.
+   - ^^ avsak uz do **novej vetvy/branch** s nazvom `novy_format`
+ - overime s: `$ git status`
+ - potom sa mozeme prepinat medzi vetvami, napr. sa vratit do hlavnej **master** vetvy:
+   - prikaz: `$ git checkout master`
+ - overime s: `$ git status`
+
+#### Ako replikovat lokalny Git repozitar na vzdialeny server, napr. na GitHub:
+
+- na platforme `github.com` si vytvorime uzivatelsky ucet
+- je potrebne vytvorit si autentifikacny Token, tzv. **Personal Access Token**, podla odkazu:
+
+`https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token`
+
+- vytvoreny Token **nezabudame/nezatvarame**
+- dalej vytvorime repozitar s nazvom `git_ucenie`, portal GitHub nam vygeneruje zakladne prikazy
+- dalej si vytvorime vzdialeny pristup na repo., tzv. **Remote**: 
+  - prikaz: `$ git remote add origin https://github.com/<UZIVATEL>/git_ucenie.git`
+- nasledne zosynchronizujeme kolakny repo. so vzdialenym repo.: `$ git push -u origin master`
+- na autentifikaciu zadame svoje uziv. meno, ale **namiesto hesla zadame vygenerovany PAT Token**
+
+Na ulahcenie prace si mozeme pridat do svojho `$HOME` adresara, do suboru `.gitconfig` aliasy, napr.:
+
+    #
+    [alias]
+        s = status
+        co = checkout
+        cob = checkout -b
+        save = !git add -A && git commit -m 'Nic zasadne: len ukladam pripisany text'
+        lg = !git log --pretty=format:\"%C(magenta)%h%Creset -%C(red)%d%Creset %s %C(dim green)(%cr) [%an]\" --abbrev-commit -30
+        undo = reset HEAD~1 --mixed
+        strom = !git log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C$
+
+Naslendne uz mozeme pouzivat napr. aliasy:
+
+    $ git s
+    $ git save
+    $ git lg
+    $ git strom
+
 ### Zaklady bezpecnosti v operacnom systeme GNU/Linux:
+
+Poznamka: Dva webove zdroje s informaciami k typom a kategoriam utokov:
+
+`https://www.nsa.gov/Press-Room/Cybersecurity-Advisories-Guidance/`
+
+`https://attack.mitre.org/`
 
 #### Nastroj na ochranu/kontrolu integrity suborov a adresarov: **AIDE**
 
@@ -3413,11 +3417,6 @@ Projekt OpenNebula kombinuje virtualizaciu a kontajnery na budovanie multi-tenan
  - dalsie informacie napr.: https://opennebula.io
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Poznamka k bezpecnosti systemov, dva webove zdroje s info. k typom a kategoriam utokov:
-
-https://www.nsa.gov/Press-Room/Cybersecurity-Advisories-Guidance/
-
-https://attack.mitre.org/
 
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 Ako vypisat vsetky ".dotfile" a ".dotdirectory": $ ls -ld .??*
