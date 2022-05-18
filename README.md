@@ -1888,7 +1888,7 @@ Na vytvorenie **mount-pointu** po reboote si zistime `UUID` particie napr. s: `$
 Po reboote systemu mozeme overit napr. s: `$ sudo mount | grep san1` alebo prikazom: `$ sudo lsblk`
  - alebo napr. s: `$ sudo ls -l /dev/disk/by-path/`
 
-Poznamka, ak je potrebne, je mozne **discovered** targety vymazat, alebo docasne odhlasit:
+Poznamka: Ak je potrebne, je mozne **discovered** targety vymazat, alebo docasne odhlasit:
  - vymazeme: `$ sudo iscsiadm -m node -T iqn.2022-03.lpic3.suse1:www.target01 -o delete`
  - odhlasime: `$ sudo iscsiadm -m node -T iqn.2022-03.lpic3.suse1:www.target01 -u`
    - po ukonceni cinnosti sa da znova pripojit restartom sluzieb `iscsi` a `iscsid`
@@ -1903,7 +1903,7 @@ Poznamka: V OS OpenSUSE Leap sa da pouzit na konf. iSCSI Initatora TUI nastroj: 
 
 Na pracu s HA-lusterom je vhodne mat **DNS zaznami typu A/PTR uzlov**, pripadne zaznami v `/etc/hosts`
 
-Trocha teorie: CIB - Cluster Information Base: Stav cluster-a v pamati
+#### Trocha teorie: CIB - Cluster Information Base: Stav cluster-a v pamati
  - ako kopia existuje na kazdom uzle, subor sa NESMIE rucne upravovat
  - na spravu CIB sa pouziva nastroj "cibadmin", napr. vypis databazy: $ sudo cibadmin -Q | less
  - proces Cluster Resource Management Daemon "crmd" umoznuje prsitup k tejto databaze
