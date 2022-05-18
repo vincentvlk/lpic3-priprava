@@ -1667,14 +1667,15 @@ Tip: Ako zistit, svoju verejnu IP, napr.: `$ curl ifconfig.me`, `$ curl -4 ident
 ```
  - ulozime a otvorime v prehliadaci, napr.: `www.priklad.xyz/test.php`
 
-#### Ako zapnut v Apache2 modul na kompresiu posielaneho obsahu: $ sudo a2enmod deflate
+#### Ako zapnut v Apache2 modul na kompresiu posielaneho obsahu:
+ - aktivujeme modul: `$ sudo a2enmod deflate`
  - dalej mozeme upravit konf. subor `/etc/apache2/mods-enabled/deflate.conf`:
  - medzi tag-y `<IfModule mod_filter.c>` a `</IfModule>` vlozime `DeflateCompressionLevel 7`
    - napr. tato direktiva zvysi uroven kompresie z predvoleneho stupna `6` na `7` 
    - vyssia kompresia prenasa menej dat, ale zvysuje naroky na CPU, rozsah je **1 az 10**
 
-#### Ako zapnut vstavane monitorovanie servera Apache2, zapneme modul:
- - prikaz: `$ sudo a2enmod status`
+#### Ako zapnut vstavane monitorovanie servera Apache2:
+ - aktivujeme modul: `$ sudo a2enmod status`
  - dalej upravime konfiguraciu v subore: `/etc/apache2/mods-available/status.conf`
    - v sekcii medzi `<Location /server-status>` a `</Location>` pridame napr. riadok:
  
@@ -1705,7 +1706,6 @@ Tip: Ako vypnut **podpis** servera, napr.: `Apache/2.4.41 (Ubuntu) Server at 192
  - je este vhodne zmenit `ServerTokens OS` na `ServerTokens Prod` a restartovat Apache2
 
 ### Zaklady prace s autmatizacnym nastrojom Ansible:
-
 Ako programom **Ansible** nainstalovat program `nmap` pomocou systemu **APT**:
  - instalujeme balik `ansible`, zadame: `$ sudo apt install ansible`
  - vytvorime si `inventar` zariadeni, napr. vytvorime subor `hosts`, kde napr. vlozime:
@@ -1729,7 +1729,6 @@ Tip: Na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-
  - pripadne sa mozu zvazit suborove **ACLka**
 
 ### Zaklady prace s balickovacim systemom "Zypper" v systeme OpenSUSE Leap:
-
  - aktualizacia DB balickov: `$ sudo zypper refresh`
  - instalacia aktualizacii: `$ sudo zypper update`
  - instalacia balicka `nmap`, bez dotazov: `$ sudo zypper install --no-confirm nmap`
