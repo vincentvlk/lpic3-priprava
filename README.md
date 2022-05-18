@@ -2099,46 +2099,46 @@ Poznamka: Ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
    - typ `Multi State (Master/Slave)` - zdroje bezia v hierarchii, priklad je **DRBD**
    - typ `Group` - skupina zdrojov, teda skupina `Primitives` a `Clones`, napr. **HA Webserver**
      - umoznuje definovat **obmedzenia zdrojov/Resource constraints**, ktore poskytuje cluster
- - pojem "Resource Stickines" definuje, kam sa ma "rozbehnut" zdroj po obnove z fail situacie
- - ako hladat urcity "Resource script" na disku, napr. "IPaddr2": $ sudo find / -name IPaddr2
- - nastrojom "crm" mozeme otvorit interaktivny "Cluster Management" shell: $ sudo crm
-   - definovane zdroje vypiseme s "crm(live/suse1)# resource status" alebo: $ sudo crm_mon 
+ - pojem **Resource Stickines** definuje, **kde sa ma rozbehnut** zdroj po obnove z fail situacie
+ - ako hladat urcity **Resource script** na disku, napr. **IPaddr2**, prikaz: `$ sudo find / -name IPaddr2`
+ - nastrojom `crm` mozeme otvorit interaktivny **Cluster Management** shell: `$ sudo crm`
+   - definovane zdroje vypiseme s `crm(live/suse1)# resource status` alebo s: `$ sudo crm_mon`
  
-Praca s "Resource constraints", rozdelujeme na typy: Location, Colocation, Order
- - typ "Location" - na ktorom uzle ma "bezat" dany zdroj/resource, preferencia uzla
- - typ "Colocation" - s ktorym dalsim zdrojom, ma/nema bezat dany zdroj
- - typ "Order" - pred, ktorym alebo za ktorym zdrojom ma dany zdroj "bezat"
- - prikazy "$ sudo crm migrate" a "$ sudo resource move", prikazu obmedzenia danemu zdroju
-   - prikazmi "$ sudo crm unmigrate" resp. "$ sudo resource clear" tieto obmedzenia odstranime
- - pomocou nastroja "crm" mozeme vypisat stav riadenia obmedzeni: $ sudo crm_simulate -sL
- - doporuceny dizaj je vsak pouzivat koncept "Resource Groups"
+#### Praca s "Resource constraints", rozdelujeme na typy: `Location`, `Colocation` a `Order`:
+ - typ `Location` - na ktorom uzle ma **bezat** dany zdroj/resource, preferencia uzla
+ - typ `Colocation` - s ktorym dalsim zdrojom, ma/nema bezat dany zdroj
+ - typ `Order` - pred ktorym alebo za ktorym zdrojom ma dany zdroj **bezat**
+ - prikazy `$ sudo crm migrate` a `$ sudo crm resource move`, prikazu obmedzenia danemu zdroju
+   - prikazmi `$ sudo crm unmigrate` resp. `$ sudo crm resource clear` tieto obmedzenia odstranime
+ - pomocou nastroja `crm` mozeme vypisat stav riadenia obmedzeni: `$ sudo crm_simulate -sL`
+ - doporuceny dizaj je vsak pouzivat koncept **Resource Groups**
 
-Praca s cluster obmedzeniami pomocou konceptu "Resource Groups":
+#### Praca s cluster obmedzeniami pomocou konceptu "Resource Groups":
  - doporucuje sa vytvarat obmedzenia na skupiny/groups pre jednoduchsiu spravu zdrojov
- - napr. vytvorime dva "IPaddr2" zdroje, ktore zaradime do skupiny "IPgroup":
-   - prikaz: $ sudo pcs resource create ip1 IPaddr2 ip=10.0.0.1 cidr_netmask=24 --group IPgroup
-   - prikaz: $ sudo pcs resource create ip2 IPaddr2 ip=10.0.0.2 cidr_netmask=24 --group IPgroup
-   - vzniknutu skupinu zdrojov overime prikazom: # sudo pcs status
+ - napr. vytvorime dva `IPaddr2` zdroje, ktore zaradime do skupiny `IPgroup`:
+   - prikaz: `$ sudo pcs resource create ip1 IPaddr2 ip=10.0.0.1 cidr_netmask=24 --group IPgroup`
+   - prikaz: `$ sudo pcs resource create ip2 IPaddr2 ip=10.0.0.2 cidr_netmask=24 --group IPgroup`
+   - vzniknutu skupinu zdrojov overime prikazom: `$ sudo pcs status`
 
- - postup zaradovania zdrojov do skupiny pomocou nastroja "crm":
- - otvorime konfiguraciu clustera s: $ sudo crm configure edit
- - pridame riadok, ktory 2 (existujuce) IP zdroje "admin-ip" a "dalsiaIP" zaradi do group "IPgroup"
+ - postup zaradovania zdrojov do skupiny pomocou nastroja `crm`:
+ - otvorime konfiguraciu clustera s: `$ sudo crm configure edit`
+ - pridame riadok, ktory dva (existujuce) IP zdroje `admin-ip` a `dalsiaIP` zaradi do group `IPgroup`
 
     group IPgroup admin-ip dalsiaIP
+ - subor ulozime a overime, napr. prikazom: `$ sudo crm_mon`
 
- - subor ulozime a overime napr. prikazom: $ sudo crm_mon
+Ako na **troubleshooting**, teda hladanie a riesenie problemov s "Resource Groups":
+ - nastrojom `pcs` overime stav clustra: `$ sudo pcs status`
+ - dalej mozeme skontrolovat log `/var/log/messages` alebo s `$ sudo journalctl`
+   - v programe `journalctl` sa klavesovou skratkou `Shift + g` resp. `G` prepnema na koniec logu
 
-Praca s konceptom "Resource Clones", umoznuje bezat primitivy alebo skupiny na viacerych uzloch
+#### Praca s konceptom "Resource Clones", umoznuje bezat primitivy alebo skupiny na viacerych uzloch:
  - pocet klonov byva zvycajne rovnaky ako pocet uzlov, ale moze sa obmedzit pocet klonov
  - typicky sa pouziva nastavenie "interleave=true", ktore umoznuje bezat ostatne klony nezavisle
    - napr. ked sa jeden z klonov zruti
 
-Ako na "troubleshooting", teda hladanie a riesenie problemov s "Resource Groups":
- - nastrojom "pcs" overime stav clustra: $ sudo pcs status
- - dalej mozeme skontrolovat log "/var/log/messages" alebo s "$ sudo journalctl"
-   - v programe "journalctl" sa klavesovou skratkou "Shift + g" resp. "G" prepnema na koniec logu
 
-Priklad ako vytvorit FTP server "resource" pomocou "pcs":
+#### Priklad ako vytvorit Cluster s FTP server "resource" pomocou `pcs`:
  - najskor na vsetkych uzloch instalujeme FTP server: $ sudo dnf -y in vsftpd
  - aktivujeme na uzloch FTP server: $ sudo systemctl enable vsftpd && sudo systemctl start vsftpd
  - potom pomocou nastroja "pcs" vytvorime 2 zdroje a zaradime ich to skupiny "ftp-service":
