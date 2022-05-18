@@ -962,7 +962,7 @@ Naslendne uz mozeme pouzivat napr. aliasy:
     $ git lg
     $ git strom
 
-### Dalsie zaklady prace v BASH terminale/interprete:
+### Dalsie poznamky k zakladom prace v BASH terminale/interprete a prostredi OS GNU/Linux:
 
 Ako vykonat upgrade balikov (Deb/Ubu): `$ sudo apt update -y && sudo apt upgrade -y`
 
@@ -1041,7 +1041,7 @@ Ako naist a vypisat objekty s viac ako 1 hardlinkom: `$ find /var/ -links +1 -ls
 
 Ako presuvat len aktualnejsie alebo chybajuce subory: `$ mv -u <zdroj> <ciel>`
 
-Quiz:
+*Quiz:*
 V adresary `/home/student/` vytvori uzivatel `root` subor `a.txt`, moze ho uzivatel `student` vymazat?
 
 Prikaz najde **chybove** hlasky v Syslogu: `$ grep -win error /var/log/syslog`
@@ -1083,7 +1083,7 @@ Nastroj `nstat` doplna sietovu diagnostiku kernelu, je z balika `iproute2`
 
 Ako overit, ci kernel kvoli teplote nepodtaktoval jadra CPU: `$ sudo dmesg | grep "cpu clock"`
 
-Quiz:
+*Quiz:*
 Ak nastavime na subor prava `$ chmod 000 subor.txt`, moze ho niekto citat/upravovat?
 
 Hesla ulozene (Ubu 20.04) v subore `/etc/shadow` su vo formate: `$id$salt$hash`
@@ -1348,9 +1348,9 @@ Testovanie BASH premennej s logickymi operatormi: `if [[ $vek -ge 0 ]] && [[ $ve
     # koniec skpritu
 ```
 
-### Zaklady bezpecnosti v operacnom systeme **GNU/Linux**:
+### Zaklady bezpecnosti v operacnom systeme GNU/Linux:
 
-#### Nastroj na ochranu integrity suborov a adresarov: **AIDE**
+#### Nastroj na ochranu/kontrolu integrity suborov a adresarov: **AIDE**
 
 Instalacia: `$ sudp apt install aide`
  
@@ -1380,7 +1380,7 @@ Instalacia: `$ sudp apt install aide`
  - a nasledne inicializujeme s novou databazou: `$ sudo aideinit`
  - dalej je mozne vytvorit si vlastny config a vlastne pravidla, navody existuju ;-)
 
-#### Na overovanie bezpecnosti hesla, mozeme pouzit nastroj: **John the Ripper**
+#### Na overovanie bezpecnosti hesla mozeme pouzit nastroj: **John the Ripper**
 
  - instalacia na Ubu/Deb: `$ sudo apt install john`
  - zlucime `/etc/passwd` a `/etc/shadow` prikazom: `$ sudo unshadow /etc/passwd /etc/shadow > unshadow.out.txt`
@@ -1418,7 +1418,6 @@ Ako nastavit cas expiracie hesla na 30 dni: `$ sudo chage -M 30 <uzivatel>`
    - na **RedHat-based** distribuciach sa pouziva konf. subor: `/etc/pam.d/system-auth`
 
 #### Ako vytvorit sifrovanu particiu na HDD/SSD
-
 - je potrebne nainstalovat: `$ sudo apt install cryptsetup`
  - disk, ktory chceme sifrovat, musi byt **unmounted**
  - dalej spustime sifrovanie a nastavime kluc/heslo: `$ sudo cryptsetup -y -v luksFormat /dev/sdX`
@@ -1432,8 +1431,7 @@ Ako nastavit cas expiracie hesla na 30 dni: `$ sudo chage -M 30 <uzivatel>`
  - nova uloha: `$ sudo cryptsetup luksOpen /dev/sdb crypt1`
    - nasledne: `$ sudo mount /dev/mapper/crypt1 /mnt/crypt1/`
 
-#### Zaklady prace s nastrojom **sudo**: 
-
+#### Zaklady prace s nastrojom `sudo`: 
  - relacia vytvorena prikazom `sudo` ma pristupove prava v `cache` presne 15 min
  - cache sa da zmanzat s: `$ sudo -k`
  - toto nastavenie mozeme zmenit, napr. na 10 min., otvorime konfiguraciu `sudoers`, zadame: `$ sudo visudo`
@@ -1462,7 +1460,6 @@ Aliasu `ADMINS` priradime povoleny prikaz `/user/bin/netstat` + alias prikazov `
  - informacie o programe: `$ man steghide`
 
 #### Dalsie priklady prace s uzivatelskymi uctami:
- 
 Ako docasne deaktivovat **password-auth** pre daneho uzivatela: `$ sudo passwd -l <uzivatel>`
  - overime s: `$ sudo passwd --status <uzivatel>`
    - vo vypise znak `L` znamena **Locked**, dalej `P` = Valid Password, `NP` = No Password
@@ -1473,7 +1470,6 @@ Ako docasne deaktivovat **password-auth** pre daneho uzivatela: `$ sudo passwd -
  - znova **aktivujeme** s: `$ sudo usermod --expiredate "" <uzivatel>`
 
 #### Zaklady prace s programom `nmap`:
-
 Ako s Nmap TCP skenovanim "odhadnut" verziu OS a programov: `$ sudo nmap -A -Pn -sV 192.168.1.100`
  - parameter `-Pn` zabezpeci, ze sa nepouzije **ping-check**, nmap pokracuje aj ked sa ICMP pakety zahadzuju
  - **SEDA ZONA:** mozeme pouzit tzv. **Decoys**, napr.: `$ sudo nmap 192.168.1.2 -D A.B.C.D,E.F.G.H,I.J.K.L`
@@ -1482,7 +1478,7 @@ Ako s Nmap TCP skenovanim "odhadnut" verziu OS a programov: `$ sudo nmap -A -Pn 
    - napr: `$ sudo nmap -sV -iL hosts.txt -n -oN output.txt`
  - program `nmap` pouziva koncept **Templates**, dalsie info v `$ man nmap`, vyhladat parameter: `-T`
 
-#### Nastroj na detekciu tzv. **Rootkit-ov**
+#### Nastroj na detekciu tzv. Rootkit-ov
  - instalujeme: `$ sudo apt install rkhunter`
  - nasledne aktualizujeme **file-DB**, zadame: `$ sudo rkhunter --propupd`
  - dalej spustime samotne skenovanie: `$ sudo rkhunter --check`
@@ -1498,8 +1494,7 @@ Dalsi nastroj na **Rootkit** detekciu je `chkrootkit`
  - jednoduche spustenie: `$ sudo chkrootkit`
    - podobne sa da spustit, len vypise **Warnings**, prikaz: `$ sudo chkrootkit -q`
 
-#### Ako hladat/mazat virusy, pouzijeme nastroj **Clam-AV**
-
+#### Ako hladat/mazat virusy, pouzijeme projekt **Clam-AV**
  - instalujeme: `$ sudo apt install clamav clamav-daemon`
  - dolezite komponenty: `$ man clamd`, `$ man clamdscan`, `$ man clamscan` (pouziva vlastnu **Virus-DB**)
  - nastroj na aktualizaciu **Virus-DB**, informacie: `$ man freshclam`
@@ -1521,8 +1516,7 @@ Dalsi nastroj na **Rootkit** detekciu je `chkrootkit`
    - **POZOR**, automaticke mazanie: `$ sudo clamscan --infected --remove --recursive /home`
    - pre Linux-ove distribucie existuje aj GUI rozhranie **ClamTk**, instalujeme: `$ sudo apt install clamtk`
 
-#### Ako na zabezpecnie zavadzaca "GRUB2":
-
+#### Ako na zabezpecnie zavadzaca **GRUB2**:
  - vytvorime heslo: `$ sudo grub-mkpasswd-pbkdf2`
  - dalej upravime subor `/etc/grub.d/40_custom` pridame riadky, vygenerovany HASH, od slova `grub`
 ```
@@ -1532,7 +1526,6 @@ Dalsi nastroj na **Rootkit** detekciu je `chkrootkit`
  - nasledne ulozime a spustime skript na generovanie konfiguracie: `$ sudo update-grub2`
 
 #### Zabezpecenie servera **OpenSSH**:
-
 - hlavna konfiguracia je ulozena v subore: `/etc/ssh/sshd_config`
 - rozsiahly zdroj informacii: `$ man sshd_config`
 - zvazit zmenu pocuvajuceho TCP portu, upravime riadok `#Port 22` na `Port 5022`
@@ -1543,8 +1536,7 @@ Dalsi nastroj na **Rootkit** detekciu je `chkrootkit`
 - maximalny pocet pokusov pri zadavani hesla, zmenime: `#MaxAuthTries 6` na `MaxAuthTries 3`
 - dalej pozriet v `$ man sshd_config` parametre: `MaxStartups` a `LoginGracetime`
 
-#### Ako zabranit tzv. "Fork bomb-am"
-
+#### Ako zabranit tzv. "Fork bomb-am":
 - je potrebne overit pocet spustitelnych procesov, skontrolujeme povolnene mznostvo: `$ ulimit -u`
 - do suboru `/etc/security/limits.conf` pridame tieto riadky:
     ```
@@ -1562,7 +1554,7 @@ Dalsi nastroj na **Rootkit** detekciu je `chkrootkit`
 
  - dalsie informacie napr. v: `$ man limits.conf`
 
-#### Ako zasifrovat subor s citlivymi udajmi pomocou GNU-Pg
+#### Ako zasifrovat subor s citlivymi udajmi pomocou projektu **GNU-PG**:
 
 - prikaz: `$ gpg -c povodny.txt`
 - vznikne sifrovany subor `povodny.txt.gpg`, ktory napr. premenujeme na `sprava.dat` a posleme
@@ -1572,9 +1564,8 @@ Dalsi nastroj na **Rootkit** detekciu je `chkrootkit`
 - dalsie informacie napr. v: `$ man gpg` alebo `$ gpg --help`
 
 ### Zaklady prace s DNS serverom BIND 9:
-
 - instalujeme: `$ sudo apt install bind9 bind9-utils bind9-doc`
-- dalsie implementacie autoritativnych DNS serverov: `Knot DNS`, `Dnsmasq`, `PowerDNS`, ...
+- dalsie implementacie autoritativnych DNS serverov: `Knot DNS`, `DNSmasq`, `PowerDNS`, ...
 - standardna `bind9` Ubu/Deb instalacia spusti **Cache-only** server, pocuva na IPv4 aj IPv6
 - ak to chceme zmenit, upravime `/etc/default/named`, do riadku `OPTIONS="-u bind"`, pridame parameter `-4` alebo `-6`, vzajomne sa vylucuju
 - hlavna konfiguracia DNS servera **BIND9** je v subore `/etc/bind/named.conf`
