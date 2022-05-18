@@ -2347,9 +2347,9 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
  - tieto zariadenia su dostupne ako "/dev/mapper/mpathX" , "/dev/mapper/mpathX" a pod.
 - Poznamka: Alternativy k systemu CentOS: `CentOS Stream`, `Alma Linux`, `Rocky Linux`, `Oracle Linux`
 
-
-Zaklady prace so suborovym systemom GFS2 (Global File System)
-----------
+Zaklady prace so *Storage* rieseniami v Cluster prostredi na OS GNU/Linux
+----------------
+### Zaklady prace so suborovym systemom GFS2 (Global File System)
 #### Priprava: Zaklady prace s LVM v Cluster prostredi:
 - logicke LV particie sa zvycajne mapuju napr. ako: /dev/mapper/ubuntu--vg-ubuntu--lv"
 - kde je teda VG (Volume Group) sa nazvom "ubuntu" a LV (Logical Volume) s nazvom "ubuntu" 
