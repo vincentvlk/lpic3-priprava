@@ -2346,59 +2346,32 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
  - stav dostupnych multipath zariadeni overime s: $ sudo multipath -ll
  - tieto zariadenia su dostupne ako "/dev/mapper/mpathX" , "/dev/mapper/mpathX" a pod.
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Praca s LVM, logicke LV particie sa zvycajne mapuju napr. ako: "/dev/mapper/ubuntu--vg-ubuntu--lv"
- - kde je teda VG (Volume Group) sa nazvom "ubuntu" a LV (Logical Volume) s nazvom "ubuntu" 
-   - je to symbolicky link
- - LVM (Logical Volume Management) je spravuje procesom "Device Mapper", konf.: "/etc/lvm/lvm.conf"
-   - dalsie informacie v $ man lvm.conf
- - rozsirenie cLVM je pre koncept "Clustered LVM", umoznuje vytvorit tzv. "Cluster Sharede Volume"
- - rozsirenie HALVM je dostupne na RedHat based systemoch, zabranuje sucasnemu zapisu 2 uzlov
- - dolezity proces "clvmd" sluzi na propagaciu zmien dalsim uzlom, novsi proces ako HALVM
-   - dalsou poziadavkou je DLM - Distributed Lock Manager, znamy aj pod nazvom "controld"
- - v cLVM su vsetky VG a LV na zdielanom storage su *stale* dostupne *vsetkym* uzlom
-   - vhodne na Cluster Suborove systemy ako je napr. GFS2
- - v HALVM su VG a LV dostupne v danom case len *jednemu* uzlu z clustera, vhodne na ext4,xfs,btrfs
-   - na riadenie dostupnosti particii, pre dany uzol, sa vyuziva "Volume Tagging", pre RedHat b.
- - alternativa HALVM mimo RedHat systemov je "exclusive LVM"
+#### Doplnenie: Zaklady prace s LVM v Cluster prostredi:
+- logicke LV particie sa zvycajne mapuju napr. ako: /dev/mapper/ubuntu--vg-ubuntu--lv"
+- kde je teda VG (Volume Group) sa nazvom "ubuntu" a LV (Logical Volume) s nazvom "ubuntu" 
+  - je to symbolicky link
+- LVM (Logical Volume Management) je spravuje procesom "Device Mapper", konf.: "/etc/lvm/lvm.conf"
+  - dalsie informacie v $ man lvm.conf
+- rozsirenie cLVM je pre koncept "Clustered LVM", umoznuje vytvorit tzv. "Cluster Sharede Volume"
+- rozsirenie HALVM je dostupne na RedHat based systemoch, zabranuje sucasnemu zapisu 2 uzlov
+- dolezity proces "clvmd" sluzi na propagaciu zmien dalsim uzlom, novsi proces ako HALVM
+  - dalsou poziadavkou je DLM - Distributed Lock Manager, znamy aj pod nazvom "controld"
+- v cLVM su vsetky VG a LV na zdielanom storage su *stale* dostupne *vsetkym* uzlom
+  - vhodne na Cluster Suborove systemy ako je napr. GFS2
+- v HALVM su VG a LV dostupne v danom case len *jednemu* uzlu z clustera, vhodne na ext4,xfs,btrfs
+  - na riadenie dostupnosti particii, pre dany uzol, sa vyuziva "Volume Tagging", pre RedHat b.
+- alternativa HALVM mimo RedHat systemov je "exclusive LVM"
 
- - Zjednoduseny postup ako vytvorit HALVM cluster, na uzloch s CentOS 9 Stream, na kazom uzle:
+### Zaklady prace so suborovym systemom GFS2 (Global File System)
+- rezim active/active, zhoda s normou POSIX - Portable Operating System Interface
+- pracuje *len* v cluster rieseni
+- kazdy uzol ma svoj vlastny FS journal
+- ostatne uzly clustra zreplikuju journal uzla, ktory zlyhava, po aplikovani Fencing-u
+- su potrebne technologie DLM a cLVM na koordinaciu zamykania suborov (file locking)
+- maximalna podporovana kapacita je 100TiB (nemam zatial overene)
 
-    $ sudo pvcreate /dev/nvme0n2
-    $ sudo vgcreate vghalvm /dev/nvme0n2
-    $ sudo lvcreate -L 2G -n lvhalvm vghalvm
-    $ sudo mkfs.xfs /dev/vghalvm/lvhalvm
-
- - overime s: $ sudo lvs
- - nasledne upravime subor "/etc/lvm/lvm.conf" 
-
-    locking_type = 1
-
- - tento paramter sa vklada do konf. sekcie "global"
-
-    volume_list = [ cs ]
-
- - parameter tohto riadka ziskame z prikaz $ sudo vgs
-
- - dalej vytvorime novy InitRAM-FS: $ sudo dracut -H -f /boot/initramfs-$(uname -r).img $(uname -r)
-   - na vsetkych uzloch 
- - nasledne restartujeme uzly: $ sudo reboot
- - po reboote: $ sudo pcs resource 
-
-**Zasekol som sa, na novych distrach exsituju nove tooly/postupy/kniznice, ktore zatial nepoznam**
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
-Praca so suborovym systemom GFS2 (Global File System), rezim active/active, zhoda s POSIX-om
- - pracuje len v cluster rieseni
- - kazdy uzol ma svoj vlastny FS journal
- - ostatne uzly clustra zreplikuju journal uzla, ktory zlyhava, po aplikovani Fencing-u
- - su potrebne technologie DLM a cLVM na koordinaciu zamykania suborov (file locking)
- - maximalna podporovana kapacita je 100TiB (namam zatial overene)
-
-- treba vytvorit minimalne 2 LUNy, jeden maly (1 MB) a druhy na storage napr. 10GB
-
-$ sudo iscsiadm -m node --rescan
-
+#### Priprava pred instalaciou
+- treba vytvorit minimalne 2 LUNy, jeden maly (1 MB) na Fencing a druhy na storage napr. 10GB
 - ako vypisat dostupne repozitare: $ sudo dnf repolist all 
 
 - verzia pre CentOS 9 Stream:
@@ -2512,7 +2485,7 @@ Pacemaker/Corosync (Unicast) WebServer Cluster na OS "Rocky Linux 8.5":
    - overime s "$ sudo pcs status --full" a s "$ sudo pcs status corosync"
  
  - odbocka: da sa pouzivat aj Web rozhranie na pracu Pacamaker clustra:
-   - povolime na fwl.: firewall-cmd --add-port=2224/tcp --permanent  
+   - povolime na fwl.: firewall-cmd --add-port=2224/tcp --permanent 
    - nezabudnut na: $ sudo firewall-cmd --reload
    - pripojime sa na "https://nodeX:2224" a prihlasime sa s uzivatelom "hacluster"
  
@@ -2522,14 +2495,14 @@ Pacemaker/Corosync (Unicast) WebServer Cluster na OS "Rocky Linux 8.5":
  - Fencing/STONITH je rieseny cez iSCSI LUN, staci maly, aj 1 MB (mne fungovalo):
  - oba uzly pripojime na LUN, definujeme iSCSI initiatora v "/etc/iscsi/initiatorname.iscsi"
  - pridame IQN, ktore je na iSCSI targete, "InitiatorName=iqn.2022-03.lpic3.lab:gfs.node1.init1"
-   - na druhy uzol, napr.: InitiatorName=iqn.2022-03.lpic3.lab:gfs.node2.init1  
+   - na druhy uzol, napr.: InitiatorName=iqn.2022-03.lpic3.lab:gfs.node2.init1 
    - podla iSCSI Target-u, nastavime meno/heslo/parametre v subore "/etc/iscsi/iscsid.conf":
 
         node.session.auth.authmethod = CHAP
         node.startup = automatic
         node.session.auth.username = <meno>
         node.session.auth.password = <heslo>     
-   
+ 
  - poznmaka, preskumat/otestovat ine auth. algoritmy ako (hanbate) MD5
  - spustime iSCSI target discovery: $ sudo iscsiadm -m discovery -t sendtargets -p <storage-Host>
  - ak najde viac targetov, mazeme zmazat tie, ktore nepotrebujeme:
@@ -2537,7 +2510,7 @@ Pacemaker/Corosync (Unicast) WebServer Cluster na OS "Rocky Linux 8.5":
    - alebo sa mozeme prihlasit na konkretny iSCSI Target s jeho IQN, napr.:
 
 $ sudo iscsiadm -m node --targetname iqn.2001-05.com.lab:test --portal 192.168.255.100:3260 --login
-   
+ 
    - prihlasime sa na iSCSI target: $ sudo iscsiadm -m node --login
      - overime napr. s "$ sudo iscsiadm -m session -o show" / "$ sudo lsscsi" / "$ sudo lsblk"
    - dalej, zistime si WWN spominaneho 1MB Fencing LUNu: $ sudo ls -l /dev/disk/by-id/ | grep wwn
@@ -2557,7 +2530,7 @@ $ sudo iscsiadm -m node --targetname iqn.2001-05.com.lab:test --portal 192.168.2
      - upravit riadok na: "use_lvmlockd = 1"
      - overime s: $ sudo lvmconfig | grep lvmlockd
    - upravime konfiguraciu technologie Quorum: $ sudo pcs property set no-quorum-policy=freeze
-     - overime s: $ sudo pcs property config        
+     - overime s: $ sudo pcs property config
    - vytvorime DLM (Distributed Locking Manager) zdroj:
 
         $ sudo pcs resource create dlm ocf:pacemaker:controld op monitor interval=30s \
@@ -2565,7 +2538,7 @@ $ sudo iscsiadm -m node --targetname iqn.2001-05.com.lab:test --portal 192.168.2
 
    - dalej zdroj klonujeme na ostatne uzly: $ sudo pcs resource clone locking interleave=true
    - pokracujeme vytvorenim zdroja "LVM lockd":
-     
+
      $ sudo pcs resource create res_lvmlockd ocf:heartbeat:lvmlockd \
       op monitor interval=30s on-fail=fence --group locking
 
@@ -2604,7 +2577,7 @@ $ sudo iscsiadm -m node --targetname iqn.2001-05.com.lab:test --portal 192.168.2
 
    - na oboch uzloch vytvorime adresar, kde cluster "namountuje" GFS2: $ sudo mkdir /mnt/gfs2disk1
    - vytvorime zdielany GFS2 zdroj, na ukladanie dat so synchronizaciou:
-   
+ 
     $ sudo pcs resource create shared_fs ocf:heartbeat:Filesystem device="/dev/vg_gfs2/lv_gfs2" \
     directory="/mnt/gfs2disk1" fstype="gfs2" options=noatime op monitor \
     interval=10s on-fail=fence --group shared_vg
@@ -2624,7 +2597,7 @@ $ sudo iscsiadm -m node --targetname iqn.2001-05.com.lab:test --portal 192.168.2
    - vratime sa na uzol 1 a vytvorime LV: lvcreate -l 100%FREE -n lv_web_clus vg_web_clus
      - na oboch uzloch overime prikazom: "$ sudo vgs" a "$ sudo lvs", musia vidiet to iste
    - pokracujeme, na novom zdielanom cluster LV vytvorime suborovy system GFS2: 
-    
+ 
      $ sudo mkfs.gfs2 -j2 -p lock_dlm -t rocky_cluster:web_clus /dev/vg_web_clus/lv_web_clus
 
    - vytvorime cluster LVM zdroj pre WebServer:
@@ -2643,7 +2616,7 @@ $ sudo iscsiadm -m node --targetname iqn.2001-05.com.lab:test --portal 192.168.2
         SetHandler server-status
         Require local
     </Location>
-   
+ 
     - dalej na uzloch upravime konfiguraciu procesu "Log Rotate" v "/etc/logrotate.d/httpd" na:
       - zakomentujeme povodny riadok, aby "systemd" neriadil proces, ale aby ho riadil Pacamaker
 
@@ -2670,7 +2643,7 @@ $ sudo iscsiadm -m node --targetname iqn.2001-05.com.lab:test --portal 192.168.2
    - pokracujeme vytvorenim jednoducjeh testovacej "stranky":
      - prikaz: $ sudo echo "Testovaci Apache2 WebServer Cluster" > /mnt/webdisk1/html/index.html
    - dalej "odmountujeme" GFS2 particiu: $ sudo umount /mnt/webdisk1/
-   
+ 
    - pokracujeme vytvorenim Cluster FS zdroja pre Apache2 WebServer v Pacemaker-y:
 
 $ sudo pcs resource create web_fs ocf:heartbeat:Filesystem device=/dev/vg_web_clus/lv_web_clus \
