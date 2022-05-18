@@ -110,9 +110,9 @@ Nasledne overime config:
  - pripadne restartovat DNS resolver proces: `$ sudo systemctl restart systemd-resolved.service`
  - overime s: `$ sudo systemctl status systemd-resolved.service`
 
-#### Ako v unix-like systemoch konvertovat video kodekom H.265:
+#### Poznamka: Ako v Unix-like systemoch konvertovat video kodekom H.265:
 
-1. instalujeme `ffmpeg` (`apt install ffmpeg`, `dnf install ffmpeg`, `brew install ffmpeg` a pod.)
+1. instalujeme nastroj `ffmpeg` (`apt install ffmpeg`, `dnf install ffmpeg`, `brew install ffmpeg` a pod.)
 
 2. podla tohto popisu dame konvertovat:
 
