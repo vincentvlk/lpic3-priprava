@@ -13,17 +13,17 @@ Poznamky na skusku LPIC3-304-200 - Virtualization & High Availability
 
 Zakladne tipy a triky:
 ----------------------
-### Ako na Linuxe vypnut PC-speaker: ###
+#### Ako na Linuxe vypnut PC-speaker: ###
 
     $ sudo rmmod pcspkr
 
-### Dobra stranka na zaciatocnu konfiguraciu znamych distribucii Linuxu:
+#### Dobra stranka na zaciatocnu konfiguraciu znamych distribucii Linuxu:
 
     https://www.server-world.info/en/
  
     - ale nevedno do kedy bude online a chyba tam IPv6 :-(
 
-### Zakladne nastavenie siete v systeme Debian11:
+#### Zakladne nastavenie siete v systeme Debian11:
 
 Editujeme konf. subor: `/etc/network/interfaces`, nasledne vlozime napr.:
 
@@ -59,13 +59,13 @@ Potom do suboru `/etc/network/interfaces` pridat `IPv6` riadky napr.:
         gateway 2001:db8:cafe::1
         dns-nameservers 2001:148f:ffff::1 2001:148f:fffe::1
 
-### Nastavenie siete v systeme CentOS:
+#### Nastavenie siete v systeme CentOS:
 
 Pouzil som nejake hanbate GNOME GUI, neviem preco sa to hned neaplikovalo.
   - alternativne sa da pouzit nastroj `nmtui`, instalujeme: `$ sudo dnf -y in NetworkManager-tui`
   - nasledne uz len spustime: `$ sudo nmtui`
 
-### Nastavenie siete v systeme Fedora 35 Server:
+#### Nastavenie siete v systeme Fedora 35 Server:
 
 - pouzil som cli nastroj `nmcli` z balika `NetworkManager`
 
@@ -105,12 +105,12 @@ Nasledne overime config:
 
     $ sudo nmcli device show ens33
 
-### Poznamka: ak system nepreklada DNS zaznami, hlasi: "Temporary failure in name resolution"
+#### Poznamka: ak system nepreklada DNS zaznami, hlasi: "Temporary failure in name resolution"
  - treba skontrolovat syntax suboru `/etc/resolv.conf`
  - pripadne restartovat DNS resolver proces: `$ sudo systemctl restart systemd-resolved.service`
  - overime s: `$ sudo systemctl status systemd-resolved.service`
 
-### Ako v unix-like systemoch konvertovat video kodekom H.265:
+#### Ako v unix-like systemoch konvertovat video kodekom H.265:
 
 1. instalujeme `ffmpeg` (`apt install ffmpeg`, `dnf install ffmpeg`, `brew install ffmpeg` a pod.)
 
@@ -127,7 +127,7 @@ Nasledne overime config:
 
  `$ ffmpeg -i input.mp4 -vcodec libx265 -crf 28 output.mp4`
 
-### Ako konfigurovat siet v systeme Ubuntu 20.04:
+#### Ako konfigurovat siet v systeme Ubuntu 20.04:
 
 Treba `presunut/zalohovat` povodny config file:
 
@@ -302,7 +302,7 @@ Ako vypisat od zaciatku log z bootovania: `$ journalctl -b`
 Ako vypisat vsetky ID jednotlivych boot-ov: `$ journalctl --list-boots`
 
 Alternativy pre logovanie v Linuxe: `syslog-ng (/etc/syslog-ng)` a `rsyslogd /etc/rsyslog.cfg)`
-  
+ 
 Ako vypisat, kto bol kedy naposledy prihlaseny: `$ lastlog` alebo `$ last`
 
 Ako vypisat log pre konkretne Process ID: `$ journalctl _PID=XYZ`
@@ -333,7 +333,7 @@ Ako ulozit urcite logy v text formate: `$ journalctl -u ssh -o old > sshd.log`
 
  - ako ulozit rovnaky log napr. vo formate "json": `$ journalctl -u ssh -o json > sshd.log.json`
 
-### Tipy k praci s zivatelskymi uctami:
+### Tipy k praci s uzivatelskymi uctami:
 
 Ako zmenit default shell uzivatela: `$ chsh vlkv -s /bin/bash`
 
@@ -363,7 +363,7 @@ Po ulozeni treba restartovat proces `multipathd`: `$ sudo systemctl restart mult
  
 - dodatocne mozeme skontrolovat stav procesu: `$ systemctl status multipathd.service`
 
-### Cron a planovanie v kratkosti:
+#### Cron a planovanie v kratkosti:
 
 Ako vytvorit cron job, aby sa vystup aj error presmerovali do `/dev/null`, vytvorime zaznam: 
 
@@ -389,7 +389,7 @@ Ako zadat ulohu pre systemd:
 
 Ako vypisat cron ulohy pre daneho uzivatela: `$ crontab -l`
 
-### Praca s monitorovanim procesov/programov:
+#### Praca s monitorovanim procesov/programov:
 
 Ako ovladat program `top`:
 
@@ -457,7 +457,7 @@ Ako vypisat stav operacnej pamate: `$ free -m`
 
 Ako vypisat, ake parametre ma nastaveny kernel a system: `$ getconf -a`
 
-### Praca so sietovymi nastrojmi (IPv4, IPv6, DNS):
+#### Praca so sietovymi nastrojmi (IPv4, IPv6, DNS):
 
 Ako vypisat sietove rozhrania a ich parametre: `$ ip address show`
  - prikaz sa da skracovat napr.: `$ ip a s`
@@ -530,7 +530,7 @@ Ako vypisat IPv4 ARP tabulku a zaroven aj IPv6 ND tabulku: `$ ip neigh`
  - opat sa da skratit na: `$ ip n`
  - stary prikaz pre IPv4: `$ arp -an`
 
-### Praca s TCP/UDP aplikaciami, socketmi:
+#### Praca s TCP/UDP aplikaciami, socketmi:
 
 Ako vytvorit testovaci TCP socket co pocuva na danom porte: `$ sudo nc -l 23`
  - na socket sa so vzdialenej stanice pripojime napr.: `$ telnet A.B.C.D 23`
@@ -574,7 +574,7 @@ Pozriet si nastroj `nmap`, velmi vela moznosti:
 Ako vypisat lokalne Unix Domain sockety, pre aktualneho uzivatela: `$ lsof -U`
  - vypisanie vsetkych Unix Domain socketov: `$ sudo lsof -U`
 
-### Praca s BASH skriptami:
+#### Praca s BASH skriptami:
 
 Ako zabezpecit, aby sa skript spustal aj na inych systemoch (portability): 
  - skript zacina riadkom: `#!/usr/bin/env bash`
@@ -622,7 +622,7 @@ Pozriet riadenie toku BASH skriptu, resp. rozhodovanie s:
  - dalsi uzitocny manual: `$ man test`
  - alebo napr. `$ help if`
 
-### Priklad na riadenie toku v BASH skripte s `if`, vytvorime si skript `ifPriklad.sh`:
+#### Priklad na riadenie toku v BASH skripte s `if`, vytvorime si skript `ifPriklad.sh`:
 
     #!/usr/bin/env bash
     #
@@ -662,7 +662,7 @@ Pozriet dalsi program na spracovanie textu: `$ man sed`
 
 Pozriet tematiku `BASH Subshell`
 
-### Praca s prenasanim suborov po sieti:
+#### Praca s prenosom suborov po sieti:
 
 Ako spustit jednoduchy HTTP server (Python modul) v danom adresary: `$ python3 -m http.server`
  - standardne spusteny na TCP porte 8000, mozeme zmenit s: `$ python3 -m http.server 5000`
@@ -684,8 +684,7 @@ Ako kopirovat vsetky adresare `dirX` na stroj s DNS nazvom `ubu2.lab` do adresar
  - ked chceme transfer/zalohu len otestovat, pouzijeme parameter `-n`:
    - prikaz: `$ rsync -n -va dir* ubu2.lab:nas`
 
-**POZOR**, ked chceme v cieli vytvorit EXAKTNU kopiu lokalneho(ych) adresara(ov), ktora **ZMAZE**
-nove subory v cieli:
+**POZOR**, ak chceme v cieli vytvorit EXAKTNU kopiu lokalneho(ych) adresara(ov), ktora **ZMAZE** nove subory v cieli:
 
  - pouzijeme: `$ rsync -va --delete dir* ubu2.lab:nas`
  - diagnosticky parameter `-v` vypise, ktore subory v cieli boli vymazane
