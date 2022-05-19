@@ -2242,16 +2242,16 @@ location myDummy-location myDummy 10000: lpic3-suse1
 Zaklady prace so *Storage* rieseniami v Cluster prostredi GNU/Linux
 ----------------
 
-### Ako na instalaciu/nasadenie technologie iSCSI Multipath:
- - vyuziva sa fakt, ze SAN iSCSI Target ma viac sietovych pripojeni, na ktore sa Initiator pripaja
-   - zariadenie v role iSCSI Initiatora ma tiez k dispozicii dalsiu nezavislu SAN konektivitu
+### Ako na instalaciu/nasadenie technologie *iSCSI Multipath*:
+ - vyuziva sa fakt, ze *SAN iSCSI Target ma viac sietovych pripojeni*, na ktore sa Initiator pripaja
+   - zariadenie v role *iSCSI Initiatora* ma tiez k dispozicii *dalsiu nezavislu SAN konektivitu*
  - technologia umoznuje viacero zaloznych ciest na storage zariadenia (SAN)
- - zalozne cesty su plne redundantne, teda nezavisle voci inym cestam (karty, routre, switche...)
- - vacsina distribucii vyuziva "Device Mapper" implementaciu "dm-multipath"
- - sluzba je prevadzkovana "multipathd" demon/proces
- - na manazment sa vyuziva program "$ sudo multipath"
- - konfiguracia sa nachadza v subore "/etc/multipath.conf"
- - zariadenie dostupne cez "dm-multipath" sa nachadzaju v "/dev/mapper"
+ - zalozne cesty su *plne redundantne*, teda nezavisle voci inym cestam (karty, routre, switche...)
+ - vacsina distribucii vyuziva tzv. *Device Mapper* implementaciu `dm-multipath`
+ - sluzba je prevadzkovana `multipathd` ako daemon/proces
+ - na manazment sa vyuziva program: `$ sudo multipath`
+ - konfiguracia sa nachadza v subore: `/etc/multipath.conf`
+ - zariadenia dostupne cez `dm-multipath` sa nachadzaju v `/dev/mapper`
 
 #### Priklad instalacie riesenia "Device Mapper Multipath" v OS CentOS Stream 9:
  - instalujeme (zvycajne byva uz nainstalovany): $ sudo dnf -y in device-mapper-multipath
