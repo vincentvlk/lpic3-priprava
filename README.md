@@ -1752,7 +1752,7 @@ Tip: Na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-
 
 - instalujeme *iSCSI Target* nastroj: `$ sudo dnf -y install targetcli`
 
-- vytvorime tzv. *File-IO* adresar pre LUNy, napr.: `$ sudo mkdir /var/lib/iscsi_pool1/`
+- vytvorime tzv. *File-IO* adresar pre disky/LUNy, napr.: `$ sudo mkdir /var/lib/iscsi_pool1/`
 
 - spustime iSCSI nastroj: `$ sudo targetcli`
 
@@ -1769,38 +1769,30 @@ Tip: Na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-
 - prepneme sa do rezimu *konkretneho Target-u*, teda: `/iscsi> cd iqn.2022-03.lpic3.suse1:www.target01/`
 
 - prepneme sa do rezimu *TPG - LUNs*, teda: `/iscsi> cd iqn.2022-03.lpic3.suse1:www.target01/tpg1/luns`
-  - TPG - Target Portal Group, sietova reprezentacia iSCSI Target-u
-  - LUN - Logical Unit Number, logicka jednotka pre SCSI, particia/disk
+  - **TPG** - Target Portal Group, sietova reprezentacia iSCSI Target-u
+  - **LUN** - Logical Unit Number, logicka jednotka pre SCSI, particia/disk
 
-/iscsi/iqn.20...t01/tpg1/luns> create /backstores/fileio/disk01
-Created LUN 0.
+- nasledne vytvorime LUN prepojeny s File-IO imagom: `/iscsi/iqn.20...t01/tpg1/luns> create /backstores/fileio/disk01`
 
-/iscsi/iqn.20...t01/tpg1/luns> cd /iscsi/iqn.2022-03.lpic3.suse1:www.target01/tpg1
+- prepneme sa do rezimu *TPG1*, teda: `/iscsi/iqn.20...t01/tpg1/luns> cd /iscsi/iqn.2022-03.lpic3.suse1:www.target01/tpg1`
 
-/iscsi/iqn.20...target01/tpg1> set parameter AuthMethod=CHAP
-Parameter AuthMethod is now 'CHAP'.
+- dalej nastavime autentifikaciu na *CHAP*: `/iscsi/iqn.20...target01/tpg1> set parameter AuthMethod=CHAP`
 
-/iscsi/iqn.20...t01/tpg1> cd acls
+- prepneme sa do rezimu *ACLs*, teda: `/iscsi/iqn.20...t01/tpg1> cd acls`
+  - ACL : Access Control List, pravidla na riadenie pristupu k LUNom
 
-/iscsi/iqn.20...t01/tpg1/acls> create iqn.2022-03.lpic3.suse1:www.node01.init01
-Created Node ACL for iqn.2022-03.lpic3.suse1:www.node01.init01
-Created mapped LUN 0.
+- zadefinujeme, ktore *Initiator-IQN (client)* ma prisup na dany LUN: `/iscsi/iqn.20...t01/tpg1/acls> create iqn.2022-03.lpic3.suse1:www.node01.init01`
 
-/iscsi/iqn.20...t01/tpg1/acls> cd iqn.2022-03.lpic3.suse1:www.node01.init01/
+- prepneme sa do rezimu *Initiator-IQN*, teda: `/iscsi/iqn.20...t01/tpg1/acls> cd iqn.2022-03.lpic3.suse1:www.node01.init01/`
 
-/iscsi/iqn.20...node01.init01> set auth userid=lpic3iscsi
-Parameter userid is now 'lpic3iscsi'.
+- nastavime meno uzivatela: `/iscsi/iqn.20...node01.init01> set auth userid=lpic3iscsi`
 
-/iscsi/iqn.20...node01.init01> set auth password=iscsi.2022
-Parameter password is now 'iscsi.2022'.
+- nastavime CHAP heslo pre uzivatela: `/iscsi/iqn.20...node01.init01> set auth password=iscsi.2022`
 
-Konfiguraciu Overime s:
+- celu konfiguraciu overime s: `/iscsi/iqn.20...node01.init01> ls /`
 
-/iscsi/iqn.20...node01.init01> ls /
-
-/iscsi/iqn.20...node01.init01> exit
-Global pref auto_save_on_exit=true
-Configuration saved to /etc/target/saveconfig.json
+- ukoncime pracu v *TargetCLI*, cim sa ulozi konfiguracia: `/iscsi/iqn.20...node01.init01> exit`
+  - konfiguracia je ulozena v subore: `/etc/target/saveconfig.json`
 
 [root@fed-stor1 ~]# ss -tanp | grep 3260
 LISTEN 0      256            0.0.0.0:3260      0.0.0.0:*
