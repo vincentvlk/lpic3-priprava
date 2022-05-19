@@ -1808,7 +1808,7 @@ Tip: Na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-
 
 - konfiguraciu firewallu overime s: `$ sudo firewall-cmd --list-all`
 
-Poznamka, iSCSI target sa da prevadzkovat v Cluster-y nad systemom DRBD (nizsie v tomto texte).
+Poznamka, iSCSI target sa da prevadzkovat v Cluster-y nad systemom DRBD.
 
 Tip: Ako v OS "Fedora Server 35" nainstalovat NetworkManager-TUI: `$ sudo dnf install NetworkManager-tui`
 
@@ -2239,7 +2239,6 @@ location myDummy-location myDummy 10000: lpic3-suse1
 - vratime uzol do stavu `ready`, teda pripraveny na cinnost: `$ sudo crm node ready lpic3-suse1`
 - vsetky zmeny overime s: `$ sudo crm status` resp.: `$ sudo crm configure show`
  
-
 Zaklady prace so *Storage* rieseniami v Cluster prostredi GNU/Linux
 ----------------
 
@@ -2364,7 +2363,7 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
 - Tip: Prepisanie *zaciatku*, teda aj FS disku nulami: `$ sudo dd if=/dev/zero of=/dev/sda bs=1M count=100`
 - Tip: Ako v RedHat based OS zistit, ktory balik poskytuje dany *prikaz*, napr.: `$ dnf provides showmount`
 
-### Pacemaker/Corosync (Unicast) WebServer Cluster s GFS2 na OS "Rocky Linux 8.5":
+### Priklad: Pacemaker/Corosync (Unicast) WebServer Cluster s Cluster GFS2 na OS "Rocky Linux 8.5":
  - vytvorime DNS zaznamy uzlov, alebo "/etc/hosts"
  - na uzloch zapneme repo.: $ sudo dnf config-manager --set-enabled ha,resilient-storage
  - na uzloch instalujeme: $ sudo dnf -y in pacemaker pcs fence-agents-scsi iscsi-initiator-utils
@@ -2647,8 +2646,10 @@ $ sudo pcs resource create nfs_share1_exp ocf:heartbeat:exportfs \
   - overime s: $ df -hT /mnt/nfs
   - pre NFSv3 prikaz: $ sudo mount -t nfs 192.168.255.28:/home/nfs-server/nfs-root/share1 /mnt/nfs
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- 
-Praca s Load-Balancingom sluzieb, teda rozkladanim zataze na viacero aplikacnych uzlov
+Zaklady prace s konceptom *Load-Balancinge* v Cluster prostredi systemu GNU/Linux
+----------------
+
+### Praca s Load-Balancingom sluzieb, teda rozkladanim zataze na viacero aplikacnych uzlov
  - zakladne metody L.B.: 
    - DNS Round Robin - velmi jednoduche, nema vsak ziadne monitorovanie dostupnosti uzlov
    - LVS - load-balancing na urovni Linux Kernel-u, obmedzene v porovnani s HAp/Pacemaker/Corosync
@@ -2663,14 +2664,13 @@ Praca s Load-Balancingom sluzieb, teda rozkladanim zataze na viacero aplikacnych
      - da sa nakonfigurovat "do kriza", s rozdielnymi subnetmi, na primitivny state-less LB 
      - da sa vyzuit napr. ako redundancia pre 2xHAProxy na virtualnej IP, alternativa: Pacemaker
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Silne zjednoduseny priklad instalacie load-balancera HAProxy na OS Rocky Linux 8.5
+#### Zjednoduseny priklad instalacie load-balancera HAProxy na OS Rocky Linux 8.5
  - vyuzijeme 3 servery/VM, kde uzol 3 bude HAProxy LB a zvysne uzly 1+2 budu app/backend serv.
  - IP konfig. uzlov, uzol1:192.168.255.21/24, uzol1:192.168.255.22/24, uzol3:192.168.255.23/24
    - samozrejme doporuceny dizajn je L3 routed env., netraba zabudnut zapnut IP/IPv6 forwarding
  - na uzloch 1 a 2 instalujeme HTTP app/backend server $ sudo dnf -y install nginx
    - upravime subor "/etc/nginx/nginx.conf", riadok "server_name www.srv.world;" na: 
-   
+ 
     "server_name app.node1.lab;" resp. na uzle 2 na: "server_name app.node2.lab;"
 
    - aktivujeme sluzbu NGINX po reboote: $ sudo systemctl enable --now nginx
