@@ -1750,6 +1750,10 @@ Tip: Na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-
 
  *ROZPRACOVANY Status*
 
+- instalujeme iSCSI Target nastroj: `$ sudo dnf -y install targetcli`
+
+- vytvorime tzv. *File-IO* adresar pre LUNy: `$ sudo mkdir /var/lib/iscsi_pool1/`
+
 [root@fed-stor1 ~]# targetcli
 targetcli shell version 2.1.54
 Copyright 2011-2013 by Datera, Inc and others.
