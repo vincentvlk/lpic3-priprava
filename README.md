@@ -1755,7 +1755,7 @@ Tip: Na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-
 - vytvorime tzv. *File-IO* adresar pre disky/LUNy, napr.: `$ sudo mkdir /var/lib/iscsi_pool1/`
 
 - spustime iSCSI nastroj: `$ sudo targetcli`
-
+  - Poznamka: v nastroji *TargetCLI* sa daju pouzivat prikazy `cd ..`, `pwd`, `ls` a `relativne cesty`
 - dalej pracujeme s Shell interpretom nastroja *TargetCLI*
  
 - prepneme sa do rezimu *backstores/fileio*, teda: `/> cd backstores/fileio`
