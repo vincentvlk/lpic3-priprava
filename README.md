@@ -2239,6 +2239,33 @@ location myDummy-location myDummy 10000: lpic3-suse1
 - vratime uzol do stavu `ready`, teda pripraveny na cinnost: `$ sudo crm node ready lpic3-suse1`
 - vsetky zmeny overime s: `$ sudo crm status` resp.: `$ sudo crm configure show`
  
+
+Zaklady prace so *Storage* rieseniami v Cluster prostredi GNU/Linux
+----------------
+
+### Ako na instalaciu/nasadenie technologie iSCSI Multipath:
+ - vyuziva sa fakt, ze SAN iSCSI Target ma viac sietovych pripojeni, na ktore sa Initiator pripaja
+   - zariadenie v role iSCSI Initiatora ma tiez k dispozicii dalsiu nezavislu SAN konektivitu
+ - technologia umoznuje viacero zaloznych ciest na storage zariadenia (SAN)
+ - zalozne cesty su plne redundantne, teda nezavisle voci inym cestam (karty, routre, switche...)
+ - vacsina distribucii vyuziva "Device Mapper" implementaciu "dm-multipath"
+ - sluzba je prevadzkovana "multipathd" demon/proces
+ - na manazment sa vyuziva program "$ sudo multipath"
+ - konfiguracia sa nachadza v subore "/etc/multipath.conf"
+ - zariadenie dostupne cez "dm-multipath" sa nachadzaju v "/dev/mapper"
+
+#### Priklad instalacie riesenia "Device Mapper Multipath" v OS CentOS Stream 9:
+ - instalujeme (zvycajne byva uz nainstalovany): $ sudo dnf -y in device-mapper-multipath
+ - zapneme proces "multipathd": $ sudo mpathconf --enable --with_multipathd y
+   - prikaz zaroven vygeneruje konfig. subor "/etc/multipath.conf"
+   - dalsie informacie v "$ man mpathconf" a v "$ man multipath.conf"
+   - stav sluzby overime s: $ sudo systemctl status multipathd.service 
+ - po viac-nasobnom pripojeni na iSCSI Target, nam system prideli rozne zariadenia na jeden LUN
+   - toto sa snazi "Multipathing" riesit tym, ze spoji viacere cesty do jedneho zariadenia 
+ - stav dostupnych multipath zariadeni overime s: $ sudo multipath -ll
+ - tieto zariadenia su dostupne ako "/dev/mapper/mpathX" , "/dev/mapper/mpathX" a pod.
+- Poznamka: Alternativy k systemu CentOS: `CentOS Stream`, `Alma Linux`, `Rocky Linux`, `Oracle Linux`
+
 ### Praca s Cluster Storage riesenim "DRBD - Distributed Replicated Block Device":
  - riesenie v podstate realizuje *RAID1* ale cez sietove prepojenia
  - zvycajne sa pouzivaju *2 storage uzly*, ktore si navzajom synchronizuju data
@@ -2298,32 +2325,8 @@ resource drbd0 {
 Poznamka: Prikazy na vypisanie informacii o diskoch a particiach: `lsblk`, `blkid`, `lsscsi`
 Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemctl enable --now <service>`
 
-### Ako na instalaciu/nasadenie technologie iSCSI Multipath:
- - vyuziva sa fakt, ze SAN iSCSI Target ma viac sietovych pripojeni, na ktore sa Initiator pripaja
-   - zariadenie v role iSCSI Initiatora ma tiez k dispozicii dalsiu nezavislu SAN konektivitu
- - technologia umoznuje viacero zaloznych ciest na storage zariadenia (SAN)
- - zalozne cesty su plne redundantne, teda nezavisle voci inym cestam (karty, routre, switche...)
- - vacsina distribucii vyuziva "Device Mapper" implementaciu "dm-multipath"
- - sluzba je prevadzkovana "multipathd" demon/proces
- - na manazment sa vyuziva program "$ sudo multipath"
- - konfiguracia sa nachadza v subore "/etc/multipath.conf"
- - zariadenie dostupne cez "dm-multipath" sa nachadzaju v "/dev/mapper"
-
-#### Priklad instalacie riesenia "Device Mapper Multipath" v OS CentOS Stream 9:
- - instalujeme (zvycajne byva uz nainstalovany): $ sudo dnf -y in device-mapper-multipath
- - zapneme proces "multipathd": $ sudo mpathconf --enable --with_multipathd y
-   - prikaz zaroven vygeneruje konfig. subor "/etc/multipath.conf"
-   - dalsie informacie v "$ man mpathconf" a v "$ man multipath.conf"
-   - stav sluzby overime s: $ sudo systemctl status multipathd.service 
- - po viac-nasobnom pripojeni na iSCSI Target, nam system prideli rozne zariadenia na jeden LUN
-   - toto sa snazi "Multipathing" riesit tym, ze spoji viacere cesty do jedneho zariadenia 
- - stav dostupnych multipath zariadeni overime s: $ sudo multipath -ll
- - tieto zariadenia su dostupne ako "/dev/mapper/mpathX" , "/dev/mapper/mpathX" a pod.
-- Poznamka: Alternativy k systemu CentOS: `CentOS Stream`, `Alma Linux`, `Rocky Linux`, `Oracle Linux`
-
-Zaklady prace so *Storage* rieseniami v Cluster prostredi GNU/Linux
-----------------
 ### Zaklady prace s Cluster suborovym systemom GFS2 (Global File System):
+
 #### Priprava: Zaklady prace s LVM v Cluster prostredi:
 - logicke LV particie sa zvycajne mapuju napr. ako: /dev/mapper/ubuntu--vg-ubuntu--lv"
 - kde je teda VG (Volume Group) sa nazvom "ubuntu" a LV (Logical Volume) s nazvom "ubuntu" 
