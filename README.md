@@ -1779,7 +1779,7 @@ Tip: Na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-
 - dalej nastavime autentifikaciu na *CHAP*: `/iscsi/iqn.20...target01/tpg1> set parameter AuthMethod=CHAP`
 
 - prepneme sa do rezimu *ACLs*, teda: `/iscsi/iqn.20...t01/tpg1> cd acls`
-  - ACL : Access Control List, pravidla na riadenie pristupu k LUNom
+  - ACL : Access Control List, pravidla na riadenie pristupu *k LUNom*
 
 - zadefinujeme, ktore *Initiator-IQN (client)* ma prisup na dany LUN: `/iscsi/iqn.20...t01/tpg1/acls> create iqn.2022-03.lpic3.suse1:www.node01.init01`
 
@@ -1794,32 +1794,17 @@ Tip: Na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-
 - ukoncime pracu v *TargetCLI*, cim sa ulozi konfiguracia: `/iscsi/iqn.20...node01.init01> exit`
   - konfiguracia je ulozena v subore: `/etc/target/saveconfig.json`
 
-[root@fed-stor1 ~]# ss -tanp | grep 3260
-LISTEN 0      256            0.0.0.0:3260      0.0.0.0:*
+- overime funkcnost iSCSI TCP portu: `$ sudo ss -tanp | grep 3260`
 
-[root@fed-stor1 ~]# systemctl enable target
-Created symlink /etc/systemd/system/multi-user.target.wants/target.service → /usr/lib/systemd/system/target.service.
+- zabezpecime start sluzby *iSCSI Target* po reboote: `$ sudo systemctl enable target`
 
-[root@fed-stor1 ~]# systemctl status target
-○ target.service - Restore LIO kernel target configuration
-     Loaded: loaded (/usr/lib/systemd/system/target.service; enabled; vendor preset: disabled)
-     Active: inactive (dead)
+- overime stav sluzby `target.service`, teda: `$ sudo systemctl status target`
 
-[root@fed-stor1 ~]# systemctl start target
+- zapneme/aktivujeme sluzbu `target.service`, teda: `$ sudo systemctl start target`
 
-[root@fed-stor1 ~]# systemctl status target
-● target.service - Restore LIO kernel target configuration
-     Loaded: loaded (/usr/lib/systemd/system/target.service; enabled; vendor preset: disabled)
-     Active: active (exited) since Tue 2022-03-08 15:29:37 CET; 1s ago
-    Process: 933 ExecStart=/usr/bin/targetctl restore (code=exited, status=0/SUCCESS)
-   Main PID: 933 (code=exited, status=0/SUCCESS)
-        CPU: 70ms
+- overime stav sluzby `target.service`, teda: `$ sudo systemctl status target`
 
-Mar 08 15:29:37 fed-stor1 systemd[1]: Starting Restore LIO kernel target configuration...
-Mar 08 15:29:37 fed-stor1 systemd[1]: Finished Restore LIO kernel target configuration.
-
-[root@fed-stor1 ~]# firewall-cmd --add-service=iscsi-target
-success
+- povolime TCP portu pre iSCSI na firewalle: `$ sudo firewall-cmd --permanent --add-service=iscsi-target`
 
 [root@fed-stor1 ~]# firewall-cmd --runtime-to-permanent
 success
