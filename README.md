@@ -1738,7 +1738,7 @@ Tip: Na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-
  - instalacia balicka `nmap`, bez dotazov: `$ sudo zypper install --no-confirm nmap`
  - alebo skratena verzia: `$ sudo zypper -n in nmap`
  - vymazanie balika: `$ sudo zypper remove nmap`
-   - opatrne, bez dotazov, pramater `-n`
+   - opatrne: bez dotazov zmaze balik, doplnime parameter `-n`
  - hladanie balickov v DB: `$ sudo zypper search nmap`
  - vypisanie dostupnych softwarovych **zaplat**: `$ sudo zypper patches`
  - instalacia softwarovych **zaplat**: `$ sudo zypper patch`
@@ -1750,31 +1750,27 @@ Tip: Na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-
 
  *ROZPRACOVANY Status*
 
-- instalujeme iSCSI Target nastroj: `$ sudo dnf -y install targetcli`
+- instalujeme *iSCSI Target* nastroj: `$ sudo dnf -y install targetcli`
 
-- vytvorime tzv. *File-IO* adresar pre LUNy: `$ sudo mkdir /var/lib/iscsi_pool1/`
+- vytvorime tzv. *File-IO* adresar pre LUNy, napr.: `$ sudo mkdir /var/lib/iscsi_pool1/`
 
-[root@fed-stor1 ~]# targetcli
-targetcli shell version 2.1.54
-Copyright 2011-2013 by Datera, Inc and others.
-For help on commands, type 'help'.
+- spustime iSCSI nastroj: `$ sudo targetcli`
 
-/> cd backstores/fileio
+- dalej pracujeme s Shell interpretom nastroja *TargetCLI*
+ 
+- prepneme sa do rezimu *backstores/fileio*, teda: `/> cd backstores/fileio`
 
-/backstores/fileio> create disk01 /var/lib/iscsi_pool1/disk01.img 15G
-Created fileio disk01 with size 16106127360
+- vytvorime 15GB image: `/backstores/fileio> create disk01 /var/lib/iscsi_pool1/disk01.img 15G`
 
-/backstores/fileio> cd /iscsi
+- prepneme sa do rezimu */iscsi*, teda: `/backstores/fileio> cd /iscsi`
 
-/iscsi> create iqn.2022-03.lpic3.suse1:www.target01
-Created target iqn.2022-03.lpic3.suse1:www.target01.
-Created TPG 1.
-Global pref auto_add_default_portal=true
-Created default portal listening on all IPs (0.0.0.0), port 3260.
+- vytvorime definicu *Target-u*, teda jeho IQN: `/iscsi> create iqn.2022-03.lpic3.suse1:www.target01`
 
-/iscsi> cd iqn.2022-03.lpic3.suse1:www.target01/
+- prepneme sa do rezimu *konkretneho Target-u*, teda: `/iscsi> cd iqn.2022-03.lpic3.suse1:www.target01/`
 
-/iscsi> cd iqn.2022-03.lpic3.suse1:www.target01//tpg1/luns
+- prepneme sa do rezimu *TPG - LUNs*, teda: `/iscsi> cd iqn.2022-03.lpic3.suse1:www.target01/tpg1/luns`
+  - TPG - Target Portal Group, sietova reprezentacia iSCSI Target-u
+  - LUN - Logical Unit Number, logicka jednotka pre SCSI, particia/disk
 
 /iscsi/iqn.20...t01/tpg1/luns> create /backstores/fileio/disk01
 Created LUN 0.
