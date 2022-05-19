@@ -1806,12 +1806,9 @@ Tip: Na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-
 
 - povolime TCP portu pre iSCSI na firewalle: `$ sudo firewall-cmd --permanent --add-service=iscsi-target`
 
-[root@fed-stor1 ~]# firewall-cmd --runtime-to-permanent
-success
+- konfiguraciu firewallu overime s: `$ sudo firewall-cmd --list-all`
 
-- konfiguraciu firewallu overime s: $ sudo firewall-cmd --list-all
-
-Poznamka, iSCSI target sa da prevadzkovat v Cluster-y nad systemom DRBD (nizsie v tomto texte)
+Poznamka, iSCSI target sa da prevadzkovat v Cluster-y nad systemom DRBD (nizsie v tomto texte).
 
 Tip: Ako v OS "Fedora Server 35" nainstalovat NetworkManager-TUI: `$ sudo dnf install NetworkManager-tui`
 
