@@ -2254,9 +2254,9 @@ Zaklady prace so *Storage* rieseniami v Cluster prostredi GNU/Linux
  - zariadenia dostupne cez `dm-multipath` sa nachadzaju v `/dev/mapper`
 
 #### Priklad instalacie riesenia "Device Mapper Multipath" v OS CentOS Stream 9:
- - instalujeme (zvycajne byva uz nainstalovany): $ sudo dnf -y in device-mapper-multipath
- - zapneme proces "multipathd": $ sudo mpathconf --enable --with_multipathd y
-   - prikaz zaroven vygeneruje konfig. subor "/etc/multipath.conf"
+ - instalujeme *Device Mapper* (zvycajne byva uz nainstalovany): `$ sudo dnf -y in device-mapper-multipath`
+ - zapneme start procesu `multipathd` po reboote, teda: `$ sudo mpathconf --enable --with_multipathd y`
+   - prikaz zaroven vygeneruje konfig. subor: `/etc/multipath.conf`
    - dalsie informacie v "$ man mpathconf" a v "$ man multipath.conf"
    - stav sluzby overime s: $ sudo systemctl status multipathd.service 
  - po viac-nasobnom pripojeni na iSCSI Target, nam system prideli rozne zariadenia na jeden LUN
