@@ -3207,8 +3207,8 @@ $ brew install virt-viewer
    - *Swift*: object storage sluzba, poskytuje sluzby datoveho uloziska s mensim vykonom, kapacita++
    - *Cinder*: poskytuje sluzby pre Block Storage uloziska, ich provisioning a samotne pouzivanie
    - *Keystone*: poskytuje sluzbu identit, teda autentifikacie a autorizacie pre OpenStack
-   - *Glance*: poskytuje sluzby na pracu s image-mi, ako su .iso, .ovf, .vmdk, ...
-   - projekt OpenStack ma vela dalsich sluzieb a sub-projektov, ktore nie su predmetom tychto poznamok
+   - *Glance*: poskytuje sluzby na pracu s image-mi, ako su `.iso`, `.ovf`, `.vmdk`, ...
+   - projekt *OpenStack* ma vela dalsich sluzieb a sub-projektov, ktore nie su predmetom tychto poznamok
 
 #### Poznamky k projektu CloudStack:
  - je definovany ako OSS produkt na nasadenia a spravu velkych VM prostredi
