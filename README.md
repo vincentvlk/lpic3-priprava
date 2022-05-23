@@ -2656,7 +2656,7 @@ $ sudo pcs resource create nfs_share1_exp ocf:heartbeat:exportfs \
 Zaklady konceptu *Load-Balancing* v Cluster prostredi OS GNU/Linux
 ----------------
 
-### Praca s Load-Balancingom, teda rozkladanim zataze na viacero aplikacnych uzlov
+### Praca s Load-Balancingom, teda rozkladanim zataze na viacero aplikacnych uzlov:
  - zakladne metody Load Balancing-u: 
  - *DNS Round Robin* - velmi jednoduche, nema vsak ziadne monitorovanie dostupnosti uzlov
  - *LVS* - load-balancing na urovni Linux Kernel-u, obmedzene v porovnani s HAProxy/Pacemaker/Corosync
@@ -2671,7 +2671,7 @@ Zaklady konceptu *Load-Balancing* v Cluster prostredi OS GNU/Linux
    - da sa nakonfigurovat "do kriza", s rozdielnymi subnetmi, na primitivny state-less Load Balancing 
    - da sa vyuzit napr. ako redundancia pre *2xHAProxy* na virtualnej IP, alternativa je *Pacemaker*
 
-#### Zjednoduseny priklad instalacie load-balancera HAProxy na OS Rocky Linux 8.5
+#### Zjednoduseny priklad instalacie load-balancera HAProxy na OS Rocky Linux 8.5:
  - vyuzijeme 3 servery/VM, kde uzol 3 bude HAProxy LB a zvysne uzly 1+2 budu app/backend servery
  - IP konfig. uzlov, `uzol1:192.168.255.21/24`, `uzol2:192.168.255.22/24`, `uzol3:192.168.255.23/24`
    - samozrejme doporuceny dizajn je L3 routed, netraba zabudnut zapnut IP/IPv6 forwarding v *Kerneli*
@@ -2738,30 +2738,31 @@ backend backend_servers
 
   - rozkladanie zataze overime pripojenim na *LB TCP port 80*, browserom alebo curl-om
 
-Praca s *virtualizacnymi nastrojmi/platformami* pre OS GNU/Linux:
+Praca s *virtualizacnymi nastrojmi/platformami* pre OS GNU/Linux
 ---------------
-- zakladne koncepty: virtualizacia vie delit fyzicke vypoctove zdroje na viacero oddelenych casti
-  - teda uzmonuje "bezat" viacero virtualnych pocitacov na spolocnom zdielanom HW
-  - tzv. Hypervizor alebo aj "VMM - Viatual Machine Monitor" spravuje a monitoruje virtualizaciu 
-  - virtualizovane zdroje tvoria tzv.: "Core 4" skupinu: procesor, pamat, ulozisko, siet
+- zakladne koncepty: virtualizacia vie *delit fyzicke vypoctove zdroje na viacero oddelenych casti*
+  - teda uzmonuje "bezat" *viacero virtualnych pocitacov na spolocnom zdielanom HW*
+  - tzv. *Hypervizor* alebo aj *VMM - Virtual Machine Monitor* spravuje a monitoruje virtualizaciu 
+  - virtualizovane zdroje tvoria tzv.: *Core 4* skupinu: `procesor, pamat, ulozisko, siet`
 
-Poznamka, ako pridat do LVM predtym pouzivane zariadenie, treba pouzit: $ sudo wipefs -a /dev/sdb
- - POZOR, prikaz odstrani FS z pouzivaneho disku
- - inak LVM moze hlasit chybu: "Device /dev/sdb excluded by a filter."
- - prikazy LVM sa daju ciastocne debugovat,  napr.: $ sudo pvcreate -vvv /dev/sdb
+Poznamka, ako pridat do LVM predtym pouzivane zariadenie, treba pouzit: `$ sudo wipefs -a /dev/sdb`
+ - *POZOR*, prikaz odstrani FS z pouzivaneho disku
+ - inak LVM moze hlasit chybu: `Device /dev/sdX excluded by a filter.`
+ - prikazy LVM sa daju ciastocne debugovat, napr.: `$ sudo pvcreate -vvv /dev/sdb`
 
-### Praca s Virt. platformou Xen Server,
+### Praca s Virt. platformou Xen Server:
 - baliky boli z RHEL a klonov odstranene, treba pridat repozitar
-- tento postup je instalacia na OS Debian 11
-- na "Host" systeme instalujeme balik LVM2: $ sudo apt install lvm2
-- dalej napr. z dvoch diskov si spravime LVM2 VG "vgxen", na instalaciu virtualizovanych systemov:
-
+- tento postup je instalacia na *OS Debian 11*
+- na *Host* systeme instalujeme balik LVM2: `$ sudo apt install lvm2`
+- dalej napr. z dvoch diskov spravime LVM2 VG `vgxen`, na instalaciu virtualizovanych systemov:
+```bash
 $ sudo pvcreate /dev/sdb
 $ sudo pvcreate /dev/sdc
 $ sudo vgcreate vgxen /dev/sdb /dev/sdc
+```
 
-- dalej instalujeme sietove balicky: $ sudo apt install ifupdown bridge-utils
-- upravime subor "/etc/network/interfaces" nasledovne:
+- dalej instalujeme sietove balicky: `$ sudo apt install ifupdown bridge-utils`
+- upravime subor `/etc/network/interfaces` nasledovne:
 ```
 # Definicia loopback interface
 auto lo
@@ -2783,6 +2784,7 @@ broadcast 192.168.255.255
 gateway 192.168.255.1
 dns-nameservers 193.17.47.1 185.43.135.1 
 ```
+
 - nasledne restartujeme "networking" sluzbu: $ sudo systemctl restart networking.service
   - podla vypisu "$ ip address" by mal byt povodny staticky IP conf. na novom "bridge" iface
 - instalujeme nastroje a kernel Hypervizora "Xen": $ sudo apt install xen-system-amd64
