@@ -2651,8 +2651,7 @@ Zaklady konceptu *Load-Balancing* v Cluster prostredi OS GNU/Linux
  - na uzloch 1 a 2 instalujeme HTTP app/backend server `$ sudo dnf -y install nginx`
  - po isntalacii upravime konf. subor `/etc/nginx/nginx.conf` nasledujuco:
    - riadok `server_name www.srv.world;` na `server_name app.node1.lab;`
-   - resp. na uzle 2 na: `server_name app.node2.lab;`
-
+   - resp. pre uzol 2 na: `server_name app.node2.lab;`
  - aktivujeme start sluzby NGINX po reboote: `$ sudo systemctl enable --now nginx`
      - overime s: `$ sudo systemctl status nginx`
    - pridame pravidlo na firewall: `$ sudo firewall-cmd --add-service=http --permanent`
@@ -2664,8 +2663,8 @@ Zaklady konceptu *Load-Balancing* v Cluster prostredi OS GNU/Linux
     $ sudo echo "Testovaci uzol 1: app.node1.lab" > index.html
 ```
 
- - resp. uzol 2: `$ sudo echo "Testovaci uzol 2: app.node2.lab" > index.html`
-
+ - resp. pre uzol 2: `$ sudo echo "Testovaci uzol 2: app.node2.lab" > index.html`
+   - aby sme mohli identifikovat, ktorym backend uzlom bol request vybaveny
  - pokracujeme instalaciou *HAProxy frontend LB* na uzle 1: `$ sudo dnf -y in haproxy`
  - upravime konfig. HAProxy `/etc/haproxy/haproxy.cfg` pridame napr. nasledovne:
 ```
