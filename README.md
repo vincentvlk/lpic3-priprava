@@ -2785,33 +2785,32 @@ gateway 192.168.255.1
 dns-nameservers 193.17.47.1 185.43.135.1 
 ```
 
-- nasledne restartujeme "networking" sluzbu: $ sudo systemctl restart networking.service
-  - podla vypisu "$ ip address" by mal byt povodny staticky IP conf. na novom "bridge" iface
-- instalujeme nastroje a kernel Hypervizora "Xen": $ sudo apt install xen-system-amd64
-- ak je instalcia uspesna, restartujeme Host-a a v Boot-menu vyberieme moznost "Xen Hyperisor"
-- dalej pouzivame nastroj "xl", ktore je tzv. "tool stack" na pracu s Hyperviz. Xen:
-  - vypiseme aktivne domeny: $ sudo xl list
-  - informacia o Host-e ziskame s: $ sudo xl info
-  - real-time sledovanie hypervizora: $ sudo xl top
-    - alebo: $ sudo xentop
-- aby vzdy Host system bootoval s Xen kernelom, upravime konf. "/etc/default/grub" nasledovne:
-  - riadok "GRUB_DEFAULT=0" upravime na:
-  - spravnu hodnotu najdeme v subore "/boot/grub/grub.cfg", hladame string "Xen"
+- nasledne restartujeme `networking` sluzbu: `$ sudo systemctl restart networking.service`
+  - podla vypisu `$ ip address` by mal byt povodny staticky IP conf. na novom `xenbr0` iface
+- instalujeme nastroje a kernel Hypervizora *Xen* s: `$ sudo apt install xen-system-amd64`
+- ak je instalcia uspesna, restartujeme Host-a a v Boot-menu vyberieme moznost *Xen Hyperisor*
+- dalej pouzivame nastroj `xl`, ktory je tzv. "tool stack" na pracu s Hypervizorom Xen:
+  - vypiseme aktivne domeny: `$ sudo xl list`
+  - informacia o Host-e ziskame s: `$ sudo xl info`
+  - real-time sledovanie hypervizora: `$ sudo xl top`
+    - alebo s: `$ sudo xentop`
+- aby vzdy Host system bootoval s Xen kernelom, upravime konf. `/etc/default/grub` nasledovne:
+  - riadok `GRUB_DEFAULT=0` upravime na:
+  - spravnu hodnotu najdeme v subore `/boot/grub/grub.cfg`, hladame string `Xen`
 
-GRUB_DEFAULT="Debian GNU/Linux, with Xen 4.14-amd64.efi and Linux 5.10.0-13-amd64"
+`GRUB_DEFAULT="Debian GNU/Linux, with Xen 4.14-amd64.efi and Linux 5.10.0-13-amd64"`
 
-- apliukujeme novu konf. s $ sudo update-grub
+- apliukujeme novu konf. s: `$ sudo update-grub`
+- dalej pridame riadok, ktory zabezpeci minimalne prostriedky pre Xen kernel:
 
-dalej pridame riadok, ktory zabezpeci minimalne prostriedky pre Xen kernel:
+`GRUB_CMDLINE_XEN_DEFAULT="dom0_max_vcpus=1 dom0_mem=1024M,max:1024M"`
 
-GRUB_CMDLINE_XEN_DEFAULT="dom0_max_vcpus=1 dom0_mem=1024M,max:1024M"
+- a znova aktualizujeme GRUB2 s: `$ sudo update-grub`
+- nasledne restartujeme Host system, napr. s: `$ sudo reboot`
+- konfiguraciu overime spravanim menu v GRUB2 a po starte systemu s: `$ sudo xl list`
+  - domena `Domain-0` by mala mat obmedzene zdroje podla konfiguracie z *GRUB-u*
 
-- a znova $ sudo update-grub
-- nasledne restartujeme Host system, napr. s: $ sudo reboot
-- konfiguraciu overime spravanim menu v GRUB2 a po starte systemu s: $ sudo xl list
-  - domena "Domain-0" by mala mat obmedzene zdroje podla konfiguracie z GRUBu
-
-- hlavna konfiguracia Xen-u sa nachadza v "/etc/xen/"
+- hlavna konfiguracia Xen-u sa nachadza v adresary `/etc/xen/`
   - na konfiguraciu HVM (Hardware Virtual Machine) sa da pouzit sablona "/etc/xen/xlexample.hvm"
   - na konfiguraciu PV (Para-Virtualization) sa da pouzit "/etc/xen/xlexample.pvlinux"
   - globalny konf. subore: "/etc/xen/xl.conf"
