@@ -2649,11 +2649,11 @@ Zaklady konceptu *Load-Balancing* v Cluster prostredi OS GNU/Linux
  - IP konfig. uzlov, `uzol1:192.168.255.21/24`, `uzol2:192.168.255.22/24`, `uzol3:192.168.255.23/24`
    - samozrejme doporuceny dizajn je L3 routed, netraba zabudnut zapnut IP/IPv6 forwarding v *Kerneli*
  - na uzloch 1 a 2 instalujeme HTTP app/backend server `$ sudo dnf -y install nginx`
-   - upravime subor `/etc/nginx/nginx.conf`:
+ - po isntalacii upravime konf. subor `/etc/nginx/nginx.conf` nasledujuco:
    - riadok `server_name www.srv.world;` na `server_name app.node1.lab;`
    - resp. na uzle 2 na: `server_name app.node2.lab;`
 
-   - aktivujeme sluzbu NGINX po reboote: `$ sudo systemctl enable --now nginx`
+ - aktivujeme start sluzby NGINX po reboote: `$ sudo systemctl enable --now nginx`
      - overime s: `$ sudo systemctl status nginx`
    - pridame pravidlo na firewall: `$ sudo firewall-cmd --add-service=http --permanent`
      - restartujeme firewall: `$ sudo firewall-cmd --reload`
