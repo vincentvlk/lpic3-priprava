@@ -2166,7 +2166,8 @@ Tip: Ako na reset Failcount-erov: `$ sudo pcs resource cleanup` resp.: `$ sudo c
 
 Tip: Ako vypisat/vlozit skrateny datum: `$ date +%H%h%Y` resp. v skripte: `$(date +%H%h%Y)`
 
-#### Praca s Cluter logmi, loguje sa na 2 urovniach, na urovniach `Corosync` a `Pacemaker`:
+#### Praca s Cluter logmi projektov *Corosync* a *Pacemaker*:
+ - loguje sa na 2 urovniach: *Corosync* a *Pacemaker*
  - logy z Corosync-u mozeme sledovat v: `$ sudo tail -f /var/log/cluster/corosync.log`
  - logovanie sa zapina v `/etc/corosync/corosync.conf`, direktiva `to_logfile: yes`
  - logovanie do `std::err`, ktore zachytava Systemd, teda `journalctl` zapneme s `to_stderr: yes`
@@ -2239,7 +2240,7 @@ Zaklady prace so *Storage* rieseniami v Cluster prostredi GNU/Linux
 
 Poznamka: alternativy k systemu CentOS: `CentOS Stream`, `Alma Linux`, `Rocky Linux`, `Oracle Linux`
 
-### Praca s Cluster Storage riesenim "DRBD - Distributed Replicated Block Device":
+### Praca s Cluster Storage riesenim *DRBD - Distributed Replicated Block Device*:
  - riesenie v podstate realizuje *RAID1* ale cez sietove prepojenia
  - zvycajne sa pouzivaju *2 storage uzly*, ktore si navzajom synchronizuju data
  - zakladny *M/S* model vyuziva standardne FS, napr. Ext4, XFS, ...
@@ -2301,7 +2302,7 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
 
 ### Zaklady prace s Cluster suborovym systemom GFS2 (Global File System):
 
-#### Priprava: Zaklady prace s LVM v Cluster prostredi:
+#### Priprava pre zaklady prace s LVM v Cluster prostredi:
 - logicke LV particie sa zvycajne mapuju napr. ako: `/dev/mapper/ubuntu--vg-ubuntu--lv`
 - kde je teda *VG (Volume Group)* s nazvom `ubuntu` a *LV (Logical Volume)* s nazvom `ubuntu` 
   - poznamka: je to symbolicky link
