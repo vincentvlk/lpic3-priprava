@@ -134,6 +134,8 @@ Poznamky na skusku LPIC3-304-200 - Virtualization & High Availability
   * [Ak system nepreklada DNS zaznami a hlasi: "Temporary failure in name resolution"](#ak-system-nepreklada-dns-zaznami-a-hlasi-temporary-failure-in-name-resolution)
   * [Ako v Unix-like systemoch konvertovat video kodekom H.265](#ako-v-unix-like-systemoch-konvertovat-video-kodekom-h265)
 
+* * * 
+
 #### Moj skromny nazor na priority pri realizacii projektov na OS GNU/Linux:
 
     Bezpecnost + Zalohovanie + Kontrola pouzitelnosti zaloh + Dokumentacia
