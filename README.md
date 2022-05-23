@@ -1134,7 +1134,7 @@ Vytvorime jednoduchy cvicny zdrojovy subor `pokus.java`:
  - *POZOR* na testovacej instalacii sa da spustit tvorba balicka: `$ sudo checkinstall make install`
  - hore uvedenym prikazom sa da rozbit system, tak si treba na test VM spravit *snapshot/backup*
 
-### Praca s kontajnermi, zaklady prace s Docker-om:
+### Zaklady prace s virtualnymi kontajnermi, projekt Docker:
 
 Instalacia najznamejsieho nastroja Docker nie je zlozita, ale ani trivialna, jeden z postupov:
 
@@ -1249,7 +1249,7 @@ Poznamka: ak chceme vymazat Docker image, treba najskor pomazat z neho vytvorene
  - dalsie informacie: `$ docker system prune --help`
  - celkom uzitocna diagnostika zabrateho miesta: `$ docker system df`
 
-### Praca s nastrojom Git a platformou GitHub:
+### Zaklady prace s nastrojom Git a platformou GitHub:
 
 Vytvorime adresar `git_ucenie`, v ktorom inicializujeme *lokalny* Git repozitar: `$ git init`
  - aktualny stav repozitara overime s: `$ git status`
