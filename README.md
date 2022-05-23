@@ -1082,7 +1082,7 @@ Tip: V definicii promptu, teda v premennej `$PS1` by sme sa mali vyhnut znakom: 
 
 ### Zaklady prace s vyvojarskymi nastrojmi:
 
-#### Jednoduchy priklad na kompilaciu zdrojoveho kodu v jazyku *C*
+#### Jednoduchy priklad na kompilaciu zdrojoveho kodu v jazyku *C*:
 - vytvorime zdrojovy subor `pokus.c`, kde vlozime prikazy:
 ```c
     #include <stdio.h>
@@ -1105,13 +1105,14 @@ Tip: Ako vypisat zdielane kniznice, ktore ma nalinkovane dany program: `$ sudo l
 Je potrebne nainstalovat vyvojarske nastroje: `$ sudo apt install default-jdk-headless`
 
 Vytvorime jednoduchy cvicny zdrojovy subor `pokus.java`:
-
+```java
     class MyFirstProgram {
 
         public static void main(String args[]){
             System.out.println("Hello World!");
         }
     }
+```
 
  - program skompilujeme do tzv. "byte code" formatu s priponou `.class`: `$ javac pokus.java`
  - vznikne bytecode subor `MyFirstProgram.class`, ktory spustime prikazom: `$ java MyFirstProgram`
