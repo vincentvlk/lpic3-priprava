@@ -2465,32 +2465,32 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
      $ sudo pcs resource create shared_lv ocf:heartbeat:LVM-activate \
      lvname=lv_gfs2 vgname=vg_gfs2 activation_mode=shared vg_access_mode=lvmlockd --group shared_vg
 
-   - tento zdroj klonujeme na dalsie uzly: $ sudo pcs resource clone shared_vg interleave=true
-   - pridame poradie startu: $ sudo pcs constraint order start locking-clone then shared_vg-clone
-   - spolu start na 1 node: $ sudo pcs constraint colocation add shared_vg-clone with locking-clone
-   - overime s "$ sudo pcs status --full" a "$ sudo pcs constraint config"
+   - tento zdroj klonujeme na dalsie uzly: `$ sudo pcs resource clone shared_vg interleave=true`
+   - pridame poradie startu: `$ sudo pcs constraint order start locking-clone then shared_vg-clone`
+   - spolu start na 1 node: `$ sudo pcs constraint colocation add shared_vg-clone with locking-clone`
+   - overime s: `$ sudo pcs status --full` a `$ sudo pcs constraint config`
 
-   - na oboch uzloch vytvorime adresar, kde cluster "namountuje" GFS2: $ sudo mkdir /mnt/gfs2disk1
+   - na oboch uzloch vytvorime adresar, kde si cluster "namountuje" GFS2: `$ sudo mkdir /mnt/gfs2disk1`
    - vytvorime zdielany GFS2 zdroj, na ukladanie dat so synchronizaciou:
  
     $ sudo pcs resource create shared_fs ocf:heartbeat:Filesystem device="/dev/vg_gfs2/lv_gfs2" \
     directory="/mnt/gfs2disk1" fstype="gfs2" options=noatime op monitor \
     interval=10s on-fail=fence --group shared_vg
 
-   - overime cluster stack: $ sudo pcs status --full 
-   - ak je vsetko aktivne bez chyb, vsetky uzly budu mat dostupny GFS2 "mount": $ sudo df -hT
-   - da sa otestovat, ze napr. kazdy uzol zapise do "/mnt/gfs2disk1" napr. $ sudo touch uzol1
-     - ostatne uzly uvidia subor "uzol1" v "/mnt/gfs2disk1"
+   - overime cluster stack: `$ sudo pcs status --full`
+   - ak je vsetko aktivne bez chyb, vsetky uzly budu mat dostupny GFS2 "mount": `$ sudo df -hT`
+   - da sa otestovat, ze napr. kazdy uzol zapise do `/mnt/gfs2disk1` napr. `$ sudo touch uzol1`
+     - ostatne uzly uvidia subor `uzol1` v `/mnt/gfs2disk1`
 
  - pokracujeme riesenim weboveho servera Apache2 ako clustrovy zdroj:
    - najskor riesenie pre data storage, pridame dalsi LUN na iSCSI storage systeme
-   - na uzloch pouzijeme tzv. iSCSI target rescan: $ sudo iscsiadm -m node --rescan
-   - novy LUN overime napr. s: "$ sudo lsscsi" / "$ sudo lsblk"
-   - do LVM zaradime novy iSCSI disk (moze sa pouzit aj disk bez part.): $ sudo pvcreate /dev/sdc
-   - na uzle 1 vytvorime zdielanu LVM VG: $ sudo vgcreate --shared vg_web_clus /dev/sdc
-   - na uzle 2 pokracujeme zapnutim LVM Locking-u: $ sudo vgchange --lock-start vg_web_clus
-   - vratime sa na uzol 1 a vytvorime LV: lvcreate -l 100%FREE -n lv_web_clus vg_web_clus
-     - na oboch uzloch overime prikazom: "$ sudo vgs" a "$ sudo lvs", musia vidiet to iste
+   - na uzloch pouzijeme tzv. *iSCSI target rescan* s: `$ sudo iscsiadm -m node --rescan`
+   - novy LUN overime napr. s: `$ sudo lsscsi` alebo s: `$ sudo lsblk`
+   - do LVM zaradime novy iSCSI disk (moze sa pouzit aj disk bez part.): `$ sudo pvcreate /dev/sdc`
+   - na uzle 1 vytvorime *zdielanu LVM VG* s: `$ sudo vgcreate --shared vg_web_clus /dev/sdc`
+   - na uzle 2 pokracujeme zapnutim LVM Locking-u: `$ sudo vgchange --lock-start vg_web_clus`
+   - vratime sa na uzol 1 a vytvorime LV s: `$ sudo lvcreate -l 100%FREE -n lv_web_clus vg_web_clus`
+     - na oboch uzloch overime prikazom: `$ sudo vgs` a `$ sudo lvs`, musia vidiet to iste
    - pokracujeme, na novom zdielanom cluster LV vytvorime suborovy system GFS2: 
  
      $ sudo mkfs.gfs2 -j2 -p lock_dlm -t rocky_cluster:web_clus /dev/vg_web_clus/lv_web_clus
@@ -2500,18 +2500,18 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
    $ sudo pcs resource create lv_web_shared ocf:heartbeat:LVM-activate lvname=lv_web_clus \
      vgname=vg_web_clus activation_mode=shared vg_access_mode=lvmlockd --group shared_vg
 
-   - overime napr. s: $ sudo pcs status --full
+   - overime napr. s: `$ sudo pcs status --full`
  
-   - dalej instalujeme Apache2 Web Server : $ sudo dnf -y in httpd
-     - po instalacii si zatial nevsimame stav procesu, chceme aby ho riadil Pacemaker, nie "systemd"
-   - na uzloch vytvorime "Server Status" konfig.: $ sudo vim /etc/httpd/conf.d/server-status.conf
+   - dalej instalujeme Apache2 Web Server : `$ sudo dnf -y in httpd`
+     - po instalacii si zatial nevsimame stav procesu, *chceme aby ho riadil Pacemaker*, nie "systemd"
+   - na uzloch vytvorime *Server Status* konfig.: `$ sudo vim /etc/httpd/conf.d/server-status.conf`
      - vlozime konfiguraciu:
-
+```httpd
     <Location /server-status>
         SetHandler server-status
         Require local
     </Location>
- 
+```
     - dalej na uzloch upravime konfiguraciu procesu "Log Rotate" v "/etc/logrotate.d/httpd" na:
       - zakomentujeme povodny riadok, aby "systemd" neriadil proces, ale aby ho riadil Pacamaker
 
