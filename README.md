@@ -2927,72 +2927,74 @@ $ sudo virt-install --name=fedoraVM01 --memory=2048 --vcpus=2 --disk size=8 \
 - stav VM instancie overime s: `$ sudo virsh list --all`
 
 Dalsie nastroje na pracu s KVM: `qemu-ga`, `qemu-img`, `qemu-kvm`
-- nastroj `qemu-ga` umoznuje napr.: ziskat info o VM, suspendovat VM, nastavit systemovy cas, ...
-- ako ziskat informacie o qcow2 image: $ sudo qemu-img info /mnt/kvm-stor/qemu.vm01.img
-- ako otestovat konzistenciu image: $ sudo qemu-img check /mnt/kvm-stor/qemu.vm01.img
-  - dalsie moznosti: create, commit, comapre, convert, map, snaphost, rebase, resize, amend
-  - dalsie informacie napr. v: $ man qemu-img
+- nastroj `qemu-ga` umoznuje napr. ziskat info o VM, suspendovat VM, nastavit systemovy cas, ...
+- priklad: ako ziskat informacie o qcow2 image: `$ sudo qemu-img info /mnt/kvm-stor/qemu.vm01.img`
+- ako otestovat konzistenciu image: `$ sudo qemu-img check /mnt/kvm-stor/qemu.vm01.img`
+  - dalsie moznosti: `create`, `commit`, `compare`, `convert`, `map`, `snaphost`, `rebase`, `resize`, `amend`
+  - dalsie informacie napr. v: `$ man qemu-img`
 
-Dolezity nastroj "qemu-kvm" je hlavny nastroj pre pracu s QEMU+KVM:
- - tento nastroj ma velke mnozstvo moznosti/nastaveni, treba pozriet napr.: $ man qemu-kvm
- - dalsia sucast je interaktivny nastroj "KVM Monitor", ktory umoznuje riadenie/sledovanie KVM+QEMU
-   - nastroj ma predvolene graficke rozhranie, parameter "stdio" aktivuje textove rozhranie
-   - v terminale spustime s: $ sudo qemu-kvm -monitor stdio
-     - prva pomoc je prikaz "help", dalej napr. ked zadame "info", vypise nam moznosti prikazu
+Dolezity nastroj `qemu-kvm` je hlavny nastroj pre pracu s QEMU+KVM stackom:
+ - tento nastroj ma velke mnozstvo moznosti/nastaveni, treba pozriet napr.: `$ man qemu-kvm`
+ - dalsia sucast je interaktivny nastroj *KVM Monitor*, ktory umoznuje riadenie/sledovanie KVM+QEMU
+   - nastroj ma predvolene graficke rozhranie, parameter `stdio` aktivuje textove rozhranie
+   - v terminale spustime s: `$ sudo qemu-kvm -monitor stdio`
+   - prva pomoc je prikaz `help`, dalej napr. ked zadame `info`, vypise nam moznosti prikazu
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Ako sledovat cinnost "sietoveho unit-u" v systemD: $ sudo journalctl -f -u systemd-networkd
+Tip: Ako sledovat cinnost "sietoveho unit-u" v systemD: $ sudo journalctl -f -u systemd-networkd
 
-Praca s "OS-level virtualization" projektami OpenVZ, LXC, ktore pracuju s konceptom kontajnerov
- - dalsia moznost je "Application-level virtualization", kde je hlavnym zastupcom platforma Docker
+### Zaklady prace s "OS-level virtualization" projektami *OpenVZ* a *LXC*:
+ - tieto projekty pracuju s konceptom tzv. *kontajnerov*
+ - dalsia moznost je *Application-level virtualization*, kde je hlavnym zastupcom platforma *Docker*
 
-Praca s projektom "OpenVZ", ktory pracuje ako "OS-level" virtualizacna platforma s kontajnermi:
- - kontajnery funguju ako standardny linuxovy server VPS, ktory je izolovany od ostatnych instancii
- - OpenVZ pouziva modifikovany Kernel, platforma podporuje tzv. Checkpoit-y a Live migraciu
+#### Praca s projektom "OpenVZ", ktory pracuje s kontajnermi:
+ - kontajnery funguju ako standardny linuxovy VPS server, ktory je izolovany od ostatnych instancii
+ - *OpenVZ* pouziva modifikovany Kernel, platforma podporuje tzv. *Checkpoit-y* a *Live migraciu*
    - migracia zmrazi/Freeze stav kont. do suboru a na druhom hoste ho "rozmrazi/Unfreeze" a spusti 
  - nova instalacia je riesena cez stiahnutelny ISO image specialnej Linux distribucie s OpenVZ 
  - po instalacii VZ-Linux mozeme vytvorit OS-level kontajner podla preddefinovanej sablony:
-   - napr.: $ sudo prlctl create ubuCT1 --vmtype ct --ostemplate ubuntu-20.04-x86_64
-   - zoznam zakladnych sablon ziskame s: $ sudo vzpkg list
+   - napr.: `$ sudo prlctl create ubuCT1 --vmtype ct --ostemplate ubuntu-20.04-x86_64`
+   - zoznam zakladnych sablon ziskame s: `$ sudo vzpkg list`
 
-**poznamky k OpenVZ dalej nepokracuju, pretoze projekt je uz zastaraly**
+Poznamka: Pretoze projekt OpenVZ je uz zastaraly, poznamky dalej nepokracuju
 
-Praca s virtualizacnou platformou "LXC - Linux Containers", tiez pracuje s kontajnermi
+#### Praca s virtualizacnou platformou "LXC - Linux Containers":
  - snaha je vytvorit co najefektivnejsi kontajner bez emulacie HW
- - vhodny na vytvaranie Developer prostredi, podporuje sablony/Templates
- - vyuziva projekty/technologie: Namespaces, CGroup, Chroot, Apparmor/SELinuxm, Seccomp
+ - vhodny na vytvaranie *Developer prostredi*, podporuje sablony/Templates
+ - vyuziva projekty/technologie: *Namespaces, CGroup, Chroot, Apparmor/SELinux, Seccomp*
  
- - zjednoduseny postup ako na OS Ubuntu 20.04 spustat *neprivilegovane* LXC kontajnery:
-   - je vhodne vytvorit noveho uzivatela, ktory nie je sysadmin
-   - instalujeme balik nastrojov: $ sudo apt install lxc
- - nasledne overime, ci ma aktualny uzivatel mapovanie subUID a subGID pre LXC
-   - kontrolujeme subory "/etc/subuid" a "/etc/subgid"
- - dalej definujeme networking limit pre LXC, umozni pripojit 10 "veth NICov" k "lxcbr0" bridgu
-   - upravime subor "/etc/lxc/lxc-usernet" a vlozime riadok "<uzivatel> veth lxcbr0 10"
- - vytvorime konf. LXC adresar pre daneho uzivatela: $ mkdir -p /home/<uzivatel>/.config/lxc
- - dalej skopirujeme vzorovy konf. subor: $ cp /etc/lxc/default.conf /home/<uzivatel>/.config/lxc/
- - nasledne mozeme upravit lokalnu LXC konfiguraciu v subore "default.conf"
-   - pridame riadky, podla UID a GID mapovacich suborov, ktore sa kontrolovali, napr.:
+Zjednoduseny priklad ako na OS Ubuntu 20.04 spustat *neprivilegovane* LXC kontajnery:
 
+ - je vhodne vytvorit noveho uzivatela, ktory nie je sysadmin
+ - instalujeme balik nastrojov: `$ sudo apt install lxc`
+ - nasledne overime, ci ma aktualny uzivatel mapovanie `subUID` a `subGID` pre LXC
+   - kontrolujeme subory `/etc/subuid` a `/etc/subgid`
+ - dalej definujeme networking limit pre LXC, umozni pripojit *10 veth NICov* k `lxcbr0` bridgu
+   - upravime subor `/etc/lxc/lxc-usernet` a vlozime riadok `<uzivatel> veth lxcbr0 10`
+ - vytvorime konf. LXC adresar pre daneho uzivatela: `$ mkdir -p /home/<uzivatel>/.config/lxc`
+ - dalej skopirujeme vzorovy konf. subor: `$ cp /etc/lxc/default.conf /home/<uzivatel>/.config/lxc/`
+ - nasledne mozeme upravit lokalnu LXC konfiguraciu v subore `default.conf`
+   - pridame riadky, podla UID a GID mapovacich suborov, ktore sa kontrolovali, napr.:
+```
 lxc.idmap = u 0 165536 65536
 lxc.idmap = g 0 165536 65536
- 
- - je potrebne nastavit premennu: $ export DOWNLOAD_KEYSERVER="hkp://keyserver.ubuntu.com"
-   - prikaz mozeme vlozit aj napr. do suboru "/home/<uzivatel>/.bashrc"
- - dalej je potrebne restartovat Host system, napr. s: $ sudo reboot
- - po reboote mozeme pracovat s kontajnermi, vytvorime kont. podla sablony s nazvom "lxctest1"
-   - prikaz: $ lxc-create -t download -n lxctest1
+```
+
+ - je potrebne nastavit premennu: `$ export DOWNLOAD_KEYSERVER="hkp://keyserver.ubuntu.com"`
+   - prikaz mozeme vlozit aj napr. do suboru `/home/<uzivatel>/.bashrc`
+ - dalej je potrebne restartovat Host system, napr. s: `$ sudo reboot`
+ - po reboote mozeme pracovat s kontajnermi, vytvorime kont. podla sablony s nazvom `lxctest1`
+   - prikaz: `$ lxc-create -t download -n lxctest1`
    - nasledujeme sprievodcu, kde zadame system, verziu a CPU architekturu
-   - napr. sa da zadat minimalisticka distribucia  "alpine" + "3.15" + "amd64" 
- - je potrebne este nastavit prava "execute" na adresar /home/<uzivatel>/.local
-   - prikaz: $ chmod og+x .local/ 
- - nasledne uz mozeme spustit do pozadia vytvoreny kontajner "lxctest1" s Alpine Linux 3.15
-   - prikaz: $ lxc-start -d -n lxctest1
-   - stav kontajnerov overime s: $ lxc-ls -f
-   - na konzolu kontajnera sa pripojime s: $ lxc-attach -n lxctest1
-   - informacie o danom kontajnery: $ lxc-info -n lxctest1
-   - kont. zastavime s: $ lxc-stop -n lxctest1
-   - kont. vymazeme, ak je zastaveny, prikazom: $ lxc-destroy lxctest1 
+   - napr. sa da zadat minimalisticka distribucia  `alpine` + `3.15` + `amd64` 
+ - je potrebne este nastavit prava *execute* na adresar `/home/<uzivatel>/.local`
+   - prikaz: `$ chmod og+x .local/`
+ - nasledne uz mozeme spustit do pozadia vytvoreny kontajner `lxctest1` s Alpine Linux 3.15
+   - prikaz: `$ lxc-start -d -n lxctest1`
+   - stav kontajnerov overime s: `$ lxc-ls -f`
+   - na konzolu kontajnera sa pripojime s: `$ lxc-attach -n lxctest1`
+   - informacie o danom kontajnery: `$ lxc-info -n lxctest1`
+   - kont. zastavime s: `$ lxc-stop -n lxctest1`
+   - kont. vymazeme, ak je zastaveny, prikazom: `$ lxc-destroy lxctest1`
 
 **Praca s platformou Docker je uz vyssie popisana v tychto poznamkach.**
 
