@@ -1266,36 +1266,35 @@ Vytvorime adresar `git_ucenie`, v ktorom inicializujeme **lokalny** Git repozita
  - subor ulozime a overime stav *lokalneho* repo.: `$ git status`
  - podla vypisu je potrebne pridat upraveny subor do **Staging Cache**: `$ git add poznamky.txt`
  - jednoduchsie mozeme pridat vsetky subory v danom adresary repozitara: `$ git add .`
- - aby sme sa vyhli pridavaniu suborov, ktore nechceme pridat do Staging Cache,
-   vytvorime subor `.gitignore`
- - na ignorovanie tzv. **.dotfiles**, do suboru mozeme zapisat napr. riadok `.*`
+ - aby sme sa vyhli pridavaniu suborov, ktore nechceme pridat do Staging Cache, vytvorime subor `.gitignore`
+ - na ignorovanie tzv. *.dotfiles* mozeme do suboru zapisat napr. riadok `.*`
  - ak chceme odstranit subor z Cache, pouzijeme: `$ git rm --cached <nazov_suboru>`
  - pridame novu zmenu: `$ git commit -m 'pridal som dalsi riadok'`
 
-Chceme napr. zmenit format zapisu poznamok, mozeme vytvorit novu vetvu, **branch**:
+Chceme napr. zmenit format zapisu poznamok, mozeme vytvorit novu "vetvu", tzv. *branch*:
  - prikaz:  `$ git checkout -b 'novy_format'`
- - v novej vetve napr. vytvorime subor `poznamky_novy_format.txt` a ten pridat do Cache a commit.
-   - ^^ avsak uz do **novej vetvy/branch** s nazvom `novy_format`
+ - v novej vetve napr. vytvorime subor `poznamky_novy_format.txt` a ten pridat do Cache a commit-ovat
+   - avsak uz do *novej vetvy/branch* s nazvom `novy_format`
  - overime s: `$ git status`
- - potom sa mozeme prepinat medzi vetvami, napr. sa vratit do hlavnej **master** vetvy:
+ - potom sa mozeme prepinat medzi vetvami, napr. sa vratit do hlavnej *master* vetvy:
    - prikaz: `$ git checkout master`
  - overime s: `$ git status`
 
 #### Ako replikovat lokalny Git repozitar na vzdialeny server, napr. na GitHub:
 
 - na platforme `github.com` si vytvorime uzivatelsky ucet
-- je potrebne vytvorit si autentifikacny Token, tzv. **Personal Access Token**, podla odkazu:
+- je potrebne vytvorit si autentifikacny Token, tzv. *PAT - Personal Access Token*, podla odkazu:
 
 `https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token`
 
-- vytvoreny Token **nezabudame/nezatvarame**
-- dalej vytvorime repozitar s nazvom `git_ucenie`, portal GitHub nam vygeneruje zakladne prikazy
-- dalej si vytvorime vzdialeny pristup na repo., tzv. **Remote**: 
+- vytvoreny Token *nezabudame/nezatvarame*
+- dalej vytvorime repozitar s nazvom `git_ucenie`, portal *GitHub* nam vygeneruje zakladne prikazy
+- dalej si vytvorime vzdialeny pristup na repo., tzv. *Remote*: 
   - prikaz: `$ git remote add origin https://github.com/<UZIVATEL>/git_ucenie.git`
 - nasledne zosynchronizujeme kolakny repo. so vzdialenym repo.: `$ git push -u origin master`
-- na autentifikaciu zadame svoje uziv. meno, ale **namiesto hesla zadame vygenerovany PAT Token**
+- na autentifikaciu zadame svoje uzivatelske meno, ale *namiesto hesla zadame vygenerovany PAT token*
 
-Na ulahcenie prace si mozeme pridat do svojho `$HOME` adresara, do suboru `.gitconfig` aliasy, napr.:
+Na ulahcenie prace s Git-om mozeme pridat do svojho `$HOME` adresara, do suboru `.gitconfig` aliasy, napr.:
 
     #
     [alias]
@@ -1307,7 +1306,7 @@ Na ulahcenie prace si mozeme pridat do svojho `$HOME` adresara, do suboru `.gitc
         undo = reset HEAD~1 --mixed
         strom = !git log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C$
 
-Naslendne uz mozeme pouzivat napr. aliasy:
+Naslendne uz mozeme pouzivat napr. tieto aliasy:
 
     $ git s
     $ git save
@@ -1317,12 +1316,12 @@ Naslendne uz mozeme pouzivat napr. aliasy:
 ### Zaklady bezpecnosti v operacnom systeme GNU/Linux:
 
 Poznamka: Dva webove zdroje s informaciami k typom a kategoriam utokov:
+```
+https://www.nsa.gov/Press-Room/Cybersecurity-Advisories-Guidance/
 
-`https://www.nsa.gov/Press-Room/Cybersecurity-Advisories-Guidance/`
-
-`https://attack.mitre.org/`
-
-#### Nastroj na ochranu/kontrolu integrity suborov a adresarov: **AIDE**
+https://attack.mitre.org/
+```
+#### Nastroj na ochranu/kontrolu integrity suborov a adresarov, projekt *AIDE*:
 
 Instalacia: `$ sudp apt install aide`
  
