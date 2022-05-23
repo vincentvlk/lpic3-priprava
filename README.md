@@ -3230,7 +3230,7 @@ Tip: Ako zalohovat pomocou programu `rsync` vsetky *.dotfile* a *.dotdirectory*:
 
 #### Dobra stranka na zaciatocnu konfiguraciu znamych distribucii Linuxu:
 
-    `https://www.server-world.info/en/`
+`https://www.server-world.info/en/`
  
 - neviem do kedy bude online a chyba praca s protkolom IPv6 :-(
 
