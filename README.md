@@ -2048,7 +2048,8 @@ Poznamka: ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
  - nastrojom `crm` mozeme otvorit interaktivny *Cluster Management* shell: `$ sudo crm`
    - definovane zdroje vypiseme s `crm(live/suse1)# resource status` alebo s: `$ sudo crm_mon`
  
-#### Praca s *Resource constraints*, rozdelujeme na typy: `Location`, `Colocation` a `Order`:
+#### Praca s obmedzeniami zdrojov *Resource constraints*:
+ -  rozdelujeme na tri typy: `Location`, `Colocation` a `Order`:
  - typ `Location` - na ktorom uzle ma *bezat* dany zdroj/resource, preferencia uzla
  - typ `Colocation` - s ktorym dalsim zdrojom, ma/nema bezat dany zdroj
  - typ `Order` - pred ktorym alebo za ktorym zdrojom ma dany zdroj *bezat*
