@@ -2492,7 +2492,7 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
    - na uzle 2 pokracujeme zapnutim LVM Locking-u: `$ sudo vgchange --lock-start vg_web_clus`
    - vratime sa na uzol 1 a vytvorime LV s: `$ sudo lvcreate -l 100%FREE -n lv_web_clus vg_web_clus`
      - na oboch uzloch overime prikazom: `$ sudo vgs` a `$ sudo lvs`, musia vidiet to iste
-   - pokracujeme, na novom zdielanom cluster LV vytvorime suborovy system GFS2: 
+   - dales na novom zdielanom cluster LV vytvorime suborovy system GFS2: 
 ```bash
      $ sudo mkfs.gfs2 -j2 -p lock_dlm -t rocky_cluster:web_clus /dev/vg_web_clus/lv_web_clus
 ```
@@ -2504,10 +2504,10 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
    - overime napr. s: `$ sudo pcs status --full`
  
    - dalej instalujeme Apache2 Web Server : `$ sudo dnf -y in httpd`
-     - po instalacii si zatial nevsimame stav procesu, *chceme aby ho riadil Pacemaker*, nie "systemd"
+     - po instalacii si zatial nevsimame stav procesu, *chceme aby ho riadil Pacemaker*, nie "SystemD"
    - na uzloch vytvorime *Server Status* konfig.: `$ sudo vim /etc/httpd/conf.d/server-status.conf`
      - vlozime konfiguraciu:
-```httpd
+```apache
     <Location /server-status>
         SetHandler server-status
         Require local
