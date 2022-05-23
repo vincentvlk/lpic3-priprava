@@ -1313,8 +1313,7 @@ Naslendne uz mozeme pouzivat napr. tieto aliasy:
     $ git lg
     $ git strom
 
-Zaklady bezpecnosti v operacnom systeme GNU/Linux
-------------
+### Zaklady bezpecnosti v operacnom systeme GNU/Linux:
 
 Poznamka: dva webove zdroje s informaciami k typom a kategoriam utokov:
 ```
