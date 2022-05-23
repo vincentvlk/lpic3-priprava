@@ -567,7 +567,7 @@ Pozriet riadenie toku BASH skriptu, resp. rozhodovanie s:
  - dalsi uzitocny manual: `$ man test`
  - alebo napr. `$ help if`
 
-#### Priklad na riadenie toku v BASH skripte s `if`
+#### Priklad na riadenie toku v BASH skripte s prikazom `if`:
 - vytvorime skript napr.: `ifPriklad.sh`:
 ```bash
     #!/usr/bin/env bash
