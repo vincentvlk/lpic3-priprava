@@ -2513,7 +2513,8 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
         Require local
     </Location>
 ```
-    - dalej na uzloch upravime konfiguraciu procesu *Log Rotate* v `/etc/logrotate.d/httpd` na:
+
+   - dalej na uzloch upravime konfiguraciu procesu *Log Rotate* v `/etc/logrotate.d/httpd` na:
       - zakomentujeme povodny riadok, aby `systemd` neriadil proces, ale aby ho riadil *Pacamaker*
 ```
 /var/log/httpd/*log {
