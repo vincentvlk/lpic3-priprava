@@ -2,7 +2,7 @@ Poznamky na skusku LPIC3-304-200 - Virtualization & High Availability
 -----------
 ### Obsah:
 
-{toc}
+[[_TOC_]]
 
 #### Moj skromny nazor na priority pri realizacii projektov na OS GNU/Linux:
 
@@ -11,7 +11,7 @@ Poznamky na skusku LPIC3-304-200 - Virtualization & High Availability
 
     + zvazit nasadenie IPv6, ak je to mozne (definitivne by malo byt)
 
-Zakladne tipy a triky pre operacny system GNU/Linux:
+Zakladne tipy a triky pre operacny system GNU/Linux
 ----------------------
 
 #### Zakladne nastavenie siete v systeme Debian11:
@@ -147,7 +147,7 @@ Ako vytvorit Swap subor, nie particiu:
  
 V kontexte Swap-u existuje v kerneli tzv. `OOM Killer`, ktory pri nedostatku pamate zabija procesy.
 
-#### Zaklady prace s LVM, aktualna verzia je LVM2
+#### Zaklady prace s LVM, aktualna verzia je LVM2:
 
 Prikaz na interaktivne CLI: `$ sudo lvm`
 
@@ -203,7 +203,7 @@ Tip: Ako zistit ake KILL signaly system podporuje: `$ kill -l`
 
 Tip: Nastroj na kontrolu syntaxe BASH skriptov: `shellcheck`
 
-#### Zaklady prace s inode-ami:
+#### Zaklady prace so suborovymi *inode-mi*:
 
 Prikaz vypise prava a inode informacie o subore: `$ stat subor.xyz`
 
