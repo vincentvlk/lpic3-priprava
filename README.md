@@ -1082,7 +1082,7 @@ Tip: V definicii promptu, teda v premennej `$PS1` by sme sa mali vyhnut znakom: 
 
 ### Zaklady prace s vyvojarskymi nastrojmi:
 
-#### Jednoduchy priklad na kompilaciu zdrojoveho kodu v jazyku *C*:
+#### Jednoduchy priklad ako kompilovat zdrojove subory v jazyku *C*:
 - vytvorime zdrojovy subor `pokus.c`, kde vlozime prikazy:
 ```c
     #include <stdio.h>
