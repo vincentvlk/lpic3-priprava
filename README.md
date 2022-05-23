@@ -3211,44 +3211,44 @@ $ brew install virt-viewer
    - *Glance*: poskytuje sluzby na pracu s image-mi, ako su .iso, .ovf, .vmdk, ...
    - projekt OpenStack ma vela dalsich sluzieb a sub-projektov, ktore nie su predmetom tychto poznamok
 
-#### Projekt CloudStack, je definovany ako OSS produkt na nasadenia a spravu velkych VM prostredi
- - je to full-stack Infrastructure as a Service (IaaS) riesenie pre public/private/hybrid cloud
+#### Poznamky k projektu CloudStack:
+ - je definovany ako OSS produkt na nasadenia a spravu velkych VM prostredi
+ - je to full-stack *Infrastructure as a Service (IaaS)* riesenie pre public/private/hybrid cloud
  - zakladne vlastnosti:
-   - vysoka skalovatelnost, nasiel som realne nasadenie s viac ako 30 tisic Host servermi
-   - Open-source
-   - Compute orchestration
-   - NaaS: Network as a Service
-   - Storage manazment pre VM instancie ako aj pre image a sablony, snapshoty
+   - vysoka skalovatelnost, nasiel som Case Study s viac ako 30 tisic Host servermi
+   - open-source
+   - podpora Compute orchestration
+   - podpora NaaS: Network as a Service
+   - storage manazment pre VM instancie ako aj pre image a sablony, snapshoty
    - manazment uzivatelov a uctov
-   - Multi-tenancy
-   - Nativne REST API + kompatibilne API s Amazon S3/EC2
+   - multi-tenancy
+   - nativne REST API + kompatibilne API s Amazon S3/EC2
    - uctovanie/accounting vyuzivanych zdrojov
    - webove UI
    - terminalove CLI nastroje
-   - dobre relativne RTTV - Rapid Time To Value
-   - podporuje viacero Hypervizorov, napr. VMware, KVM/QEMU, XenServer, HyperV, OVM, UCS, ...
+   - dobre relativne *RTTV - Rapid Time To Value*
+   - podporuje viacero Hypervizorov, napr.: *VMware, KVM/QEMU, XenServer, HyperV, OVM, UCS, ...*
+ - tzv. *Manazment Server* je zodpovedny za orchestraciu zdrojov v Cloud prostredi
+   - bezi ako kontajner na platforme *Apache Tomcat*
+   - vyzaduje databazu, napr. *MySQL/MariaDB*, pripadne jej Cluster riresenie *Galera MariaDB Cluster*
+ - dalsie informacie napr. na: `https://cloudstack.apache.org/`
 
- - tzv. Manazment Server je zodpovedny za orchestraciu zdrojov v Cloud Prostredi
-   - bezi ako kontajner na platforme Apache Tomcat
-   - vyzaduje databazu, napr. MySQL/MariaDB, pripadne jej Cluster riresenie "Galera MariaDB Cluster"
-
-#### Projekt Eucalyptus je OSS riesenie pre IaaS platformi, ktore su kompatibilne s Amazon AWS
+#### Projekt Eucalyptus:
+ - je OSS riesenie pre IaaS platformi, ktore su kompatibilne s Amazon AWS
  - umoznuje vytvorit privatny aj public cloud
  - architektura postavena na GNU/Linux, ktora umoznuje vyuzit svoje vlastne zdroje kompati. s AWS
- - dalsie infomacie napr.: https://www.eucalyptus.cloud/
+ - dalsie infomacie napr. na: `https://www.eucalyptus.cloud/`
 
-#### Projekt OpenNebula kombinuje virtualizaciu a kontajnery na budovanie multi-tenant cloud rieseni
+#### Projekt OpenNebula:
+ - kombinuje virtualizaciu a kontajnery na budovanie multi-tenant cloud rieseni
  - umoznuje vybudovat private/public/hybrid cloud riesenia + edge computing
  - komercny produkt s profesionalnou/garantovanou podporou
  - plne automatizovany provisioning a elasticita na poskytovanie on-demand vypoctovych prostriedkov
- - integruje viacero technologii, napr. VMware, KVM/QEMU, Firecracker, LXC, Docker, K8S, Terraform
- - umoznuje nasadit hybrid/edge riesenie s vyuzitim externych zdrojov AWS, Google, Equinix.
- - dalsie informacie napr.: https://opennebula.io
+ - integruje viacero technologii, napr.: *VMware, KVM/QEMU, Firecracker, LXC, Docker, K8S, Terraform*
+ - umoznuje nasadit *hybrid/edge* riesenie s vyuzitim externych zdrojov ako *AWS, Google, Equinix*
+ - dalsie informacie napr. na: `https://opennebula.io`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
 Tip: Ako vypisat vsetky *.dotfile* a *.dotdirectory*, prikaz: `$ ls -ld .??*`
-
 Tip: Ako zalohovat pomocou programu `rsync` vsetky *.dotfile* / *.dotdirectory*:
  - prikaz: `$ rsync -av /zdrojova/cesta/.??* /cielova/cesta/`
-
-
