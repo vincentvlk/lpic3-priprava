@@ -1874,12 +1874,15 @@ Na pracu s HA-lusterom je vhodne mat *DNS zaznami typu A/PTR uzlov*, pripadne za
  - napr. v interaktivnom rezime pridame dalsiu *Virtual IP*, pouzijeme prikaz:
 
 `crm(live)configure# primitive newIP ocf:heartbeat:IPaddr2 params ip=192.168.255.30 cidr_netmask=24`
+
  - ak chceme po prikaze nieco upravit, pouzijeme prikaz `edit`, teda: `crm(live)configure# edit`
 
-#### Praca s RA - Resource Agents, ktore tiez spravuju zdroje, napr. OCF - Open Cluster Framework:
- - vypiseme triedy zdrojov: `$ sudo crm ra classes`
+#### Praca s RA - Resource Agents:
+ - tito agenti spravuju zdroje, napr.: *OCF* - Open Cluster Framework
+ - vypiseme triedy agentov pre zdroje: `$ sudo crm ra classes`
  - presnejsi vypis RA z triedy OCF: `$ sudo crm ra list ocf`
- - OCF ma *svoje* skripty, ako napr. *SystemD*, info o konkretnom RA: `$ sudo crm ra info apache`
+ - OCF ma *svoje* skripty, ako napr. *SystemD*
+ - informacie o konkretnom RA ziskame s: `$ sudo crm ra info apache`
 
 Tip: Ako ulozit nastrojom `crm` konfiguraciu clustera do suboru s datumom v nazve:
  - napr. prikaz: `$ sudo crm configure save zaloha-clus-$(date +%d-%m-%Y).txt`
@@ -1904,7 +1907,8 @@ Tip: Ako ulozit nastrojom `crm` konfiguraciu clustera do suboru s datumom v nazv
  - overime s: `$ sudo pcs status`
  - stav vsetkych potrebnych sluzieb overime s: `$ sudo systemctl status pacemaker corosync pcsd`
 
-#### Dalsia praca s nastrojom `pcs`, tiez podporuje "TAB completion", s niekolkymi vynimkami:
+#### Dalsia praca s Cluster nastrojom `pcs`:
+ - tiez podporuje *TAB completion*, s niekolkymi vynimkami
  - je potrebne nainstalovat balicek: `$ sudo dnf in bash-completion`
  - najskor overime ci bezi proces `pcsd`, prikaz: `$ sudo systemctl status pcsd`
  - ako rucne upravit CIB konfiguraciu s `pcs`, prikaz: `$ sudo pcs cluster edit`
