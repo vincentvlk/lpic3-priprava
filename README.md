@@ -3252,5 +3252,6 @@ Nezaradene alebo vseobecne poznamky pre system GNU/Linux:
 ---------------
 
 Tip: Ako vypisat vsetky *.dotfile* a *.dotdirectory*, prikaz: `$ ls -ld .??*`
-Tip: Ako zalohovat pomocou programu `rsync` vsetky *.dotfile* / *.dotdirectory*:
+
+Tip: Ako zalohovat pomocou programu `rsync` vsetky *.dotfile* a *.dotdirectory*:
  - prikaz: `$ rsync -av /zdrojova/cesta/.??* /cielova/cesta/`
