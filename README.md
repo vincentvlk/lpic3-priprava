@@ -1376,7 +1376,7 @@ Ako nastavit cas expiracie hesla na 30 dni: `$ sudo chage -M 30 <uzivatel>`
  - na upravu politiky pridame do riadku `password requisite pam_pwquality.so retry=3`
    - dalsie atributy:
 
-    minlen=10 difok=3 ucredit=-1 lcredit=-1 dcredit=-1 ocredit=-1
+    `minlen=10 difok=3 ucredit=-1 lcredit=-1 dcredit=-1 ocredit=-1`
 
  - kde jednotlive atributy znamenaju:
    - `retry=` kolko krat sa login process spyta na heslo 
