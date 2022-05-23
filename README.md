@@ -2052,12 +2052,12 @@ Poznamka: Ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
  - da sa pouzit *Hypervisor* Fencing "device"/agent, instalujeme: `$ sudo dnf -y in fence-virtd`
    - tento agent sa pouziva pri hypervizore *KVM*, kazdy hypervizor musi mat `fence-virtd`
    - hypervizory musia byt na spolocnom Multicast segmente a musia zdielat spolocny *PSK kluc*
- - **POZOR, na TEST** mozeme "odstavit" VM instanciu prikazom: `$ sudo echo c > /proc/sysrq-trigger`
+ - **POZOR**, na TEST mozeme "odstavit" VM instanciu prikazom: `$ sudo echo c > /proc/sysrq-trigger`
  - akciu *STONITH* mozeme rucne vykonat aj prikazom: `# sudo pcs stonith <hotname>`
 
 #### Ked chceme pouzivat SBD Fencing na VM, je potrebne do kernelu nacitat modul `softdog`:
- - **SBD** - STONITH Based on Disk
- - na rozdiel od fyz. HW, na VM chyba SCSI **Watchdog**, preto treba nacitat software verziu:
+ - *SBD* - STONITH Based on Disk
+ - na rozdiel od fyz. HW, na VM chyba SCSI *Watchdog*, preto treba nacitat software verziu:
  - overime loading kernel modulov pomocou SystemD: `$ sudo systemctl status systemd-modules-load`
  - na nacitanie modulu `softdog`, vytvorime v `/etc/modules-load.d` subor `watchdog.conf`
  - nasledne do tohto suboru vlozime riadok s nazvom kernel modulu, teda: `softdog`
@@ -2068,12 +2068,12 @@ Poznamka: Ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
  - mame k dispozicii tieto typy zdrojov: `Primitive`, `Clone`, `Multi State (Master/Slave)`, `Group`
    - typ `Primitive` - singularny zdroj spravovany resource manazerom clustra, ma "bezat" iba raz
    - typ `Clone` - zdroj, ktori spravuje cluster a bezi na viacerych uzloch viac-krat, napr. cLVM
-   - typ `Multi State (Master/Slave)` - zdroje bezia v hierarchii, priklad je **DRBD**
-   - typ `Group` - skupina zdrojov, teda skupina `Primitives` a `Clones`, napr. **HA Webserver**
-     - umoznuje definovat **obmedzenia zdrojov/Resource constraints**, ktore poskytuje cluster
- - pojem **Resource Stickiness** definuje, **kde sa ma rozbehnut** zdroj po obnove z fail situacie
- - ako hladat urcity **Resource script** na disku, napr. **IPaddr2**, prikaz: `$ sudo find / -name IPaddr2`
- - nastrojom `crm` mozeme otvorit interaktivny **Cluster Management** shell: `$ sudo crm`
+   - typ `Multi State (Master/Slave)` - zdroje bezia v hierarchii, priklad je *DRBD*
+   - typ `Group` - skupina zdrojov, teda skupina `Primitives` a `Clones`, napr. *HA Webserver*
+     - umoznuje definovat *obmedzenia zdrojov/Resource constraints*, ktore poskytuje cluster
+ - pojem *Resource Stickiness* definuje, *kde sa ma rozbehnut* zdroj po obnove z fail situacie
+ - ako hladat urcity *Resource script* na disku, napr. *IPaddr2*, prikaz: `$ sudo find / -name IPaddr2`
+ - nastrojom `crm` mozeme otvorit interaktivny *Cluster Management* shell: `$ sudo crm`
    - definovane zdroje vypiseme s `crm(live/suse1)# resource status` alebo s: `$ sudo crm_mon`
  
 #### Praca s *Resource constraints*, rozdelujeme na typy: `Location`, `Colocation` a `Order`:
