@@ -2406,15 +2406,16 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
 
 `$ sudo iscsiadm -m node --targetname iqn.2001-05.com.lab:test --portal 192.168.255.100:3260 --login`
  
-   - prihlasime sa na iSCSI target: `$ sudo iscsiadm -m node --login`
-     - overime napr. s: `$ sudo iscsiadm -m session -o show` / `$ sudo lsscsi` / `$ sudo lsblk`
-   - dalej si zistime WWN spominaneho 1MB Fencing LUNu: `$ sudo ls -l /dev/disk/by-id/ | grep wwn`
-   - nasledne vytvorime Fencing zdroj, treba pouzit prikaz s vlastnym WWN, ktore sme nasli:
-     - na definiciu clenov clsustr-a treba pouzit DNS hostnames uzlov 
+- prihlasime sa na iSCSI target: `$ sudo iscsiadm -m node --login`
+  - overime napr. s: `$ sudo iscsiadm -m session -o show` / `$ sudo lsscsi` / `$ sudo lsblk`
+  - dalej si zistime WWN spominaneho 1MB Fencing LUNu: `$ sudo ls -l /dev/disk/by-id/ | grep wwn`
+  - nasledne vytvorime Fencing zdroj, treba pouzit prikaz s vlastnym WWN, ktore sme nasli
+  - na definiciu clenov clsustr-a treba pouzit DNS hostnames uzlov:
+
 ```bash
     $ sudo pcs stonith create scsi-Fence fence_scsi pcmk_host_list="<node1> <node2>" \
     devices=/dev/disk/by-id/wwn-0x600140520845b9b2586439fa1949df69 meta provides=unfencing
-```bash
+```
    - overime s: `$ sudo pcs status --full`
    - mimo produkcie mozeme Fencing otestovat s: `$ sudo pcs stonith fence <node2>`
      - na obnovenie treba druhy uzol rebootovat (nic lepsie som zatial nenasiel)
