@@ -2175,19 +2175,19 @@ colocation web-not-ftp -10000: ftp-group apache-group
 #### Dalsie tipy a triky pre nastroje `crm` a `pcs` na spravu uzlov a zdrojov v Clustroch:
  - prikaz: `$ sudo crm cluster add`
  - nastroj `crm` na uvedenie uzla do modu `standby`: `$ sudo crm node standby <nazov-uzla>`
-   - po upravach **zapneme**: `$ sudo crm node online <nazov-uzla>`
+   - po upravach *zapneme*: `$ sudo crm node online <nazov-uzla>`
    - nazov uzla ziskame napr z: `$ sudo crm status`
 
-Tip: Ako dat uzol do tzv. **Maintenance Mode**:
+Tip: Ako dat uzol do tzv. *Maintenance Mode*:
  - mod umoznuje udrzbu cluster software ale nema dosah na zdroje
- - prikaz nastavi **Maintenance** mod: `$ sudo crm node maintenance <nazov-uzla>`
+ - prikaz nastavi *Maintenance* mod: `$ sudo crm node maintenance <nazov-uzla>`
  - nasledne po upravach: `$ sudo crm node ready <nazov-uzla>`
  - overime s: `$ sudo crm status`
 
 Tip: Ako na presuvanie zdrojov Clustra na definovane uzly:
  - prikaz presunie resource group na iny uzol: `$ sudo crm resource move apache-group <nazov-uzla>`
  - ak chceme predoslemu uzlu vratit moznost bezat zdroj, tak: `$ sudo crm resource clear apache-group`
-   - **POZOR**, spravanie tohto prikazu meni koncept **Resource Stickiness**
+   - *POZOR*, spravanie tohto prikazu meni koncept *Resource Stickiness*
  - overime s: `$ sudo crm status`
 
 Tip: Ako na reset Failcount-erov: `$ sudo pcs resource cleanup` resp.: `$ sudo crm resource cleanup`
@@ -2221,7 +2221,7 @@ Tip: Ako vypisat/vlozit skrateny datum: `$ date +%H%h%Y` resp. v skripte: `$(dat
  - dalej znova aktivujeme manazment zdroja: `$ sudo pcs resource manage myDummy`
  - po teste zmazeme: `$ sudo pcs resource disable myDummy` a `$ sudo pcs resource remove myDummy`
 
-#### Dalsie priklady na manazment Clustra s nastrojom "crm":
+#### Dalsie priklady na manazment Clustra s nastrojom `crm`:
  - editujeme konf. a pridame zdroj `myDummy` a obmedzenie `myDummy-location`:
  - prikaz: `$ sudo crm configure edit` a nasledne vlozime:
 ```
@@ -2254,16 +2254,16 @@ Zaklady prace so *Storage* rieseniami v Cluster prostredi GNU/Linux
  - konfiguracia sa nachadza v subore: `/etc/multipath.conf`
  - zariadenia dostupne cez `dm-multipath` sa nachadzaju v `/dev/mapper`
 
-#### Priklad instalacie riesenia "Device Mapper Multipath" v OS CentOS Stream 9:
+#### Priklad instalacie riesenia *Device Mapper Multipath* v OS CentOS Stream 9:
  - instalujeme *Device Mapper* (zvycajne byva uz nainstalovany): `$ sudo dnf -y in device-mapper-multipath`
  - zapneme start procesu `multipathd` po reboote, teda: `$ sudo mpathconf --enable --with_multipathd y`
    - prikaz zaroven vygeneruje konfig. subor: `/etc/multipath.conf`
-   - dalsie informacie v "$ man mpathconf" a v "$ man multipath.conf"
-   - stav sluzby overime s: $ sudo systemctl status multipathd.service 
- - po viac-nasobnom pripojeni na iSCSI Target, nam system prideli rozne zariadenia na jeden LUN
-   - toto sa snazi "Multipathing" riesit tym, ze spoji viacere cesty do jedneho zariadenia 
- - stav dostupnych multipath zariadeni overime s: $ sudo multipath -ll
- - tieto zariadenia su dostupne ako "/dev/mapper/mpathX" , "/dev/mapper/mpathX" a pod.
+   - dalsie informacie v `$ man mpathconf` a v `$ man multipath.conf`
+   - stav sluzby overime s: `$ sudo systemctl status multipathd.service`
+ - po viac-nasobnom pripojeni na iSCSI Target, nam *system prideli rozne zariadenia na jeden LUN*
+   - toto sa snazi *Multipathing* riesit tym, ze *spoji viacere cesty do jedneho zariadenia*
+ - stav dostupnych multipath zariadeni overime s: `$ sudo multipath -ll`
+ - tieto zariadenia su dostupne ako `/dev/mapper/mpathX`, `/dev/mapper/mpathX` a pod.
 - Poznamka: Alternativy k systemu CentOS: `CentOS Stream`, `Alma Linux`, `Rocky Linux`, `Oracle Linux`
 
 ### Praca s Cluster Storage riesenim "DRBD - Distributed Replicated Block Device":
@@ -2279,7 +2279,7 @@ Zaklady prace so *Storage* rieseniami v Cluster prostredi GNU/Linux
 
 #### Instalacia technologie DRBD v systeme OpenSUSE 15.3:
  - instalujeme: `$ sudo zypper -n in drbd drbd-utils drbdmanage`
- - je potrebne mat nasjkor volnu particiu na oboch uzloch, ktora sa bude pouzivat, doporucene je LVM2
+ - je potrebne mat nasjkor *volnu particiu na oboch uzloch*, ktora sa bude pouzivat, doporucene je LVM2
  - na test sa da vytvorit napr. *virtual-disk* v roznych hypervizoroch (VMw, VBox, KVM-Qemu, ...)
  - dalej vytvorime tzv. *resource file*, nazov napr. `/etc/drbd.d/drbd0.res`, do ktoreho vlozime:
 ```
@@ -2365,33 +2365,33 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
 - Tip: Ako v RedHat based OS zistit, ktory balik poskytuje dany *prikaz*, napr.: `$ dnf provides showmount`
 
 ### Priklad: Pacemaker/Corosync (Unicast) WebServer Cluster s Cluster GFS2 na OS "Rocky Linux 8.5":
- - vytvorime DNS zaznamy uzlov, alebo "/etc/hosts"
- - na uzloch zapneme repo.: $ sudo dnf config-manager --set-enabled ha,resilient-storage
- - na uzloch instalujeme: $ sudo dnf -y in pacemaker pcs fence-agents-scsi iscsi-initiator-utils
- - na uzloch zapneme PCS daemona: $ sudo systemctl enable --now pcsd
- - na uzloch nastavime heslo pre "hacluster" uzivatela: $ sudo passwd hacluster
-   - alebo: $ sudo echo <heslo> | sudo passwd --stdin hacluster
- - na uzloch povolime na fwl.: $ sudo firewall-cmd --add-service=high-availability --permanent
-   - na uzloch restart fwl.: $ sudo firewall-cmd --reload
- - na uzloch autentifikujeme clenov/uzly clustra: $ sudo pcs host auth <hostname1> <hostname2>
- - na 1 uzle vytvorime cluster: $ sudo pcs cluster setup rocky_cluster <hostname1> <hostname2>
- - na 1 uzle nastartujeme cluster(clustre): $ sudo pcs cluster start --all
- - na 1 uzle zapneme cluster(clustre): $ sudo pcs cluster enable --all
-   - overime s "$ sudo pcs status --full" a s "$ sudo pcs status corosync"
+ - vytvorime DNS zaznamy jednotlivych uzlov, alebo v LABe definujeme `/etc/hosts`
+ - na uzloch zapneme repo.: `$ sudo dnf config-manager --set-enabled ha,resilient-storage`
+ - na uzloch instalujeme: `$ sudo dnf -y in pacemaker pcs fence-agents-scsi iscsi-initiator-utils`
+ - na uzloch zapneme PCS daemona: `$ sudo systemctl enable --now pcsd`
+ - na uzloch nastavime heslo pre `hacluster` uzivatela: `$ sudo passwd hacluster`
+   - alebo s: `$ sudo echo <heslo> | sudo passwd --stdin hacluster`
+ - na uzloch povolime na fwl.: `$ sudo firewall-cmd --add-service=high-availability --permanent`
+   - na uzloch restart fwl.: `$ sudo firewall-cmd --reload`
+ - na uzloch autentifikujeme clenov/uzly clustra: `$ sudo pcs host auth <hostname1> <hostname2>`
+ - na 1 uzle vytvorime cluster: `$ sudo pcs cluster setup rocky_cluster <hostname1> <hostname2>`
+ - na 1 uzle nastartujeme cluster(clustre): `$ sudo pcs cluster start --all`
+ - na 1 uzle zapneme cluster(clustre): `$ sudo pcs cluster enable --all`
+   - overime s: `$ sudo pcs status --full` a s: `$ sudo pcs status corosync`
  
- - odbocka: da sa pouzivat aj Web rozhranie na pracu Pacamaker clustra:
-   - povolime na fwl.: firewall-cmd --add-port=2224/tcp --permanent 
-   - nezabudnut na: $ sudo firewall-cmd --reload
-   - pripojime sa na "https://nodeX:2224" a prihlasime sa s uzivatelom "hacluster"
+ - poznamka: da sa pouzivat aj Web rozhranie na pracu Pacamaker clustra:
+   - povolime na fwl.: `$ sudo firewall-cmd --add-port=2224/tcp --permanent `
+   - restartujeme firewall.: `$ sudo firewall-cmd --reload`
+   - pripojime sa na `https://nodeX:2224` a prihlasime sa s uzivatelom `hacluster`
  
- - na uzloch zapneme STONITH / Fencing: $ sudo pcs property set stonith-enabled=true
-   - overime s: $ sudo pcs property config 
+ - na uzloch zapneme *STONITH/Fencing* s: `$ sudo pcs property set stonith-enabled=true`
+   - overime s: `$ sudo pcs property config`
  
- - Fencing/STONITH je rieseny cez iSCSI LUN, staci maly, aj 1 MB (mne fungovalo):
- - oba uzly pripojime na LUN, definujeme iSCSI initiatora v "/etc/iscsi/initiatorname.iscsi"
- - pridame IQN, ktore je na iSCSI targete, "InitiatorName=iqn.2022-03.lpic3.lab:gfs.node1.init1"
-   - na druhy uzol, napr.: InitiatorName=iqn.2022-03.lpic3.lab:gfs.node2.init1 
-   - podla iSCSI Target-u, nastavime meno/heslo/parametre v subore "/etc/iscsi/iscsid.conf":
+ - Fencing/STONITH je rieseny cez *iSCSI LUN*, staci mala velkost 1 MB (mne fungovalo):
+ - oba uzly pripojime na LUN, definujeme iSCSI initiatora v `/etc/iscsi/initiatorname.iscsi`
+ - pridame IQN, ktore je na iSCSI targete, `InitiatorName=iqn.2022-03.lpic3.lab:gfs.node1.init1`
+   - na druhy uzol, napr.: `InitiatorName=iqn.2022-03.lpic3.lab:gfs.node2.init1`
+   - podla iSCSI Target-u, nastavime meno/heslo/parametre v subore `/etc/iscsi/iscsid.conf`:
 
         node.session.auth.authmethod = CHAP
         node.startup = automatic
