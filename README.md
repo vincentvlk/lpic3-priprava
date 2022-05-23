@@ -2515,7 +2515,7 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
 ```
 
    - dalej na uzloch upravime konfiguraciu procesu *Log Rotate* v `/etc/logrotate.d/httpd` na:
-      - zakomentujeme povodny riadok, aby `systemd` neriadil proces, ale aby ho riadil *Pacamaker*
+      - zakomentujeme povodny riadok, aby `systemd` neriadil proces, ale aby ho riadil *Pacemaker*
 ```
 /var/log/httpd/*log {
     missingok
@@ -2550,7 +2550,7 @@ $ sudo pcs resource create web_fs ocf:heartbeat:Filesystem device=/dev/vg_web_cl
 ```bash
 $ sudo pcs resource create apache2_vip IPaddr2 ip=192.168.255.29 cidr_netmask=24 --group apache2grp
 ```
- - definujeme pravidlo postupnosti startu storage zdrojov pred app. zdrojmi: 
+ - definujeme pravidlo postupnosti startu storage zdrojov pred aplikacnymi zdrojmi: 
    - prikaz: `$ sudo pcs constraint order start shared_vg-clone then apache2grp`
  - pokracujeme vytvorenim samotneho Apache2 zdroja:
 ```bash
@@ -2559,7 +2559,7 @@ $ sudo pcs resource create apache2_srv ocf:heartbeat:apache configfile=/etc/http
 ```
  - overime napr. s: `$ sudo pcs status --full`
    - pripadne aj s: `$ sudo pcs resource config`
- - po vytvoreni zdroja `apache2_srv` obnovime SELinux kontexty: `$ sudo restorecon -R /var/www`
+ - po vytvoreni zdroja `apache2_srv` obnovime *SELinux kontexty* s: `$ sudo restorecon -R /var/www`
 
  - na zaver otestujeme funkcnost, napr. s klientom: `$ curl http://192.168.255.29/index.html`
    - je vhodne otestovat aj vypadky aktivneho uzla, aka je odolnost clustr-a:
@@ -2567,7 +2567,7 @@ $ sudo pcs resource create apache2_srv ocf:heartbeat:apache configfile=/etc/http
    - cluster sa samozrejme da vybudovat na viac ako 2 uzloch a je to aj *doporucovane*
    - server Apache2 ma dalsie dolezite nastavenia, ale tu sa im nevenujem
 
-### Praca s NFS Serverom v HA Cluster rieseni na Rocky Linux 8.5, so zdielanym LVM cez iSCSI:
+### Praca s NFS Serverom v Cluster rieseni na Rocky Linux 8.5, so zdielanym LVM cez iSCSI:
 - na instalaciu pouzijeme novy iSCSI LUN, ktory si vytvorime na storage 
   - novy LUN na cluster uzloch najdeme s: $ sudo iscsiadm -m node --rescan
   - overime napr. s: "$ sudo lsscsi" / "$ sudo lsblk"
