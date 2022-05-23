@@ -1295,7 +1295,6 @@ Naslendne uz mozeme pouzivat napr. tieto aliasy:
     $ git strom
 
 ### Zaklady bezpecnosti v operacnom systeme GNU/Linux:
-
 Poznamka: dva webove zdroje s informaciami k typom a kategoriam utokov:
 ```
 https://www.nsa.gov/Press-Room/Cybersecurity-Advisories-Guidance/
@@ -1304,7 +1303,6 @@ https://attack.mitre.org/
 ```
 
 #### Nastroj na ochranu/kontrolu integrity suborov a adresarov, projekt *AIDE*:
-
 Instalacia pre Debian-based systemy: `$ sudo apt install aide`
  
  - instalacia v systeme Fedora Server: `$ sudo dnf install aide`
@@ -1334,7 +1332,6 @@ Instalacia pre Debian-based systemy: `$ sudo apt install aide`
  - dalej je mozne vytvorit si vlastny config a vlastne pravidla, navody existuju ;-)
 
 #### Na overovanie bezpecnosti hesla mozeme pouzit nastroj *John the Ripper*:
-
  - instalacia na Ubu/Deb: `$ sudo apt install john`
  - zlucime `/etc/passwd` a `/etc/shadow` prikazom: `$ sudo unshadow /etc/passwd /etc/shadow > unshadow.out.txt`
  - na test spustime jednoduchy *single mode*, zadame : `$ sudo john -single unshadow.out.txt`
@@ -1503,13 +1500,12 @@ Dalsi nastroj na *Rootkit* detekciu je `chkrootkit`
    - *POZOR*, priklad Fork bomby vo forme prikazu: `$ :(){ :|:& };:`
    - prikaz na overenie, kolko procesov ma spusteny uzivatel: `$ pgrep -wcu <uzivatel>`
  - dalej mozeme obmedzit max. velkost suboru (v kB), ktory moze uziv. vytvorit:
-
-    `student		hard	fsize	1000`
-
+```
+    student		hard	fsize	1000
+```
  - dalsie informacie napr. v: `$ man limits.conf`
 
 #### Ako zasifrovat subor s citlivymi udajmi pomocou projektu *GNU-PG*:
-
 - prikaz: `$ gpg -c povodny.txt`
 - vznikne sifrovany subor `povodny.txt.gpg`, ktory napr. premenujeme na `sprava.dat` a posleme
 - mozeme aj upresnit sifru a vystup: `$ gpg -c --cipher-algo aes256 -o sprava.dat povodny.txt`
@@ -1601,7 +1597,7 @@ Tip: Ako zistit, svoju verejnu IP, napr.: `$ curl ifconfig.me`, `$ curl -4 ident
 
     </VirtualHost>
 ```
- - po ulozeni aktivujeme a pridame stranku do *Virtual Hosting*: `$ sudo a2ensite priklad.xyz`
+ - po ulozeni aktivujeme a pridame stranku do *Virtual Hosting* s: `$ sudo a2ensite priklad.xyz`
  - vznikne: `/etc/apache2/sites-available/vlkv.name.conf -> /etc/apache2/sites-enabled/vlkv.name.conf`
  - nasledne znova nacitame konfiguracie servera: `$ sudo systemctl reload apache2`
  - mozeme overit s: `$ sudo systemctl status apache2`
