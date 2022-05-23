@@ -3159,14 +3159,14 @@ message_size_limit = 10240000
    - restartujeme FWL: `$ sudo firewall-cmd --reload`
 
  - dalej mozeme pokracovat s instalaciou *oVirt Engine* na *Admin* uzle/servery c.1:
-   - pridame repo.: `$ sudo dnf -y in https://resources.ovirt.org/pub/yum-repo/ovirt-release44.rpm `
-   - instalujeme potrebne baliky (cca. 230MB): `$ sudo dnf -y install ovirt-hosted-engine-setup`
-   - po instalacii spustime instalacny skript: `$ sudo hosted-engine --deploy`
-   - skript doporucuje spustit instlaciu v nastroji `tmux`, pripadne `screen`
-   - v skripte je potrebne zadavat parametre podla poziadavky, je *treba mat DNS/hosts zaznami*
-   - na *Storage subsystem* som pouzil NFSv4 s adresou: `rock3.example.com:/var/lib/ovirt-share`
-   - instalaciu overime s: `$ sudo hosted-engine --vm-status`
-     - alebo: `$ sudo virsh -c qemu:///system?authfile=/etc/ovirt-hosted-engine/virsh_auth.conf list`
+ - pridame repo.: `$ sudo dnf -y in https://resources.ovirt.org/pub/yum-repo/ovirt-release44.rpm `
+ - instalujeme potrebne baliky (cca. 230MB): `$ sudo dnf -y install ovirt-hosted-engine-setup`
+ - po instalacii spustime instalacny skript: `$ sudo hosted-engine --deploy`
+ - skript doporucuje spustit instlaciu v nastroji `tmux`, pripadne `screen`
+ - v skripte je potrebne zadavat parametre podla poziadavky, je *treba mat DNS/hosts zaznami*
+ - na *Storage subsystem* som pouzil NFSv4 s adresou: `rock3.example.com:/var/lib/ovirt-share`
+ - instalaciu overime s: `$ sudo hosted-engine --vm-status`
+   - alebo: `$ sudo virsh -c qemu:///system?authfile=/etc/ovirt-hosted-engine/virsh_auth.conf list`
    - po instalacii je dostupne web rozhranie s mng adresou a heslom, ktore sme zadavali do skriptu
      - meno je `admin` a heslo zadane do instalacneho skriptu (`$ sudo hosted-engine --deploy`)
      - na nahranie instalacnych .ISO je volba: `Storage > Disks > vpravo volba "Upload"`
