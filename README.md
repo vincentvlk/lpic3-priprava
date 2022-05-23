@@ -2493,14 +2493,14 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
    - vratime sa na uzol 1 a vytvorime LV s: `$ sudo lvcreate -l 100%FREE -n lv_web_clus vg_web_clus`
      - na oboch uzloch overime prikazom: `$ sudo vgs` a `$ sudo lvs`, musia vidiet to iste
    - pokracujeme, na novom zdielanom cluster LV vytvorime suborovy system GFS2: 
- 
+```bash
      $ sudo mkfs.gfs2 -j2 -p lock_dlm -t rocky_cluster:web_clus /dev/vg_web_clus/lv_web_clus
-
+```
    - vytvorime cluster LVM zdroj pre WebServer:
-
-   $ sudo pcs resource create lv_web_shared ocf:heartbeat:LVM-activate lvname=lv_web_clus \
-     vgname=vg_web_clus activation_mode=shared vg_access_mode=lvmlockd --group shared_vg
-
+```bash
+    $ sudo pcs resource create lv_web_shared ocf:heartbeat:LVM-activate lvname=lv_web_clus \
+    vgname=vg_web_clus activation_mode=shared vg_access_mode=lvmlockd --group shared_vg
+```
    - overime napr. s: `$ sudo pcs status --full`
  
    - dalej instalujeme Apache2 Web Server : `$ sudo dnf -y in httpd`
