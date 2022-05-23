@@ -1056,7 +1056,7 @@ Ako obmedzit Bandwidth prenosu, napr. na *50MBytes/s* (cca 400Mbit/s):
  - prikaz: `$ rsync -a --bwlimit=50000 same_nuly.txt ubu2.lab:`
  - priklad ako vytvorit testovaci 1GiB subor: `$ dd if=/dev/zero of=same_nuly.txt bs=1024 count=1M`
  
-*Poznamka:  pozriet dokumentaciu a manualy k projektu Samba File/Printer Sharing*
+Poznamka: pozriet dokumentaciu a manualy k projektu *Samba File/Printer Sharing*
  - tento projekt nie je predmetom certifikacnej skusky
 
 #### Praca s projektom SSHFS - SSH File System:
@@ -1243,7 +1243,7 @@ prikaz: `$ docker run -d --name moja_web_app -p 80:80 -v <nazov_vol>:/usr/share/
 - priklad: `$ sudo cp /etc/services /var/lib/docker/volumes/mojvol/_data/index.html`
 - overime napr. s: `$ curl localhost:80`
 
-Poznamka, ak chceme vymazat Docker image, treba najskor pomazat z neho vytvorene kontajnery.
+Poznamka: ak chceme vymazat Docker image, treba najskor pomazat z neho vytvorene kontajnery.
 
 *POZOR*, automaticky nastroj na cistenie tzv. *dangling* Docker image-ov: `$ docker system prune`
  - dalsie informacie: `$ docker system prune --help`
@@ -1315,7 +1315,7 @@ Naslendne uz mozeme pouzivat napr. tieto aliasy:
 
 ### Zaklady bezpecnosti v operacnom systeme GNU/Linux:
 
-Poznamka: Dva webove zdroje s informaciami k typom a kategoriam utokov:
+Poznamka: dva webove zdroje s informaciami k typom a kategoriam utokov:
 ```
 https://www.nsa.gov/Press-Room/Cybersecurity-Advisories-Guidance/
 
@@ -1551,7 +1551,7 @@ Dalsi nastroj na *Rootkit* detekciu je `chkrootkit`
                     2001:148f:fffe::1;
             };
 ```
-- poznamka, ako priklad som pouzil ODVR servery NIC.cz: `https://www.nic.cz/odvr/`
+- poznamka: ako priklad som pouzil ODVR servery NIC.cz: `https://www.nic.cz/odvr/`
 - nasledne restartujeme proces/daemon servera: `$ sudo systemctl reload-or-restart bind9.service`
 - stav mozeme overit s: `$ sudo systemctl status bind9.service`
 
@@ -1723,7 +1723,7 @@ Tip: Na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-
 - vytvorime tzv. *File-IO* adresar pre disky/LUNy, napr.: `$ sudo mkdir /var/lib/iscsi_pool1/`
 
 - spustime iSCSI nastroj: `$ sudo targetcli`
-  - Poznamka: v nastroji *TargetCLI* sa daju pouzivat prikazy `cd ..`, `pwd`, `ls` a `relativne cesty`
+  - poznamka: v nastroji *TargetCLI* sa daju pouzivat prikazy `cd ..`, `pwd`, `ls` a `relativne cesty`
 - dalej pracujeme s Shell interpretom nastroja *TargetCLI*
  
 - prepneme sa do rezimu *backstores/fileio*, teda: `/> cd backstores/fileio`
@@ -1776,7 +1776,7 @@ Tip: Na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-
 
 - konfiguraciu firewallu overime s: `$ sudo firewall-cmd --list-all`
 
-Poznamka, iSCSI target sa da prevadzkovat v Cluster-y nad systemom DRBD.
+Poznamka: iSCSI target sa da prevadzkovat v Cluster-y nad systemom DRBD.
 
 Tip: Ako v OS "Fedora Server 35" nainstalovat NetworkManager-TUI: `$ sudo dnf install NetworkManager-tui`
 
@@ -1823,12 +1823,12 @@ Na vytvorenie *mount-pointu* po reboote si zistime `UUID` particie napr. s: `$ s
 Po reboote systemu mozeme overit napr. s: `$ sudo mount | grep san1` alebo prikazom: `$ sudo lsblk`
  - alebo napr. s: `$ sudo ls -l /dev/disk/by-path/`
 
-Poznamka: Ak je potrebne, je mozne *discovered* targety vymazat, alebo docasne odhlasit:
+Poznamka: ak je potrebne, je mozne *discovered* targety vymazat, alebo docasne odhlasit:
  - vymazeme: `$ sudo iscsiadm -m node -T iqn.2022-03.lpic3.suse1:www.target01 -o delete`
  - odhlasime: `$ sudo iscsiadm -m node -T iqn.2022-03.lpic3.suse1:www.target01 -u`
    - po ukonceni cinnosti sa da znova pripojit restartom sluzieb `iscsi` a `iscsid`
 
-Poznamka: V OS OpenSUSE Leap sa da pouzit na konf. iSCSI Initatora TUI nastroj: `$ sudo yast2`
+Poznamka: v systeme OpenSUSE Leap sa da pouzit na konf. iSCSI Initatora TUI nastroj: `$ sudo yast2`
  - *TUI* - Terminal User Interface
  - instalujeme: `$ sudo zypper -n in yast2-iscsi-client`
  - v menu volime `Network Services` -> `iSCSI Initiator` -> `sipkou doprava` na `Connected Targets`
@@ -1963,7 +1963,7 @@ Poznamka: zdroj je kvoli zjednoduseniu dostupny len na fyz. IP uzla na ktorom be
     $ sudo firewall-cmd --permanent --add-service=http
     $ sudo firewall-cmd --reload
 ```
-Poznamka: Web je kvoli zjednoduseniu dostupny len na real. IP uzla na ktorom bezi `service-apache`
+Poznamka: web je kvoli zjednoduseniu dostupny len na real. IP uzla na ktorom bezi `service-apache`
  - zistime s: `$ sudo pcs resource status`
  
 Tip: Ako vypisat stav technologie *Quorum*, ktora zabranuje vzniku *split-brain* scenarov:
@@ -1996,7 +1996,8 @@ quorum {
 
 - po ulozeni nasledne restartujeme proces: `$ sudo systemctl restart corosync`
 - nove parametre overime s: `$ sudo corosync-quorumtool`
-Poznamka: Ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny distribuovat na ostatne uzly:
+
+Poznamka: ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny distribuovat na ostatne uzly:
   - pouzijeme prikaz: `$ sudo pcs cluster sync`
   - nasledne je potrebne znova spustit cluster: `$ sudo pcs cluster reload corosync`
 
@@ -2071,7 +2072,7 @@ Poznamka: Ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
 
  - subor ulozime a overime, napr. prikazom: `$ sudo crm_mon`
 
-Poznamka: Ako na *troubleshooting*, teda hladanie a riesenie problemov s *Resource Groups*:
+Poznamka: ako na *troubleshooting*, teda hladanie a riesenie problemov s *Resource Groups*:
  - nastrojom `pcs` overime stav clustra: `$ sudo pcs status`
  - dalej mozeme skontrolovat log `/var/log/messages` alebo s `$ sudo journalctl`
    - v programe `journalctl` sa klavesovou skratkou `Shift + g` resp. `G` prepnema na koniec logu
@@ -2235,7 +2236,8 @@ Zaklady prace so *Storage* rieseniami v Cluster prostredi GNU/Linux
    - toto sa snazi *Multipathing* riesit tym, ze *spoji viacere cesty do jedneho zariadenia*
  - stav dostupnych multipath zariadeni overime s: `$ sudo multipath -ll`
  - tieto zariadenia su dostupne ako `/dev/mapper/mpathX`, `/dev/mapper/mpathX` a pod.
-- Poznamka: Alternativy k systemu CentOS: `CentOS Stream`, `Alma Linux`, `Rocky Linux`, `Oracle Linux`
+
+Poznamka: alternativy k systemu CentOS: `CentOS Stream`, `Alma Linux`, `Rocky Linux`, `Oracle Linux`
 
 ### Praca s Cluster Storage riesenim "DRBD - Distributed Replicated Block Device":
  - riesenie v podstate realizuje *RAID1* ale cez sietove prepojenia
@@ -2293,7 +2295,7 @@ resource drbd0 {
  - overime s: `$ sudo drbdadm status`
  - dalej mozeme uz vytvorit FS na zariadeni `/dev/drbd0`, napr.: `$ sudo mkfs.btrfs /dev/drbd0`
 
-Poznamka: Prikazy na vypisanie informacii o diskoch a particiach: `lsblk`, `blkid`, `lsscsi`
+Poznamka: prikazy na vypisanie informacii o diskoch a particiach: `lsblk`, `blkid`, `lsscsi`
 Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemctl enable --now <service>`
 
 ### Zaklady prace s Cluster suborovym systemom GFS2 (Global File System):
@@ -2560,7 +2562,7 @@ $ sudo pcs resource create lvm_shared ocf:heartbeat:LVM-activate vgname=vg_ha_lv
 ```
 
 - overime stav clustra a LVM zdroja s: `$ sudo pcs status --full`
-  - poznamka, ja som si spravil BASH alias: `alias pcf='sudo pcs status --full'`
+  - poznamka: ja som si spravil BASH alias: `alias pcf='sudo pcs status --full'`
 
 - pokracujeme instalaciou NFS servera v Pacemaker clustry, na uzloch povolime sluzby na FWL:
 ```bash
@@ -2619,7 +2621,7 @@ $ sudo pcs resource create nfs_share1_exp ocf:heartbeat:exportfs \
 - overime stav a konf.: `$ sudo pcs status --full` a `$ sudo pcs resource config nfs_server_grp`
 - na tomto uzle nove NFS exporty overime s: `$ sudo showmount -e`
 - na testovanie sa mozeme s NFS klietom pripojit na vyexportovane suborove systemy:
-  - poznamka, na Rocky Linux 8.5 bolo potrebne instalovat: `$ sudo dnf -y in nfs-utils.x86_64`
+  - poznamka: na Rocky Linux 8.5 bolo potrebne instalovat: `$ sudo dnf -y in nfs-utils.x86_64`
   - pripojenie protokolom NFSv4: `$ sudo mount -t nfs4 192.168.255.28:share1 /mnt/nfs`
   - overime s: `$ df -hT /mnt/nfs`
   - pre NFSv3 prikaz: `$ sudo mount -t nfs 192.168.255.28:/home/nfs-server/nfs-root/share1 /mnt/nfs`
@@ -2716,7 +2718,7 @@ Praca s *virtualizacnymi nastrojmi/platformami* pre OS GNU/Linux
   - tzv. *Hypervizor* alebo aj *VMM - Virtual Machine Monitor* spravuje a monitoruje virtualizaciu 
   - virtualizovane zdroje tvoria tzv.: *Core 4* skupinu: `procesor, pamat, ulozisko, siet`
 
-Poznamka, ako pridat do LVM predtym pouzivane zariadenie, treba pouzit: `$ sudo wipefs -a /dev/sdb`
+Poznamka: ako pridat do LVM predtym pouzivane zariadenie, treba pouzit: `$ sudo wipefs -a /dev/sdb`
  - *POZOR*, prikaz odstrani FS z pouzivaneho disku
  - inak LVM moze hlasit chybu: `Device /dev/sdX excluded by a filter.`
  - prikazy LVM sa daju ciastocne debugovat, napr.: `$ sudo pvcreate -vvv /dev/sdb`
@@ -2842,7 +2844,7 @@ $ sudo xen-create-image --hostname=xenvm01 --lvm=vgxen --memory=2G --maxmem=2G -
 
 - overime prikazom: `$ sudo xl list`
 
-- poznamka: Technologia Xen bola davnejsie odkupena spol. Citrix a je to dlhsie komercny produkt
+Poznamka: technologia Xen bola davnejsie odkupena spol. Citrix a je to dlhsie komercny produkt
   - z tohto dovodu OSS komunita viac preferuje kombinaciu projetov ako je KVM, QEMU, libvirt...
   - preto tato cast poznamok nepokracuje dalej
 
@@ -2925,7 +2927,7 @@ Tip: Ako sledovat cinnost *sietoveho unit-u* v systemD: `$ sudo journalctl -f -u
    - napr.: `$ sudo prlctl create ubuCT1 --vmtype ct --ostemplate ubuntu-20.04-x86_64`
    - zoznam zakladnych sablon ziskame s: `$ sudo vzpkg list`
 
-Poznamka: Pretoze projekt OpenVZ je uz zastaraly, poznamky dalej nepokracuju
+Poznamka: pretoze projekt OpenVZ je uz zastarany, poznamky dalej nepokracuju
 
 #### Praca s virtualizacnou platformou *LXC - Linux Containers*:
  - snaha je vytvorit co najefektivnejsi kontajner bez emulacie HW
@@ -2966,7 +2968,7 @@ lxc.idmap = g 0 165536 65536
    - kont. zastavime s: `$ lxc-stop -n lxctest1`
    - kont. vymazeme, ak je zastaveny, prikazom: `$ lxc-destroy lxctest1`
 
-- poznamka: Praca s platformou Docker je uz vyssie popisana v tychto poznamkach
+Poznamka: praca s platformou Docker je uz vyssie popisana v tychto poznamkach
 
 #### Virtualizacny nastroj *VirtualBox*:
  - je to tzv. *hosted hypervisor/Type-2 hypervisor*, ktory sa instaluje ako Aplikacia na OS
@@ -3241,7 +3243,7 @@ Tip: Ako zalohovat pomocou programu `rsync` vsetky *.dotfile* a *.dotdirectory*:
  - pripadne restartovat DNS resolver proces: `$ sudo systemctl restart systemd-resolved.service`
  - overime s: `$ sudo systemctl status systemd-resolved.service`
 
-#### Poznamka: Ako v Unix-like systemoch konvertovat video kodekom H.265:
+#### Poznamka: ako v Unix-like systemoch konvertovat video kodekom H.265:
 1. instalujeme nastroj `ffmpeg` (`apt install ffmpeg`, `dnf install ffmpeg`, `brew install ffmpeg` a pod.)
 
 2. podla tohto popisu dame konvertovat:
