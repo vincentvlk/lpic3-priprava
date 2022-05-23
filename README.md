@@ -3255,6 +3255,6 @@ Tip: Ako zalohovat pomocou programu `rsync` vsetky *.dotfile* a *.dotdirectory*:
     >a reasonable range for H.265 may be 24 to 30. Note that lower CRF values correspond to 
     >higher bitrates, and hence produce higher quality videos.
     >
-    > zdroj: https://unix.stackexchange.com/a/38380
+    > zdroj: `https://unix.stackexchange.com/a/38380`
 
 - priklad: `$ ffmpeg -i input.mp4 -vcodec libx265 -crf 28 output.mp4`
