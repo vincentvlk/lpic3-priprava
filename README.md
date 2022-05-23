@@ -2891,34 +2891,38 @@ $ sudo xen-create-image --hostname=xenvm01 --lvm=vgxen --memory=2G --maxmem=2G -
 - overime pritomnost modulu KVM v kerneli: `$ sudo lsmod lvm`
   - ak nenajde tak: `$ sudo modprobe kvm`
   - a nasledne: `$ sudo modprobe kvm_intel` alebo `$ sudo modprobe kvm_amd`
-- overime pritomnost KVM v systeme: $ sudo ls -al /dev/kvm 
-- dalej instalujeme QEMU s podporou KVM: $ sudo dnf -y in qemu-kvm 
-- mozeme uz intalovat aj nastroje/API "libvirt": $ sudo dnf -y in libvirt virt-install
-  - sluzbu "libvirt" nasledne "zapneme": $ sudo systemctl enable --now libvirtd.service
-  - overime stav sluzby: $ sudo systemctl status libvirtd.service
-- spol. RedHat doporucuje pouzit "libvirt", ak chceme pouzit "qemu-kvm" je potrebny link do $PATH:
-  - prikaz: $ sudo ln -s /usr/libexec/qemu-kvm /usr/local/sbin/qemu-kvm
+- overime pritomnost KVM v systeme: `$ sudo ls -al /dev/kvm`
+- dalej instalujeme QEMU s podporou KVM: `$ sudo dnf -y in qemu-kvm`
+- mozeme uz intalovat aj nastroje/API `libvirt` s: `$ sudo dnf -y in libvirt virt-install`
+  - sluzbu `libvirt` nasledne *zapneme* s: `$ sudo systemctl enable --now libvirtd.service`
+  - overime stav sluzby: `$ sudo systemctl status libvirtd.service`
+- spol. RedHat doporucuje pouzit `libvirt`, ak chceme pouzit `qemu-kvm` je potrebny link do $PATH:
+  - prikaz: `$ sudo ln -s /usr/libexec/qemu-kvm /usr/local/sbin/qemu-kvm`
 
-- vytv. VM disk vo formate qcow2: $ sudo qemu-img create -f qcow2 /mnt/kvm-stor/qemu.vm01.img 10G
+- vytvorime VM disk vo formate qcow2: `$ sudo qemu-img create -f qcow2 /mnt/kvm-stor/qemu.vm01.img 10G`
 - dalej vytvorime samotnu VMm ku ktorej pripojime instalacny .ISO image s OS Fedora 35:
-  - instancie bude bezat na pozadi s dostupnym VNC pripojenim
+  - instancia bude bezat na pozadi s dostupnym VNC pripojenim
 
+```bash
 $ sudo qemu-kvm -name vm01_kvm -hda /mnt/kvm-stor/qemu.vm01.img \
   -cdrom /root/fed35-amd64.iso -boot d -m 2048 &
+```
 
-- na test si vytvorime SSH tunnel, ktory prepoji VNC server na "localhost:5900" so sietou
-  - na tomto TCP/5900 porte pocuva VNC server pre QUEMU/KVM Host-a, kde mozeme ovladat danu VM
-  - prikaz napr. na KVM Host-e: $ sudo ssh -N -R *:6000:localhost:5900 uzivatel@<KVM-Host>
+- na test si vytvorime SSH tunnel, ktory prepoji VNC server na porte *localhost:5900* so sietou
+  - na tomto *TCP/5900* porte pocuva VNC server pre QUEMU/KVM Host-a, kde mozeme ovladat danu VM
+  - prikaz napr. na KVM Host-e: `$ sudo ssh -N -R *:6000:localhost:5900 uzivatel@<KVM-Host>`
     - nasledne sa cez VNC klienta pripojime na adresu <KVM-Host> a TCP port 6000
   - pre viac VM instancii treba rozlisovat cislo VNC Display port-u
-    - toto cislo zistime prikazom $ sudo virsh vncdisplay <nazovVM>
+    - toto cislo zistime prikazom `$ sudo virsh vncdisplay <nazovVM>`
 
-- dalej mozeme VM instanciu vytvorit aj nastrojom "virt-install" takto:
-  - diskovy priestor 8GiB udava parameter "--disk size=8"
-  - priblizna varianta OS sa da zistit prikazom: $ sudo osinfo-query os
- 
+- dalej mozeme VM instanciu vytvorit aj nastrojom `virt-install` takto:
+  - diskovy priestor 8GiB udava parameter `--disk size=8`
+  - priblizna varianta OS sa da zistit prikazom: `$ sudo osinfo-query os`
+
+```bash
 # virt-install --name=fedoraVM01 --memory=2048 --vcpus=2 --disk size=8 \
   --os-variant=fedora34 --cpu host --cdrom /mnt/kvm-stor/fed35-amd64.iso &
+```
 
  - stav VM instancie overime s: $ sudo virsh list --all
 
