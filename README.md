@@ -2392,12 +2392,12 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
  - pridame IQN, ktore je na iSCSI targete, `InitiatorName=iqn.2022-03.lpic3.lab:gfs.node1.init1`
    - na druhy uzol, napr.: `InitiatorName=iqn.2022-03.lpic3.lab:gfs.node2.init1`
    - podla iSCSI Target-u, nastavime meno/heslo/parametre v subore `/etc/iscsi/iscsid.conf`:
-
+```
         node.session.auth.authmethod = CHAP
         node.startup = automatic
         node.session.auth.username = <meno>
         node.session.auth.password = <heslo>     
- 
+```
  - poznmaka: preskumat/otestovat ine auth. algoritmy ako (zranitelne) MD5
  - spustime *iSCSI target discovery* s: `$ sudo iscsiadm -m discovery -t sendtargets -p <storage-Host>`
  - ak najde viac targetov, mazeme zmazat tie, ktore nepotrebujeme:
@@ -2411,10 +2411,10 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
    - dalej si zistime WWN spominaneho 1MB Fencing LUNu: `$ sudo ls -l /dev/disk/by-id/ | grep wwn`
    - nasledne vytvorime Fencing zdroj, treba pouzit prikaz s vlastnym WWN, ktore sme nasli:
      - na definiciu clenov clsustr-a treba pouzit DNS hostnames uzlov 
-
+```bash
     $ sudo pcs stonith create scsi-Fence fence_scsi pcmk_host_list="<node1> <node2>" \
     devices=/dev/disk/by-id/wwn-0x600140520845b9b2586439fa1949df69 meta provides=unfencing
-
+```bash
    - overime s: `$ sudo pcs status --full`
    - mimo produkcie mozeme Fencing otestovat s: `$ sudo pcs stonith fence <node2>`
      - na obnovenie treba druhy uzol rebootovat (nic lepsie som zatial nenasiel)
@@ -2427,24 +2427,24 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
    - upravime konfiguraciu technologie Quorum: `$ sudo pcs property set no-quorum-policy=freeze`
      - overime s: `$ sudo pcs property config`
    - vytvorime DLM (Distributed Locking Manager) zdroj:
-
+```bash
         $ sudo pcs resource create dlm ocf:pacemaker:controld op monitor interval=30s \
         on-fail=fence --group locking
-
+```
    - dalej zdroj klonujeme na ostatne uzly: `$ sudo pcs resource clone locking interleave=true`
    - pokracujeme vytvorenim zdroja *LVM lockd*:
-
+```bash
      $ sudo pcs resource create res_lvmlockd ocf:heartbeat:lvmlockd \
      op monitor interval=30s on-fail=fence --group locking
-
+```
    - overime s: `$ sudo pcs status --full`
    - *LEN na 1 uzle vytvorime*, na zdielanom iSCSI LUNe particiu so suborovym systemom LVM:
      - disk(y) najdeme s: `$ sudo lsscsi` alebo s: `$ sudo lsblk`
-
+```bash
        $ sudo parted --script /dev/sda "mklabel gpt"
        $ sudo parted --script /dev/sda "mkpart primary 0% 100%"
        $ sudo parted --script /dev/sda "set 1 lvm on"
-
+```
    - sposobov na vytvorenie LVM particie je viac (`fdisk`, `cfdisk`, ...)
    - overime napr. s: `$ sudo fdisk -l /dev/sda`
    - dalej zaradime tzv. *PV (Psysical Volume)* do LVM stacku: `$ sudo pvcreate /dev/sda1`
@@ -2461,10 +2461,10 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
      - rozbor: parameter `-j2` urcuje pocet uzlov/zurnalov, dalsi parameter `-t <nazov_clustra>:gfs2-01`
      - kde nazov clustra ziskame z: `$ sudo pcs status`
    - stale na *PRVOM* uzle vytvorime storage zdroj/resource:
-
+```bash
      $ sudo pcs resource create shared_lv ocf:heartbeat:LVM-activate \
      lvname=lv_gfs2 vgname=vg_gfs2 activation_mode=shared vg_access_mode=lvmlockd --group shared_vg
-
+```
    - tento zdroj klonujeme na dalsie uzly: `$ sudo pcs resource clone shared_vg interleave=true`
    - pridame poradie startu: `$ sudo pcs constraint order start locking-clone then shared_vg-clone`
    - spolu start na 1 node: `$ sudo pcs constraint colocation add shared_vg-clone with locking-clone`
@@ -2472,11 +2472,11 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
 
    - na oboch uzloch vytvorime adresar, kde si cluster "namountuje" GFS2: `$ sudo mkdir /mnt/gfs2disk1`
    - vytvorime zdielany GFS2 zdroj, na ukladanie dat so synchronizaciou:
- 
+```bash
     $ sudo pcs resource create shared_fs ocf:heartbeat:Filesystem device="/dev/vg_gfs2/lv_gfs2" \
     directory="/mnt/gfs2disk1" fstype="gfs2" options=noatime op monitor \
     interval=10s on-fail=fence --group shared_vg
-
+```
    - overime cluster stack: `$ sudo pcs status --full`
    - ak je vsetko aktivne bez chyb, vsetky uzly budu mat dostupny GFS2 "mount": `$ sudo df -hT`
    - da sa otestovat, ze napr. kazdy uzol zapise do `/mnt/gfs2disk1` napr. `$ sudo touch uzol1`
