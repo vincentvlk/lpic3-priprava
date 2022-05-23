@@ -2936,9 +2936,9 @@ Dalsie nastroje na pracu s KVM: `qemu-ga`, `qemu-img`, `qemu-kvm`
 Dolezity nastroj `qemu-kvm` je hlavny nastroj pre pracu s QEMU+KVM stackom:
  - tento nastroj ma velke mnozstvo moznosti/nastaveni, treba pozriet napr.: `$ man qemu-kvm`
  - dalsia sucast je interaktivny nastroj *KVM Monitor*, ktory umoznuje riadenie/sledovanie KVM+QEMU
-   - nastroj ma predvolene graficke rozhranie, parameter `stdio` aktivuje textove rozhranie
-   - v terminale spustime s: `$ sudo qemu-kvm -monitor stdio`
-   - prva pomoc je prikaz `help`, dalej napr. ked zadame `info`, vypise nam moznosti prikazu
+ - nastroj ma predvolene graficke rozhranie, parameter `stdio` aktivuje textove rozhranie
+ - v terminale spustime s: `$ sudo qemu-kvm -monitor stdio`
+ - prva pomoc je prikaz `help`, dalej napr. ked zadame `info`, vypise nam moznosti prikazu
 
 Tip: Ako sledovat cinnost *sietoveho unit-u* v systemD: `$ sudo journalctl -f -u systemd-networkd`
 
