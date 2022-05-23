@@ -3181,12 +3181,13 @@ message_size_limit = 10240000
    - inak napisane, treba mat pripraveny aspon zakladny systemovy dizajn
    - na pridanie dalsieho Node/uzla je vhodne vyuzit PKI auth. v SSH, pomocou klucov
    - ked vytvorime VM instanciu a pripojime instalacne ISO, da sa pripojit protokolom *SPICE*
-     - na MacOS som pouzil neoficialny balickovaci system `Home Brew` podla: `https://brew.sh/`
+     - na MacOS som pouzil neoficialny balickovaci system *Home Brew* podla: `https://brew.sh/`
      - pridal som *repo* a instaloval: 
 ```bash
 $ brew tap jeffreywildman/homebrew-virt-manager
 $ brew install virt-viewer 
 ```
+
  - po instalacii som otvoril subor, ktory poskytne oVirt Engine: `$ remote-viewer console.vv`
  - pripojenie je podobne ako VNC, text editorom sa da nahliadnut do suboru `console.vv`
  - je vidiet, ze subor `.vv` ma platnost 120 sekund, potom exspiruje vygenerovane heslo
