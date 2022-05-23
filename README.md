@@ -1374,7 +1374,7 @@ Ako nastavit cas expiracie hesla na 30 dni: `$ sudo chage -M 30 <uzivatel>`
  - treba instalovat balik: `$ sudo apt install libpam-pwquality`
  - konfiguracia v subore: `/etc/pam.d/common-password`
  - na upravu politiky pridame do riadku `password requisite pam_pwquality.so retry=3`
-   - dalsie atributy:
+   - mozeme pridat aj dalsie atributy:
 
     `minlen=10 difok=3 ucredit=-1 lcredit=-1 dcredit=-1 ocredit=-1`
 
