@@ -3367,7 +3367,7 @@ Nezaradene poznamky pre system GNU/Linux
 Tip: Ako vypisat vsetky *.dotfile* a *.dotdirectory*, prikaz: `$ ls -ld .??*`
 
 Tip: Ako zalohovat pomocou programu `rsync` vsetky *.dotfile* a *.dotdirectory*:
- - prikaz: `$ rsync -av /zdrojova/cesta/.??* /cielova/cesta/`
+- prikaz: `$ rsync -av /zdrojova/cesta/.??* /cielova/cesta/`
 
 #### Ako v systeme GNU/Linux vypnut HW PC-speaker:
 
