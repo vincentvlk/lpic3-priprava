@@ -2905,7 +2905,7 @@ $ sudo xen-create-image --hostname=xenvm01 --lvm=vgxen --memory=2G --maxmem=2G -
 
 ```bash
 $ sudo qemu-kvm -name vm01_kvm -hda /mnt/kvm-stor/qemu.vm01.img \
-  -cdrom /root/fed35-amd64.iso -boot d -m 2048 &
+-cdrom /root/fed35-amd64.iso -boot d -m 2048 &
 ```
 
 - na test si vytvorime SSH tunnel, ktory prepoji VNC server na porte *localhost:5900* so sietou
@@ -2920,8 +2920,8 @@ $ sudo qemu-kvm -name vm01_kvm -hda /mnt/kvm-stor/qemu.vm01.img \
   - priblizna varianta OS sa da zistit prikazom: `$ sudo osinfo-query os`
 
 ```bash
-# virt-install --name=fedoraVM01 --memory=2048 --vcpus=2 --disk size=8 \
-  --os-variant=fedora34 --cpu host --cdrom /mnt/kvm-stor/fed35-amd64.iso &
+$ sudo virt-install --name=fedoraVM01 --memory=2048 --vcpus=2 --disk size=8 \
+--os-variant=fedora34 --cpu host --cdrom /mnt/kvm-stor/fed35-amd64.iso &
 ```
 
  - stav VM instancie overime s: $ sudo virsh list --all
