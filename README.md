@@ -2116,7 +2116,7 @@ Poznamka: ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
   - pouzijeme prikaz: `$ sudo pcs cluster sync`
   - nasledne je potrebne znova spustit cluster: `$ sudo pcs cluster reload corosync`
 
-#### Node Fencing/STONITH, 
+#### Zaklady konceptu Node Fencing/STONITH:
  - problematicky uzol treba *odrezat* z Clustera, fencing ma viacero druhov
  - druh *Power fencing*: ked mame pristup ku kontrolerom napajania, odrezeme napajenia uzla (UPS/PDU)
  - druh *Fabric fencing*: uzol odrezeme od storage konektivity, teda od iSCSI, resp. FibreChannel-u
