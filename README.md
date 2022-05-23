@@ -2692,7 +2692,7 @@ Zaklady konceptu *Load-Balancing* v Cluster prostredi OS GNU/Linux
     $ sudo echo "Testovaci uzol 1: app.node1.lab" > index.html
 ```
 
-    - resp. uzol 2: `$ sudo echo "Testovaci uzol 2: app.node2.lab" > index.html`
+ - resp. uzol 2: `$ sudo echo "Testovaci uzol 2: app.node2.lab" > index.html`
 
  - pokracujeme instalaciou *HAProxy frontend LB* na uzle 1: `$ sudo dnf -y in haproxy`
  - upravime konfig. HAProxy */etc/haproxy/haproxy.cfg* pridame napr. nasledovne:
