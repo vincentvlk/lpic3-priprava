@@ -2077,12 +2077,13 @@ Poznamka: ako na *troubleshooting*, teda hladanie a riesenie problemov s *Resour
  - dalej mozeme skontrolovat log `/var/log/messages` alebo s `$ sudo journalctl`
    - v programe `journalctl` sa klavesovou skratkou `Shift + g` resp. `G` prepnema na koniec logu
 
-#### Praca s konceptom *Resource Clones*, umoznuje bezat primitivy alebo skupiny na viacerych uzloch:
+#### Praca s konceptom *Cluster Resource Clones*:
+ - umoznuje bezat primitivy alebo skupiny na viacerych uzloch:
  - pocet klonov byva zvycajne rovnaky ako pocet uzlov, ale moze sa obmedzit pocet klonov
  - typicky sa pouziva nastavenie `interleave=true`, ktore umoznuje bezat ostatne klony nezavisle
    - napr. ked sa jeden z klonov zruti
 
-#### Priklad ako vytvorit Cluster s FTP server *Zdrojom/Resource* pomocou `pcs`:
+#### Priklad ako vytvorit Cluster s *FTP server zdrojom* pomocou `pcs`:
  - najskor *na vsetkych* uzloch instalujeme FTP server: `$ sudo dnf -y in vsftpd`
  - aktivujeme na uzloch FTP server: `$ sudo systemctl enable vsftpd && sudo systemctl start vsftpd`
  - potom pomocou nastroja `pcs` vytvorime 2 zdroje a zaradime ich to skupiny `ftp-service`:
@@ -2118,7 +2119,7 @@ colocation web-not-ftp -10000: ftp-group apache-group
  - nasledne mozeme dostupnost FTP sluzby overit napr. prikazom: `$ nc 192.168.X.Y 21`
    - dalsie informacie o nastroji `netcat` napr. v: `$ man nc`
 
-#### Zaklady, ako spravovat zdroje cluster-a s nastrojom `pcs` a `crm`:
+#### Zaklady manazmentu zdrojov Clustera s nastrojmi `pcs` a `crm`:
  - prikaz: `$ sudo pcs resource enable` zapne zdroj
  - prikaz: `$ sudo pcs resource disable` vypne zdroj
  - prikazmi restartujeme zdroje: `$ sudo pcs resource restart` a `$ sudo crm resource restart`
