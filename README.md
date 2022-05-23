@@ -2942,11 +2942,11 @@ Dolezity nastroj `qemu-kvm` je hlavny nastroj pre pracu s QEMU+KVM stackom:
 
 Tip: Ako sledovat cinnost *sietoveho unit-u* v systemD: `$ sudo journalctl -f -u systemd-networkd`
 
-### Zaklady prace s "OS-level virtualization" projektami *OpenVZ* a *LXC*:
+### Zaklady prace s *OS-level virtualization* projektami *OpenVZ* a *LXC*:
  - tieto projekty pracuju s konceptom tzv. *kontajnerov*
  - dalsia moznost je *Application-level virtualization*, kde je hlavnym zastupcom platforma *Docker*
 
-#### Praca s projektom "OpenVZ", ktory pracuje s kontajnermi:
+#### Praca s projektom *OpenVZ*, ktory pracuje s kontajnermi:
  - kontajnery funguju ako standardny linuxovy VPS server, ktory je izolovany od ostatnych instancii
  - *OpenVZ* pouziva modifikovany Kernel, platforma podporuje tzv. *Checkpoit-y* a *Live migraciu*
    - migracia zmrazi/Freeze stav kont. do suboru a na druhom hoste ho "rozmrazi/Unfreeze" a spusti 
@@ -2957,7 +2957,7 @@ Tip: Ako sledovat cinnost *sietoveho unit-u* v systemD: `$ sudo journalctl -f -u
 
 Poznamka: Pretoze projekt OpenVZ je uz zastaraly, poznamky dalej nepokracuju
 
-#### Praca s virtualizacnou platformou "LXC - Linux Containers":
+#### Praca s virtualizacnou platformou *LXC - Linux Containers*:
  - snaha je vytvorit co najefektivnejsi kontajner bez emulacie HW
  - vhodny na vytvaranie *Developer prostredi*, podporuje sablony/Templates
  - vyuziva projekty/technologie: *Namespaces, CGroup, Chroot, Apparmor/SELinux, Seccomp*
@@ -2996,7 +2996,7 @@ lxc.idmap = g 0 165536 65536
    - kont. zastavime s: `$ lxc-stop -n lxctest1`
    - kont. vymazeme, ak je zastaveny, prikazom: `$ lxc-destroy lxctest1`
 
-- poznamka: Praca s platformou Docker je uz vyssie popisana v tychto poznamkach.
+- poznamka: Praca s platformou Docker je uz vyssie popisana v tychto poznamkach
 
 #### Virtualizacny nastroj *VirtualBox*:
  - je to tzv. *hosted hypervisor/Type-2 hypervisor*, ktory sa instaluje ako Aplikacia na OS
@@ -3039,27 +3039,27 @@ lxc.idmap = g 0 165536 65536
    - `virsh vol-list <pool>`: vypise zoznam dostupnych volume-s
 
 #### Praca s VM hosting stackom z komponentov *KVM,  QEMU, libvirt* na OS Rocky Linux 8.5:
-  - poznamka: instalacia platformy je uz vyssie popisana v tychto poznamkach
-  - adresar `/var/lib/libvirt/images/` je predvolena cesta pre disk image subory
-  - adresar `/etc/libvirt/` je uzlozisko pre globalnu konfiguraciu
-  - adresar `/etc/libvirt/qemu/` je uzlozisko pre XML konfiguraciu VM intanacii, resp. Domen
-    - priama uprava XML suborov nie je doporucena, treba pouzit `virsh edit` a `vrish net-edit`
-    - nastroj na jej validaciu, napr: `$ sudo virt-xml-validate /etc/libvirt/qemu/fedora35VM01.xml`
+ - poznamka: instalacia platformy je uz vyssie popisana v tychto poznamkach
+ - adresar `/var/lib/libvirt/images/` je predvolena cesta pre disk image subory
+ - adresar `/etc/libvirt/` je uzlozisko pre globalnu konfiguraciu
+ - adresar `/etc/libvirt/qemu/` je uzlozisko pre XML konfiguraciu VM intanacii, resp. Domen
+   - priama uprava XML suborov nie je doporucena, treba pouzit `virsh edit` a `vrish net-edit`
+   - nastroj na jej validaciu, napr: `$ sudo virt-xml-validate /etc/libvirt/qemu/fedora35VM01.xml`
 
-   - podla hore uvedenych poznamok si pripravime LVM2 VG skupinu, napr. s nazvom "vg-kvm"
-   - pokracujeme vytvorenim storage pool-u s nazvom "lvm_pool"
-     - prikaz: $ sudo virsh pool-define-as lvm_pool logical --source-name vg-kvm --target /dev/vdb1 
-     - aktivujeme Pool: $ sudo virsh pool-start lvm_pool
-       - overime prikazom: $ sudo virsh pool-list --all
-     - zabezpecime automaticky start: $ sudo virsh pool-autostart lvm_pool
-     - vytvorime si 2 particie/vulumes: $ sudo virsh vol-create-as lvm_pool kvm-vol1 10G 
-       - resp.: $ sudo virsh vol-create-as lvm_pool kvm-vol2 10G
-       - overime prikazom: $ sudo virsh vol-list lvm_pool
-       - kedze, libvirt pracuje s LVM2, tak overime aj prikazom: $ sudo lvs
+ - podla vyssie uvedenych poznamok si pripravime LVM2 VG skupinu, napr. s nazvom `vg-kvm`
+ - pokracujeme vytvorenim storage pool-u s nazvom `lvm_pool`
+   - prikaz: `$ sudo virsh pool-define-as lvm_pool logical --source-name vg-kvm --target /dev/vdb1`
+   - aktivujeme Pool: `$ sudo virsh pool-start lvm_pool`
+   - overime prikazom: `$ sudo virsh pool-list --all`
+   - zabezpecime automaticky start: `$ sudo virsh pool-autostart lvm_pool`
+   - vytvorime si 2 particie/vulumes: `$ sudo virsh vol-create-as lvm_pool kvm-vol1 10G`
+     - resp.: `$ sudo virsh vol-create-as lvm_pool kvm-vol2 10G`
+     - overime prikazom: `$ sudo virsh vol-list lvm_pool`
+     - kedze, libvirt pracuje s LVM2, tak overime aj prikazom: `$ sudo lvs`
 
-   - ako deaktivovat libvirt Storage pool s nazvom "lvm_pool": $ sudo virsh pool-destroy lvm_pool
-     - po deaktivacii sa moze Storage pool zmazat: $ sudo virsh pool-delete lvm_pool
-     - a nasledne aj oddefinovat: $ sudo virsh pool-undefine lvm_pool
+ - Tip: ako deaktivovat libvirt Storage pool s nazvom `lvm_pool` s: `$ sudo virsh pool-destroy lvm_pool`
+   - po deaktivacii sa moze Storage pool zmazat: $ sudo virsh pool-delete lvm_pool
+   - a nasledne aj oddefinovat: $ sudo virsh pool-undefine lvm_pool
 
    - vytvorime VM instanciu s instalaciou Fedora35 z Poolu "lvm_pool" a diskom/volume "kvm-vol1":   
      - instanacia ma pridelene 2xvCPU, 2GB RAM, grafika pocuva na VNC servery TCP/5900, display :0  
