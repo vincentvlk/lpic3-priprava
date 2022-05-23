@@ -2001,7 +2001,8 @@ Poznamka: ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
   - pouzijeme prikaz: `$ sudo pcs cluster sync`
   - nasledne je potrebne znova spustit cluster: `$ sudo pcs cluster reload corosync`
 
-#### Node Fencing/STONITH, problematicky uzol treba "odrezat" z clustera, fencing ma viacero druhov:
+#### Node Fencing/STONITH, 
+ - problematicky uzol treba *odrezat* z Clustera, fencing ma viacero druhov
  - druh *Power fencing*: ked mame pristup ku kontrolerom napajania, odrezeme napajenia uzla (UPS/PDU)
  - druh *Fabric fencing*: uzol odrezeme od storage konektivity, teda od iSCSI, resp. FibreChannel-u
  - samozrejme su k dispozicii dalsie moznosti Fencingu
@@ -2020,14 +2021,15 @@ Poznamka: ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
  - na *OpenSUSE* vypiseme agentov: `$ sudo stonith -L`
    - presnejsie informacie o agentoch ziskame s: `$ sudo stonith -h | less`
 
-#### Konfiguracia Fencing-u v systeme CentOS Stream 9 (RedHat based OS):
+#### Konfiguracia Fencing-u v systeme CentOS Stream 9:
  - da sa pouzit *Hypervisor* Fencing "device"/agent, instalujeme: `$ sudo dnf -y in fence-virtd`
    - tento agent sa pouziva pri hypervizore *KVM*, kazdy hypervizor musi mat `fence-virtd`
    - hypervizory musia byt na spolocnom Multicast segmente a musia zdielat spolocny *PSK kluc*
  - *POZOR*, na TEST mozeme "odstavit" VM instanciu prikazom: `$ sudo echo c > /proc/sysrq-trigger`
  - akciu *STONITH* mozeme rucne vykonat aj prikazom: `# sudo pcs stonith <hotname>`
 
-#### Ked chceme pouzivat SBD Fencing na VM, je potrebne do kernelu nacitat modul `softdog`:
+#### Ako pouzivat SBD Fencing na VM:
+ - je potrebne do kernelu nacitat modul `softdog`
  - *SBD* - STONITH Based on Disk
  - na rozdiel od fyz. HW, na VM chyba SCSI *Watchdog*, preto treba nacitat software verziu:
  - overime loading kernel modulov pomocou SystemD: `$ sudo systemctl status systemd-modules-load`
@@ -2049,10 +2051,10 @@ Poznamka: ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
    - definovane zdroje vypiseme s `crm(live/suse1)# resource status` alebo s: `$ sudo crm_mon`
  
 #### Praca s obmedzeniami zdrojov *Resource constraints*:
- -  rozdelujeme na tri typy: `Location`, `Colocation` a `Order`:
- - typ `Location` - na ktorom uzle ma *bezat* dany zdroj/resource, preferencia uzla
- - typ `Colocation` - s ktorym dalsim zdrojom, ma/nema bezat dany zdroj
- - typ `Order` - pred ktorym alebo za ktorym zdrojom ma dany zdroj *bezat*
+ - rozdelujeme na tri typy: `Location`, `Colocation` a `Order`:
+   - typ `Location` - na ktorom uzle ma *bezat* dany zdroj/resource, preferencia uzla
+   - typ `Colocation` - s ktorym dalsim zdrojom, ma/nema bezat dany zdroj
+   - typ `Order` - pred ktorym alebo za ktorym zdrojom ma dany zdroj *bezat*
  - prikazy `$ sudo crm migrate` a `$ sudo crm resource move`, prikazu obmedzenia danemu zdroju
    - prikazmi `$ sudo crm unmigrate` resp. `$ sudo crm resource clear` tieto obmedzenia odstranime
  - pomocou nastroja `crm` mozeme vypisat stav riadenia obmedzeni: `$ sudo crm_simulate -sL`
