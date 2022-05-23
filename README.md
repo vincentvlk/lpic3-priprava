@@ -2653,7 +2653,7 @@ $ sudo pcs resource create nfs_share1_exp ocf:heartbeat:exportfs \
   - overime s: `$ df -hT /mnt/nfs`
   - pre NFSv3 prikaz: `$ sudo mount -t nfs 192.168.255.28:/home/nfs-server/nfs-root/share1 /mnt/nfs`
 
-Zaklady prace s konceptom *Load-Balancing* v Cluster prostredi systemu GNU/Linux
+Zaklady konceptu *Load-Balancing* v Cluster prostredi systemu GNU/Linux
 ----------------
 
 ### Praca s Load-Balancingom sluzieb, teda rozkladanim zataze na viacero aplikacnych uzlov
