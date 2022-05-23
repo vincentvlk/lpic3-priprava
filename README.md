@@ -1817,8 +1817,9 @@ Ak chceme automaticke pripajanie disku, v subore `/etc/iscsi/iscsid.conf` odkome
 
 Na vytvorenie *mount-pointu* po reboote si zistime `UUID` particie napr. s: `$ sudo blkid`
  - nasledne do suboru `/etc/fstab` pridame riadok, napr.:
-
-    UUID=aa03eabf-10a9-41d9-a1eb-149682d0c44f /mnt/san1d1 btrfs _netdev,x-systemd.automount 0 0
+```
+UUID=aa03eabf-10a9-41d9-a1eb-149682d0c44f /mnt/san1d1 btrfs _netdev,x-systemd.automount 0 0
+```
 
 Po reboote systemu mozeme overit napr. s: `$ sudo mount | grep san1` alebo prikazom: `$ sudo lsblk`
  - alebo napr. s: `$ sudo ls -l /dev/disk/by-path/`
