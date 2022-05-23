@@ -625,7 +625,7 @@ Ako vykonat upgrade balikov (Deb/Ubu): `$ sudo apt update -y && sudo apt upgrade
 Ako vymazat nepotrebne baliky (Deb/Ubu), po overeni funkcnosti:
  - prikaz: `$ sudo apt autoclean && sudo apt autoremove`
 
-Prikazy ako `cd`, alebo `umask` su tzv. **Shell BuiltIn**, nemaju manpage, preto: `$ help cd`
+Prikazy ako `cd`, alebo `umask` su tzv. *Shell BuiltIn*, nemaju manpage, preto: `$ help cd`
  - dalsi priklad: `$ help help`
  - priklad: `$ help if`
  - priklad: `$ help jobs`
@@ -655,8 +655,8 @@ Ako porovnat dva subory s detailnejsim rozpisom: `$ diff -c a b`
  - dva subory mmozeme porovnat vedla seba: `$ diff -y a b`
  - dalsie info v: `$ man diff`
 
-Ako vytvorit komprimovany **BZip2** archiv: `$ tar -cvjf subory.tar.bz2 a.txt b.txt c.txt`
- - ekvivalent pre **GNUzip** kompresiu: `$ tar -cvzf subory.tar.gz a.txt b.txt c.txt`
+Ako vytvorit komprimovany *BZip2* archiv: `$ tar -cvjf subory.tar.bz2 a.txt b.txt c.txt`
+ - ekvivalent pre *GNUzip* kompresiu: `$ tar -cvzf subory.tar.gz a.txt b.txt c.txt`
  - mozeme kombinovat subory/adresare: `$ tar -cvzf dalsie_subory.tgz dir1/ dir2/ a.txt b.txt`
  - extrakcia do vopred vytvoreneho adresara: `$ tar -xvjf subory.tar.bz2 -C zaloha.d/`
 
@@ -668,17 +668,17 @@ Ako vypisat konf. subory, zmenene za posledny den:
    - prikaz  `$ sudo find /etc -type f -mtime -7 -exec cp {} /root/backup \;`
  - aby sa `find` pytal, ci chceme napr. zmazat stare subory:
    - prikaz: `$ find . -type f -mtime +30 -ok rm {} \;`
-   - pripadne mozeme najskor (30 dni stare) subory len **vypisat**: `$ find . -type f -mtime +30 -print`
+   - pripadne mozeme najskor (30 dni stare) subory len *vypisat*: `$ find . -type f -mtime +30 -print`
 
 Ako hladat subory podla nazvu, nova implementacia `mlocate`: `$ sudo apt install mlocate`
- - databazu suborov aktualizujeme pomocou **cron-u** alebo rucne: `$ sudo updatedb`
+ - databazu suborov aktualizujeme pomocou *cron-u* alebo rucne: `$ sudo updatedb`
  - stav databazy overime s: `$ mlocate -S`
  - da sa spustat aj symlinkom, napr.: `$ locate .bashrc`
  - dalsie informacie: `$ man mlocate`
 
 Ako hladat programom `find` bez rozlisenia A/a: `$ find . -iname PriKlad.txt`
 
-V BASH-y sa tzv. **glob-y** volaju aj **Shell Meta Characters**, napr. `*`
+V BASH-y sa tzv. *glob-y* volaju aj *Shell Meta Characters*, napr. `*`
 
 Prikaz najde a spocita adresare v `/etc`, hlbka 3 adresarov s pravami `755`: 
  - prikaz: `$ sudo find /etc/ -maxdepth 3 -type d -perm 755 | wc -l`
@@ -687,11 +687,11 @@ Ako vypisat subory s velkostou medzi 3G a 4G: `$ find /home/nas/ -type f -size +
  - da sa doplnit detailny vypis do suboru: 
    - prikaz: `$ find /home/nas/ -type f -size +3G -size -4G -ls > zoznam.txt`
 
-Asociacia medzi suborovou strukturou a nazvom suboru sa nazyva tzv. **hardlink**
+Asociacia medzi suborovou strukturou a nazvom suboru sa nazyva tzv. *hardlink*
  - pocet asosiacii overime s: `$ stat subor.txt`
- - ako hladat hardlink-y podla cisla **inode** (index node): `$ find . -inum 12345`
- - pozor, hardlink **nemoze** opustit hranice **suboroveho systemu**
- - koncept hardlink je napr. uzitocny pre **nadradeny** adresar, oznaceny `..`
+ - ako hladat hardlink-y podla cisla *inode* (index node): `$ find . -inum 12345`
+ - pozor, hardlink *nemoze* opustit hranice *suboroveho systemu*
+ - koncept hardlink je napr. uzitocny pre *nadradeny* adresar, oznaceny `..`
 
 Ako naist a vypisat objekty s viac ako 1 hardlinkom: `$ find /var/ -links +1 -ls`
 
@@ -700,7 +700,7 @@ Ako presuvat len aktualnejsie alebo chybajuce subory: `$ mv -u <zdroj> <ciel>`
 *Quiz:*
 V adresary `/home/student/` vytvori uzivatel `root` subor `a.txt`, moze ho uzivatel `student` vymazat?
 
-Prikaz najde **chybove** hlasky v Syslogu: `$ grep -win error /var/log/syslog`
+Prikaz najde *chybove* hlasky v Syslogu: `$ grep -win error /var/log/syslog`
  - param. `-w` hlada presne slovo, param. `-i` nerozlisuje A/a, param. `-n` vypise cislo riadku 
 
 Ako naist v kernel ring buffery `error` a vypisat 3 riadky pred a za nim: `$ sudo dmesg | grep -C 3 error`
@@ -726,7 +726,7 @@ Ako vytvorit uzivatela, ktoreho ucet exspiruje v urcity datum: `$ sudo useradd -
 Ako pridat uzivatela `u1` do skupiny `sudo`, napr.: `$ sudo usermod -G sudo u1`
  - uziv. skupina sa neda vymazat, pokial sluzi ako primarna skupina uzivatela
 
-**POZOR**, ako vymazat uzivatela `u1` aj s jeho **home** adresarom: `$ sudo userdel -r u1`
+*POZOR*, ako vymazat uzivatela `u1` aj s jeho *home* adresarom: `$ sudo userdel -r u1`
 
 Ako premenovat uzivatelsku skupinu: `$ sudo groupmod -n <novy_nazov> <povodna_skupina>`
 
@@ -748,18 +748,18 @@ Hesla ulozene (Ubu 20.04) v subore `/etc/shadow` su vo formate: `$id$salt$hash`
 Ako vypisat atriburty (nie prava) konkretneho suboru: `$ lsattr subor.txt`
  - vyznam atributov najdeme napr. v: `$ man chattr`
  - napr. mozeme na subor nastavit tzv. `no append` atribut: `$ chattr +a subor.txt`
- - napr. mozeme nastavit tzv. `immutable` atribut, ktory **zmrazi** upravy: `$ chattr +i subor.txt`
+ - napr. mozeme nastavit tzv. `immutable` atribut, ktory *zmrazi* upravy: `$ chattr +i subor.txt`
  - atributy mozeme nastavit aj rekurzivne, pre obsah adresara: `$ sudo chattr -R dir1/`
 
-Ako nastavit **SET UID bit**, absolutny mod `$ chmod 4XXX a.bin`, relativny mod `$ chmod u+s a.bin` 
+Ako nastavit *SET UID bit*, absolutny mod `$ chmod 4XXX a.bin`, relativny mod `$ chmod u+s a.bin` 
  - overime napr. prikazom: `$ stat a.bin`
  - program/skript je spustany s pravami vlastnika, nie s pravami zadavatela prikazu
    - typicky priklad napr.: `$ cat /etc/shadow`
 
-Ako naist subory, ktore maju **aspon** prava `4000`, zadame: `$ find /usr/bin/ -perm -4000 -ls`
+Ako naist subory, ktore maju *aspon* prava `4000`, zadame: `$ find /usr/bin/ -perm -4000 -ls`
 
-Ako nastavit **SET GID bit**, absolutny mod `$ chmod 2XXX dir1/`, relativny mod `"chmod g+s dir1/`
- - subory vytvorene v adresary s **SGID bitom** budu mat vlastnika podla skupiny adresara `dir1/`
+Ako nastavit *SET GID bit*, absolutny mod `$ chmod 2XXX dir1/`, relativny mod `"chmod g+s dir1/`
+ - subory vytvorene v adresary s *SGID bitom* budu mat vlastnika podla skupiny adresara `dir1/`
  - uzitocne pre vytvaranie zdielanych adresarov
 
 Ako priklad mozeme vytvorit dedikovany adresar pre dvoch vyvojarov:
@@ -773,11 +773,11 @@ Ako priklad mozeme vytvorit dedikovany adresar pre dvoch vyvojarov:
     # chmod o-rx /repo.d/                <-- nastavome prava
     # chmod g+s /repo.d/                 <-- nastavime "SGID" bit
 
- - nasledne overime tak, ze uziv. **dev1** vytvori subor: `$ touch program.c`
- - so spravnym nastavenim ma editovaci pristup aj uzivatel **dev2**
+ - nasledne overime tak, ze uziv. *dev1* vytvori subor: `$ touch program.c`
+ - so spravnym nastavenim ma editovaci pristup aj uzivatel *dev2*
 
-Ako nastavit **Sticky bit**, absolutny mod `$ chmod 1XXX dir1/`, relativny mod `chmod o+t dir1/`
- - zmena zabezpeci, ze sa v (zdielanom) adresary na novy subor **nalepia** prava tvorcu, nie adresara
+Ako nastavit *Sticky bit*, absolutny mod `$ chmod 1XXX dir1/`, relativny mod `chmod o+t dir1/`
+ - zmena zabezpeci, ze sa v (zdielanom) adresary na novy subor *nalepia* prava tvorcu, nie adresara
  - typicky priklad je systemovy adresar `/tmp`, aby si v nom uzivatelia navzajom nemazali subory
 
 Ako nastavovat prava suborov/adresarov napr. v skripte: `$ chmod ug=rw,o=r subor.txt`
@@ -790,7 +790,7 @@ Ako nastavit predvolene prava na vytvorene subory na `0640`, zadame: `$ umask 00
  - je dobre si uvedomit, ze pri prikaze `umask` odpocitavame od 0666, teda (0666 - 0026) = 0640
  - pre perzistentne nastavenie vlozime do suborov `.profile` alebo `.bashrc` riadok `umask 0026` 
 
-Pozriet nastroje **eBPF zo sady BCC Tools** a **BPF trace tools**, napr: `$ sudo apt install bpfcc-tools`
+Pozriet nastroje *eBPF zo sady BCC Tools* a *BPF trace tools*, napr: `$ sudo apt install bpfcc-tools`
  - napr.: `opensnoop-bpfcc`, `execsnoop-bpfcc`, `tcplife-bpfcc`, `ext4slower-bpfcc`, `biosnoop-bpfcc`
  - ohladom disk-IO je este uzitocny nastroj `biotop-bpfcc`
  - dalsie info (kto vie do kedy online): `https://github.com/iovisor/bcc/blob/master/INSTALL.md`
@@ -1231,7 +1231,7 @@ prikaz: `$ docker container run --name=ubu-con1 -it ubuntu`
 
 Ako vypisat kolko miesta na disku zaberaju kontajnery: `$ docker ps -as`
 
-Ako vytvorit perzistentne ulozisko pre kontajner **Docker Volume**: `$ docker volume create <nazov>`
+Ako vytvorit perzistentne ulozisko pre kontajner *Docker Volume*: `$ docker volume create <nazov>`
  - overime s `$ docker volume ls`
  - dalsie informacie: `$ docker volume --help`
 
@@ -1251,7 +1251,7 @@ Poznamka, ak chceme vymazat Docker image, treba najskor pomazat z neho vytvorene
 
 ### Praca s nastrojom Git a platformou GitHub:
 
-Vytvorime adresar `git_ucenie`, v ktorom inicializujeme **lokalny** Git repozitar: `$ git init`
+Vytvorime adresar `git_ucenie`, v ktorom inicializujeme *lokalny* Git repozitar: `$ git init`
  - aktualny stav repozitara overime s: `$ git status`
  - nastavime identitu uzivatela na pridavanie zmien: `$ git config --global --edit`
  - vytvorime cvicny subor, napr. `poznamky.txt`
@@ -1264,7 +1264,7 @@ Vytvorime adresar `git_ucenie`, v ktorom inicializujeme **lokalny** Git repozita
 
  - dalej upravime subor `poznamky.txt`, pridame riadok `dalsi riadok s poznamkou`
  - subor ulozime a overime stav *lokalneho* repo.: `$ git status`
- - podla vypisu je potrebne pridat upraveny subor do **Staging Cache**: `$ git add poznamky.txt`
+ - podla vypisu je potrebne pridat upraveny subor do *Staging Cache*: `$ git add poznamky.txt`
  - jednoduchsie mozeme pridat vsetky subory v danom adresary repozitara: `$ git add .`
  - aby sme sa vyhli pridavaniu suborov, ktore nechceme pridat do Staging Cache, vytvorime subor `.gitignore`
  - na ignorovanie tzv. *.dotfiles* mozeme do suboru zapisat napr. riadok `.*`
