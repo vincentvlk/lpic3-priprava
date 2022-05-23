@@ -1812,8 +1812,8 @@ Pripojenie disku overime prikazmi napr. `$ cat /proc/partitions` alebo `$ lsblk`
 Nasledne vytvorime particiu, napr. pomocou nastrojov `fdisk`, `cfdisk`, `parted`, a pod.
  - potom novu particiu naformatujeme suborovym systemom podla poziadavky: `$ sudo mkfs.XYZ /dev/sdX`
 
-Ak chceme automaticke pripajanie disku, v subore `/etc/iscsi/iscsid.conf` odkomentujeme riadok:
-`node.startup = automatic`
+Ak chceme automaticke pripajanie disku po reboote:
+- v subore `/etc/iscsi/iscsid.conf` odkomentujeme riadok: `node.startup = automatic`
 
 Na vytvorenie *mount-pointu* po reboote si zistime `UUID` particie napr. s: `$ sudo blkid`
  - nasledne do suboru `/etc/fstab` pridame riadok, napr.:
