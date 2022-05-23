@@ -2940,7 +2940,7 @@ Dolezity nastroj `qemu-kvm` je hlavny nastroj pre pracu s QEMU+KVM stackom:
    - v terminale spustime s: `$ sudo qemu-kvm -monitor stdio`
    - prva pomoc je prikaz `help`, dalej napr. ked zadame `info`, vypise nam moznosti prikazu
 
-Tip: Ako sledovat cinnost "sietoveho unit-u" v systemD: $ sudo journalctl -f -u systemd-networkd
+Tip: Ako sledovat cinnost *sietoveho unit-u* v systemD: `$ sudo journalctl -f -u systemd-networkd`
 
 ### Zaklady prace s "OS-level virtualization" projektami *OpenVZ* a *LXC*:
  - tieto projekty pracuju s konceptom tzv. *kontajnerov*
@@ -2996,58 +2996,56 @@ lxc.idmap = g 0 165536 65536
    - kont. zastavime s: `$ lxc-stop -n lxctest1`
    - kont. vymazeme, ak je zastaveny, prikazom: `$ lxc-destroy lxctest1`
 
-**Praca s platformou Docker je uz vyssie popisana v tychto poznamkach.**
+- poznamka: Praca s platformou Docker je uz vyssie popisana v tychto poznamkach.
 
-#### Virtualizacny nastroj "VirtualBox":
- - je *hosted hypervisor / Type-2 hypervisor*, ktory sa instaluje ako Aplikacia na OS
+#### Virtualizacny nastroj *VirtualBox*:
+ - je to tzv. *hosted hypervisor/Type-2 hypervisor*, ktory sa instaluje ako Aplikacia na OS
  - dalsie informacie: `https://www.virtualbox.org/`
 
 #### Nastroj *Packer* sluzi na automatizovanu tvorbu a konfiguraciu VM imagov:
  - nastroj dalej vyuziva automatizacne projekty *Puppet* a *Chef*
  - dalsie informacie napr.: `https://www.packer.io/`
 
-#### Nastroj "Vagrant" sa vyuziva:
+#### Nastroj *Vagrant* sa vyuziva:
  - na automaticku tvorbu a manazment VM prostredi, ktore su prenositelne
  - nastroj je integrovany s projektami *Puppet*, *Chef* a *Ansible*
  - na definiciu VM prostredi a ich parametrov vyuziva tzv. *VagrantFile*
  - dalsie informacie napr.: `https://www.vagrantup.com/`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Praca s kniznicou/nastrojmi/API pod nazvom projektu `libvirt`:
- - sluzi na unifikovany manazment virtualnych zdrojov roznych typov (KVM,QEMU,VMware,LXC,Xen,...)   
- - poskytuje CLI nastroje na manazment, ako su napr. "virsh", "virt-install", "virt-manger"
- - informacie a konfiguraciu VM instanacii uklada vo "formate" XML
- - casto pouzivane subcommands/sub-prikazy nastroja "virsh" ohladom networkingu:
-   - "virsh net-list" : vypise virtualne siete
-   - "virsh net-start" : spusti virtualnu siet
-   - "virsh net-destroy" : zastavi a vymaze virtualnu siet
-   - "virsh net-undefine" : odstrani virtualnu siet, pokial nie je aktivna
-   - "virsh net-edit" : uprava XML konfiguracie virtualnej siete
-   - "virsh net-dumpxml" : vypise XML konfiguraciu virtualnej siete
+### Praca s kniznicou/nastrojmi/API pod nazvom projektu `libvirt`:
+ - sluzi na unifikovany manazment virtualnych zdrojov roznych typov (KVM, QEMU, VMware, LXC, Xen, ...)
+ - poskytuje CLI nastroje na manazment, ako su napr. `virsh`, `virt-install`, `virt-manger`
+ - informacie a konfiguraciu VM instanacii uklada vo *formate XML*
+ - casto pouzivane subcommands/sub-prikazy nastroja `virsh` ohladom networkingu:
+   - `virsh net-list`: vypise virtualne siete
+   - `virsh net-start`: spusti virtualnu siet
+   - `virsh net-destroy`: zastavi a vymaze virtualnu siet
+   - `virsh net-undefine`: odstrani virtualnu siet, pokial nie je aktivna
+   - `virsh net-edit`: uprava XML konfiguracie virtualnej siete
+   - `virsh net-dumpxml`: vypise XML konfiguraciu virtualnej siete
 
- - nastroj "libvirt" vyuziva na manazment uloziska tzv. Storage Pool-y
-   - daju sa vyizit rozne Pool-y: Filesystem, NFS, Adresar, LVM, Fyz. disk, iSCSI, Gluster, ... 
- - casto pouzivane subcommands/sub-prikazy nastroja "virsh" ohladom storage manazmentu:
-   - "virsh pool-build" : vytvori storage pool
-   - "virsh pool-define-as" : prida perzistentny storage pool pomocou dalsich CLI parametrov
-   - "virsh pool-delete" : vymaze storage pool
-   - "virsh pool-destroy" : deaktivuje storage pool
-   - "virsh pool-edit" : uprava XML konf. storage pool-u
-   - "virsh pool-build" : vytvori storage pool
-   - "virsh pool-start" : zapne neaktivny storage pool
-   - "virsh vol-create-as" : v storage pool-e vytvori storage volume pomocou dalsich CLI parametrov
-   - "virsh vol-delete" : odstrani volume z daneho storage pool-u
-   - "virsh vol-list <pool>" : vypise zoznam dostupnych volume-s
+ - nastroj `libvirt` vyuziva na manazment uloziska tzv. Storage Pool-y
+   - daju sa vyuzit rozne Pool-y: *Filesystem, NFS, Adresar, LVM, Fyz. disk, iSCSI, Gluster, ...*
+ - casto pouzivane subcommands/sub-prikazy nastroja `virsh` ohladom storage manazmentu:
+   - `virsh pool-build`: vytvori storage pool
+   - `virsh pool-define-as`: prida perzistentny storage pool pomocou dalsich CLI parametrov
+   - `virsh pool-delete`: vymaze storage pool
+   - `virsh pool-destroy`: deaktivuje storage pool
+   - `virsh pool-edit`: uprava XML konf. storage pool-u
+   - `virsh pool-build`: vytvori storage pool
+   - `virsh pool-start`: zapne neaktivny storage pool
+   - `virsh vol-create-as`: v storage pool-e vytvori storage volume pomocou dalsich CLI parametrov
+   - `virsh vol-delete`: odstrani volume z daneho storage pool-u
+   - `virsh vol-list <pool>`: vypise zoznam dostupnych volume-s
 
- - Praca s VM hosting stackom z komponentov: KVM + QEMU + libvirt na OS Rocky Linux 8.5
-   ** Instalacia  platformy je uz vyssie popisana v tychto poznamkach.**
+#### Praca s VM hosting stackom z komponentov *KVM,  QEMU, libvirt* na OS Rocky Linux 8.5:
+  - poznamka: instalacia platformy je uz vyssie popisana v tychto poznamkach
+  - adresar `/var/lib/libvirt/images/` je predvolena cesta pre disk image subory
+  - adresar `/etc/libvirt/` je uzlozisko pre globalnu konfiguraciu
+  - adresar `/etc/libvirt/qemu/` je uzlozisko pre XML konfiguraciu VM intanacii, resp. Domen
+    - priama uprava XML suborov nie je doporucena, treba pouzit `virsh edit` a `vrish net-edit`
+    - nastroj na jej validaciu, napr: `$ sudo virt-xml-validate /etc/libvirt/qemu/fedora35VM01.xml`
 
-   - adresar "/var/lib/libvirt/images/" je predvolena cesta pre disk image subory
-   - adresar "/etc/libvirt/" je uzlozisko pre globalnu konfiguraciu
-   - adresar "/etc/libvirt/qemu/" je uzlozisko pre XML konfiguraciu VM intanacii, resp. Domen
-     - priama uprava XML suborov nie je doporucena, treba pouzit "vrish edit" a "vrish net-edit"
-     - nastroj na jej validaciu, napr: $ sudo virt-xml-validate /etc/libvirt/qemu/fedora35VM01.xml
-   
    - podla hore uvedenych poznamok si pripravime LVM2 VG skupinu, napr. s nazvom "vg-kvm"
    - pokracujeme vytvorenim storage pool-u s nazvom "lvm_pool"
      - prikaz: $ sudo virsh pool-define-as lvm_pool logical --source-name vg-kvm --target /dev/vdb1 
