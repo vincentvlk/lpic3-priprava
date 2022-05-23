@@ -3087,8 +3087,8 @@ $ sudo virt-install \
    - *POZOR* vymaze VM + jej disk: `$ sudo virsh undefine --domain fedora35VM01 --remove-all-storage`
 
 ### Praca so sadou virtualizacnych nastrojov pod nazvom projektu *oVirt*:
- - dalsie informacie na: `https://www.ovirt.org/`
  - OSS projekt zalozeny RodHatom, poskytuje centralny manazment nad zdrojmi pre virtualizaciu
+ - dalsie informacie na: `https://www.ovirt.org/`
  - ma webovy interface, podporuje live-migraciu, distribuovany, pouziva KVM, umoznuje Virtualne DC
  - risenie ma tieto komponenty *oVirt Engine*, ktory umoznuje pristup a manzment k *oVirt uzlom*
    - uzly *oVirt Nodes* poskytuju funkciu Host systemu, na ktorom bezia VM instanacie
@@ -3104,27 +3104,28 @@ $ sudo virt-install \
    - servery/uzly 1 a 2 budu sluzit na manazment a poskytovanie vypoctovych/sietovych zdrojov
 
  - pokracujeme instalaciou NFS servera na uzle/servery c. 3:
-   - instalujeme balicky: $ sudo dnf -y in nfs-utils
-   - upravime subor "/etc/idmapd.conf"
-     -  kde odkomentujeme riadok "Domain = " a upravime napr.: "Domain = rock3.example.com"
-   - povolime na FWL: $ sudo firewall-cmd --add-service={nfs,nfs3,mountd,rpc-bind} --permanent
-     - restartujeme FWL: $ sudo firewall-cmd --reload
-   - vytvorime skupinu "kvm" na prihlasenie "oVirt" clustr-a: $ sudo groupadd kvm -g 36
-   - vytvorime uziv. "vdsm" pre oVirt : $ sudo useradd vdsm -u 36 -g 36 -s /sbin/nologin -M -d /
-   - vytvorime adresar "/var/lib/ovirt-share" a nastavime mu vlastnika a prava:
-     - diskovy priestor treba mat pripraveny z LocalFS, iSCSI, FC, ...
-
+   - instalujeme balicky: `$ sudo dnf -y in nfs-utils`
+   - upravime subor `/etc/idmapd.conf`
+     -  kde odkomentujeme riadok `Domain = ` a upravime napr. na: `Domain = rock3.example.com`
+   - povolime na FWL: `$ sudo firewall-cmd --add-service={nfs,nfs3,mountd,rpc-bind} --permanent`
+     - restartujeme FWL: `$ sudo firewall-cmd --reload`
+   - vytvorime skupinu `kvm` na prihlasenie *oVirt* clustr-a: `$ sudo groupadd kvm -g 36`
+   - vytvorime uzivatela `vdsm` pre oVirt: `$ sudo useradd vdsm -u 36 -g 36 -s /sbin/nologin -M -d /`
+   - vytvorime adresar `/var/lib/ovirt-share` a nastavime mu vlastnika a prava:
+     - diskovy priestor treba mat pripraveny z *LocalFS, iSCSI, FC, ...*
+```bash
 $ sudo mkdir -p /var/lib/ovirt-share
 $ sudo chown -R vdsm:kvm /var/lib/ovirt-share/
 $ sudo chmod 755 /var/lib/ovirt-share
+```
 
-   - v subore "/etc/exports" pridame: "/var/lib/ovirt-share/ 192.168.255.0/24(rw,no_root_squash)"
-   - aktivujeme sluzby potrebne pre NFS server: $ sudo systemctl enable --now rpcbind nfs-server 
+   - do suboru `/etc/exports` pridame: `/var/lib/ovirt-share/ 192.168.255.0/24(rw,no_root_squash)`
+   - aktivujeme sluzby potrebne pre NFS server: `$ sudo systemctl enable --now rpcbind nfs-server`
 
- - dalej je potrebne na fyz. uzle 1 instalovat SMTP server, pouzijeme napr. projekt "Postfix"
-   - na "Admin node" instalujeme potrebny balik: $ sudo dnf -y install postfix
-   - nasledne upravime globalnu/hlavnu konfiguraciu v subore "/etc/postfix/main.cf" napr. takto:
-
+ - dalej je potrebne na fyz. uzle 1 instalovat SMTP server, pouzijeme napr. projekt *Postfix*
+   - na *Admin node* instalujeme potrebny balik: `$ sudo dnf -y install postfix`
+   - nasledne upravime globalnu/hlavnu konfiguraciu v subore `/etc/postfix/main.cf` napr. takto:
+```postfix
 # moje upravy v LABe:
 
 myhostname = rock1.example.com
@@ -3150,11 +3151,12 @@ smtpd_banner = $myhostname ESMTP
 disable_vrfy_command = yes
 smtpd_helo_required = yes
 message_size_limit = 10240000
+```
 
-   - po uprave konf. aktivujeme sluzbu SMTP servera: $ sudo systemctl enable --now postfix 
-     - overime s: $ sudo systemctl status postfix
-   - povolime SMTP port TCP/25 na FWL: $ sudo firewall-cmd --add-service=smtp --permanent
-     - restartujeme FWL: $ sudo firewall-cmd --reload
+ - po uprave konf. aktivujeme sluzbu SMTP servera: $ sudo systemctl enable --now postfix 
+   - overime s: $ sudo systemctl status postfix
+ - povolime SMTP port TCP/25 na FWL: $ sudo firewall-cmd --add-service=smtp --permanent
+   - restartujeme FWL: $ sudo firewall-cmd --reload
 
  - Dalej mozeme pokracovat s instalaciou "oVirt Engine" na "Admin" uzle/servery c.1:
    - pridame repo.: $ sudo dnf -y in https://resources.ovirt.org/pub/yum-repo/ovirt-release44.rpm 
