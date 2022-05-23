@@ -1710,15 +1710,13 @@ Tip: Na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-
  - vymazanie balika: `$ sudo zypper remove nmap`
    - opatrne: bez dotazov zmaze balik, doplnime parameter `-n`
  - hladanie balickov v DB: `$ sudo zypper search nmap`
- - vypisanie dostupnych softwarovych **zaplat**: `$ sudo zypper patches`
- - instalacia softwarovych **zaplat**: `$ sudo zypper patch`
+ - vypisanie dostupnych softwarovych *zaplat*: `$ sudo zypper patches`
+ - instalacia softwarovych *zaplat*: `$ sudo zypper patch`
  - dalsie informacie v: `$ man zypper`
 
 ### Zaklady prace so SAN protokolom iSCSI:
 
-#### Vytvorenie iSCSI targetu ("SAN-server") na OS "Fedora Server 35":
-
- *ROZPRACOVANY Status*
+#### Vytvorenie iSCSI targetu *(SAN-server)* na OS Fedora Server 35:
 
 - instalujeme *iSCSI Target* nastroj: `$ sudo dnf -y install targetcli`
 
@@ -1739,8 +1737,8 @@ Tip: Na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-
 - prepneme sa do rezimu *konkretneho Target-u*, teda: `/iscsi> cd iqn.2022-03.lpic3.suse1:www.target01/`
 
 - prepneme sa do rezimu *TPG - LUNs*, teda: `/iscsi> cd iqn.2022-03.lpic3.suse1:www.target01/tpg1/luns`
-  - **TPG** - Target Portal Group, sietova reprezentacia iSCSI Target-u
-  - **LUN** - Logical Unit Number, logicka jednotka pre SCSI, particia/disk
+  - *TPG* - Target Portal Group, sietova reprezentacia iSCSI Target-u
+  - *LUN* - Logical Unit Number, logicka jednotka pre SCSI, particia/disk
 
 - nasledne vytvorime LUN prepojeny s File-IO imagom: `/iscsi/iqn.20...t01/tpg1/luns> create /backstores/fileio/disk01`
 
