@@ -2868,14 +2868,13 @@ $ sudo xen-create-image --hostname=xenvm01 --lvm=vgxen --memory=2G --maxmem=2G -
   - dalej pridame riadok, tak aby najskor bootoval *Disk* a potom *CD-ROM image*: 
         boot = "dc"
 
-- vytvorime VM instanciu, na ktoru sa da pripojit VNC protokolom:
-    `$ sudo xl create fedora35vm01.cfg`
+- vytvorime VM instanciu, na ktoru sa da pripojit VNC protokolom: `$ sudo xl create fedora35vm01.cfg`
 
 - overime prikazom: `$ sudo xl list`
 
-Poznamka: Technologia Xen bola davnejsie odkupena spol. Citrix a je to dlhsie komercny produkt
-Z tohto dovodu OSS komunita viac preferuje kombinaciu projetov ako je KVM, QEMU, libvirt...
-Preto tato cast poznamok nepokracuje dalej.
+- poznamka: Technologia Xen bola davnejsie odkupena spol. Citrix a je to dlhsie komercny produkt
+  - z tohto dovodu OSS komunita viac preferuje kombinaciu projetov ako je KVM, QEMU, libvirt...
+  - preto tato cast poznamok nepokracuje dalej
 
 ### Praca s virtualizacnou platformou *KVM* a pridruzenymi projektami *QEMU* a *libvirt*:
  - KVM - Kernel based Virtual Machine, sluzi ako "akcelerator" pre nastroje QEMU
