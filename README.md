@@ -1780,7 +1780,7 @@ Poznamka, iSCSI target sa da prevadzkovat v Cluster-y nad systemom DRBD.
 
 Tip: Ako v OS "Fedora Server 35" nainstalovat NetworkManager-TUI: `$ sudo dnf install NetworkManager-tui`
 
-#### Vytvorenie iSCSI initiatora ("SAN-klient") na OS "OpenSUSE Leap 15.3":
+#### Vytvorenie iSCSI initiatora *(SAN-klient)* na OS OpenSUSE Leap 15.3:
 
 - instalacia softwaroveho Initiatora: `$ sudo zypper -n install open-iscsi`
 - pracujeme so sluzbami `iscsi` a `iscsid`
@@ -1799,7 +1799,7 @@ node.session.auth.password = MOJE_HESLO
 ```
 Nasledne restartujeme iSCSI sluzby: `$ sudo systemctl restart iscsi iscsid`
 
-Spustime **discovery** voci Target device: `$ sudo iscsiadm -m discovery -t sendtargets -p 192.168.2.X`
+Spustime *discovery* voci Target device: `$ sudo iscsiadm -m discovery -t sendtargets -p 192.168.2.X`
  - v pozadi sa vytvoria adresare: `/etc/iscsi/nodes/` a `/etc/iscsi/send_targets/`
  - mozeme overit status, napr. prikazom: `$ sudo iscsiadm -m node -o show`
 
@@ -1815,10 +1815,10 @@ Nasledne vytvorime particiu, napr. pomocou nastrojov `fdisk`, `cfdisk`, `parted`
 Ak chceme automaticke pripajanie disku, v subore `/etc/iscsi/iscsid.conf` odkomentujeme riadok:
 `node.startup = automatic`
 
-Na vytvorenie **mount-pointu** po reboote si zistime `UUID` particie napr. s: `$ sudo blkid`
+Na vytvorenie *mount-pointu* po reboote si zistime `UUID` particie napr. s: `$ sudo blkid`
  - nasledne do suboru `/etc/fstab` pridame riadok, napr.:
 
-`UUID=aa03eabf-10a9-41d9-a1eb-149682d0c44f /mnt/san1d1 btrfs _netdev,x-systemd.automount 0 0`
+    UUID=aa03eabf-10a9-41d9-a1eb-149682d0c44f /mnt/san1d1 btrfs _netdev,x-systemd.automount 0 0
 
 Po reboote systemu mozeme overit napr. s: `$ sudo mount | grep san1` alebo prikazom: `$ sudo lsblk`
  - alebo napr. s: `$ sudo ls -l /dev/disk/by-path/`
