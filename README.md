@@ -139,7 +139,7 @@ Poznamky na skusku LPIC3-304-200 - Virtualization & High Availability
 
     Bezpecnost + Zalohovanie + Kontrola pouzitelnosti zaloh + Dokumentacia
 
-    + zvazit nasadenie IPv6, ak je to mozne (definitivne by malo byt)
+    + zvazit nasadenie IPv6, ak je to mozne (definitivne by uz malo byt)
 
 Zakladne tipy a triky pre operacny system GNU/Linux
 ----------------------
