@@ -2681,20 +2681,22 @@ Zaklady konceptu *Load-Balancing* v Cluster prostredi OS GNU/Linux
 `server_name app.node1.lab;`
 
  - resp. na uzle 2 na: `server_name app.node2.lab;`
-   - aktivujeme sluzbu NGINX po reboote: $ sudo systemctl enable --now nginx
-     - overime s: $ sudo systemctl status nginx
-   - pridame pravidlo na firewall: $ sudo firewall-cmd --add-service=http --permanent
-     - restartujeme firewall: $ sudo firewall-cmd --reload
-   - na uzloch 1,2 dalej vo web-root adresary "/usr/share/nginx/html" na test zmenime "index.html"
-
+   - aktivujeme sluzbu NGINX po reboote: `$ sudo systemctl enable --now nginx`
+     - overime s: `$ sudo systemctl status nginx`
+   - pridame pravidlo na firewall: `$ sudo firewall-cmd --add-service=http --permanent`
+     - restartujeme firewall: `$ sudo firewall-cmd --reload`
+   - na uzloch 1 a 2 dalej vo web-root adresary `/usr/share/nginx/html` na test zmenime `index.html`
+```bash
     $ sudo cd /usr/share/nginx/html
     $ sudo mv index.html index.html.bak
     $ sudo echo "Testovaci uzol 1: app.node1.lab" > index.html
-      - resp. uzol 2: $ sudo echo "Testovaci uzol 2: app.node2.lab" > index.html
+```
 
- - pokracujeme instalaciou "HAProxy frontend LB" na uzle 1: $ sudo dnf -y in haproxy
- - upravime konfig. HAProxy "/etc/haproxy/haproxy.cfg" pridame napr. nasledovne:
+    - resp. uzol 2: `$ sudo echo "Testovaci uzol 2: app.node2.lab" > index.html`
 
+ - pokracujeme instalaciou *HAProxy frontend LB* na uzle 1: `$ sudo dnf -y in haproxy`
+ - upravime konfig. HAProxy */etc/haproxy/haproxy.cfg* pridame napr. nasledovne:
+```
 # moje definicie HAProxy Frontend a Backend
 #
 # defininica frontend-u
@@ -2715,7 +2717,7 @@ backend backend_servers
     # define backend servers
     server             uzol1 192.168.255.21:80 check
     server             uzol2 192.168.255.22:80 check
-
+```
  - aktivujeme HAProxy sluzbu po reboote: $ sudo systemctl enable --now haproxy
  - pridame pravidlo na firewalle pre HAProxy: $ sudo firewall-cmd --add-service=http --permanent
      - restartujeme firewall: $ sudo firewall-cmd --reload
