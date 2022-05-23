@@ -309,28 +309,6 @@ Ako zmenit default shell uzivatela: `$ chsh vlkv -s /bin/bash`
 
 Ako zistit s akymi argumentami je spusteny program/daemon: `$ ps aux | grep getty`
 
-#### Ako zabezpecit, aby sa system Ubuntu 20.04 neplnil log spravami `multipathd`:
-	
-    Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: add missing path
-    Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: failed to get udev uid: Invalid argument
-    Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: failed to get sysfs uid: Invalid argument
-    Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: failed to get sgio uid: No such file or directory
-
-Upravime obsah suboru `/etc/multipath.conf` nasledovne:
-
-Vlozime riadky: 
-
-    defaults {
-        user_friendly_names yes
-    }
-    blacklist {
-        devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st|sda)[0-9]*"
-    }
-
-Po ulozeni treba restartovat proces `multipathd`: `$ sudo systemctl restart multipathd.service`
- 
-- dodatocne mozeme skontrolovat stav procesu: `$ systemctl status multipathd.service`
-
 #### Cron a planovanie v kratkosti:
 
 Ako vytvorit cron job, aby sa vystup aj error presmerovali do `/dev/null`, vytvorime zaznam: 
@@ -2253,6 +2231,28 @@ Zaklady prace so *Storage* rieseniami v Cluster prostredi GNU/Linux
  - tieto zariadenia su dostupne ako `/dev/mapper/mpathX`, `/dev/mapper/mpathX` a pod.
 
 Poznamka: alternativy k systemu CentOS: `CentOS Stream`, `Alma Linux`, `Rocky Linux`, `Oracle Linux`
+
+#### Ako zabezpecit, aby sa system Ubuntu 20.04 neplnil log spravami `multipathd`:
+	
+    Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: add missing path
+    Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: failed to get udev uid: Invalid argument
+    Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: failed to get sysfs uid: Invalid argument
+    Apr 26 16:10:29 ubuntu2004 multipathd[728]: sda: failed to get sgio uid: No such file or directory
+
+Upravime obsah suboru `/etc/multipath.conf` nasledovne:
+
+Vlozime riadky: 
+
+    defaults {
+        user_friendly_names yes
+    }
+    blacklist {
+        devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st|sda)[0-9]*"
+    }
+
+Po ulozeni treba restartovat proces `multipathd` s: `$ sudo systemctl restart multipathd.service`
+ 
+- dodatocne mozeme skontrolovat stav procesu: `$ systemctl status multipathd.service`
 
 ### Praca s Cluster Storage riesenim *DRBD - Distributed Replicated Block Device*:
  - riesenie v podstate realizuje *RAID1* ale cez sietove prepojenia
