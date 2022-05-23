@@ -1084,7 +1084,7 @@ Tip: V definicii promptu, teda v premennej `$PS1` by sme sa mali vyhnut znakom: 
 
 #### Jednoduchy priklad na kompilaciu zdrojoveho kodu v jazyku *C*
 - vytvorime zdrojovy subor `pokus.c`, kde vlozime prikazy:
-```clang
+```c
     #include <stdio.h>
 
     int main(void) {
