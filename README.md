@@ -1872,8 +1872,9 @@ Na pracu s HA-lusterom je vhodne mat *DNS zaznami typu A/PTR uzlov*, pripadne za
  - ak chceme upravit konfiguraciu clustera, pouzijeme: `$ sudo configure edit`
  - dalsie zdroje pridelime v interaktivnom shelly: `$ sudo crm configure`
  - napr. v interaktivnom rezime pridame dalsiu *Virtual IP*, pouzijeme prikaz:
-
-    crm(live)configure# primitive newIP ocf:heartbeat:IPaddr2 params ip=192.168.255.30 cidr_netmask=24
+```
+crm(live)configure# primitive newIP ocf:heartbeat:IPaddr2 params ip=192.168.255.30 cidr_netmask=24
+```
 
  - ak chceme po prikaze nieco upravit, pouzijeme prikaz `edit`, teda: `crm(live)configure# edit`
 
