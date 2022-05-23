@@ -3323,6 +3323,7 @@ $ brew install virt-viewer
    - *Keystone*: poskytuje sluzbu identit, teda autentifikacie a autorizacie pre *OpenStack*
    - *Glance*: poskytuje sluzby na pracu s image-mi, ako su `.iso`, `.ovf`, `.vmdk`, `...`
    - projekt *OpenStack* ma vela dalsich sluzieb a sub-projektov, ktore nie su predmetom tychto poznamok
+ - dalsie informacie napr. na: `https://www.openstack.org/`
 
 #### Poznamky k projektu CloudStack:
  - je definovany ako OSS produkt na nasadenia a spravu velkych VM prostredi
