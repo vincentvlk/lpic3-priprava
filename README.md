@@ -2615,25 +2615,27 @@ $ sudo pcs resource create nfs_daemon ocf:heartbeat:nfsserver \
   nfs_shared_infodir=/home/nfs-server/nfsinfo nfs_no_notify=true --group nfs_server_grp
 ```
 
-- vytvorime cluster vIP, na ktorej bude dostupny zdroj HA-NFS:
-
+- vytvorime cluster virtual-IP, na ktorej bude dostupny zdroj HA-NFS:
+```bash
 $ sudo pcs resource create nfs_vip ocf:heartbeat:IPaddr2 ip=192.168.255.28 cidr_netmask=24 \
    --group nfs_server_grp
+```
 
 - dalej vytvorime zdroj pre NFS notifikacie:
-
+```bash
 $ sudo pcs resource create nfs_notify ocf:heartbeat:nfsnotify source_host=192.168.255.28 \
   --group nfs_server_grp
+```
 
-- overime stav a konf.: "$ sudo pcs status --full" a "$ sudo pcs resource config nfs_server_grp" 
+- overime stav a konf.: `$ sudo pcs status --full` a `$ sudo pcs resource config nfs_server_grp`
 
-- dalej na *AKTIVNOM* NFS uzle upravime "exportfs" nastavenia, vytvorime zdiel. adresar:
-  - prikaz: $ sudo mkdir -p /home/nfs-server/nfs-root/share1
+- dalej na *AKTIVNOM* NFS uzle upravime `exportfs` nastavenia, vytvorime zdiel. adresar:
+  - prikaz: `$ sudo mkdir -p /home/nfs-server/nfs-root/share1`
 
-- dalej na *AKTIVNOM* NFS uzle vytvorime Pacemaker cluster zdroje pre NFS "exportfs":
-  - inak napisane, vytvarame dva rozne NFS exporty v HA "rieseni"
-  - POZOR na parametre "clientspec=" , "directory=" a "fsid="
-
+- dalej na *AKTIVNOM* NFS uzle vytvorime Pacemaker cluster zdroje pre NFS `exportfs`:
+  - inak napisane, vytvarame dva rozne NFS exporty v *HA rieseni*
+  - *POZOR* na parametre `clientspec=`, `directory=` a `fsid=`
+```bash
 $ sudo pcs resource create nfs_root_exp ocf:heartbeat:exportfs \
   clientspec=192.168.255.0/255.255.255.0 options=rw,sync,no_root_squash \
   directory=/home/nfs-server/nfs-root fsid=0 --group nfs_server_grp
@@ -2641,6 +2643,7 @@ $ sudo pcs resource create nfs_root_exp ocf:heartbeat:exportfs \
 $ sudo pcs resource create nfs_share1_exp ocf:heartbeat:exportfs \
   clientspec=192.168.255.0/255.255.255.0 options=rw,sync,no_root_squash \
   directory=/home/nfs-server/nfs-root/share1 fsid=1 --group nfs_server_grp
+```
 
 - overime stav a konf.: "$ sudo pcs status --full" a "$ sudo pcs resource config nfs_server_grp"
 - na tomto uzle nove exporty overime s: $ sudo showmount -e 
