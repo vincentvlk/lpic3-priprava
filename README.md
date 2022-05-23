@@ -1947,7 +1947,7 @@ primitive service-apache ocf:heartbeat:apache \
     $ sudo firewall-cmd --reload
 ```
 
-Poznamka: zdroj je kvoli zjednoduseniu dostupny len na fyz. IP uzla na ktorom bezi `service-apache`
+Poznamka: zdroj je kvoli zjednoduseniu dostupny len na real. IP adrese uzla na ktorom bezi `service-apache`
  - zistime s: `$ sudo crm_mon`
 
 #### Zjednoduseny priklad ako vytvorit WebServer cluster pomocou `pcs` na CentOS Stream 9:
@@ -1977,7 +1977,7 @@ Tip: Ako vypisat stav technologie *Quorum*, ktora zabranuje vzniku *split-brain*
  - parameter `--auto_tie_breaker` - pri 50% "hlasov" sa vitaz urci ako uzol s najnizsim ID
  - parameter `--last_man_standing` - kvorum sa prepocitava kazdych 10s
    - treba skombinovat s `--wait_for_all` a nasledne umoznuje postupne *vypinanie* uzlov z clustra 
- - parameter `--two_node` - umoznuje "bezat" cluster z 2 uzlov
+ - parameter `--two_node` umoznuje "bezat" cluster z 2 uzlov
 
 #### V distribucii OpenSUSE je konfiguracia Cluster kvora:
  - dostupna v subore `/etc/corosync/corosync.conf`
