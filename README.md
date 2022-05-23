@@ -147,7 +147,7 @@ Ako vytvorit Swap subor, nie particiu:
  
 V kontexte Swap-u existuje v kerneli tzv. `OOM Killer`, ktory pri nedostatku pamate zabija procesy.
 
-#### Praca s LVM, aktualna verzia je LVM2
+#### Zaklady prace s LVM, aktualna verzia je LVM2
 
 Prikaz na interaktivne CLI: `$ sudo lvm`
 
@@ -203,13 +203,13 @@ Tip: Ako zistit ake KILL signaly system podporuje: `$ kill -l`
 
 Tip: Nastroj na kontrolu syntaxe BASH skriptov: `shellcheck`
 
-#### Zakladna praca s inode-ami:
+#### Zaklady prace s inode-ami:
 
 Prikaz vypise prava a inode informacie o subore: `$ stat subor.xyz`
 
 Da sa pouzit aj prikaz: `$ ls -li`
 
-#### Zakladna praca s boot-loaderom GRUB2:
+#### Zaklady prace s boot-loaderom GRUB2:
 
 Zjednodusene konfiguracne moznosti su v subore: `/etc/default/grub`
 
@@ -221,7 +221,7 @@ Skripty, ktore podla poradia generuju konfig. subor GRUB2: `$ ls /etc/grub.d/*`
 
 Ako nainstalovat GRUB2 v MBR mode: `$ sudo grub-install --boot-directory=/mnt/boot /dev/sdc`
 
-#### Zaklady prace s inicializacnym systemom "systemd":
+#### Zaklady prace s inicializacnym systemom *SystemD*:
 
 Ako vypisat logy pre proces podla urciteho string patternu: `$ journalctl --unit=ssh`
 
@@ -255,7 +255,7 @@ Tip: Ako prepnut `run-level` do `single-user` modu: `$ sudo telinit -s`
 Tip: Ako restartovat system: `$ sudo shutdown -r now`
  - pripadne za 10 min.: `$ sudo shutdown -r +10`
 
-Tip: Ako "zapnut", aby sa do systemu mohol prihlasit len superuser, vytvorime subor: `/etc/nologin`
+Tip: Ako zabezpecit, aby sa do systemu mohol prihlasit len superuser, vytvorime subor: `/etc/nologin`
 
 ### Logovanie a diasgnostika user-space nastrojov:
 
@@ -796,7 +796,7 @@ Pozriet nastroje **eBPF zo sady BCC Tools** a **BPF trace tools**, napr: `$ sudo
  - dalsie info (kto vie do kedy online): `https://github.com/iovisor/bcc/blob/master/INSTALL.md`
  - dalsie nastroje od Brendana Gregga: `https://brendangregg.com/linuxperf.html`
 
-Typy procesov v operacnom systeme GNU/Linux: **Parent, Child, Daemon, Zombie (defunct), Orphan**
+Typy procesov v operacnom systeme GNU/Linux: `Parent`, `Child`, `Daemon`, `Zombie (defunct)`, `Orphan`
 
 Ako vypisat 3 iteracie programu `top` s oneskorenim 2 s. do suboru: `$ top -d 2 -n 3 -b > stav.txt` 
  
@@ -826,7 +826,7 @@ Ako overit, ci sa proces/program spusti po restarte systemu: `$ sudo systemctl i
 
 Ako na jednoduchu zalohu adresara `/etc` pomocou `rsync` zadame: `$ sudo # rsync -av /etc/ /media/USBdisk1/zaloha/`
 
-Tip: Tri **divne** sposoby, ako generovat 16 znakove heslo (bez instalacie dalsich programov):
+Tip: Tri *divne* sposoby, ako generovat 16 znakove heslo (bez instalacie dalsich programov):
 ```bash
     $ openssl rand -base64 12
     $ head /dev/urandom | base64 | cut -b 1-16
@@ -840,7 +840,7 @@ Ako vytvorit/stiahnut kompletnu kopiu/mirror nejakeho webu, pouzijeme program `w
 Ako nainstalovat zakladne vyvojarske nastroje: `$ sudo apt install build-essential`
  - RedHat-based distribucie (Fedora/CentOS) napr.: `$ sudo dnf group install "Development Tools"`
 
-Poznamka: adresar `/opt` znamena **Optional Software**, sluzi zvycajne na kompilaciu programov
+Poznamka: adresar `/opt` znamena *Optional Software*, sluzi zvycajne na kompilaciu programov
  - napr. kompilacia programu `ProFTPD`, pouzijeme nastavenie: `$ ./configure --prefix=/opt/proftpd`
 
 Ako prehladavat lokalnu DPKG databazu (Debu/Ubu): `$ dpkg-query -l | grep ssh`
@@ -849,7 +849,7 @@ Ako prehladavat lokalnu DPKG databazu (Debu/Ubu): `$ dpkg-query -l | grep ssh`
 Ako zistit, do akeho balika patri program `ls`, najskor `$ which ls`, nasledne: `$ dpkg -L /bin/ls`
  - znova mozeme prezriet obsah balika: `$ dpkg -L coreutils | less`
  
-Ako overit obsah lokalnej **APT cache** (Deb/Ubu): `$ ls -l /var/cache/apt/archives/`
+Ako overit obsah lokalnej *APT cache* (Deb/Ubu): `$ ls -l /var/cache/apt/archives/`
  - aka je jej velkost: `$ sudo du -sh /var/cache/apt/archives/`
  - mozeme vycistit pomocou: `$ sudo apt clean`
 
@@ -871,11 +871,11 @@ Podrobne informacie o CPU ziskame s: `$ lscpu`
  - informacie o Wireless zariadeniach ziskame s: `$ sudo iw list | less`
  - ako obvykle, dalsie informacie: `$ man <lshw/lscpu/dmidecode/lspci/lsusb/hdparm/iw>`
 
-Ako zistit kolko trvalo bootovanie pomocou **SystemD**, zadame: `$ systemd-analyze`
- - ak je to mozne, snaha **SystemD** je spustat jednotlive procesy/sluzby **paralelne**
- - da sa detailne vypisat, na com sa travilo najviac casu: `$ systemd-analyze blame`
+Ako zistit kolko trvalo bootovanie pomocou *SystemD*, zadame: `$ systemd-analyze`
+ - ak je to mozne, snaha *SystemD* je spustat jednotlive procesy/sluzby *paralelne*
+ - da sa detailne vypisat, na com sa travilo najviac casu pri boot-e: `$ systemd-analyze blame`
 
-Ako vypisat **len EXT4-FS** mount-pointy: `$ mount -l -t ext4`
+Ako vypisat *len EXT4-FS* mount-pointy: `$ mount -l -t ext4`
  - dalsi priklad pre VFAT-FS, ktory byva na USB "klucoch": `$ mount -l -t vfat`
 
 Ako vytvorit bitovu kopiu USB disku: `$ sudo dd status=progress if=/dev/sdb of=/home/user1/usb-backup.img`
@@ -1023,7 +1023,7 @@ Ako spustit jednoduchy HTTP server (Python modul) v danom adresary: `$ python3 -
    - prikaz napr.: `$ sudo python3 -m http.server 80`
  - na starsich instalaciach sa da pouzit Python2 modul: `$ python -m SimpleHTTPServer 5000`
 
-Na transfer suborov pomocou programu `rsync`, musi byt program instalovany **na oboch stranach**
+Na transfer suborov pomocou programu `rsync`, musi byt program instalovany *na oboch stranach*
  - pre Debian based systemy `$ sudo apt install rsync`
  - alebo pre Fedora Server: `$ sudo dnf install rsync`
 
@@ -1037,12 +1037,12 @@ Ako kopirovat vsetky adresare `dirX` na stroj s DNS nazvom `ubu2.lab` do adresar
  - ked chceme transfer/zalohu len otestovat, pouzijeme parameter `-n`:
    - prikaz: `$ rsync -n -va dir* ubu2.lab:nas`
 
-**POZOR**, ak chceme v cieli vytvorit EXAKTNU kopiu lokalneho(ych) adresara(ov), ktora **ZMAZE** nove subory v cieli:
+*POZOR*, ak chceme v cieli vytvorit *EXAKTNU* kopiu lokalneho(ych) adresara(ov), ktora *ZMAZE* nove subory v cieli:
 
  - pouzijeme: `$ rsync -va --delete dir* ubu2.lab:nas`
  - diagnosticky parameter `-v` vypise, ktore subory v cieli boli vymazane
 
-Chceme kopirovat **LEN** obsah lokalneho adresara po sieti, dolezity znak `/`:
+Ak chceme kopirovat *LEN* obsah lokalneho adresara po sieti, pouzijeme dolezity znak `/`:
  - prikaz: `$ rsync -av dir1/ ubu2.lab:`
 
 Ked chceme vynechat subor, specifikujeme absolutnu cestu: 
@@ -1052,12 +1052,12 @@ Ked chceme prenos overit kontrolnym suctom, pouzijeme parameter `-c` alebo `--ch
 
 Pozriet v `$ man 1 rsync` dalsie parametre ohladom zalohovania: `-b`, `--suffix=.old` a `-u` 
 
-Ako obmedzit Bandwidth prenosu, napr. na **50MBytes/s** (cca 400Mbit/s):
+Ako obmedzit Bandwidth prenosu, napr. na *50MBytes/s* (cca 400Mbit/s):
  - prikaz: `$ rsync -a --bwlimit=50000 same_nuly.txt ubu2.lab:`
  - priklad ako vytvorit testovaci 1GiB subor: `$ dd if=/dev/zero of=same_nuly.txt bs=1024 count=1M`
  
-**Pripadne  pozriet dokumentaciu a manualy k projektu "Samba File/Printer Sharing"**
- - nie je predmetom tejto skusky
+*Poznamka:  pozriet dokumentaciu a manualy k projektu Samba File/Printer Sharing*
+ - tento projekt nie je predmetom certifikacnej skusky
 
 #### Praca s projektom SSHFS - SSH File System:
 
@@ -3216,7 +3216,7 @@ $ brew install virt-viewer
  - umoznuje nasadit *hybrid/edge* riesenie s vyuzitim externych zdrojov ako *AWS, Google, Equinix*
  - dalsie informacie napr. na: `https://opennebula.io`
 
-Nezaradene poznamky pre system GNU/Linux:
+Nezaradene poznamky pre system GNU/Linux
 ---------------
 
 Tip: Ako vypisat vsetky *.dotfile* a *.dotdirectory*, prikaz: `$ ls -ld .??*`
@@ -3230,7 +3230,7 @@ Tip: Ako zalohovat pomocou programu `rsync` vsetky *.dotfile* a *.dotdirectory*:
 
 #### Dobra stranka na zaciatocnu konfiguraciu znamych distribucii Linuxu:
 
-`https://www.server-world.info/en/`
+    https://www.server-world.info/en/
  
 - neviem do kedy bude online a chyba praca s protkolom IPv6 :-(
 
