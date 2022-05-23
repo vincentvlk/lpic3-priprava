@@ -2398,72 +2398,72 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
         node.session.auth.username = <meno>
         node.session.auth.password = <heslo>     
  
- - poznmaka, preskumat/otestovat ine auth. algoritmy ako (hanbate) MD5
- - spustime iSCSI target discovery: $ sudo iscsiadm -m discovery -t sendtargets -p <storage-Host>
+ - poznmaka: preskumat/otestovat ine auth. algoritmy ako (zranitelne) MD5
+ - spustime *iSCSI target discovery* s: `$ sudo iscsiadm -m discovery -t sendtargets -p <storage-Host>`
  - ak najde viac targetov, mazeme zmazat tie, ktore nepotrebujeme:
-   - prikaz: $ sudo rm -rf /var/lib/iscsi/nodes/iqn.2022-03.lpic3.suse1\:target1/
+   - prikaz: `$ sudo rm -rf /var/lib/iscsi/nodes/iqn.2022-03.lpic3.suse1\:target1/`
    - alebo sa mozeme prihlasit na konkretny iSCSI Target s jeho IQN, napr.:
 
-$ sudo iscsiadm -m node --targetname iqn.2001-05.com.lab:test --portal 192.168.255.100:3260 --login
+`$ sudo iscsiadm -m node --targetname iqn.2001-05.com.lab:test --portal 192.168.255.100:3260 --login`
  
-   - prihlasime sa na iSCSI target: $ sudo iscsiadm -m node --login
-     - overime napr. s "$ sudo iscsiadm -m session -o show" / "$ sudo lsscsi" / "$ sudo lsblk"
-   - dalej, zistime si WWN spominaneho 1MB Fencing LUNu: $ sudo ls -l /dev/disk/by-id/ | grep wwn
-   - nasledne vytvorime Fencing zdroj, treba pouzit dlhy prikaz s vlastnym WWN, ktore sme nasli:
+   - prihlasime sa na iSCSI target: `$ sudo iscsiadm -m node --login`
+     - overime napr. s: `$ sudo iscsiadm -m session -o show` / `$ sudo lsscsi` / `$ sudo lsblk`
+   - dalej si zistime WWN spominaneho 1MB Fencing LUNu: `$ sudo ls -l /dev/disk/by-id/ | grep wwn`
+   - nasledne vytvorime Fencing zdroj, treba pouzit prikaz s vlastnym WWN, ktore sme nasli:
      - na definiciu clenov clsustr-a treba pouzit DNS hostnames uzlov 
 
     $ sudo pcs stonith create scsi-Fence fence_scsi pcmk_host_list="<node1> <node2>" \
     devices=/dev/disk/by-id/wwn-0x600140520845b9b2586439fa1949df69 meta provides=unfencing
 
-   - overime s: $ sudo pcs status --full 
-   - mimo produkcie mozeme Fencing otestovat s: $ sudo pcs stonith fence <node2>
-     - na obnovenie treba druhy uzol rebootovat, nic lepsie som zatial nenasiel
+   - overime s: `$ sudo pcs status --full`
+   - mimo produkcie mozeme Fencing otestovat s: `$ sudo pcs stonith fence <node2>`
+     - na obnovenie treba druhy uzol rebootovat (nic lepsie som zatial nenasiel)
 
- - pokracujeme konfiguraciou active/active storage clustr-a, postaveneho na GFS2
-   - podobne ako pri STONITH sa pripojime na dalsi novy LUN, ktory sluzi uz ako aplikacny FS
-   - na oboch uzloch upravime konfiguraciu LVM v subore "/etc/lvm/lvm.conf"
-     - upravit riadok na: "use_lvmlockd = 1"
-     - overime s: $ sudo lvmconfig | grep lvmlockd
-   - upravime konfiguraciu technologie Quorum: $ sudo pcs property set no-quorum-policy=freeze
-     - overime s: $ sudo pcs property config
+ - pokracujeme konfiguraciou *active/active storage clustr-a*, postaveneho na *GFS2*
+   - podobne ako pri STONITH sa pripojime na dalsi novy LUN, ktory sluzi uz ako aplikacny storage
+   - na oboch uzloch upravime konfiguraciu LVM v subore `/etc/lvm/lvm.conf`
+     - upravit riadok na: `use_lvmlockd = 1`
+     - overime s: `$ sudo lvmconfig | grep lvmlockd`
+   - upravime konfiguraciu technologie Quorum: `$ sudo pcs property set no-quorum-policy=freeze`
+     - overime s: `$ sudo pcs property config`
    - vytvorime DLM (Distributed Locking Manager) zdroj:
 
         $ sudo pcs resource create dlm ocf:pacemaker:controld op monitor interval=30s \
         on-fail=fence --group locking
 
-   - dalej zdroj klonujeme na ostatne uzly: $ sudo pcs resource clone locking interleave=true
-   - pokracujeme vytvorenim zdroja "LVM lockd":
+   - dalej zdroj klonujeme na ostatne uzly: `$ sudo pcs resource clone locking interleave=true`
+   - pokracujeme vytvorenim zdroja *LVM lockd*:
 
      $ sudo pcs resource create res_lvmlockd ocf:heartbeat:lvmlockd \
-      op monitor interval=30s on-fail=fence --group locking
+     op monitor interval=30s on-fail=fence --group locking
 
-   - overime s: $ sudo pcs status --full
-   - *LEN* na 1 uzle vytvorime, na zdielanom iSCSI, LUNe particiu so suborovym systemom LVM:
-     - disk(y) najdeme s: "$ sudo lsscsi" alebo s: "$ sudo lsblk"
+   - overime s: `$ sudo pcs status --full`
+   - *LEN na 1 uzle vytvorime*, na zdielanom iSCSI LUNe particiu so suborovym systemom LVM:
+     - disk(y) najdeme s: `$ sudo lsscsi` alebo s: `$ sudo lsblk`
 
        $ sudo parted --script /dev/sda "mklabel gpt"
        $ sudo parted --script /dev/sda "mkpart primary 0% 100%"
        $ sudo parted --script /dev/sda "set 1 lvm on"
 
-   - sposobov na vytvorenie LVM particie je samozrejme viac (fdisk, cfdisk, ...)
-   - overime napr. s: $ sudo fdisk -l /dev/sda
-   - dalej zaradime tzv. PV (Psysical Volume) do LVM stacku: $ sudo pvcreate /dev/sda1 
-   - vytvorime zdielanu VG (Volume Group): $ sudo vgcreate --shared vg_gfs2 /dev/sda1
-   - po tomto kroku je to funky, ja som musel restartovat druhy uzol, aby nasiel to nove PV a VG
-     - zatial nepoznam dovod, skusal som "$ sudo pvscan" a "$ sudo vgscan", nepomohlo
-     - na oboch uzloch overime stav zdielaneho LVM: $ sudo vgs; echo; sudo pvs
-       - treba, aby oba uzly videli PV a VG zo zdielaneho iSCSI storage LUNu
+   - sposobov na vytvorenie LVM particie je viac (`fdisk`, `cfdisk`, ...)
+   - overime napr. s: `$ sudo fdisk -l /dev/sda`
+   - dalej zaradime tzv. *PV (Psysical Volume)* do LVM stacku: `$ sudo pvcreate /dev/sda1`
+   - vytvorime zdielanu *VG (Volume Group)* s: `$ sudo vgcreate --shared vg_gfs2 /dev/sda1`
+   - po tomto kroku je to "funky", ja som musel restartovat druhy uzol, aby nasiel nove *PV a VG*
+     - zatial nepoznam dovod, skusal som `$ sudo pvscan` a `$ sudo vgscan`, ale nepomohlo
+     - na oboch uzloch overime stav zdielaneho LVM: `$ sudo vgs; echo; sudo pvs`
+       - treba, aby *oba uzly videli PV a VG zo zdielaneho iSCSI storage LUNu*
 
-   - POZOR *LEN* na *inom* uzle upravime vytvorenu VG: $ sudo vgchange --lock-start vg_gfs2 
-   - naspat, *LEN* na uzle 1 pokracujeme s novym LV: $ sudo lvcreate -l 100%FREE -n lv_gfs2 vg_gfs2
-   - dalej vytvorime na LV (Logical Volume) clusterovy subory system GFS2:
-     - prikaz: $ sudo mkfs.gfs2 -j2 -p lock_dlm -t ha_cluster:gfs2-01 /dev/vg_gfs2/lv_gfs2 
-     - rozbor, parameter "-j2" urcuje pocet uzlov/zurnalov, parameter "-t <nazov_clustra>:gfs2-01"
-     - nazov clustra ziskame z: $ sudo pcs status
-   - stale na "prvom" uzle vytvorime storage zdroj/resource:
+   - POZOR *LEN* na *inom* uzle upravime vytvorenu VG: `$ sudo vgchange --lock-start vg_gfs2`
+   - vratime sa, *LEN* na uzle 1 pokracujeme s novym LV: `$ sudo lvcreate -l 100%FREE -n lv_gfs2 vg_gfs2`
+   - dalej vytvorime na *LV (Logical Volume) clusterovy subory system GFS2* s:
+     - prikaz: `$ sudo mkfs.gfs2 -j2 -p lock_dlm -t ha_cluster:gfs2-01 /dev/vg_gfs2/lv_gfs2`
+     - rozbor: parameter `-j2` urcuje pocet uzlov/zurnalov, dalsi parameter `-t <nazov_clustra>:gfs2-01`
+     - kde nazov clustra ziskame z: `$ sudo pcs status`
+   - stale na *PRVOM* uzle vytvorime storage zdroj/resource:
 
      $ sudo pcs resource create shared_lv ocf:heartbeat:LVM-activate \
-     lvname=lv_gfs2 vgname=vg_gfs2 activation_mode=shared vg_access_mode=lvmlockd --group shared_vg 
+     lvname=lv_gfs2 vgname=vg_gfs2 activation_mode=shared vg_access_mode=lvmlockd --group shared_vg
 
    - tento zdroj klonujeme na dalsie uzly: $ sudo pcs resource clone shared_vg interleave=true
    - pridame poradie startu: $ sudo pcs constraint order start locking-clone then shared_vg-clone
