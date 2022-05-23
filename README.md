@@ -1140,9 +1140,9 @@ Instalacia najznamejsieho nastroja Docker nie je zlozita, ale ani trivialna, jed
 
 `https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04`
 
-Ako otestovat, instalaciu Docker-a a jeho pripojenie na Docker Hub: `$ docker run hello-world`
+Ako otestovat instalaciu Docker-a a jeho pripojenie na Docker Hub: `$ docker run hello-world`
 
-Na zakladne vytvorenie Docker kontajneru je potrebne definovat Docker file, s nazvom `Dockerfile`:
+Na zakladne vytvorenie Docker kontajneru je potrebne definovat Docker file s nazvom `Dockerfile`
 
 Tento Docker file je vhodne umiestnit do oddeleneho adresara.
 
@@ -1152,7 +1152,7 @@ Obsah suboru moze byt podla jednoducheho prikladu, kedy definujeme kontajner sys
     RUN apk add bash
     CMD ["/bin/bash"]
 
-- po ulozeni suboru, mozeme zostavit image nasledovne: `$ docker build -t alpine_test1 .`
+- po ulozeni suboru mozeme zostavit image nasledovne: `$ docker build -t alpine_test1 .`
 
 #### Zakladne prikazy pre nastroj Docker:
 
