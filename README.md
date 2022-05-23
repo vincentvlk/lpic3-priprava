@@ -2695,7 +2695,7 @@ Zaklady konceptu *Load-Balancing* v Cluster prostredi OS GNU/Linux
  - resp. uzol 2: `$ sudo echo "Testovaci uzol 2: app.node2.lab" > index.html`
 
  - pokracujeme instalaciou *HAProxy frontend LB* na uzle 1: `$ sudo dnf -y in haproxy`
- - upravime konfig. HAProxy */etc/haproxy/haproxy.cfg* pridame napr. nasledovne:
+ - upravime konfig. HAProxy `/etc/haproxy/haproxy.cfg` pridame napr. nasledovne:
 ```
 # moje definicie HAProxy Frontend a Backend
 #
@@ -2718,23 +2718,25 @@ backend backend_servers
     server             uzol1 192.168.255.21:80 check
     server             uzol2 192.168.255.22:80 check
 ```
- - aktivujeme HAProxy sluzbu po reboote: $ sudo systemctl enable --now haproxy
- - pridame pravidlo na firewalle pre HAProxy: $ sudo firewall-cmd --add-service=http --permanent
-     - restartujeme firewall: $ sudo firewall-cmd --reload
- - na uzitocnejsie logovanie z HAProxy, upravime konfiguraciu "/etc/rsyslog.conf" nasledovne:
-   - odkomentujeme riadky, ktore povolia UDP RSyslog logovanie:
 
+ - aktivujeme HAProxy sluzbu po reboote: `$ sudo systemctl enable --now haproxy`
+ - pridame pravidlo na firewalle pre HAProxy: `$ sudo firewall-cmd --add-service=http --permanent`
+     - restartujeme firewall: `$ sudo firewall-cmd --reload`
+ - na uzitocnejsie logovanie z HAProxy, upravime konfiguraciu `/etc/rsyslog.conf` nasledovne:
+   - odkomentujeme riadky, ktore povolia UDP RSyslog logovanie:
+```
     module(load="imudp") # needs to be done just once
     input(type="imudp" port="514")
-   
-   - dalej pridame riadok: "$AllowedSender UDP, 127.0.0.1"
-   - upravime riadok "*.info;mail.none;authpriv.none;cron.none   /var/log/messages"
-     - uprava na: "*.info;mail.none;authpriv.none;cron.none;local2.none   /var/log/messages"
-   - dalej pridame riadok: "local2.*    /var/log/haproxy.log"
-     - umozni logovanie, mozeme napr. sledovat s: $ sudo tail -f /var/log/haproxy.log
-   - na zaver restartujeme logovaciu sluzbu: $ sudo systemctl restart rsyslog
+```
 
-  - rozkladanie zataze requestov overime pripojenim na LB TCP port 80, browserom alebo curl-om
+   - dalej pridame riadok: `$AllowedSender UDP, 127.0.0.1`
+   - upravime riadok `*.info;mail.none;authpriv.none;cron.none   /var/log/messages`
+     - uprava na: `*.info;mail.none;authpriv.none;cron.none;local2.none   /var/log/messages`
+   - dalej pridame riadok: `local2.*    /var/log/haproxy.log`
+     - umozni logovanie, mozeme napr. sledovat s: `$ sudo tail -f /var/log/haproxy.log`
+   - na zaver restartujeme logovaciu sluzbu: `$ sudo systemctl restart rsyslog`
+
+  - rozkladanie zataze overime pripojenim na *LB TCP port 80*, browserom alebo curl-om
 
 Praca s virtualizacnymi nastrojmi/platformami pre OS GNU/Linux:
 ---------------
