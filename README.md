@@ -2656,7 +2656,7 @@ $ sudo pcs resource create nfs_share1_exp ocf:heartbeat:exportfs \
 Zaklady konceptu *Load-Balancing* v Cluster prostredi OS GNU/Linux
 ----------------
 
-### Praca s Load-Balancingom sluzieb, teda rozkladanim zataze na viacero aplikacnych uzlov
+### Praca s Load-Balancingom, teda rozkladanim zataze na viacero aplikacnych uzlov
  - zakladne metody Load Balancing-u: 
  - *DNS Round Robin* - velmi jednoduche, nema vsak ziadne monitorovanie dostupnosti uzlov
  - *LVS* - load-balancing na urovni Linux Kernel-u, obmedzene v porovnani s HAProxy/Pacemaker/Corosync
