@@ -2651,25 +2651,25 @@ $ sudo pcs resource create nfs_share1_exp ocf:heartbeat:exportfs \
   - poznamka, na Rocky Linux 8.5 bolo potrebne instalovat: `$ sudo dnf -y in nfs-utils.x86_64`
   - pripojenie protokolom NFSv4: `$ sudo mount -t nfs4 192.168.255.28:share1 /mnt/nfs`
   - overime s: `$ df -hT /mnt/nfs`
-  - pre NFSv3 prikaz: $ sudo mount -t nfs 192.168.255.28:/home/nfs-server/nfs-root/share1 /mnt/nfs
+  - pre NFSv3 prikaz: `$ sudo mount -t nfs 192.168.255.28:/home/nfs-server/nfs-root/share1 /mnt/nfs`
 
-Zaklady prace s konceptom *Load-Balancinge* v Cluster prostredi systemu GNU/Linux
+Zaklady prace s konceptom *Load-Balancing* v Cluster prostredi systemu GNU/Linux
 ----------------
 
 ### Praca s Load-Balancingom sluzieb, teda rozkladanim zataze na viacero aplikacnych uzlov
- - zakladne metody L.B.: 
-   - DNS Round Robin - velmi jednoduche, nema vsak ziadne monitorovanie dostupnosti uzlov
-   - LVS - load-balancing na urovni Linux Kernel-u, obmedzene v porovnani s HAp/Pacemaker/Corosync
-   - HAProxy - high-level load balancing, ktory pracuje na 4. (TCP) alebo 7. (HTTP[S]) verstve OSI
-     - rozsirene riesenie, podporuje SSL, kompresiu, alive-check, pokrocile logovanie
-     - nacastejsia aplikacia je v mode Layer7 HTTP[S]
-     - HAProxy vyuziva LB algoritmi: Roundrobin, Lastconn, Source
-     - Roundrobin: kazde nove pripojenie je posielane na obsluzenie dalsim app. serverom
-     - Lastconn: nove pripojenie obsluzene app. serverom s najmensim poctom aktivnych pripojeni
-     - Source: zdrojova IP klinta je hash-ovana, aby bol pouzity rovnaky app server na dalsie req.
-   - Keepalived : implemetacia VRPP protokolu pre OS GNU/Linux, vytvori virtualnu IP adresu
-     - da sa nakonfigurovat "do kriza", s rozdielnymi subnetmi, na primitivny state-less LB 
-     - da sa vyzuit napr. ako redundancia pre 2xHAProxy na virtualnej IP, alternativa: Pacemaker
+ - zakladne metody Load Balancing-u: 
+ - *DNS Round Robin* - velmi jednoduche, nema vsak ziadne monitorovanie dostupnosti uzlov
+ - *LVS* - load-balancing na urovni Linux Kernel-u, obmedzene v porovnani s HAProxy/Pacemaker/Corosync
+ - *HAProxy* - high-level load balancing, ktory pracuje na 4. (TCP) alebo 7. (HTTP[S]) verstve OSI
+   - rozsirene riesenie, podporuje SSL, kompresiu, is-alive-check, pokrocile logovanie
+   - najcastejsia aplikacia je v mode Layer7 HTTP[S]
+   - HAProxy vyuziva LB algoritmi: *Roundrobin, Lastconn, Source*
+   - *Roundrobin*: kazde nove pripojenie je posielane na obsluzenie dalsim app. serverom
+   - *Lastconn*: nove pripojenie obsluzene app. serverom s najmensim poctom aktivnych pripojeni
+   - *Source*: zdrojova IP klinta je hash-ovana, aby bol pouzity rovnaky app. server na dalsie requesty
+ - *Keepalived*: implemetacia VRPP protokolu pre OS GNU/Linux, vytvori virtualnu IP adresu
+   - da sa nakonfigurovat "do kriza", s rozdielnymi subnetmi, na primitivny state-less Load Balancing 
+   - da sa vyuzit napr. ako redundancia pre *2xHAProxy* na virtualnej IP, alternativa je *Pacemaker*
 
 #### Zjednoduseny priklad instalacie load-balancera HAProxy na OS Rocky Linux 8.5
  - vyuzijeme 3 servery/VM, kde uzol 3 bude HAProxy LB a zvysne uzly 1+2 budu app/backend serv.
