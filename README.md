@@ -2738,7 +2738,7 @@ backend backend_servers
 
   - rozkladanie zataze overime pripojenim na *LB TCP port 80*, browserom alebo curl-om
 
-Praca s virtualizacnymi nastrojmi/platformami pre OS GNU/Linux:
+Praca s *virtualizacnymi nastrojmi/platformami* pre OS GNU/Linux:
 ---------------
 - zakladne koncepty: virtualizacia vie delit fyzicke vypoctove zdroje na viacero oddelenych casti
   - teda uzmonuje "bezat" viacero virtualnych pocitacov na spolocnom zdielanom HW
