@@ -2296,6 +2296,7 @@ resource drbd0 {
  - dalej mozeme uz vytvorit FS na zariadeni `/dev/drbd0`, napr.: `$ sudo mkfs.btrfs /dev/drbd0`
 
 Poznamka: prikazy na vypisanie informacii o diskoch a particiach: `lsblk`, `blkid`, `lsscsi`
+
 Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemctl enable --now <service>`
 
 ### Zaklady prace s Cluster suborovym systemom GFS2 (Global File System):
