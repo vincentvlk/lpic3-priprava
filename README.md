@@ -2569,47 +2569,51 @@ $ sudo pcs resource create apache2_srv ocf:heartbeat:apache configfile=/etc/http
 
 ### NFS Server v Cluster rieseni na Rocky Linux 8.5, so zdielanym LVM cez iSCSI:
 - na instalaciu pouzijeme novy iSCSI LUN, ktory si vytvorime na storage 
-  - novy LUN na cluster uzloch najdeme s: $ sudo iscsiadm -m node --rescan
-  - overime napr. s: "$ sudo lsscsi" / "$ sudo lsblk"
-  - poznamka, ako si pozriet statistiky danej iSCSI session: $ sudo iscsiadm -m node -s
-- dalej na oboch uzloch pripravime zdielane LVM, upravime subor "/etc/lvm/lvm.conf":
-  - riadok 'system_id_source = "none"' upravime na 'system_id_source = "uname"'
-- novy LUN pridame do LVM s: $ sudo pvcreate /dev/sdd 
-- dalej pridame tento disk do VG "vg_ha_lvm": $ sudo vgcreate vg_ha_lvm /dev/sdd
-- overime s: $ sudo vgs -o+systemid
-  - vo vypise musi byt "System ID" zhodne s vypisom "$ uname -n"
-- z novej VG vytvorime nove LV "lv_ha_lvm": $ sudo lvcreate -l 100%FREE -n lv_ha_lvm vg_ha_lvm
-- na novom LV vytvorime particiu XFS: $ sudo mkfs.xfs /dev/vg_ha_lvm/lv_ha_lvm
-- dalej deaktivujeme VG, aby ju mohol spravovat Pacemaker: $ sudo vgchange vg_ha_lvm -an 
-- na "ostatnych" uzloch "najdeme" nove PV: $ sudo pvscan --cache --activate ay
+  - novy LUN na cluster uzloch najdeme s: `$ sudo iscsiadm -m node --rescan`
+  - overime napr. s: `$ sudo lsscsi` alebo `$ sudo lsblk`
+  - poznamka: ako si pozriet statistiky danej iSCSI session: `$ sudo iscsiadm -m node -s`
+- dalej na oboch uzloch pripravime zdielane LVM, upravime subor: `/etc/lvm/lvm.conf`:
+  - riadok `system_id_source = "none"` upravime na `system_id_source = "uname"`
+- novy LUN pridame do LVM s: `$ sudo pvcreate /dev/sdX`
+- dalej pridame tento disk do VG `vg_ha_lvm` s: `$ sudo vgcreate vg_ha_lvm /dev/sdX`
+- overime s: `$ sudo vgs -o+systemid`
+  - vo vypise musi byt *System ID* zhodne s vypisom: `$ uname -n`
+- z novej VG vytvorime nove LV `lv_ha_lvm` s: `$ sudo lvcreate -l 100%FREE -n lv_ha_lvm vg_ha_lvm`
+- na novom LV vytvorime particiu XFS s: `$ sudo mkfs.xfs /dev/vg_ha_lvm/lv_ha_lvm`
+- dalej deaktivujeme VG, aby ju mohol spravovat Pacemaker s: `$ sudo vgchange vg_ha_lvm -an`
+- na *ostatnych* uzloch "najdeme" nove PV: `$ sudo pvscan --cache --activate ay`
 - dalej na uzle 1 vytvorime zdielany LVM zdroj prikazom:
-
+```bash
 $ sudo pcs resource create lvm_shared ocf:heartbeat:LVM-activate vgname=vg_ha_lvm \
   vg_access_mode=system_id --group nfs_server_grp
+```
 
-- overime stav clustra a LVM zdroja s: $ sudo pcs status --full
-  - poznamka, ja som si spravil BASH alias: alias pcf='sudo pcs status --full'
+- overime stav clustra a LVM zdroja s: `$ sudo pcs status --full`
+  - poznamka, ja som si spravil BASH alias: `alias pcf='sudo pcs status --full'`
 
 - pokracujeme instalaciou NFS servera v Pacemaker clustry, na uzloch povolime sluzby na FWL:
-
+```bash
 $ sudo firewall-cmd --add-service={nfs,nfs3,mountd,rpc-bind} --permanent
 $ sudo firewall-cmd --reload
+```
 
-- firewall overime s: $ sudo firewall-cmd --list-all
-- na uzloch vytvorime adresar pre NFS server: $ sudo mkdir /home/nfs-server
+- firewall overime s: `$ sudo firewall-cmd --list-all`
+- na uzloch vytvorime adresar pre NFS server: `$ sudo mkdir /home/nfs-server`
 
-- vytvorime cluster zdroj typu "Filesystem" pre HA-NFS server:
-
+- vytvorime cluster zdroj typu *Filesystem* pre HA-NFS server:
+```bash
 $ sudo pcs resource create nfs_server ocf:heartbeat:Filesystem device=/dev/vg_ha_lvm/lv_ha_lvm \
   directory=/home/nfs-server fstype=xfs --group nfs_server_grp
+```
 
-- overime stav a konf. zdroja: "$ sudo pcs status --full" a "$ sudo pcs resource config nfs_server"
-- na uzle, kde bezi tento FS zdroj, mozeme overit stav particie: $ sudo df -hT /home/nfs-server
-- pri chybe mozeme zmenit konf.: $ sudo pcs resource update nfs_server directory=/home/nfs-XYZ
+- overime stav a konf. zdroja: `$ sudo pcs status --full" a "$ sudo pcs resource config nfs_server`
+- na uzle, kde bezi tento FS zdroj, mozeme overit stav particie: `$ sudo df -hT /home/nfs-server`
+- pri chybe mozeme zmenit konf.: `$ sudo pcs resource update nfs_server directory=/home/nfs-XYZ`
 - pokracujeme vytvorenim NFS daemon zdroja:
-
+```bash
 $ sudo pcs resource create nfs_daemon ocf:heartbeat:nfsserver \
   nfs_shared_infodir=/home/nfs-server/nfsinfo nfs_no_notify=true --group nfs_server_grp
+```
 
 - vytvorime cluster vIP, na ktorej bude dostupny zdroj HA-NFS:
 
