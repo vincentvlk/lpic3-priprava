@@ -2868,7 +2868,7 @@ $ sudo xen-create-image --hostname=xenvm01 --lvm=vgxen --memory=2G --maxmem=2G -
   - dalej pridame riadok, tak aby najskor bootoval *Disk* a potom *CD-ROM image*: 
         boot = "dc"
 
-- na zaver vytvorime VM instanciu, na ktoru sa da pripojit cez VNC protokol:
+- vytvorime VM instanciu, na ktoru sa da pripojit VNC protokolom:
     `$ sudo xl create fedora35vm01.cfg`
 
 - overime prikazom: `$ sudo xl list`
