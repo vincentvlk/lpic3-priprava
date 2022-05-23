@@ -884,7 +884,7 @@ Ako vytvorit bitovu kopiu USB disku: `$ sudo dd status=progress if=/dev/sdb of=/
 Ako vytvorit premennu prostredia (Env. var.) pre cely system, upravime subor `/etc/bash.bashrc`
  - alternativne mozeme pouzit subor `/etc/profile`
 
-Ako zadefinovat konstantu: `$ declare -r nemenna="/var/log"`
+Ako zadefinovat *nemennu* konstantu: `$ declare -r nemenna="/var/log"`
 
 Ako v BASH skripte zadefinovat lokalnu (len vo funkcii) premennu: `local var1=len_vo_funkcii`
 
