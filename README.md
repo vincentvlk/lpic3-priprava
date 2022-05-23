@@ -21,12 +21,12 @@ Zakladne tipy a triky pre operacny system GNU/Linux:
 
     `https://www.server-world.info/en/`
  
-- ale nevedno do kedy bude online a chyba tam IPv6 :-(
+- ale neviem do kedy bude online a chyba tam IPv6 :-(
 
 #### Zakladne nastavenie siete v systeme Debian11:
 
 Editujeme konf. subor: `/etc/network/interfaces`, nasledne vlozime napr.:
-
+```
     auto lo
     iface lo inet loopback
 
@@ -38,6 +38,7 @@ Editujeme konf. subor: `/etc/network/interfaces`, nasledne vlozime napr.:
     broadcast 192.168.1.255
     gateway 192.168.1.1
     dns-nameservers 193.17.47.1 185.43.135.1
+```
 
 Po uprave aplikujeme config: `$ sudo systemctl restart ifup@ens33`
 
@@ -3200,13 +3201,13 @@ $ brew install virt-viewer
 
  - zakladne komponenty: `Horizon, Heat, Nova, Neutron`
    - *Horizon*: webovy interface pre adminov a tenantov
-   - *Heat*: komponent na orchestraciu, ktory vyuziva konf. sablony a je integrovany s Puppet, Chef, ...
+   - *Heat*: komponent na orchestraciu, ktory vyuziva konf. sablony a je integrovany s *Puppet, Chef, ...*
    - *Nova*: - sluzi na provisioning Compute zdrojov (Virtual Machines, Bare Metal HW, Kontajnery)
-   - *Neutron*: poskytuje manazment sietovych zdrojov a sluzieb ako DHCP, DNS, LB, Sec, Routing, ...
-   - *Ironic*: sluzby pre HW provisioning s PXE, IPMI, iLO, iDRAC, ..., integrovany s Nova/Neutron
-   - *Swift*: object storage sluzba, poskytuje sluzby datoveho uloziska s mensim vykonom, kapacita++
-   - *Cinder*: poskytuje sluzby pre Block Storage uloziska, ich provisioning a samotne pouzivanie
-   - *Keystone*: poskytuje sluzbu identit, teda autentifikacie a autorizacie pre OpenStack
+   - *Neutron*: poskytuje manazment sietovych zdrojov a sluzieb ako *DHCP, DNS, LB, Sec, Routing, ...*
+   - *Ironic*: sluzby pre HW provisioning s *PXE, IPMI, iLO, iDRAC, ...*, je integrovany s *Nova/Neutron*
+   - *Swift*: *Object storage* sluzba, poskytuje sluzby datoveho uloziska s mensim vykonom, kapacita++
+   - *Cinder*: poskytuje sluzby pre *Block Storage* uloziska, ich provisioning a samotne pouzivanie
+   - *Keystone*: poskytuje sluzbu identit, teda autentifikacie a autorizacie pre *OpenStack*
    - *Glance*: poskytuje sluzby na pracu s image-mi, ako su `.iso`, `.ovf`, `.vmdk`, `...`
    - projekt *OpenStack* ma vela dalsich sluzieb a sub-projektov, ktore nie su predmetom tychto poznamok
 
