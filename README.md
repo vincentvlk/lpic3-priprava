@@ -1082,14 +1082,16 @@ Tip: V definicii promptu, teda v premennej `$PS1` by sme sa mali vyhnut znakom: 
 
 ### Zaklady prace s vyvojarskymi nastrojmi:
 
-#### Jednoduchy priklad na kompilaciu zdrojoveho kodu v *jazyku C*, vytvorime subor `pokus.c`:
-
+#### Jednoduchy priklad na kompilaciu zdrojoveho kodu v jazyku *C*
+- vytvorime zdrojovy subor `pokus.c`, kde vlozime prikazy:
+```clang
     #include <stdio.h>
 
     int main(void) {
 
         printf("Hello, World.\n");
     }
+```
 
 - nasledne skompilujeme, treba nainstalovat dev. nastroje: `$ sudo apt install build-essential`
 - na kompilaciu pouzijeme program `cc`, teda "C Compiler": `$ cc pokus.c`
@@ -1098,7 +1100,7 @@ Tip: V definicii promptu, teda v premennej `$PS1` by sme sa mali vyhnut znakom: 
 
 Tip: Ako vypisat zdielane kniznice, ktore ma nalinkovane dany program: `$ sudo ldd /usr/bin/bash`
 
-#### Jednoduchy priklad ako kompilovat zdrojove subory v kazyku *Java*:
+#### Jednoduchy priklad ako kompilovat zdrojove subory v jazyku *Java*:
 
 Je potrebne nainstalovat vyvojarske nastroje: `$ sudo apt install default-jdk-headless`
 
