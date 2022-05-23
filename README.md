@@ -1067,23 +1067,22 @@ Ako si pripojit vzdialny adresar cez SSH, napr.: `$ sshfs userABC@ubu2.lab:/mnt/
 
 #### Praca s premennymi prostredia v interprete BASH:
 
-Premenne prostredia pre interpret BASH su definovane v **skrytych** suboroch: `.bash_profile`
-alebo `.profile`
+Premenne prostredia pre interpret BASH su definovane v *skrytych* suboroch: `.bash_profile` alebo `.profile`
 
- - priklad na definiciu premennej shellu: `$ TEST=123`
- - priklad na definiciu premennej prostredia: `$ export TESTENV=567`
+- priklad na definiciu premennej shellu: `$ TEST=123`
+- priklad na definiciu premennej prostredia: `$ export TESTENV=567`
 
-Dolezite adresare na spustanie binarnych aplikacii a skriptov su ulozene
-v premennej `$PATH`: `/usr/local/bin`, `/usr/bin` a `/bin`
+Dolezite adresare na spustanie binarnych aplikacii a skriptov su ulozene v premennej `$PATH`
 
- - overime s prikazom: `$ echo $PATH`
+- zvycajne sa jedna o adresare: `/usr/local/bin`, `/usr/bin` a `/bin`
+- overime s prikazom: `$ echo $PATH`
 
 Tip: V definicii promptu, teda v premennej `$PS1` by sme sa mali vyhnut znakom: `{ } = & < >`
  - dalsie detaily najdeme v manualy, v sekcii `PROMPTING` vid.: `$ man bash`
 
 ### Zaklady prace s vyvojarskymi nastrojmi:
 
-#### Jednoduchy priklad na kompilaciu zdrojoveho kodu v jazyku "C", vytvorime subor `pokus.c`:
+#### Jednoduchy priklad na kompilaciu zdrojoveho kodu v *jazyku C*, vytvorime subor `pokus.c`:
 
     #include <stdio.h>
 
@@ -1099,7 +1098,7 @@ Tip: V definicii promptu, teda v premennej `$PS1` by sme sa mali vyhnut znakom: 
 
 Tip: Ako vypisat zdielane kniznice, ktore ma nalinkovane dany program: `$ sudo ldd /usr/bin/bash`
 
-#### Jednoduchy priklad ako kompilovat zdrojove subory v kazyku "Java":
+#### Jednoduchy priklad ako kompilovat zdrojove subory v kazyku *Java*:
 
 Je potrebne nainstalovat vyvojarske nastroje: `$ sudo apt install default-jdk-headless`
 
@@ -1132,8 +1131,8 @@ Vytvorime jednoduchy cvicny zdrojovy subor `pokus.java`:
  - po instalacii v adresary `test_coreutils` vzniknu adresare `bin`, `libexec`, `share`
  - na Debian-based distr. je nastroj na nastavenie parametrov `.deb` balickov `checkinstall`:
    - prikaz: `$ sudo apt install checkinstall`
- - **POZOR** na testovacej instalacii sa da spustit tvorba balicka: `$ sudo checkinstall make install`
- - hore uvedenym prikazom sa da rozbit system, tak si treba na test VM spravit **snapshot/backup**
+ - *POZOR* na testovacej instalacii sa da spustit tvorba balicka: `$ sudo checkinstall make install`
+ - hore uvedenym prikazom sa da rozbit system, tak si treba na test VM spravit *snapshot/backup*
 
 ### Praca s kontajnermi, zaklady prace s Docker-om:
 
@@ -1187,12 +1186,12 @@ Ako sa pripojit na "kozolu" kontajneru, ktory bezi: `$ docker attach <ID/nazov>`
 
 Ako sa odpojit od konzoly kontajnera, v terminale za sebou stlacime skratky: `Ctrl+p` a `Ctrl+q`
 
-#### Dalsie poznamky k zakladom prace s Docker-om:
+#### Dalsie poznamky k praci s Docker-om:
 
 Jednoduche web prostredie na ucenie/testovanie Docker-u: `https://labs.play-with-docker.com/`
  - dalsie informacie: `https://www.docker.com/play-with-docker`
 
-Priklad ako spustit v **sandboxe** web server `nginx`, zadame: `$ docker container run -d -it nginx`
+Priklad ako spustit v *sandboxe* prostredi web server `nginx`, zadame: `$ docker container run -d -it nginx`
 
 Pre pomoc s CLI, staci zadat prikaz bez parametrov, napr.: `$ docker container`
 
@@ -1202,11 +1201,11 @@ Priklad ako vytvorit zmenu v Docker image a commitovat ju:
  - nasledne overime s: `$ docker image ls`
  - mozeme napr. z noveho image spustit container s: `$ docker container run -it ddnovak/moje-ubu`
 
-**POZOR**, prikaz vymaze **vsetky nebeziace** kontajnery: 
+*POZOR*, prikaz vymaze *vsetky nebeziace* kontajnery: 
  - prikaz: `$ docker container rm $(docker container ls -a -q)`
- - pripadne, na **VLASTNE RIZIKO**, mozeme spustit s paramentrom `rm -f`
+ - pripadne na *VLASTNE RIZIKO* mozeme spustit s paramentrom: `rm -f`
 
-Ako spustit testovaci webserver v kontajnery s nazvom `moj_lab` (vonkajsi port je **TCP/8080**):
+Ako spustit testovaci webserver v kontajnery s nazvom `moj_lab` (vonkajsi port je *TCP/8080*):
 
 prikaz: `$ docker container run -d -p 8080:80 --name=moj_lab nginx`
 
@@ -1236,17 +1235,17 @@ Ako vytvorit perzistentne ulozisko pre kontajner **Docker Volume**: `$ docker vo
  - overime s `$ docker volume ls`
  - dalsie informacie: `$ docker volume --help`
 
-Ako vytvorit **nginx** kontajner s namapovanyn **volume**:
+Ako vytvorit *nginx* kontajner s namapovanyn uloziskom *volume*:
 
 prikaz: `$ docker run -d --name moja_web_app -p 80:80 -v <nazov_vol>:/usr/share/nginx/html nginx`
  
-- mozeme manipulovat s obsahom **web root** adresara v: `/var/lib/docker/volumes/mojvol/_data/`
+- mozeme manipulovat s obsahom *web root* adresara v: `/var/lib/docker/volumes/mojvol/_data/`
 - priklad: `$ sudo cp /etc/services /var/lib/docker/volumes/mojvol/_data/index.html`
 - overime napr. s: `$ curl localhost:80`
 
 Poznamka, ak chceme vymazat Docker image, treba najskor pomazat z neho vytvorene kontajnery.
 
-**POZOR**, automaticky nastroj na cistenie tzv. **dangling** Docker image-ov: `$ docker system prune`
+*POZOR*, automaticky nastroj na cistenie tzv. *dangling* Docker image-ov: `$ docker system prune`
  - dalsie informacie: `$ docker system prune --help`
  - celkom uzitocna diagnostika zabrateho miesta: `$ docker system df`
 
@@ -1259,12 +1258,12 @@ Vytvorime adresar `git_ucenie`, v ktorom inicializujeme **lokalny** Git repozita
    - do suboru napiseme `moja prva poznamka`, subor ulozime
  - nasledne subor pridame do *Staging Cache* repozitara: `$ git add poznamky.txt`
  - overime s: `$ git status`
- - dalej pridame do **lokalneho** repo. novu zmenu, teda **commit** s popisom/spravou: 
+ - dalej pridame do *lokalneho* repozitara novu zmenu, teda *commit* s popisom/spravou: 
 
    - prikaz: `$ git commit -m 'vytvoril som subor poznamky.txt a pridal 1. riadok'`
 
  - dalej upravime subor `poznamky.txt`, pridame riadok `dalsi riadok s poznamkou`
- - subor ulozime a overime stav **lokalneho** repo.: `$ git status`
+ - subor ulozime a overime stav *lokalneho* repo.: `$ git status`
  - podla vypisu je potrebne pridat upraveny subor do **Staging Cache**: `$ git add poznamky.txt`
  - jednoduchsie mozeme pridat vsetky subory v danom adresary repozitara: `$ git add .`
  - aby sme sa vyhli pridavaniu suborov, ktore nechceme pridat do Staging Cache,
