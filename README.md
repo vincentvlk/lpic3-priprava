@@ -2513,9 +2513,9 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
         Require local
     </Location>
 ```
-    - dalej na uzloch upravime konfiguraciu procesu "Log Rotate" v "/etc/logrotate.d/httpd" na:
-      - zakomentujeme povodny riadok, aby "systemd" neriadil proces, ale aby ho riadil Pacamaker
-
+    - dalej na uzloch upravime konfiguraciu procesu *Log Rotate* v `/etc/logrotate.d/httpd` na:
+      - zakomentujeme povodny riadok, aby `systemd` neriadil proces, ale aby ho riadil *Pacamaker*
+```
 /var/log/httpd/*log {
     missingok
     notifempty
@@ -2526,48 +2526,45 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
         /usr/sbin/httpd -f /etc/httpd/conf/httpd.conf -c "PidFile /var/run/httpd/httpd.pid" -k graceful > /dev/null 2>/dev/null || true
     endscript
 }
-
-   - na FWL povolime porty HTTP a HTTPS: $ sudo firewall-cmd --add-service={http,https} --permanent
-   - restart FWL: $ sudo firewall-cmd --reload
-   - konfiguraciu firewallu overime s: $ sudo firewall-cmd --list-all
-
-   - na jednom uzle vytvorime docasny adresar, napr.: $ sudo mkdir mkdir /mnt/webdisk1/
-   - dalej na uzle docasne "namountujeme" GFS2 particiu na vytvoreny adresar: 
-     - prikaz: $ sudo mount /dev/vg_web_clus/lv_web_clus /mnt/webdisk1/
-   - pokracujeme skopirovanim adresarovej struktury WebServera na zdielanu GFS2 particiu:
-     - prikaz: $ sudo cp -pR /var/www/* /mnt/webdisk1/
-   - pokracujeme vytvorenim jednoducjeh testovacej "stranky":
-     - prikaz: $ sudo echo "Testovaci Apache2 WebServer Cluster" > /mnt/webdisk1/html/index.html
-   - dalej "odmountujeme" GFS2 particiu: $ sudo umount /mnt/webdisk1/
- 
-   - pokracujeme vytvorenim Cluster FS zdroja pre Apache2 WebServer v Pacemaker-y:
-
+```
+ - na fwl. povolime porty HTTP a HTTPS: `$ sudo firewall-cmd --add-service={http,https} --permanent`
+ - restart fwl. s: `$ sudo firewall-cmd --reload`
+ - konfiguraciu firewallu overime s: `$ sudo firewall-cmd --list-all`
+ - na jednom uzle vytvorime docasny adresar, napr.: `$ sudo mkdir mkdir /mnt/webdisk1/`
+ - dalej na uzle docasne "namountujeme" GFS2 particiu na vytvoreny adresar: 
+ - prikaz: `$ sudo mount /dev/vg_web_clus/lv_web_clus /mnt/webdisk1/`
+ - pokracujeme skopirovanim adresarovej struktury WebServera na zdielanu GFS2 particiu:
+   - prikaz: `$ sudo cp -pR /var/www/* /mnt/webdisk1/`
+ - pokracujeme vytvorenim jednoduchej testovacej HTTP stranky:
+   - prikaz: `$ sudo echo "Testovaci Apache2 WebServer Cluster" > /mnt/webdisk1/html/index.html`
+   - dalej "odmountujeme" GFS2 particiu: `$ sudo umount /mnt/webdisk1/`
+ - pokracujeme vytvorenim Cluster FS zdroja pre Apache2 WebServer v Pacemaker-y:
+```bash
 $ sudo pcs resource create web_fs ocf:heartbeat:Filesystem device=/dev/vg_web_clus/lv_web_clus \
   directory=/var/www fstype=gfs2 options=noatime op monitor interval=10s \
   on-fail=fence --group shared_vg
-
-    - overime napr. s: $ sudo pcs status --full
-
-    - dalej vytvorime virutalnu IP adresu pre zdroj WebServera
-
+```
+ - overime napr. s: `$ sudo pcs status --full`
+ - dalej vytvorime virutalnu IP adresu pre zdroj WebServera
+```bash
 $ sudo pcs resource create apache2_vip IPaddr2 ip=192.168.255.29 cidr_netmask=24 --group apache2grp
-
-    - definujeme pravidlo postupnosti startu storage zdrojov pred app. zdrojmi: 
-      - prikaz: $ sudo pcs constraint order start shared_vg-clone then apache2grp
-    - pokracujeme vytvorenim samotneho Apache2 zdroja:
-
+```
+ - definujeme pravidlo postupnosti startu storage zdrojov pred app. zdrojmi: 
+   - prikaz: `$ sudo pcs constraint order start shared_vg-clone then apache2grp`
+ - pokracujeme vytvorenim samotneho Apache2 zdroja:
+```bash
 $ sudo pcs resource create apache2_srv ocf:heartbeat:apache configfile=/etc/httpd/conf/httpd.conf \ 
   statusurl=http://127.0.0.1/server-status --group apache2grp
+```
+ - overime napr. s: `$ sudo pcs status --full`
+   - pripadne aj s: `$ sudo pcs resource config`
+ - po vytvoreni zdroja `apache2_srv` obnovime SELinux kontexty: `$ sudo restorecon -R /var/www`
 
-    - overime napr. s: $ sudo pcs status --full
-      - pripadne aj s: $ sudo pcs resource config
-    - po vytvoreni zdroja "apache2_srv" obnovime SELinux kontexty: $ sudo restorecon -R /var/www
-
-    - na zaver otestujeme funkcnost, napr. s klientom: $ curl http://192.168.255.29/index.html
-    - je vhodne otestovat aj vypadky aktivneho uzla, aka je odolnost clustr-a:
-      - napr. s: $ sudo pcs node standby <hostname_uzolX>
-    - cluster sa samozrejme da vybudovat na viac ako 2 uzloch a je to aj doporucovane
-    - server Apache2 ma dalsie dolezite nastavenia, ale tu sa im nevenujem
+ - na zaver otestujeme funkcnost, napr. s klientom: `$ curl http://192.168.255.29/index.html`
+   - je vhodne otestovat aj vypadky aktivneho uzla, aka je odolnost clustr-a:
+   - napr. s: `$ sudo pcs node standby <hostname_uzolX>`
+   - cluster sa samozrejme da vybudovat na viac ako 2 uzloch a je to aj *doporucovane*
+   - server Apache2 ma dalsie dolezite nastavenia, ale tu sa im nevenujem
 
 ### Praca s NFS Serverom v HA Cluster rieseni na Rocky Linux 8.5, so zdielanym LVM cez iSCSI:
 - na instalaciu pouzijeme novy iSCSI LUN, ktory si vytvorime na storage 
