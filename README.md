@@ -138,7 +138,6 @@ Poznamky na skusku LPIC3-304-200 - Virtualization & High Availability
 #### Moj skromny nazor na priority pri realizacii projektov na OS GNU/Linux:
 
     Bezpecnost + Zalohovanie + Kontrola pouzitelnosti zaloh + Dokumentacia
-    Security + Backups + Backups usability check + Documentation
 
     + zvazit nasadenie IPv6, ak je to mozne (definitivne by malo byt)
 
