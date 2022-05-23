@@ -2883,13 +2883,13 @@ $ sudo xen-create-image --hostname=xenvm01 --lvm=vgxen --memory=2G --maxmem=2G -
    - *qcow2* - QEMU Copy On Write version 2
    - jedine format *qcow2* podporuje *snapshot-y* (neviem ci uz ich nie je viac)
 
-#### Zjednoduseny postup, ako instalovat KVM + QEMU na Host pocitaci/servery s OS Rocky Linux 8.5:
+#### Zjednoduseny priklad, ako instalovat KVM + QEMU na Host pocitaci/servery s OS Rocky Linux 8.5:
 
-- overime podporu virtualizacie v CPU (Intel alebo AMD): $ sudo egrep -o '(vmx|svm)' /proc/cpuinfo 
-  - podpora pre Intel je "vmx", podpora pre AMD je "svm"
+- overime podporu virtualizacie v CPU (Intel alebo AMD): `$ sudo egrep -o '(vmx|svm)' /proc/cpuinfo`
+  - podpora pre Intel je `vmx`, podpora pre AMD je `svm`
 
-- overime pritomnost modulu KVM v kerneli: $ sudo lsmod lvm
-  - ak nenajde tak: "$ sudo modprobe kvm" a "$ sudo modprobe kvm_intel" / "$ sudo modprobe kvm_amd"
+- overime pritomnost modulu KVM v kerneli: `$ sudo lsmod lvm`
+  - ak nenajde tak: `$ sudo modprobe kvm` a nasledne `$ sudo modprobe kvm_intel` alebo `$ sudo modprobe kvm_amd`
 - overime pritomnost KVM v systeme: $ sudo ls -al /dev/kvm 
 - dalej instalujeme QEMU s podporou KVM: $ sudo dnf -y in qemu-kvm 
 - mozeme uz intalovat aj nastroje/API "libvirt": $ sudo dnf -y in libvirt virt-install
