@@ -2629,10 +2629,10 @@ $ sudo pcs resource create nfs_notify ocf:heartbeat:nfsnotify source_host=192.16
 
 - overime stav a konf.: `$ sudo pcs status --full` a `$ sudo pcs resource config nfs_server_grp`
 
-- dalej na *AKTIVNOM* NFS uzle upravime `exportfs` nastavenia, vytvorime zdiel. adresar:
+- dalej na *aktivnom* NFS uzle upravime `exportfs` nastavenia, vytvorime zdielany adresar:
   - prikaz: `$ sudo mkdir -p /home/nfs-server/nfs-root/share1`
 
-- dalej na *AKTIVNOM* NFS uzle vytvorime Pacemaker cluster zdroje pre NFS `exportfs`:
+- dalej na *aktivnom* NFS uzle vytvorime Pacemaker cluster zdroje pre NFS `exportfs`:
   - inak napisane, vytvarame dva rozne NFS exporty v *HA rieseni*
   - *POZOR* na parametre `clientspec=`, `directory=` a `fsid=`
 ```bash
@@ -2645,12 +2645,12 @@ $ sudo pcs resource create nfs_share1_exp ocf:heartbeat:exportfs \
   directory=/home/nfs-server/nfs-root/share1 fsid=1 --group nfs_server_grp
 ```
 
-- overime stav a konf.: "$ sudo pcs status --full" a "$ sudo pcs resource config nfs_server_grp"
-- na tomto uzle nove exporty overime s: $ sudo showmount -e 
+- overime stav a konf.: `$ sudo pcs status --full` a `$ sudo pcs resource config nfs_server_grp`
+- na tomto uzle nove NFS exporty overime s: `$ sudo showmount -e`
 - na testovanie sa mozeme s NFS klietom pripojit na vyexportovane suborove systemy:
-  - poznamka, na Rocky Linux 8.5 bolo potrebne instalovat: $ sudo dnf -y in nfs-utils.x86_64
-  - protokol NFSv4: $ sudo mount -t nfs4 192.168.255.28:share1 /mnt/nfs
-  - overime s: $ df -hT /mnt/nfs
+  - poznamka, na Rocky Linux 8.5 bolo potrebne instalovat: `$ sudo dnf -y in nfs-utils.x86_64`
+  - pripojenie protokolom NFSv4: `$ sudo mount -t nfs4 192.168.255.28:share1 /mnt/nfs`
+  - overime s: `$ df -hT /mnt/nfs`
   - pre NFSv3 prikaz: $ sudo mount -t nfs 192.168.255.28:/home/nfs-server/nfs-root/share1 /mnt/nfs
 
 Zaklady prace s konceptom *Load-Balancinge* v Cluster prostredi systemu GNU/Linux
