@@ -3079,26 +3079,26 @@ $ sudo virt-install \
 --cdrom=/mnt/fed35-amd64.iso
 ```
 
-   - stav instalacie VM instancie overime s: $ sudo virsh list --all
-   - na virtualny monitor instancie sa da pripojit s VNC klientom: $ vncviewer <Host:diplay>
-   - ako vykonat "gracefull shutdown" VM instancie: $ sudo virsh shutdown --domain fedora35VM01
-   - ako vykonat "force shutdown" VM instanciu: $ sudo virsh destroy --domain fedora35VM01 
-   - ako vymazat VM instanciu: $ sudo virsh undefine --domain fedora35VM01
-   - POZOR vymaze VM + jej disk: $ sudo virsh undefine --domain fedora35VM01 --remove-all-storage
+ - stav instalacie VM instancie overime s: `$ sudo virsh list --all`
+ - na virtualny monitor instancie sa da pripojit s VNC klientom: `$ vncviewer <Host:diplay>`
+ - ako vykonat *gracefull shutdown* VM instancie: `$ sudo virsh shutdown --domain fedora35VM01`
+ - ako vykonat *force shutdown* VM instanciu: `$ sudo virsh destroy --domain fedora35VM01`
+   - ako vymazat VM instanciu: `$ sudo virsh undefine --domain fedora35VM01`
+   - *POZOR* vymaze VM + jej disk: `$ sudo virsh undefine --domain fedora35VM01 --remove-all-storage`
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-Praca so sadou virtualizacnych nastrojov pod nazvom projektu "oVirt"
- - dalsie informacie na: https://www.ovirt.org/
+### Praca so sadou virtualizacnych nastrojov pod nazvom projektu *oVirt*:
+ - dalsie informacie na: `https://www.ovirt.org/`
  - OSS projekt zalozeny RodHatom, poskytuje centralny manazment nad zdrojmi pre virtualizaciu
- - ma webovy interface, podporuje live-migraciu, distribuovany, pouziva KVM, umoznuje Virt. DC
- - risenie ma tieto komponenty "oVirt Engine", ktory umoznuje pristup a manzment k "oVirt uzlom"
-   - uzly "oVirt Nodes" poskytuju funkciu Host systemu, na ktorom bezia VM instanacie
-   - dalsi komponent je datove ulozisko "storage", ktore moze byt LocalFS, NFS, iSCSI, Gluster, ...
-   - ulozisko "storage" na domeny; 
-     - Data - uklada VM disky a OVF sablony/definicie
-     - ISO - uklada instalacne ISO image
+ - ma webovy interface, podporuje live-migraciu, distribuovany, pouziva KVM, umoznuje Virtualne DC
+ - risenie ma tieto komponenty *oVirt Engine*, ktory umoznuje pristup a manzment k *oVirt uzlom*
+   - uzly *oVirt Nodes* poskytuju funkciu Host systemu, na ktorom bezia VM instanacie
+   - dalsi komponent je datove ulozisko *storage*, ktore moze byt *LocalFS, NFS, iSCSI, Gluster, ...*
+   - ulozisko *storage* ma tieto domeny:
+     - *Data* - uklada VM disky a OVF sablony/definicie
+     - *ISO* - uklada instalacne ISO image
 
-Zjednoduseny postup instalacie oVirt prostredia s NFS storage riesenim na OS Rocky Linux 8.5:
+#### Zjednoduseny postup instalacie oVirt prostredia s NFS storage riesenim na OS Rocky Linux 8.5:
+
  - na LAB pouzijeme 3 servery/uzly s Rocky Linux 8.5, kde treti bude v role NFS storage servera
    - minimalna kapacita LocalFS disku je 25GB a doporucena je 50GB
    - servery/uzly 1 a 2 budu sluzit na manazment a poskytovanie vypoctovych/sietovych zdrojov
