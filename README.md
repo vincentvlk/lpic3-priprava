@@ -1314,18 +1314,18 @@ Naslendne uz mozeme pouzivat napr. tieto aliasy:
     $ git strom
 
 ### Zaklady bezpecnosti v operacnom systeme GNU/Linux:
-
 Poznamka: dva webove zdroje s informaciami k typom a kategoriam utokov:
 ```
 https://www.nsa.gov/Press-Room/Cybersecurity-Advisories-Guidance/
 
 https://attack.mitre.org/
 ```
+
 #### Nastroj na ochranu/kontrolu integrity suborov a adresarov, projekt *AIDE*:
 
-Instalacia: `$ sudp apt install aide`
+Instalacia pre Debian-based systemy: `$ sudo apt install aide`
  
- - instalacia na Fedora Server: `$ sudo dnf install aide`
+ - instalacia v systeme Fedora Server: `$ sudo dnf install aide`
  - dalsie informacie: `https://aide.github.io/`
  - vypiseme verziu a skompilovane moduly: `$ aide -v`
  - dalej mozeme vypisat moznosti a parametre: `$ aide --help`
