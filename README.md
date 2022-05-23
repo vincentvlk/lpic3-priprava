@@ -1485,7 +1485,7 @@ Dalsi nastroj na *Rootkit* detekciu je `chkrootkit`
    - nasledne spustime skenovanie: `$ sudo clamscan --recursive /home`
    - upravime vypis, aby zobrazil *nakazene* subory: `$ sudo clamscan --infected --recursive /home`
    - *POZOR*, automaticke mazanie: `$ sudo clamscan --infected --remove --recursive /home`
-   - pre Linux-ove distribucie existuje aj GUI rozhranie **ClamTk**, instalujeme: `$ sudo apt install clamtk`
+   - pre Linux-ove distribucie existuje aj GUI rozhranie *ClamTk*, instalujeme: `$ sudo apt install clamtk`
 
 #### Ako na zabezpecnie zavadzaca *GRUB2*:
  - vytvorime heslo: `$ sudo grub-mkpasswd-pbkdf2`
@@ -1503,7 +1503,7 @@ Dalsi nastroj na *Rootkit* detekciu je `chkrootkit`
 - zvazit zmenu pocuvajuceho TCP portu, upravime riadok `#Port 22` na `Port 5022`
 - po zmenach je potrebne: `$ sudo systemctl restart ssh`
 - overime s: `$ sudo systemctl status ssh`
-- deaktivujeme **root-login**, zmena: `#PermitRootLogin prohibit-password` na `#PermitRootLogin no`
+- deaktivujeme *root-login*, teda zmena: `#PermitRootLogin prohibit-password` na `#PermitRootLogin no`
 - odpoji po 5 min. neaktivity, pridame 2 riadky `ClientAliveInterval 300` a `ClientAliveCountMax 0`
 - maximalny pocet pokusov pri zadavani hesla, zmenime: `#MaxAuthTries 6` na `MaxAuthTries 3`
 - dalej pozriet v `$ man sshd_config` parametre: `MaxStartups` a `LoginGracetime`
@@ -1848,7 +1848,7 @@ Na pracu s HA-lusterom je vhodne mat *DNS zaznami typu A/PTR uzlov*, pripadne za
  - dalsi komponent *Local Resource Management Daemon*, teda `lrmd` zabezpecuje spravu lokalnych zdrojov
  - dalsi komponent na spravu politik v Clustery, *Policy Engine* `pengine`
  - dalsi komponent *Transition Engine* `tengine`
- - dalsi komponent `stonithd` zabezpecuje "vybavovanie **STONITH**" poziadavok
+ - dalsi komponent `stonithd` zabezpecuje vybavovanie *STONITH* poziadavok
    - *STONITH* - Shoot The Other Node in The Head, pripadne tzv. *Node Fencing*
  - v RedHat based distribuciach sa pouziva nastroj `pcsd`, ako rozhranie ku `Corosync` a `Pacemaker`
    - pouziva sa prikazy: `$ sudo pcs ...`
@@ -1938,10 +1938,10 @@ primitive service-apache ocf:heartbeat:apache \
         op monitor interval=10 timeout=30
 ```
 
- - po ulozeni a zavreti editora sa zmeny aplikuju na **Cluster**
+ - po ulozeni a zavreti editora sa zmeny aplikuju na *Cluster*
  - stav clustera overime s: `$ sudo crm_mon`
  - pripadne aktualizujeme stav a pridelenie zdrojov: `$ sudo crm resource cleanup`
- - nasledne je potrebne na **vsetkych** uzloch povolit HTTP port na firewalle:
+ - nasledne je potrebne na *vsetkych* uzloch povolit HTTP port na firewalle:
 ```bash
     $ sudo firewall-cmd --permanent --add-service=http
     $ sudo firewall-cmd --reload
@@ -2013,10 +2013,10 @@ Poznamka: Ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
  - napr. v Systeme CentOS si mozeme nainstalovat agenta `fence-agents-apc`: 
    - prikaz: `$ sudo dnf -y in fence-agents-apc`
    - dalsie informacie o agentovi ziskame napr. z: `$ man fence_apc`
- - dalsi agent `fence-agents-ipmilan` je uzitocny, pretoze vykovana Fencing cez standard **IPMI**
- - na **CentOS** mozeme ziskat informacie o *STONITH/Fencing* agentoch pre Pacemaker: `$ pcs stonith list`
+ - dalsi agent `fence-agents-ipmilan` je uzitocny, pretoze vykovana Fencing cez standard *IPMI*
+ - na *CentOS* mozeme ziskat informacie o *STONITH/Fencing* agentoch pre Pacemaker: `$ pcs stonith list`
    - dalsie info. o konkretnom agentovi ziskame napr. s: `$ sudo pcs stonith describe fence_ipmilan`
- - na **OpenSUSE** vypiseme agentov: `$ sudo stonith -L`
+ - na *OpenSUSE* vypiseme agentov: `$ sudo stonith -L`
    - presnejsie informacie o agentoch ziskame s: `$ sudo stonith -h | less`
 
 #### Konfiguracia Fencing-u v systeme CentOS Stream 9 (RedHat based OS):
