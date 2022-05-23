@@ -2800,7 +2800,7 @@ dns-nameservers 193.17.47.1 185.43.135.1
 
 `GRUB_DEFAULT="Debian GNU/Linux, with Xen 4.14-amd64.efi and Linux 5.10.0-13-amd64"`
 
-- apliukujeme novu konf. s: `$ sudo update-grub`
+- aplikujeme novu konf. s: `$ sudo update-grub`
 - dalej pridame riadok, ktory zabezpeci minimalne prostriedky pre Xen kernel:
 
 `GRUB_CMDLINE_XEN_DEFAULT="dom0_max_vcpus=1 dom0_mem=1024M,max:1024M"`
