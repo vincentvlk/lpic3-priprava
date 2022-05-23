@@ -1938,7 +1938,7 @@ primitive service-apache ocf:heartbeat:apache \
         op monitor interval=10 timeout=30
 ```
 
- - po ulozeni a zavreti editora sa zmeny aplikuju na *Cluster*
+ - po ulozeni a zavreti editora sa zmeny aplikuju na *cely Cluster*
  - stav clustera overime s: `$ sudo crm_mon`
  - pripadne aktualizujeme stav a pridelenie zdrojov: `$ sudo crm resource cleanup`
  - nasledne je potrebne na *vsetkych* uzloch povolit HTTP port na firewalle:
@@ -1947,7 +1947,7 @@ primitive service-apache ocf:heartbeat:apache \
     $ sudo firewall-cmd --reload
 ```
 
-Poznamka: zdroj je kvoli zjednoduseniu dostupny len na real. IP adrese uzla na ktorom bezi `service-apache`
+Poznamka: zdroj je kvoli zjednoduseniu dostupny len na realnej IP adrese uzla, na ktorom bezi `service-apache`
  - zistime s: `$ sudo crm_mon`
 
 #### Zjednoduseny priklad ako vytvorit WebServer cluster pomocou `pcs` na CentOS Stream 9:
