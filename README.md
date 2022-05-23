@@ -2889,7 +2889,8 @@ $ sudo xen-create-image --hostname=xenvm01 --lvm=vgxen --memory=2G --maxmem=2G -
   - podpora pre Intel je `vmx`, podpora pre AMD je `svm`
 
 - overime pritomnost modulu KVM v kerneli: `$ sudo lsmod lvm`
-  - ak nenajde tak: `$ sudo modprobe kvm` a nasledne `$ sudo modprobe kvm_intel` alebo `$ sudo modprobe kvm_amd`
+  - ak nenajde tak: `$ sudo modprobe kvm`
+  - a nasledne: `$ sudo modprobe kvm_intel` alebo `$ sudo modprobe kvm_amd`
 - overime pritomnost KVM v systeme: $ sudo ls -al /dev/kvm 
 - dalej instalujeme QEMU s podporou KVM: $ sudo dnf -y in qemu-kvm 
 - mozeme uz intalovat aj nastroje/API "libvirt": $ sudo dnf -y in libvirt virt-install
