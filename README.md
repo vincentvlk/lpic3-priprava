@@ -2327,38 +2327,38 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
 ### Zaklady prace s Cluster suborovym systemom GFS2 (Global File System):
 
 #### Priprava: Zaklady prace s LVM v Cluster prostredi:
-- logicke LV particie sa zvycajne mapuju napr. ako: /dev/mapper/ubuntu--vg-ubuntu--lv"
-- kde je teda VG (Volume Group) sa nazvom "ubuntu" a LV (Logical Volume) s nazvom "ubuntu" 
-  - je to symbolicky link
-- LVM (Logical Volume Management) je spravuje procesom "Device Mapper", konf.: "/etc/lvm/lvm.conf"
-  - dalsie informacie v $ man lvm.conf
-- rozsirenie cLVM je pre koncept "Clustered LVM", umoznuje vytvorit tzv. "Cluster Sharede Volume"
-- rozsirenie HALVM je dostupne na RedHat based systemoch, zabranuje sucasnemu zapisu 2 uzlov
-- dolezity proces "clvmd" sluzi na propagaciu zmien dalsim uzlom, novsi proces ako HALVM
-  - dalsou poziadavkou je DLM - Distributed Lock Manager, znamy aj pod nazvom "controld"
-- v cLVM su vsetky VG a LV na zdielanom storage su *stale* dostupne *vsetkym* uzlom
-  - vhodne na Cluster Suborove systemy ako je napr. GFS2
-- v HALVM su VG a LV dostupne v danom case len *jednemu* uzlu z clustera, vhodne na ext4,xfs,btrfs
-  - na riadenie dostupnosti particii, pre dany uzol, sa vyuziva "Volume Tagging", pre RedHat b.
-- alternativa HALVM mimo RedHat systemov je "exclusive LVM"
+- logicke LV particie sa zvycajne mapuju napr. ako: `/dev/mapper/ubuntu--vg-ubuntu--lv`
+- kde je teda *VG (Volume Group)* s nazvom `ubuntu` a *LV (Logical Volume)* s nazvom `ubuntu` 
+  - poznamka: je to symbolicky link
+- LVM (Logical Volume Management) sa spravuje procesom *Device Mapper*, konf. v: `/etc/lvm/lvm.conf`
+  - dalsie informacie v `$ man lvm.conf`
+- rozsirenie *cLVM* je pre koncept *Clustered LVM*, umoznuje vytvorit tzv. *Clustered Shared Volume*
+- rozsirenie *HALVM* je dostupne na RedHat based systemoch, zabranuje sucasnemu zapisu 2 uzlov
+- dolezity proces `clvmd` sluzi na propagaciu zmien dalsim uzlom, novsi proces ako HALVM
+  - dalsou poziadavkou je *DLM - Distributed Lock Manager*, znamy aj pod nazvom `controld`
+- v cLVM su vsetky VG a LV na zdielanom storage, su *stale* dostupne *vsetkym* uzlom
+  - vhodne na Cluster suborove systemy ako je napr. *GFS2*
+- v HALVM su VG a LV dostupne v danom case len *jednemu* uzlu z clustera, vhodne na `ext4`, `xfs` , `btrfs`
+  - na riadenie dostupnosti particii, pre dany uzol, sa vyuziva *Volume Tagging*, pre RedHat based distra
+- alternativa HALVM mimo RedHat systemov je *exclusive LVM*
 
 #### Priprava pred instalaciou GFS2 na RedHat based systemoch (CentOS/Rocky Linux):
-- rezim active/active, zhoda s normou POSIX - Portable Operating System Interface
+- rezim *active/active*, zhoda s normou `POSIX - Portable Operating System Interface`
 - pracuje *len* v cluster rieseni
-- kazdy uzol ma svoj vlastny FS journal
-- ostatne uzly clustra zreplikuju journal uzla, ktory zlyhava, po aplikovani Fencing-u
-- su potrebne technologie DLM a cLVM na koordinaciu zamykania suborov (file locking)
-- maximalna podporovana kapacita je 100TiB (nemam zatial overene)
+- kazdy uzol ma *svoj vlastny FS journal*
+- ostatne uzly clustra zreplikuju journal uzla, ktory zlyhava, po *aplikovani Fencing-u*
+- su potrebne technologie *DLM* a *cLVM* na koordinaciu *zamykania suborov (file locking)*
+- maximalna podporovana kapacita je *100TiB* (asi uz neaktualne, nemam zatial overene)
 - treba vytvorit minimalne 2 LUNy, jeden maly (1 MB) na Fencing a druhy na storage napr. 10GB
-- ako vypisat dostupne repozitare: $ sudo dnf repolist all 
 
-- verzia pre CentOS 9 Stream:
-- zapneme repozitare: $ sudo dnf config-manager --set-enabled highavailability,resilientstorage
-  - instalacia: $ sudo dnf -y in fence-agents-scsi lvm2-lockd gfs2-utils dlm
+- ako v RedHat based distrach vypisat *dostupne repozitare*: `$ sudo dnf repolist all`
+- verzia pre *CentOS 9 Stream*:
+- zapneme repozitare: `$ sudo dnf config-manager --set-enabled highavailability,resilientstorage`
+  - instalacia: `$ sudo dnf -y in fence-agents-scsi lvm2-lockd gfs2-utils dlm`
 
-- verzia pre Rocky-Linux 8.5:
-- zapneme repozitare: $ sudo dnf config-manager --set-enabled ha,resilient-storage
-  - instalacia: $ sudo dnf -y in fence-agents-scsi lvm2-lockd gfs2-utils dlm
+- verzia pre *Rocky-Linux 8.5*:
+- zapneme repozitare: `$ sudo dnf config-manager --set-enabled ha,resilient-storage`
+  - instalacia: `$ sudo dnf -y in fence-agents-scsi lvm2-lockd gfs2-utils dlm`
 
 - Tip: Prepisanie *zaciatku*, teda aj FS disku nulami: `$ sudo dd if=/dev/zero of=/dev/sda bs=1M count=100`
 - Tip: Ako v RedHat based OS zistit, ktory balik poskytuje dany *prikaz*, napr.: `$ dnf provides showmount`
