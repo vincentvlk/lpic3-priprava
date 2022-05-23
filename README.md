@@ -2823,7 +2823,7 @@ $ sudo xen-create-image --hostname=xenvm01 --lvm=vgxen --memory=2G --maxmem=2G -
     - z konzoly sa odhlasime skratkou `Ctrl + ]`
   - domenu/VM vypneme s: `$ sudo xl shutdown xenvm01`
 
-#### Priklad ako vytvorit HVM (Hardware Vitrual Machine) instanciu s instalacnym .ISO suborom:
+#### Priklad ako vytvorit HVM (Hardware Virtual Machine) instanciu s instalacnym `.iso` suborom:
 - vytvorime si LV pre novu VM: `$ sudo lvcreate --size 10g --type linear -n lv_fedora35vm01 vgxen`
 - podla sablony si v adresari `/etc/xen/` vytvorime konf. subor na vytvorenie VM: 
   - prikaz: `$ sudo cp xlexample.hvm fedora35vm01.cfg`
@@ -3059,7 +3059,7 @@ $ sudo virt-install \
    - *POZOR* vymaze VM + jej disk: `$ sudo virsh undefine --domain fedora35VM01 --remove-all-storage`
 
 ### Praca so sadou virtualizacnych nastrojov pod nazvom projektu *oVirt*:
- - OSS projekt zalozeny RodHatom, poskytuje centralny manazment nad zdrojmi pre virtualizaciu
+ - OSS projekt zalozeny spol. RodHat, poskytuje centralny manazment nad zdrojmi pre virtualizaciu
  - dalsie informacie na: `https://www.ovirt.org/`
  - ma webovy interface, podporuje live-migraciu, distribuovany, pouziva KVM, umoznuje Virtualne DC
  - risenie ma tieto komponenty *oVirt Engine*, ktory umoznuje pristup a manzment k *oVirt uzlom*
