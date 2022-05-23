@@ -2851,7 +2851,6 @@ $ sudo xen-create-image --hostname=xenvm01 --lvm=vgxen --memory=2G --maxmem=2G -
   - domenu/VM vypneme s: `$ sudo xl shutdown xenvm01`
 
 #### Priklad ako vytvorit HVM (Hardware Vitrual Machine) instanciu s instalacnym .ISO suborom:
-
 - vytvorime si LV pre novu VM: `$ sudo lvcreate --size 10g --type linear -n lv_fedora35vm01 vgxen`
 - podla sablony si v adresari `/etc/xen/` vytvorime konf. subor na vytvorenie VM: 
   - prikaz: `$ sudo cp xlexample.hvm fedora35vm01.cfg`
@@ -3248,6 +3247,8 @@ $ brew install virt-viewer
  - umoznuje nasadit *hybrid/edge* riesenie s vyuzitim externych zdrojov ako *AWS, Google, Equinix*
  - dalsie informacie napr. na: `https://opennebula.io`
 
+Nezaradene alebo vseobecne poznamky pre system GNU/Linux:
+---------------
 
 Tip: Ako vypisat vsetky *.dotfile* a *.dotdirectory*, prikaz: `$ ls -ld .??*`
 Tip: Ako zalohovat pomocou programu `rsync` vsetky *.dotfile* / *.dotdirectory*:
