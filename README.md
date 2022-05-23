@@ -3379,12 +3379,12 @@ Tip: Ako zalohovat pomocou programu `rsync` vsetky *.dotfile* a *.dotdirectory*:
  
 - neviem do kedy bude online a chyba praca s protkolom IPv6 :-(
 
-#### Poznamka: ak system nepreklada DNS zaznami, hlasi: "Temporary failure in name resolution"
+#### Ak system nepreklada DNS zaznami a hlasi: "Temporary failure in name resolution"
  - treba skontrolovat syntax suboru `/etc/resolv.conf`
  - pripadne restartovat DNS resolver proces: `$ sudo systemctl restart systemd-resolved.service`
  - overime s: `$ sudo systemctl status systemd-resolved.service`
 
-#### Poznamka: ako v Unix-like systemoch konvertovat video kodekom H.265:
+#### Ako v Unix-like systemoch konvertovat video kodekom H.265
 1. instalujeme nastroj `ffmpeg` (`apt install ffmpeg`, `dnf install ffmpeg`, `brew install ffmpeg` a pod.)
 
 2. podla tohto popisu dame konvertovat:
