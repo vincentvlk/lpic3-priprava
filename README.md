@@ -2924,10 +2924,10 @@ $ sudo virt-install --name=fedoraVM01 --memory=2048 --vcpus=2 --disk size=8 \
 --os-variant=fedora34 --cpu host --cdrom /mnt/kvm-stor/fed35-amd64.iso &
 ```
 
- - stav VM instancie overime s: $ sudo virsh list --all
+- stav VM instancie overime s: `$ sudo virsh list --all`
 
-Dalsie nastroje na pracu s KVM: "qemu-ga" / "qemu-img" / "qemu-kvm"
-- nastroj "qemu-ga" umoznuje napr.: ziskat info o VM, suspendovat VM, nastavit systemovy cas, ...
+Dalsie nastroje na pracu s KVM: `qemu-ga`, `qemu-img`, `qemu-kvm`
+- nastroj `qemu-ga` umoznuje napr.: ziskat info o VM, suspendovat VM, nastavit systemovy cas, ...
 - ako ziskat informacie o qcow2 image: $ sudo qemu-img info /mnt/kvm-stor/qemu.vm01.img
 - ako otestovat konzistenciu image: $ sudo qemu-img check /mnt/kvm-stor/qemu.vm01.img
   - dalsie moznosti: create, commit, comapre, convert, map, snaphost, rebase, resize, amend
