@@ -2652,6 +2652,7 @@ Zaklady konceptu *Load-Balancing* v Cluster prostredi OS GNU/Linux
  - po isntalacii upravime konf. subor `/etc/nginx/nginx.conf` nasledujuco:
    - riadok `server_name www.srv.world;` na `server_name app.node1.lab;`
    - resp. pre uzol 2 na: `server_name app.node2.lab;`
+
  - aktivujeme start sluzby NGINX po reboote: `$ sudo systemctl enable --now nginx`
      - overime s: `$ sudo systemctl status nginx`
    - pridame pravidlo na firewall: `$ sudo firewall-cmd --add-service=http --permanent`
