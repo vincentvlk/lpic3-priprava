@@ -81,7 +81,7 @@ Poznamky na skusku LPIC3-304-200 - Virtualization & High Availability
     + [Zjednoduseny priklad ako vytvorit WebServer cluster pomocou `pcs` na CentOS Stream 9:](#zjednoduseny-priklad-ako-vytvorit-webserver-cluster-pomocou--pcs--na-centos-stream-9-)
     + [Pri zostavovani clustra nastrojom `pcs`:](#pri-zostavovani-clustra-nastrojom--pcs--)
     + [V distribucii OpenSUSE je konfiguracia Cluster kvora:](#v-distribucii-opensuse-je-konfiguracia-cluster-kvora-)
-    + [Node Fencing/STONITH,](#node-fencing-stonith-)
+    + [Zaklady konceptu Node Fencing/STONITH:](#zaklady-konceptu-node-fencing-stonith-)
     + [Konfiguracia Fencing-u v systeme CentOS Stream 9:](#konfiguracia-fencing-u-v-systeme-centos-stream-9-)
     + [Ako pouzivat SBD Fencing na VM:](#ako-pouzivat-sbd-fencing-na-vm-)
     + [Praca s *Cluster Resources*, teda zdroje, ktore dokaze cluster poskytovat:](#praca-s--cluster-resources---teda-zdroje--ktore-dokaze-cluster-poskytovat-)
@@ -131,8 +131,10 @@ Poznamky na skusku LPIC3-304-200 - Virtualization & High Availability
 - [Nezaradene poznamky pre system GNU/Linux](#nezaradene-poznamky-pre-system-gnu-linux)
     + [Ako v systeme GNU/Linux vypnut HW PC-speaker:](#ako-v-systeme-gnu-linux-vypnut-hw-pc-speaker-)
     + [Dobra stranka na zaciatocnu konfiguraciu znamych distribucii Linuxu:](#dobra-stranka-na-zaciatocnu-konfiguraciu-znamych-distribucii-linuxu-)
-    + [Poznamka: ak system nepreklada DNS zaznami, hlasi: "Temporary failure in name resolution"](#poznamka--ak-system-nepreklada-dns-zaznami--hlasi---temporary-failure-in-name-resolution-)
-    + [Poznamka: ako v Unix-like systemoch konvertovat video kodekom H.265:](#poznamka--ako-v-unix-like-systemoch-konvertovat-video-kodekom-h265-)
+    + [Ak system nepreklada DNS zaznami a hlasi: "Temporary failure in name resolution"](#ak-system-nepreklada-dns-zaznami-a-hlasi---temporary-failure-in-name-resolution-)
+    + [Ako v Unix-like systemoch konvertovat video kodekom H.265](#ako-v-unix-like-systemoch-konvertovat-video-kodekom-h265)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 #### Moj skromny nazor na priority pri realizacii projektov na OS GNU/Linux:
 
