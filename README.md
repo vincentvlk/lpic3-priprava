@@ -3200,7 +3200,7 @@ $ brew install virt-viewer
 
  - zakladne komponenty: `Horizon, Heat, Nova, Neutron`
    - *Horizon*: webovy interface pre adminov a tenantov
-   - *Heat*: komp. na orchestraciu, ktory vyuziva konf. sablony a je integrovany s Puppet, Chef, ...
+   - *Heat*: komponent na orchestraciu, ktory vyuziva konf. sablony a je integrovany s Puppet, Chef, ...
    - *Nova*: - sluzi na provisioning Compute zdrojov (Virtual Machines, Bare Metal HW, Kontajnery)
    - *Neutron*: poskytuje manazment sietovych zdrojov a sluzieb ako DHCP, DNS, LB, Sec, Routing, ...
    - *Ironic*: sluzby pre HW provisioning s PXE, IPMI, iLO, iDRAC, ..., integrovany s Nova/Neutron
@@ -3215,13 +3215,13 @@ $ brew install virt-viewer
  - je to full-stack *Infrastructure as a Service (IaaS)* riesenie pre public/private/hybrid cloud
  - zakladne vlastnosti:
    - vysoka skalovatelnost, nasiel som Case Study s viac ako 30 tisic Host servermi
-   - open-source
+   - open-source vyvoj
    - podpora Compute orchestration
    - podpora NaaS: Network as a Service
    - storage manazment pre VM instancie ako aj pre image a sablony, snapshoty
    - manazment uzivatelov a uctov
-   - multi-tenancy
-   - nativne REST API + kompatibilne API s Amazon S3/EC2
+   - podpora multi-tenancy
+   - nativne *REST API + kompatibilne API s Amazon S3/EC2*
    - uctovanie/accounting vyuzivanych zdrojov
    - webove UI
    - terminalove CLI nastroje
