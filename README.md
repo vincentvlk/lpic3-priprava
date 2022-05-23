@@ -1823,13 +1823,13 @@ Na vytvorenie *mount-pointu* po reboote si zistime `UUID` particie napr. s: `$ s
 Po reboote systemu mozeme overit napr. s: `$ sudo mount | grep san1` alebo prikazom: `$ sudo lsblk`
  - alebo napr. s: `$ sudo ls -l /dev/disk/by-path/`
 
-Poznamka: Ak je potrebne, je mozne **discovered** targety vymazat, alebo docasne odhlasit:
+Poznamka: Ak je potrebne, je mozne *discovered* targety vymazat, alebo docasne odhlasit:
  - vymazeme: `$ sudo iscsiadm -m node -T iqn.2022-03.lpic3.suse1:www.target01 -o delete`
  - odhlasime: `$ sudo iscsiadm -m node -T iqn.2022-03.lpic3.suse1:www.target01 -u`
    - po ukonceni cinnosti sa da znova pripojit restartom sluzieb `iscsi` a `iscsid`
 
 Poznamka: V OS OpenSUSE Leap sa da pouzit na konf. iSCSI Initatora TUI nastroj: `$ sudo yast2`
- - **TUI** - Terminal User Interface
+ - *TUI* - Terminal User Interface
  - instalujeme: `$ sudo zypper -n in yast2-iscsi-client`
  - v menu volime `Network Services` -> `iSCSI Initiator` -> `sipkou doprava` na `Connected Targets`
    - v tomto submenu sa uz mozeme klavesom `Tab` prepnut na moznosti `Add` / `Edit` / `Disconnect`
@@ -1838,12 +1838,12 @@ Zaklady prace s HA - High Availability Cultermi v systeme GNU/Linux
 -----------------
 Hlavne stavebne kamene HA Cluster-ov na systeme GNU/Linux: `Pacemaker` a `Corosync`.
 
-Na pracu s HA-lusterom je vhodne mat **DNS zaznami typu A/PTR uzlov**, pripadne zaznami v `/etc/hosts`
+Na pracu s HA-lusterom je vhodne mat *DNS zaznami typu A/PTR uzlov*, pripadne zaznami v `/etc/hosts`
 
 #### Trocha teorie: CIB - Cluster Information Base, Stav Clustra v pamati systemu
- - ako kopia existuje na kazdom uzle, subor sa **NESMIE** rucne upravovat
+ - ako kopia existuje na kazdom uzle, subor sa *NESMIE* rucne upravovat
  - na spravu CIB sa pouziva nastroj `cibadmin`, napr. vypis databazy: `$ sudo cibadmin -Q | less`
- - proces **Cluster Resource Management Daemon** `crmd`, umoznuje pristup k tejto databaze
+ - proces *Cluster Resource Management Daemon* `crmd`, umoznuje pristup k tejto databaze
    - zabezpecuje dalej riadiacu komunikaciu medzi uzlami cluster-a
  - dalsi komponent, **Local Resource Management Daemon** `lrmd` zabezpecuje spravu lokalnych zdrojov
  - dalsi komponent **Policy Engine** `pengine`
