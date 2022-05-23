@@ -3058,13 +3058,13 @@ lxc.idmap = g 0 165536 65536
      - kedze, libvirt pracuje s LVM2, tak overime aj prikazom: `$ sudo lvs`
 
  - Tip: ako deaktivovat libvirt Storage pool s nazvom `lvm_pool` s: `$ sudo virsh pool-destroy lvm_pool`
-   - po deaktivacii sa moze Storage pool zmazat: $ sudo virsh pool-delete lvm_pool
-   - a nasledne aj oddefinovat: $ sudo virsh pool-undefine lvm_pool
+   - po deaktivacii sa moze Storage pool zmazat: `$ sudo virsh pool-delete lvm_pool`
+   - a nasledne aj oddefinovat: `$ sudo virsh pool-undefine lvm_pool`
 
-   - vytvorime VM instanciu s instalaciou Fedora35 z Poolu "lvm_pool" a diskom/volume "kvm-vol1":   
-     - instanacia ma pridelene 2xvCPU, 2GB RAM, grafika pocuva na VNC servery TCP/5900, display :0  
-       - pozor na nastavenie firewallu na Host-e
-
+ - vytvorime VM instanciu s instalaciou Fedora35 z Poolu `lvm_pool` a diskom/volume `kvm-vol1`
+   - instanacia ma pridelene *2xvCPU, 2GB RAM, grafika pocuva na VNC servery TCP/5900, display :0*
+   - pozor na nastavenie firewallu na Host-e
+```bash
 $ sudo virt-install \
 --virt-type kvm \
 --name fedora35VM01 \
@@ -3077,6 +3077,7 @@ $ sudo virt-install \
 --os-type=linux \
 --os-variant=generic \
 --cdrom=/mnt/fed35-amd64.iso
+```
 
    - stav instalacie VM instancie overime s: $ sudo virsh list --all
    - na virtualny monitor instancie sa da pripojit s VNC klientom: $ vncviewer <Host:diplay>
