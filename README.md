@@ -2811,72 +2811,73 @@ dns-nameservers 193.17.47.1 185.43.135.1
   - domena `Domain-0` by mala mat obmedzene zdroje podla konfiguracie z *GRUB-u*
 
 - hlavna konfiguracia Xen-u sa nachadza v adresary `/etc/xen/`
-  - na konfiguraciu HVM (Hardware Virtual Machine) sa da pouzit sablona "/etc/xen/xlexample.hvm"
-  - na konfiguraciu PV (Para-Virtualization) sa da pouzit "/etc/xen/xlexample.pvlinux"
-  - globalny konf. subore: "/etc/xen/xl.conf"
-  - v adresari "/etc/xen/scripts/" su skripty, ktore sa vyuzivaju na pracu s Xen
-  - subor "/etc/default/xen" umoznuje nastavit predvoleny "Tool Stack" pre Xen
-    - bez konfiguracie je predvoleny Tool Stack program "xl" postaveny na kniznici "Xen Light"
-      - dalsie informacie napr. v: $ man xl
-  - dalsi subor "/etc/default/xendomains" definuje spravanie VMs po reboote Host-a
-  - adresar s logovacimi udajmi Xen-u je: "/var/log/xen/"
-  - systemovy adresar "/var/lib/xen/" uklada uzivatelske data VM instancii
+  - na konfiguraciu *HVM (Hardware Virtual Machine)* sa da pouzit sablona `/etc/xen/xlexample.hvm`
+  - na konfiguraciu *PV (Para-Virtualization)* sa da pouzit `/etc/xen/xlexample.pvlinux`
+  - globalny konf. subor je: `/etc/xen/xl.conf`
+  - v adresari `/etc/xen/scripts/` su skripty, ktore sa vyuzivaju na pracu s *Xen*
+  - subor `/etc/default/xen` umoznuje nastavit predvoleny *Tool Stack* pre Xen
+    - bez konfiguracie je predvoleny Tool Stack program `xl` postaveny na kniznici *Xen Light*
+      - dalsie informacie napr. v: `$ man xl`
+  - dalsi subor `/etc/default/xendomains` definuje spravanie VMs po reboote Host-a
+  - adresar s logovacimi udajmi Xen-u je: `/var/log/xen/`
+  - systemovy adresar `/var/lib/xen/` uklada uzivatelske data VM instancii
 
-- nasledne instalujeme sadu nastrojov pre Xen: $ sudo apt install xen-tools
-  - konfiguraciu nastrojov najdeme v subore "/etc/xen-tools/xen-tools.conf"
-    - odkomentujeme a upravime riadok "lvm = vg0" na "lvm = vgxen"
-  - v adresary "/usr/share/xen-tools/" najdeme typy OS pre Xen VM instancie
+- nasledne instalujeme sadu nastrojov pre Xen: `$ sudo apt install xen-tools`
+  - konfiguraciu nastrojov najdeme v subore `/etc/xen-tools/xen-tools.conf`
+    - odkomentujeme a upravime riadok `lvm = vg0` na `lvm = vgxen`
+  - v adresary `/usr/share/xen-tools/` najdeme typy OS pre Xen VM instancie
  
 - nasledne vytvorime zjednodusenu Xen domenu/image:
-
+```bash
 $ sudo xen-create-image --hostname=xenvm01 --lvm=vgxen --memory=2G --maxmem=2G --vcpus=2 \
 --size=8G --swap=1G --fs=ext4 --dhcp --arch=amd64 --dist=jessie
+```
 
-- parameter "memory/maxmem" udava velkost RAM a max. velkost RAM
-- parameter "vcpus" udava pocet virt. CPU
-- parameter "size" udava velkost disku
-- parameter "swap" udava velkost Swap particie
-- parameter "fs" udava typ suboroveho systemu
-- parameter "dhcp" definuje IP konfiguraciu z DHCP
-- parameter "arch" udava procesorovu architekturu
-- parameter "dist" udava typ Linux distribucie
-- po ukonceni z vypisu ziskame udaje o SSH a heslo "root" uzivatela, ktorym sa prihlasime na VM
+- parameter `memory/maxmem` udava velkost RAM a max. velkost RAM
+- parameter `vcpus` udava pocet virt. CPU
+- parameter `size` udava velkost disku
+- parameter `swap` udava velkost Swap particie
+- parameter `fs` udava typ suboroveho systemu
+- parameter `dhcp` definuje IP konfiguraciu z DHCP
+- parameter `arch` udava procesorovu architekturu
+- parameter `dist` udava typ Linux distribucie
+- po ukonceni z vypisu ziskame udaje o SSH a heslo `root` uzivatela, ktorym sa prihlasime na VM
 
 - nasledne vytvorime VM instanciu podla vygenerovaneho Image/konfigu:
-  - prikaz: $ sudo xl create /etc/xen/xenvm01.cfg
-  - overime prikazom: $ sudo xl list
-  - po nabootovani VM instanacie sa mozeme pripojit na jej terminal: $ sudo xl console xenvm1
-    - z konzoly sa odhlasime skratkou "Ctrl + ]"
-  - domenu/VM vypneme s: $ sudo xl shutdown xenvm01
+  - prikaz: `$ sudo xl create /etc/xen/xenvm01.cfg`
+  - overime prikazom: `$ sudo xl list`
+  - po nabootovani VM instanacie sa mozeme pripojit na jej terminal: `$ sudo xl console xenvm1`
+    - z konzoly sa odhlasime skratkou `Ctrl + ]`
+  - domenu/VM vypneme s: `$ sudo xl shutdown xenvm01`
 
-Postup ako vytvorit HVM (Hardware Vitrual Machine) instanciu s instalacnym .ISO suborom:
-- vytvorime si LV pre novu VM: $ sudo lvcreate --size 10g --type linear -n lv_fedora35vm01 vgxen
-- podla sablony si v adresari "/etc/xen/" vytvorime konf. subor na vytvorenie VM: 
-  - prikaz $ sudo cp xlexample.hvm fedora35vm01.cfg 
-  - nasldene upravime konf. subor instancie "fedora35vm01.cfg" kde:
-    - riadok "name =" upravime na" "name = fedora35vm01.cfg"
-    - riadok "memory =" upravime na: "memory = 2048"
-    - riadok "maxmem =" upravime na: "maxmem = 2048"
-    - riadok "vif =" upravime na: "vif = [ 'bridge=xenbr0' ]"
-    - riadok "disk =" zmenime napr. na: 
+#### Priklad ako vytvorit HVM (Hardware Vitrual Machine) instanciu s instalacnym .ISO suborom:
 
-disk = [ 'phy:/dev/vgxen/lv_fedora35vm01,hda,w','file:/root/fed35-x86_64.iso,hdc:cdrom,r' ]
+- vytvorime si LV pre novu VM: `$ sudo lvcreate --size 10g --type linear -n lv_fedora35vm01 vgxen`
+- podla sablony si v adresari `/etc/xen/` vytvorime konf. subor na vytvorenie VM: 
+  - prikaz: `$ sudo cp xlexample.hvm fedora35vm01.cfg`
+  - nasldene upravime konf. subor instancie `fedora35vm01.cfg` kde:
+    - riadok `name =` upravime na `name = fedora35vm01.cfg`
+    - riadok `memory =` upravime na: `memory = 2048`
+    - riadok `maxmem =` upravime na: `maxmem = 2048`
+    - riadok `vif =` upravime na: `vif = [ 'bridge=xenbr0' ]`
+    - riadok `disk =` zmenime napr. na: 
 
-    - riadok "sdl = 1" zakomentujeme a odkomentujeme riadok "vnc = 1"
-    - dalej pridame riadok, tak aby najskor bootoval "Disk" a potom "CD-ROM image": 
+`disk = [ 'phy:/dev/vgxen/lv_fedora35vm01,hda,w','file:/root/fed35-x86_64.iso,hdc:cdrom,r' ]`
+
+    - riadok `sdl = 1` zakomentujeme a odkomentujeme riadok `vnc = 1`
+    - dalej pridame riadok, tak aby najskor bootoval *Disk* a potom *CD-ROM image*: 
         boot = "dc"
 
 - na zaver vytvorime VM instanciu, na ktoru sa da pripojit cez VNC protokol:
-    $ sudo xl create fedora35vm01.cfg
+    `$ sudo xl create fedora35vm01.cfg`
 
-- overime prikazom: $ sudo xl list
+- overime prikazom: `$ sudo xl list`
 
 Poznamka: Technologia Xen bola davnejsie odkupena spol. Citrix a je to dlhsie komercny produkt
 Z tohto dovodu OSS komunita viac preferuje kombinaciu projetov ako je KVM, QEMU, libvirt...
 Preto tato cast poznamok nepokracuje dalej.
 
--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-### Praca s virtualizacnou platformou "KVM" a pridruzenymi projektami "QEMU" a "libvirt":
+### Praca s virtualizacnou platformou *KVM* a pridruzenymi projektami *QEMU* a *libvirt*:
  - KVM - Kernel based Virtual Machine, sluzi ako "akcelerator" pre nastroje QEMU
  - QEMU - genericky emulator a virtualizator pocitacov
  - KVM+QEMU podporuju viacero suborovych diskov, ako napr. raw, qcow2, vdi, vmdk, ...
