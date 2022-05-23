@@ -3153,61 +3153,62 @@ smtpd_helo_required = yes
 message_size_limit = 10240000
 ```
 
- - po uprave konf. aktivujeme sluzbu SMTP servera: $ sudo systemctl enable --now postfix 
-   - overime s: $ sudo systemctl status postfix
- - povolime SMTP port TCP/25 na FWL: $ sudo firewall-cmd --add-service=smtp --permanent
-   - restartujeme FWL: $ sudo firewall-cmd --reload
+ - po uprave konf. aktivujeme sluzbu SMTP servera: `$ sudo systemctl enable --now postfix`
+   - overime s: `$ sudo systemctl status postfix`
+ - povolime SMTP port TCP/25 na FWL: `$ sudo firewall-cmd --add-service=smtp --permanent`
+   - restartujeme FWL: `$ sudo firewall-cmd --reload`
 
- - Dalej mozeme pokracovat s instalaciou "oVirt Engine" na "Admin" uzle/servery c.1:
-   - pridame repo.: $ sudo dnf -y in https://resources.ovirt.org/pub/yum-repo/ovirt-release44.rpm 
-   - instalujeme potrebne baliky (ca. 230MB): $ sudo dnf -y install ovirt-hosted-engine-setup
-   - po instalacii spustime instalacny skript: $ sudo hosted-engine --deploy
-     - skript doporucuje spustit instlaciu v nastroji "tmux", pripadne "screen"
-     - v skripte je potrebne zadavat parametre podla poziadavky, je treba mat DNS/hosts zaznami
-     - na Storage subsystem som pouzil NFSv4 s adresou: "rock3.example.com:/var/lib/ovirt-share"
-   - instalaciu overime s: $ sudo hosted-engine --vm-status
-     - alebo: $ sudo virsh -c qemu:///system?authfile=/etc/ovirt-hosted-engine/virsh_auth.conf list
+ - dalej mozeme pokracovat s instalaciou *oVirt Engine* na *Admin* uzle/servery c.1:
+   - pridame repo.: `$ sudo dnf -y in https://resources.ovirt.org/pub/yum-repo/ovirt-release44.rpm `
+   - instalujeme potrebne baliky (cca. 230MB): `$ sudo dnf -y install ovirt-hosted-engine-setup`
+   - po instalacii spustime instalacny skript: `$ sudo hosted-engine --deploy`
+   - skript doporucuje spustit instlaciu v nastroji `tmux`, pripadne `screen`
+   - v skripte je potrebne zadavat parametre podla poziadavky, je *treba mat DNS/hosts zaznami*
+   - na *Storage subsystem* som pouzil NFSv4 s adresou: `rock3.example.com:/var/lib/ovirt-share`
+   - instalaciu overime s: `$ sudo hosted-engine --vm-status`
+     - alebo: `$ sudo virsh -c qemu:///system?authfile=/etc/ovirt-hosted-engine/virsh_auth.conf list`
    - po instalacii je dostupne web rozhranie s mng adresou a heslom, ktore sme zadavali do skriptu
-     - meno je "admin" a heslo zadane do instalacneho skriptu ($ sudo hosted-engine --deploy)
-     - na nahranie instalacnych .ISO je volba: Storage > Disks > vpravo volba "Upload"
-       - mne to zlyhalo kvoli CA certifikatu, po importovani do Firefoxu siel upload OK
-       - CA certifikat mal link, suboru som pridal ".pem" a importoval ako CA do Firefoxu v Nast.
+     - meno je `admin` a heslo zadane do instalacneho skriptu (`$ sudo hosted-engine --deploy`)
+     - na nahranie instalacnych .ISO je volba: `Storage > Disks > vpravo volba "Upload"`
+     - mne to zlyhalo kvoli CA certifikatu, po importovani do Firefoxu siel upload OK
+     - CA certifikat mal link, suboru som pridal `.pem` a importoval ako CA do Firefoxu v *Nastaveniach*
 
-http://{engine_url}/ovirt-engine/services/pki-resource?resource=ca-certificate&format=X509-PEM-CA' 
+`http://{engine_url}/ovirt-engine/services/pki-resource?resource=ca-certificate&format=X509-PEM-CA'`
 
-  - Dalsi vypoctovy uzol, teda "oVirt Node/Host" mozeme nainstalovat z pripraveneho .ISO:
-    - upravene distro z: https://resources.ovirt.org/pub/ovirt-4.4/iso/ovirt-node-ng-installer/
-    - je potrebne mat spravne nadefinovane DNS zaznami jednotlivych uzlov, storage, ...
-      - inak napisane, treba mat pripraveny aspon zakladny systemovy dizajn
-    - na pridanie dalsieho Node/uzla je vhodne vyuzit PKI auth. v SSH, pomocou klucov
-    - ked vytvorime VM instanciu a pripojime instalacne ISO, da sa pripojit protokolom SPICE
-      - pouzil som neoficialny balickovaci system "Brew Install" podla: https://brew.sh/
-      - na MacOS som pridal "repo" a instaloval: 
-
+ - Dalsi vypoctovy uzol, teda *oVirt Node/Host* mozeme nainstalovat z pripraveneho .ISO:
+   - upravene distro z: `https://resources.ovirt.org/pub/ovirt-4.4/iso/ovirt-node-ng-installer/`
+   - je potrebne mat spravne nadefinovane DNS zaznami jednotlivych uzlov, storage, ...
+   - inak napisane, treba mat pripraveny aspon zakladny systemovy dizajn
+   - na pridanie dalsieho Node/uzla je vhodne vyuzit PKI auth. v SSH, pomocou klucov
+   - ked vytvorime VM instanciu a pripojime instalacne ISO, da sa pripojit protokolom *SPICE*
+     - na MacOS som pouzil neoficialny balickovaci system `Home Brew` podla: `https://brew.sh/`
+     - pridal som *repo* a instaloval: 
+```bash
 $ brew tap jeffreywildman/homebrew-virt-manager
 $ brew install virt-viewer 
- 
-      - po instalacii som otvoril subor, ktory poskytne oVirt Engine: $ remote-viewer console.vv
-      - pripojenie je podobne ako VNC, text editorom sa da nahliadnut do suboru "console.vv"
-        - je vidiet, ze subor ".vv" ma platnost 120 sekund, potom exspiruje vygenerovane heslo
+```
+ - po instalacii som otvoril subor, ktory poskytne oVirt Engine: `$ remote-viewer console.vv`
+ - pripojenie je podobne ako VNC, text editorom sa da nahliadnut do suboru `console.vv`
+ - je vidiet, ze subor `.vv` ma platnost 120 sekund, potom exspiruje vygenerovane heslo
 
-#### Poznamky k projektu OpenStack, definovany ako Cloud Operating System
- - je urceny na manazment cloudovych zdrojov compute, storage, network v datovom centre
- - na manzment a provisioning zdrojov vyuziva webove dashboard rozhranie
- - zdroje typu "Compute" mozu byt: bare metal HW, VMs, kontajnery
- - zdroje typu "Storage" mozu byt: Block Device, File Storage, Object Storage
+#### Poznamky k projektu OpenStack:
+ - definovany ako *Cloud Operating System*
+ - *rozsiahly projekt*, urceny na manazment cloudovych *zdrojov compute, storage, network v datovom centre*
+ - na manzment a provisioning zdrojov vyuziva webove dashboard rozhranie a API rozhranie
+ - zdroje typu *Compute* mozu byt: *bare metal HW, VMs, kontajnery*
+ - zdroje typu *Storage* mozu byt: *Block Device, File Storage, Object Storage*
 
- - zakladne komponenty: Horizon, Heat, Nova, Neutron
-   - Horizon: webovy interface pre adminov a tenantov
-   - Heat: komp. na orchestraciu, ktory vyuziva konf. sablony a je integrovany s Puppet, Chef, ...
-   - Nova: - sluzi na provisioning Compute zdrojov (Virtual Machines, Bare Metal HW, Kontajnery)
-   - Neutron: poskytuje manazment sietovych zdrojov a sluzieb ako DHCP, DNS, LB, Sec, Routing, ...
-   - Ironic: sluzby pre HW provisioning s PXE, IPMI, iLO, iDRAC, ..., integrovany s Nova/Neutron
-   - Swift: object storage sluzba, poskytuje sluzby datoveho uloziska s mensim vykonom, kapacita++
-   - Cinder: poskytuje sluzby pre Block Storage uloziska, ich provisioning a samotne pouzivanie
-   - Keystone: poskytuje sluzbu identit, teda autentifikacie a autorizacie pre OpenStack
-   - Glance: poskytuje sluzby na pracu s image-mi, ako su .iso, .ovf, .vmdk, ...
-   - OpenStack ma vela dalsich sluzieb a sub-projektov, ktore nie su predmetom tychto poznamok
+ - zakladne komponenty: `Horizon, Heat, Nova, Neutron`
+   - *Horizon*: webovy interface pre adminov a tenantov
+   - *Heat*: komp. na orchestraciu, ktory vyuziva konf. sablony a je integrovany s Puppet, Chef, ...
+   - *Nova*: - sluzi na provisioning Compute zdrojov (Virtual Machines, Bare Metal HW, Kontajnery)
+   - *Neutron*: poskytuje manazment sietovych zdrojov a sluzieb ako DHCP, DNS, LB, Sec, Routing, ...
+   - *Ironic*: sluzby pre HW provisioning s PXE, IPMI, iLO, iDRAC, ..., integrovany s Nova/Neutron
+   - *Swift*: object storage sluzba, poskytuje sluzby datoveho uloziska s mensim vykonom, kapacita++
+   - *Cinder*: poskytuje sluzby pre Block Storage uloziska, ich provisioning a samotne pouzivanie
+   - *Keystone*: poskytuje sluzbu identit, teda autentifikacie a autorizacie pre OpenStack
+   - *Glance*: poskytuje sluzby na pracu s image-mi, ako su .iso, .ovf, .vmdk, ...
+   - projekt OpenStack ma vela dalsich sluzieb a sub-projektov, ktore nie su predmetom tychto poznamok
 
 #### Projekt CloudStack, je definovany ako OSS produkt na nasadenia a spravu velkych VM prostredi
  - je to full-stack Infrastructure as a Service (IaaS) riesenie pre public/private/hybrid cloud
