@@ -2708,10 +2708,9 @@ backend backend_servers
    - dalej pridame riadok: `local2.*    /var/log/haproxy.log`
      - umozni logovanie, mozeme napr. sledovat s: `$ sudo tail -f /var/log/haproxy.log`
    - na zaver restartujeme logovaciu sluzbu: `$ sudo systemctl restart rsyslog`
-
   - rozkladanie zataze overime pripojenim na *LB TCP port 80*, browserom alebo curl-om
 
-Praca s *virtualizacnymi nastrojmi/platformami* pre OS GNU/Linux
+Praca s *virtualizacnymi nastrojmi* pre OS GNU/Linux
 ---------------
 - zakladne koncepty: virtualizacia vie *delit fyzicke vypoctove zdroje na viacero oddelenych casti*
   - teda uzmonuje "bezat" *viacero virtualnych pocitacov na spolocnom zdielanom HW*
@@ -2723,7 +2722,7 @@ Poznamka: ako pridat do LVM predtym pouzivane zariadenie, treba pouzit: `$ sudo 
  - inak LVM moze hlasit chybu: `Device /dev/sdX excluded by a filter.`
  - prikazy LVM sa daju ciastocne debugovat, napr.: `$ sudo pvcreate -vvv /dev/sdb`
 
-### Praca s Virt. platformou Xen Server:
+### Praca s virtualizacnou platformou Xen:
 - baliky boli z RHEL a klonov odstranene, treba pridat repozitar
 - tento postup je instalacia na *OS Debian 11*
 - na *Host* systeme instalujeme balik LVM2: `$ sudo apt install lvm2`
