@@ -53,7 +53,7 @@ Potom do suboru `/etc/network/interfaces` pridat `IPv6` riadky napr.:
 
 #### Nastavenie siete v systeme CentOS:
 
-Pouzil som nejake hanbate GNOME GUI, neviem preco sa to hned neaplikovalo.
+Pouzil som nejake GNOME GUI, neviem preco sa to hned neaplikovalo.
   - alternativne sa da pouzit nastroj `nmtui`, instalujeme: `$ sudo dnf -y in NetworkManager-tui`
   - nasledne uz len spustime: `$ sudo nmtui`
 
@@ -807,7 +807,7 @@ Ako spustit proces/program, aby ho nezabilo zatvorenie/odpojenie BASH session: `
 Zakladne programy na spravu procesov: `ps`, `pgrep`, `pstree`, `pkill`, `pidof`, `kill`, `killall`
  - dalsie informacie v: `$ man <nazov>`
 
-Ako v (hanbatom) MacOS -  Big Sur zistit presny typ CPU: `$ sysctl -a | grep brand`
+Ako v systeme  *MacOS - Big Sur* zistit presny typ CPU: `$ sysctl -a | grep brand`
 
 Ako zmenit MAC adresu na Eth. rozhrani: `$ sudo ip link set dev ens33 address 12:34:56:78:9a:bc`
 
