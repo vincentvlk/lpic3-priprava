@@ -2049,11 +2049,11 @@ Poznamka: Ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
    - presnejsie informacie o agentoch ziskame s: `$ sudo stonith -h | less`
 
 #### Konfiguracia Fencing-u v systeme CentOS Stream 9 (RedHat based OS):
- - da sa pouzit **Hypervisor** Fencing "device"/agent, instalujeme: `$ sudo dnf -y in fence-virtd `
-   - tento agent sa pouziva pri hypervizore **KVM**, kazdy hypervizor musi mat `fence-virtd`
-   - hypervizory musia byt na spolocnom Multicast segmente a musia zdielat spolocny **PSK kluc**
- - **POZOR, na TEST** mozeme odstavit VM instanciu prikazom: `$ sudo echo c > /proc/sysrq-trigger `
- - akciu STONITH mozeme rucne vykonat aj prikazom: `# sudo pcs stonith <hotname>`
+ - da sa pouzit *Hypervisor* Fencing "device"/agent, instalujeme: `$ sudo dnf -y in fence-virtd`
+   - tento agent sa pouziva pri hypervizore *KVM*, kazdy hypervizor musi mat `fence-virtd`
+   - hypervizory musia byt na spolocnom Multicast segmente a musia zdielat spolocny *PSK kluc*
+ - **POZOR, na TEST** mozeme "odstavit" VM instanciu prikazom: `$ sudo echo c > /proc/sysrq-trigger`
+ - akciu *STONITH* mozeme rucne vykonat aj prikazom: `# sudo pcs stonith <hotname>`
 
 #### Ked chceme pouzivat SBD Fencing na VM, je potrebne do kernelu nacitat modul `softdog`:
  - **SBD** - STONITH Based on Disk
@@ -2064,7 +2064,7 @@ Poznamka: Ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
  - dalej restartujeme proces: `$ sudo systemctl restart systemd-modules-load`
  - pritomnost modulu v kerneli overime s: `$ sudo lsmod | grep soft`
 
-#### Praca s "Cluster Resources", teda zdroje, ktore dokaze cluster poskytovat:
+#### Praca s *Cluster Resources*, teda zdroje, ktore dokaze cluster poskytovat:
  - mame k dispozicii tieto typy zdrojov: `Primitive`, `Clone`, `Multi State (Master/Slave)`, `Group`
    - typ `Primitive` - singularny zdroj spravovany resource manazerom clustra, ma "bezat" iba raz
    - typ `Clone` - zdroj, ktori spravuje cluster a bezi na viacerych uzloch viac-krat, napr. cLVM
@@ -2076,7 +2076,7 @@ Poznamka: Ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
  - nastrojom `crm` mozeme otvorit interaktivny **Cluster Management** shell: `$ sudo crm`
    - definovane zdroje vypiseme s `crm(live/suse1)# resource status` alebo s: `$ sudo crm_mon`
  
-#### Praca s "Resource constraints", rozdelujeme na typy: `Location`, `Colocation` a `Order`:
+#### Praca s *Resource constraints*, rozdelujeme na typy: `Location`, `Colocation` a `Order`:
  - typ `Location` - na ktorom uzle ma **bezat** dany zdroj/resource, preferencia uzla
  - typ `Colocation` - s ktorym dalsim zdrojom, ma/nema bezat dany zdroj
  - typ `Order` - pred ktorym alebo za ktorym zdrojom ma dany zdroj **bezat**
