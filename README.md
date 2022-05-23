@@ -13,15 +13,6 @@ Poznamky na skusku LPIC3-304-200 - Virtualization & High Availability
 
 Zakladne tipy a triky pre operacny system GNU/Linux:
 ----------------------
-#### Ako na Linuxe vypnut PC-speaker:
-
-    $ sudo rmmod pcspkr
-
-#### Dobra stranka na zaciatocnu konfiguraciu znamych distribucii Linuxu:
-
-    `https://www.server-world.info/en/`
- 
-- ale neviem do kedy bude online a chyba tam IPv6 :-(
 
 #### Zakladne nastavenie siete v systeme Debian11:
 
@@ -106,30 +97,7 @@ Nasledne overime config:
 
     $ sudo nmcli device show ens33
 
-#### Poznamka: ak system nepreklada DNS zaznami, hlasi: "Temporary failure in name resolution"
- - treba skontrolovat syntax suboru `/etc/resolv.conf`
- - pripadne restartovat DNS resolver proces: `$ sudo systemctl restart systemd-resolved.service`
- - overime s: `$ sudo systemctl status systemd-resolved.service`
-
-#### Poznamka: Ako v Unix-like systemoch konvertovat video kodekom H.265:
-
-1. instalujeme nastroj `ffmpeg` (`apt install ffmpeg`, `dnf install ffmpeg`, `brew install ffmpeg` a pod.)
-
-2. podla tohto popisu dame konvertovat:
-
-    >Update 2020: This answer was written in 2009.
-    >Since 2013 a video format much better than H.264 is widely available, 
-    >namely H.265 (better in that it compresses more for the same quality, or 
-    >gives higher quality for the same size). 
-    >To use it, replace the libx264 codec with libx265, and push the compression lever further 
-    >by increasing the CRF value — add, say, 4 or 6, since
-    >a reasonable range for H.265 may be 24 to 30. Note that lower CRF values correspond to 
-    >higher bitrates, and hence produce higher quality videos.
-
- `$ ffmpeg -i input.mp4 -vcodec libx265 -crf 28 output.mp4`
-
 #### Ako konfigurovat siet v systeme Ubuntu 20.04:
-
 Treba `presunut/zalohovat` povodny config file:
 
     $ sudo mv /etc/netplan/00-installer-config.yaml /etc/netplan/00-installer-config.yaml.disabled
@@ -3248,10 +3216,41 @@ $ brew install virt-viewer
  - umoznuje nasadit *hybrid/edge* riesenie s vyuzitim externych zdrojov ako *AWS, Google, Equinix*
  - dalsie informacie napr. na: `https://opennebula.io`
 
-Nezaradene alebo vseobecne poznamky pre system GNU/Linux:
+Nezaradene poznamky pre system GNU/Linux:
 ---------------
 
 Tip: Ako vypisat vsetky *.dotfile* a *.dotdirectory*, prikaz: `$ ls -ld .??*`
 
 Tip: Ako zalohovat pomocou programu `rsync` vsetky *.dotfile* a *.dotdirectory*:
  - prikaz: `$ rsync -av /zdrojova/cesta/.??* /cielova/cesta/`
+
+#### Ako v systeme GNU/Linux vypnut HW PC-speaker:
+
+- prikaz: `$ sudo rmmod pcspkr`
+
+#### Dobra stranka na zaciatocnu konfiguraciu znamych distribucii Linuxu:
+
+    `https://www.server-world.info/en/`
+ 
+- neviem do kedy bude online a chyba praca s protkolom IPv6 :-(
+
+#### Poznamka: ak system nepreklada DNS zaznami, hlasi: "Temporary failure in name resolution"
+ - treba skontrolovat syntax suboru `/etc/resolv.conf`
+ - pripadne restartovat DNS resolver proces: `$ sudo systemctl restart systemd-resolved.service`
+ - overime s: `$ sudo systemctl status systemd-resolved.service`
+
+#### Poznamka: Ako v Unix-like systemoch konvertovat video kodekom H.265:
+1. instalujeme nastroj `ffmpeg` (`apt install ffmpeg`, `dnf install ffmpeg`, `brew install ffmpeg` a pod.)
+
+2. podla tohto popisu dame konvertovat:
+
+    >Update 2020: This answer was written in 2009.
+    >Since 2013 a video format much better than H.264 is widely available, 
+    >namely H.265 (better in that it compresses more for the same quality, or 
+    >gives higher quality for the same size). 
+    >To use it, replace the libx264 codec with libx265, and push the compression lever further 
+    >by increasing the CRF value — add, say, 4 or 6, since
+    >a reasonable range for H.265 may be 24 to 30. Note that lower CRF values correspond to 
+    >higher bitrates, and hence produce higher quality videos.
+
+ `$ ffmpeg -i input.mp4 -vcodec libx265 -crf 28 output.mp4`
