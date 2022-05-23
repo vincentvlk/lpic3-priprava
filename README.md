@@ -2337,7 +2337,7 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
 - Tip: Prepisanie *zaciatku*, teda aj FS disku nulami: `$ sudo dd if=/dev/zero of=/dev/sda bs=1M count=100`
 - Tip: Ako v RedHat based OS zistit, ktory balik poskytuje dany *prikaz*, napr.: `$ dnf provides showmount`
 
-### Priklad: Pacemaker/Corosync (Unicast) WebServer Cluster s Cluster GFS2 na OS "Rocky Linux 8.5":
+### Priklad na WebServer Cluster pomocou Pacemaker a GFS2 na OS Rocky Linux 8.5:
  - vytvorime DNS zaznamy jednotlivych uzlov, alebo v LABe definujeme `/etc/hosts`
  - na uzloch zapneme repo.: `$ sudo dnf config-manager --set-enabled ha,resilient-storage`
  - na uzloch instalujeme: `$ sudo dnf -y in pacemaker pcs fence-agents-scsi iscsi-initiator-utils`
@@ -2544,7 +2544,7 @@ $ sudo pcs resource create apache2_srv ocf:heartbeat:apache configfile=/etc/http
 - na instalaciu pouzijeme novy iSCSI LUN, ktory si vytvorime na storage 
   - novy LUN na cluster uzloch najdeme s: `$ sudo iscsiadm -m node --rescan`
   - overime napr. s: `$ sudo lsscsi` alebo `$ sudo lsblk`
-  - poznamka: ako si pozriet statistiky danej iSCSI session: `$ sudo iscsiadm -m node -s`
+  - poznamka: ako vypisat statistiky danej iSCSI session: `$ sudo iscsiadm -m node -s`
 - dalej na oboch uzloch pripravime zdielane LVM, upravime subor: `/etc/lvm/lvm.conf`:
   - riadok `system_id_source = "none"` upravime na `system_id_source = "uname"`
 - novy LUN pridame do LVM s: `$ sudo pvcreate /dev/sdX`
