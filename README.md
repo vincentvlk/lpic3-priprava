@@ -2877,13 +2877,14 @@ $ sudo xen-create-image --hostname=xenvm01 --lvm=vgxen --memory=2G --maxmem=2G -
   - preto tato cast poznamok nepokracuje dalej
 
 ### Praca s virtualizacnou platformou *KVM* a pridruzenymi projektami *QEMU* a *libvirt*:
- - KVM - Kernel based Virtual Machine, sluzi ako "akcelerator" pre nastroje QEMU
- - QEMU - genericky emulator a virtualizator pocitacov
- - KVM+QEMU podporuju viacero suborovych diskov, ako napr. raw, qcow2, vdi, vmdk, ...
-   - qcow2 - QEMU Copy On Write version 2
-   - jedine format "qcow2" podporuje "snapshot-y" (neviem ci uz ich nie je viac)
+ - *KVM - Kernel based Virtual Machine*, sluzi ako *akcelerator* pre nastroje *QEMU*
+ - *QEMU* - genericky emulator a virtualizator pocitacov
+ - *KVM+QEMU* podporuju viacero suborovych diskov, ako napr. `raw`, `qcow2`, `vdi`, `vmdk`, ...
+   - *qcow2* - QEMU Copy On Write version 2
+   - jedine format *qcow2* podporuje *snapshot-y* (neviem ci uz ich nie je viac)
 
-Zjednoduseny postup, ako instalovat KVM + QEMU na Host pocitaci/servery s OS Rocky Linux 8.5:
+#### Zjednoduseny postup, ako instalovat KVM + QEMU na Host pocitaci/servery s OS Rocky Linux 8.5:
+
 - overime podporu virtualizacie v CPU (Intel alebo AMD): $ sudo egrep -o '(vmx|svm)' /proc/cpuinfo 
   - podpora pre Intel je "vmx", podpora pre AMD je "svm"
 
