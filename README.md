@@ -1859,9 +1859,13 @@ Tip: Na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-
   - *TPG* - Target Portal Group, sietova reprezentacia iSCSI Target-u
   - *LUN* - Logical Unit Number, logicka jednotka pre SCSI, particia/disk
 
-- nasledne vytvorime LUN prepojeny s File-IO imagom: `/iscsi/iqn.20...t01/tpg1/luns> create /backstores/fileio/disk01`
+- nasledne vytvorime LUN prepojeny s File-IO imagom:
 
-- prepneme sa do rezimu *TPG1*, teda: `/iscsi/iqn.20...t01/tpg1/luns> cd /iscsi/iqn.2022-03.lpic3.suse1:www.target01/tpg1`
+`/iscsi/iqn.20...t01/tpg1/luns> create /backstores/fileio/disk01`
+
+- prepneme sa do rezimu *TPG1*, teda:
+
+`/iscsi/iqn.20...t01/tpg1/luns> cd /iscsi/iqn.2022-03.lpic3.suse1:www.target01/tpg1`
 
 - dalej nastavime autentifikaciu na *CHAP*: `/iscsi/iqn.20...target01/tpg1> set parameter AuthMethod=CHAP`
 
