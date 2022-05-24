@@ -240,11 +240,11 @@ Nasledne overime config:
     $ sudo nmcli device show ens33
 
 #### Ako konfigurovat siet v systeme Ubuntu 20.04:
-Treba *presunut/zalohovat* povodny config file:
+Treba *presunut/zalohovat* povodny konf. subor:
 
     $ sudo mv /etc/netplan/00-installer-config.yaml /etc/netplan/00-installer-config.yaml.disabled
 
-Dalej vytvorime novy config file:
+Dalej vytvorime novy konf. subor:
 
     $ sudo vim /etc/netplan/00-installer-config.yaml
 
@@ -279,8 +279,8 @@ Prikaz vytvori Ext4 particiu: `$ sudo mkfs.ext4 /dev/sdb1`
 
 Ako vytvorit Swap subor, nie particiu: 
 
-    Prikaz vypise stav Swap-u:
-    $ sudo free -m
+- prikaz vypise stav Swap-u: `$ sudo free -m`
+- dalej vytvorime File-IO image a pouzijeme ho ako SWAP pristor:
 
     $ sudo dd if=/dev/zero of=swap_file bs=1024k count=pocet_MB
     $ sudo mkswap swap_file
