@@ -2164,7 +2164,7 @@ Poznamka: ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
  - da sa pouzit *Hypervisor* Fencing "device"/agent, instalujeme: `$ sudo dnf -y in fence-virtd`
    - tento agent sa pouziva pri hypervizore *KVM*, kazdy hypervizor musi mat `fence-virtd`
    - hypervizory musia byt na spolocnom Multicast segmente a musia zdielat spolocny *PSK kluc*
- - *POZOR*, na TEST mozeme "odstavit" VM instanciu prikazom: `$ sudo echo c > /proc/sysrq-trigger`
+ - *POZOR*, na TEST mozeme *odstavit* VM instanciu prikazom: `$ sudo echo c > /proc/sysrq-trigger`
  - akciu *STONITH* mozeme rucne vykonat aj prikazom: `# sudo pcs stonith <hotname>`
 
 #### Ako pouzivat SBD Fencing na VM:
