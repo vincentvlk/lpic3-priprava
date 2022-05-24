@@ -120,7 +120,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
 * [Zaklady konceptu <em>Load-Balancing</em> v Cluster prostredi OS GNU/Linux](#zaklady-konceptu-load-balancing-v-cluster-prostredi-os-gnulinux)
   * [Praca s Load-Balancingom, teda rozkladanim zataze na viacero aplikacnych uzlov](#praca-s-load-balancingom-teda-rozkladanim-zataze-na-viacero-aplikacnych-uzlov)
   * [Zjednoduseny priklad instalacie load-balancera HAProxy na OS Rocky Linux 8.5](#zjednoduseny-priklad-instalacie-load-balancera-haproxy-na-os-rocky-linux-85)
-* [Praca s <em>virtualizacnymi nastrojmi</em> pre OS GNU/Linux](#praca-s-virtualizacnymi-nastrojmi-pre-os-gnulinux)
+* [Zaklady prace s <em>virtualizacnymi nastrojmi</em> pre OS GNU/Linux](#zaklady-prace-s-virtualizacnymi-nastrojmi-pre-os-gnulinux)
   * [Praca s virtualizacnou platformou Xen](#praca-s-virtualizacnou-platformou-xen)
     * [Priklad ako vytvorit HVM (Hardware Virtual Machine) instanciu s instalacnym .iso suborom](#priklad-ako-vytvorit-hvm-hardware-virtual-machine-instanciu-s-instalacnym-iso-suborom)
   * [Praca s virtualizacnou platformou <em>KVM</em> a pridruzenymi projektami <em>QEMU</em> a <em>libvirt</em>](#praca-s-virtualizacnou-platformou-kvm-a-pridruzenymi-projektami-qemu-a-libvirt)
@@ -2112,7 +2112,7 @@ Tip: ako vypisat stav technologie *Quorum*, ktora zabranuje vzniku *split-brain*
 #### Pri zostavovani clustra nastrojom `pcs`:
  - teda prikazom: `$ sudo pcs cluster setup`, mame moznosti:
  - parameter `--wait_for_all` - vypocet kvora sa zacne az po zacleneni vsetkych uzlov/nodes
- - parameter `--auto_tie_breaker` - pri 50% "hlasov" sa vitaz urci ako uzol s najnizsim ID
+ - parameter `--auto_tie_breaker` - pri 50% *hlasov* sa vitaz urci ako uzol s najnizsim ID
  - parameter `--last_man_standing` - kvorum sa prepocitava kazdych 10s
    - treba skombinovat s `--wait_for_all` a nasledne umoznuje postupne *vypinanie* uzlov z clustra 
  - parameter `--two_node` umoznuje "bezat" cluster z 2 uzlov
@@ -2188,7 +2188,7 @@ Poznamka: ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
  - nastrojom `crm` mozeme otvorit interaktivny *Cluster Management* shell: `$ sudo crm`
    - definovane zdroje vypiseme s `crm(live/suse1)# resource status` alebo s: `$ sudo crm_mon`
  
-#### Praca s obmedzeniami zdrojov *Resource constraints*:
+#### Praca s obmedzeniami Cluster zdrojov *Resource constraints*:
  - rozdelujeme na tri typy: `Location`, `Colocation` a `Order`:
    - typ `Location` - na ktorom uzle ma *bezat* dany zdroj/resource, preferencia uzla
    - typ `Colocation` - s ktorym dalsim zdrojom, ma/nema bezat dany zdroj
@@ -2198,7 +2198,7 @@ Poznamka: ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
  - pomocou nastroja `crm` mozeme vypisat stav riadenia obmedzeni: `$ sudo crm_simulate -sL`
  - doporuceny dizaj je vsak pouzivat koncept *Resource Groups*
 
-#### Praca s cluster obmedzeniami pomocou konceptu *Resource Groups*:
+#### Praca s Cluster obmedzeniami pomocou konceptu *Resource Groups*:
  - doporucuje sa vytvarat obmedzenia na skupiny/groups pre jednoduchsiu spravu zdrojov
  - napr. vytvorime dva `IPaddr2` zdroje, ktore zaradime do skupiny `IPgroup`:
    - prikaz: `$ sudo pcs resource create ip1 IPaddr2 ip=10.0.0.1 cidr_netmask=24 --group IPgroup`
@@ -2875,7 +2875,7 @@ backend backend_servers
    - na zaver restartujeme logovaciu sluzbu: `$ sudo systemctl restart rsyslog`
   - rozkladanie zataze overime pripojenim na *LB TCP port 80*, browserom alebo curl-om
 
-Praca s *virtualizacnymi nastrojmi* pre OS GNU/Linux
+Zaklady prace s *virtualizacnymi nastrojmi* pre OS GNU/Linux
 ---------------
 - zakladne koncepty: virtualizacia vie *delit fyzicke vypoctove zdroje na viacero oddelenych casti*
   - teda uzmonuje "bezat" *viacero virtualnych pocitacov na spolocnom zdielanom HW*
@@ -2887,7 +2887,7 @@ Poznamka: ako pridat do LVM predtym pouzivane zariadenie, treba pouzit: `$ sudo 
  - inak LVM moze hlasit chybu: `Device /dev/sdX excluded by a filter.`
  - prikazy LVM sa daju ciastocne debugovat, napr.: `$ sudo pvcreate -vvv /dev/sdb`
 
-### Praca s virtualizacnou platformou Xen:
+### Zaklady prace s virtualizacnou platformou Xen:
 - baliky boli z RHEL a klonov odstranene, treba pridat repozitar
 - tento postup je instalacia na *OS Debian 11*
 - na *Host* systeme instalujeme balik LVM2: `$ sudo apt install lvm2`
