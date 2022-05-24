@@ -2933,7 +2933,7 @@ dns-nameservers 193.17.47.1 185.43.135.1
     - alebo s: `$ sudo xentop`
 - aby vzdy Host system bootoval s Xen kernelom, upravime konf. `/etc/default/grub` nasledovne:
   - riadok `GRUB_DEFAULT=0` upravime na:
-  - spravnu hodnotu najdeme v subore `/boot/grub/grub.cfg`, hladame string `Xen`
+  - spravnu hodnotu najdeme v subore `/boot/grub/grub.cfg`, hladame string `Xen` napr.:
 
 `GRUB_DEFAULT="Debian GNU/Linux, with Xen 4.14-amd64.efi and Linux 5.10.0-13-amd64"`
 
