@@ -144,7 +144,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
   * [Dobra stranka na zaciatocnu konfiguraciu znamych distribucii Linuxu](#dobra-stranka-na-zaciatocnu-konfiguraciu-znamych-distribucii-linuxu)
   * [Ak system nepreklada DNS zaznami a hlasi: *Temporary failure in name resolution*](#ak-system-nepreklada-dns-zaznami-a-hlasi-temporary-failure-in-name-resolution)
   * [Ako v Unix-like systemoch konvertovat video kodekom H.265](#ako-v-unix-like-systemoch-konvertovat-video-kodekom-h265)
-
+  * [Obsah tejto stranky bol vygenerovany BASH skritpom](#obsah-tejto-stranky-bol-vygenerovany-bash-skritpom)
 * * * 
 #### Moj skromny nazor na priority pri realizacii projektov na OS GNU/Linux:
 
