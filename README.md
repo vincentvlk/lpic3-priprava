@@ -289,7 +289,7 @@ Ako vytvorit Swap subor, nie particiu:
 ```
 
 V kontexte Swap-u existuje v kerneli tzv. *OOM Killer*, ktory pri nedostatku pamate zabija procesy.
- - *OOM - Out Of Memory*
+ - *OOM* - Out Of Memory
 
 #### Zaklady prace s LVM, aktualna verzia je LVM2:
 Prikaz na interaktivne CLI: `$ sudo lvm`
