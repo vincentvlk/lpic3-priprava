@@ -342,7 +342,7 @@ Tip: ako nastavit prava na subore alebo adresary: `# chmod g+w /mnt/lvnas1`
 
 Tip: ako vypisat parametre kernelu, s ktorymi nabootoval: `$ cat /proc/cmdline`
 
-Tip: ako zistit ake KILL signaly system podporuje: `$ kill -l`
+Tip: ako zistit ake *kill* signaly system podporuje: `$ kill -l`
 
 Tip: nastroj na kontrolu syntaxe BASH skriptov: `shellcheck`
 
