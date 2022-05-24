@@ -1954,6 +1954,7 @@ Poznamka: v systeme OpenSUSE Leap sa da pouzit na konf. iSCSI Initatora TUI nast
  - v menu volime `Network Services` -> `iSCSI Initiator` -> `sipkou doprava` na `Connected Targets`
    - v tomto submenu sa uz mozeme klavesom `Tab` prepnut na moznosti `Add` / `Edit` / `Disconnect`
 
+* * *
 Zaklady prace s HA - High Availability Cultermi v systeme GNU/Linux
 -----------------
 Hlavne stavebne kamene HA Cluster-ov na systeme GNU/Linux: `Pacemaker` a `Corosync`.
