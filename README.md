@@ -16,7 +16,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
 
 * [Zakladne tipy a triky pre operacny system GNU/Linux](#zakladne-tipy-a-triky-pre-operacny-system-gnulinux)
   * [Zakladne nastavenie siete v systeme Debian11](#zakladne-nastavenie-siete-v-systeme-debian11)
-  * [Dodatok k nastaveniu statickej IPv6 adrese v systeme Debian11](#dodatok-k-nastaveniu-statickej-ipv6-adrese-v-systeme-debian11)
+    * [Dodatok k nastaveniu statickej IPv6 adrese v systeme Debian11](#dodatok-k-nastaveniu-statickej-ipv6-adrese-v-systeme-debian11)
   * [Nastavenie siete v systeme CentOS](#nastavenie-siete-v-systeme-centos)
   * [Nastavenie siete v systeme Fedora 35 Server](#nastavenie-siete-v-systeme-fedora-35-server)
   * [Ako konfigurovat siet v systeme Ubuntu 20.04](#ako-konfigurovat-siet-v-systeme-ubuntu-2004)
@@ -3430,3 +3430,4 @@ Tip: Ako zalohovat pomocou programu `rsync` vsetky *.dotfile* a *.dotdirectory*:
 #### Obsah tejto stranky bol vygenerovany BASH skritpom:
 
 - na odkaze: `https://github.com/ekalinin/github-markdown-toc`
+  - obsah bolo potrebne dodatocne upravit
