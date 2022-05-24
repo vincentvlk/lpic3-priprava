@@ -511,11 +511,12 @@ Ako mozeme vypisat otvorene subory, napr. pre 1 uzivatela: `$ lsof | grep studen
 
 Ako mozeme vypisat systemove volania nejakeho programu, napr.: `$ strace cat /dev/null`
 
- - na presmerovanie do suboru treba pouzit err redirect: `2>`
+- na presmerovanie do suboru treba pouzit err redirect: `2>`
 
 Ako mozem vypisat nacitane kniznice nejakeho programu: `$ man 1 ltrace`
 
- - da sa pouzit aj program `ldd`: `$ man 8 ldd`
+- da sa pouzit aj program `ldd`
+  - dalsie informacie: `$ man ldd`
 
 Ako vypisat vsetky vlakna spustenych procesov: `$ ps m`
 
