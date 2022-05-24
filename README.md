@@ -339,11 +339,11 @@ Tip: ako zmenit vlastnikov na adresary alebo subore: `# chown -R root:vgnas /mnt
 
 Tip: ako nastavit prava na subore alebo adresary: `# chmod g+w /mnt/lvnas1`
 
-Tip: Ako vypisat parametre kernelu, s ktorymi nabootoval: `$ cat /proc/cmdline`
+Tip: ako vypisat parametre kernelu, s ktorymi nabootoval: `$ cat /proc/cmdline`
 
-Tip: Ako zistit ake KILL signaly system podporuje: `$ kill -l`
+Tip: ako zistit ake KILL signaly system podporuje: `$ kill -l`
 
-Tip: Nastroj na kontrolu syntaxe BASH skriptov: `shellcheck`
+Tip: nastroj na kontrolu syntaxe BASH skriptov: `shellcheck`
 
 #### Zaklady prace so suborovymi *inode-mi*:
 
