@@ -13,6 +13,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
   * [Obsah:](#obsah)
   * [Moj skromny nazor na priority pri realizacii projektov na OS GNU/Linux:](#moj-skromny-nazor-na-priority-pri-realizacii-projektov-na-os-gnulinux)
 * * *
+
 * [Zakladne tipy a triky pre operacny system GNU/Linux](#zakladne-tipy-a-triky-pre-operacny-system-gnulinux)
   * [Zakladne nastavenie siete v systeme Debian11:](#zakladne-nastavenie-siete-v-systeme-debian11)
   * [Dodatok k nastaveniu statickej IPv6 adrese v systeme Debian11:](#dodatok-k-nastaveniu-statickej-ipv6-adrese-v-systeme-debian11)
