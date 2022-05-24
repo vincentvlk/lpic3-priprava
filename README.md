@@ -32,7 +32,7 @@ Poznamky na skusku LPIC3-304-200 - Virtualization & High Availability
   * [Jednoduchy priklad na hladanie substringu zo systemoveho vypisu:](#jednoduchy-priklad-na-hladanie-substringu-zo-systemoveho-vypisu)
   * [Dalsie zdroje k zakladom BASH skriptov:](#dalsie-zdroje-k-zakladom-bash-skriptov)
   * [Praca s prenosom suborov po sieti:](#praca-s-prenosom-suborov-po-sieti)
-  * [Praca s projektom SSHFS - SSH File System:](#praca-s-projektom-sshfs---ssh-file-system)
+  * [Praca s projektom *SSHFS - SSH File System*:](#praca-s-projektom-sshfs---ssh-file-system)
   * [Praca s premennymi prostredia v interprete BASH:](#praca-s-premennymi-prostredia-v-interprete-bash)
 * [Zaklady prace s vyvojarskymi nastrojmi:](#zaklady-prace-s-vyvojarskymi-nastrojmi)
   * [Jednoduchy priklad ako kompilovat zdrojove subory v jazyku <em>C</em>:](#jednoduchy-priklad-ako-kompilovat-zdrojove-subory-v-jazyku-c)
