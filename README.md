@@ -443,7 +443,7 @@ Ako sledovat real-time priebeh systemoveho logu: `$ journalctl -f`
 
 Ako ulozit urcite logy v text formate: `$ journalctl -u ssh -o old > sshd.log`
 
- - ako ulozit rovnaky log napr. vo formate "json": `$ journalctl -u ssh -o json > sshd.log.json`
+ - ako ulozit rovnaky log, napr. vo formate *JSON*, s: `$ journalctl -u ssh -o json > sshd.log.json`
 
 #### Tipy k praci s uzivatelskymi uctami:
 
