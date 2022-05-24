@@ -1969,7 +1969,7 @@ Poznamka: v systeme OpenSUSE Leap sa da pouzit na konf. iSCSI Initatora TUI nast
 * * *
 Zaklady prace s HA - High Availability Cultermi v systeme GNU/Linux
 -----------------
-Hlavne stavebne kamene HA Clustrov na systeme GNU/Linux: `Pacemaker` a `Corosync`.
+Hlavne stavebne kamene HA Clustrov postavenych na systeme GNU/Linux: `Pacemaker` a `Corosync`.
 
 Na pracu s HA-lusterom je vhodne mat *DNS zaznami typu A/PTR uzlov*, pripadne zaznami v `/etc/hosts`
 
