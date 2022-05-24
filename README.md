@@ -227,11 +227,11 @@ Nastavime prehladavanie domeny, aby sme nemuseli zadavat cele FQDN:
 
     $ sudo nmcli connection modify ens33 ipv4.dns-search example.com
 
-Nastavime manualnu staticku konfiguraciu rozhrania "ens33"
+Nastavime manualnu staticku konfiguraciu rozhrania *ens33*
 
     $ sudo nmcli connection modify ens33 ipv4.method manual
 
-Dalej "restartujeme" konfiguraciu rozhrania "ens33"
+Dalej *restartujeme* konfiguraciu rozhrania *ens33*
 
     $ sudo nmcli connection down ens33; nmcli connection up ens33 
 
