@@ -82,30 +82,30 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
 * * *
 
 * [Zaklady prace s HA - High Availability Cultermi v systeme GNU/Linux](#zaklady-prace-s-ha---high-availability-cultermi-v-systeme-gnulinux)
-  * [Trocha teorie: CIB - Cluster Information Base, Stav Clustra v pamati systemu](#trocha-teorie-cib---cluster-information-base-stav-clustra-v-pamati-systemu)
-  * [Priklad instalacie Multicast clustra na systeme OpenSUSE Leap s nastrojom crm](#priklad-instalacie-multicast-clustra-na-systeme-opensuse-leap-s-nastrojom-crm)
+  * [Trocha teorie: *CIB* - Cluster Information Base, Stav Clustra v pamati systemu](#trocha-teorie-cib---cluster-information-base-stav-clustra-v-pamati-systemu)
+  * [Priklad instalacie Multicast Clustra na systeme OpenSUSE Leap s nastrojom crm](#priklad-instalacie-multicast-clustra-na-systeme-opensuse-leap-s-nastrojom-crm)
   * [Dalsia praca s nastrojom crm](#dalsia-praca-s-nastrojom-crm)
   * [Praca s RA - Resource Agents](#praca-s-ra---resource-agents)
-  * [Priklad instalacie Unicast clustra v systeme CentOS Stream 9 - nastroj pcs](#priklad-instalacie-unicast-clustra-v-systeme-centos-stream-9---nastroj-pcs)
+  * [Priklad instalacie Unicast Clustra v systeme CentOS Stream 9 - nastroj pcs](#priklad-instalacie-unicast-clustra-v-systeme-centos-stream-9---nastroj-pcs)
   * [Dalsia praca s Cluster nastrojom `pcs`](#dalsia-praca-s-cluster-nastrojom-pcs)
-  * [Zjednoduseny priklad ako vytvorit WebServer cluster pomocou crm na OS OpenSUSE Leap 15.3](#zjednoduseny-priklad-ako-vytvorit-webserver-cluster-pomocou-crm-na-os-opensuse-leap-153)
-  * [Zjednoduseny priklad ako vytvorit WebServer cluster pomocou pcs na CentOS Stream 9](#zjednoduseny-priklad-ako-vytvorit-webserver-cluster-pomocou-pcs-na-centos-stream-9)
-  * [Pri zostavovani clustra nastrojom pcs](#pri-zostavovani-clustra-nastrojom-pcs)
+  * [Zjednoduseny priklad ako vytvorit WebServer Cluster pomocou crm na OS OpenSUSE Leap 15.3](#zjednoduseny-priklad-ako-vytvorit-webserver-cluster-pomocou-crm-na-os-opensuse-leap-153)
+  * [Zjednoduseny priklad ako vytvorit WebServer Cluster pomocou pcs na CentOS Stream 9](#zjednoduseny-priklad-ako-vytvorit-webserver-cluster-pomocou-pcs-na-centos-stream-9)
+  * [Pri zostavovani Clustra nastrojom pcs](#pri-zostavovani-clustra-nastrojom-pcs)
   * [V distribucii OpenSUSE je konfiguracia Cluster kvora](#v-distribucii-opensuse-je-konfiguracia-cluster-kvora)
   * [Zaklady konceptu Node Fencing/STONITH](#zaklady-konceptu-node-fencingstonith)
   * [Konfiguracia Fencing-u v systeme CentOS Stream 9](#konfiguracia-fencing-u-v-systeme-centos-stream-9)
   * [Ako pouzivat SBD Fencing na VM](#ako-pouzivat-sbd-fencing-na-vm)
-  * [Praca s <em>Cluster Resources</em>, teda zdroje, ktore dokaze cluster poskytovat](#praca-s-cluster-resources-teda-zdroje-ktore-dokaze-cluster-poskytovat)
+  * [Praca s <em>Cluster Resources</em>, teda zdroje, ktore dokaze Cluster poskytovat](#praca-s-cluster-resources-teda-zdroje-ktore-dokaze-cluster-poskytovat)
     * [Praca s obmedzeniami zdrojov <em>Resource constraints</em>](#praca-s-obmedzeniami-zdrojov-resource-constraints)
-    * [Praca s cluster obmedzeniami pomocou konceptu <em>Resource Groups</em>](#praca-s-cluster-obmedzeniami-pomocou-konceptu-resource-groups)
+    * [Praca s Cluster obmedzeniami pomocou konceptu <em>Resource Groups</em>](#praca-s-cluster-obmedzeniami-pomocou-konceptu-resource-groups)
     * [Praca s konceptom <em>Cluster Resource Clones</em>](#praca-s-konceptom-cluster-resource-clones)
     * [Priklad ako vytvorit Cluster s <em>FTP server zdrojom</em> pomocou pcs](#priklad-ako-vytvorit-cluster-s-ftp-server-zdrojom-pomocou-pcs)
-    * [Priklad tvorby zdrojov clustera s obmedzeniami/constraints pomocou nastroja crm](#priklad-tvorby-zdrojov-clustera-s-obmedzeniamiconstraints-pomocou-nastroja-crm)
-    * [Zaklady manazmentu zdrojov Clustera s nastrojmi pcs a crm](#zaklady-manazmentu-zdrojov-clustera-s-nastrojmi-pcs-a-crm)
+    * [Priklad tvorby zdrojov Clustra s obmedzeniami/constraints pomocou nastroja crm](#priklad-tvorby-zdrojov-clustera-s-obmedzeniamiconstraints-pomocou-nastroja-crm)
+    * [Zaklady manazmentu zdrojov Clustra s nastrojmi `pcs` a `crm`](#zaklady-manazmentu-zdrojov-clustera-s-nastrojmi-pcs-a-crm)
     * [Dalsie tipy a triky pre nastroje crm a pcs na spravu uzlov a zdrojov v Clustroch](#dalsie-tipy-a-triky-pre-nastroje-crm-a-pcs-na-spravu-uzlov-a-zdrojov-v-clustroch)
     * [Praca s Cluter logmi projektov <em>Corosync</em> a <em>Pacemaker</em>](#praca-s-cluter-logmi-projektov-corosync-a-pacemaker)
-    * [Dalsie priklady na manazment Clustra s nastrojom pcs](#dalsie-priklady-na-manazment-clustra-s-nastrojom-pcs)
-    * [Dalsie priklady na manazment Clustra s nastrojom crm](#dalsie-priklady-na-manazment-clustra-s-nastrojom-crm)
+    * [Dalsie priklady na manazment Clustra s nastrojom `pcs`](#dalsie-priklady-na-manazment-clustra-s-nastrojom-pcs)
+    * [Dalsie priklady na manazment Clustra s nastrojom `crm`](#dalsie-priklady-na-manazment-clustra-s-nastrojom-crm)
 * [Zaklady prace so <em>Storage</em> rieseniami v Cluster prostredi GNU/Linux](#zaklady-prace-so-storage-rieseniami-v-cluster-prostredi-gnulinux)
   * [Ako na instalaciu/nasadenie technologie <em>iSCSI Multipath</em>](#ako-na-instalaciunasadenie-technologie-iscsi-multipath)
   * [Priklad instalacie riesenia <em>Device Mapper Multipath</em> v OS CentOS Stream 9](#priklad-instalacie-riesenia-device-mapper-multipath-v-os-centos-stream-9)
@@ -1907,7 +1907,7 @@ Tip: na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-
 
 - konfiguraciu firewallu overime s: `$ sudo firewall-cmd --list-all`
 
-Poznamka: iSCSI target sa da prevadzkovat v Cluster-y nad systemom DRBD.
+Poznamka: iSCSI target sa da prevadzkovat v Clustry nad systemom DRBD.
 
 Tip: ako v OS "Fedora Server 35" nainstalovat NetworkManager-TUI: `$ sudo dnf install NetworkManager-tui`
 
@@ -1969,11 +1969,12 @@ Poznamka: v systeme OpenSUSE Leap sa da pouzit na konf. iSCSI Initatora TUI nast
 * * *
 Zaklady prace s HA - High Availability Cultermi v systeme GNU/Linux
 -----------------
-Hlavne stavebne kamene HA Cluster-ov na systeme GNU/Linux: `Pacemaker` a `Corosync`.
+Hlavne stavebne kamene HA Clustrov na systeme GNU/Linux: `Pacemaker` a `Corosync`.
 
 Na pracu s HA-lusterom je vhodne mat *DNS zaznami typu A/PTR uzlov*, pripadne zaznami v `/etc/hosts`
 
-#### Trocha teorie: CIB - Cluster Information Base, Stav Clustra v pamati systemu
+#### Trocha teorie: *CIB* - Cluster Information Base
+ - je aktualny stav Clustra v pamati systemu
  - ako kopia existuje na kazdom uzle, subor sa *NESMIE* rucne upravovat
  - na spravu CIB sa pouziva nastroj `cibadmin`, napr. vypis databazy: `$ sudo cibadmin -Q | less`
  - proces *Cluster Resource Management Daemon* `crmd`, umoznuje pristup k tejto databaze
@@ -2109,7 +2110,7 @@ Tip: ako vypisat stav technologie *Quorum*, ktora zabranuje vzniku *split-brain*
  - obvzvlast nebezpecny je efekt *split-brain* pre uloziska, teda *storage resources*
  - ciastocne sa da stav kvora sledovat prikazom: `$ sudo crm_mon`
 
-#### Pri zostavovani clustra nastrojom `pcs`:
+#### Pri zostavovani Clustra nastrojom `pcs`:
  - teda prikazom: `$ sudo pcs cluster setup`, mame moznosti:
  - parameter `--wait_for_all` - vypocet kvora sa zacne az po zacleneni vsetkych uzlov/nodes
  - parameter `--auto_tie_breaker` - pri 50% *hlasov* sa vitaz urci ako uzol s najnizsim ID
@@ -2119,8 +2120,8 @@ Tip: ako vypisat stav technologie *Quorum*, ktora zabranuje vzniku *split-brain*
 
 #### V distribucii OpenSUSE je konfiguracia Cluster kvora:
  - dostupna v subore `/etc/corosync/corosync.conf`
- - priklad na konfiguraciu kvora v subore `corosync.conf`:
  - zmeny samozrejme robime v LABe, inak treba robit *off-peak udrzbu* a mat pripravene zalohy konf.
+ - priklad na konfiguraciu kvora v subore `corosync.conf`:
 ```
 quorum {
         provider: corosync_votequorum
