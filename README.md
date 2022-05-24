@@ -24,7 +24,7 @@ Poznamky su rozdelene na dve hlavne casti:
     * [Zaklady prace so suborovymi <em>inode-mi</em>:](#zaklady-prace-so-suborovymi-inode-mi)
     * [Zaklady prace s boot-loaderom GRUB2:](#zaklady-prace-s-boot-loaderom-grub2)
   * [Zaklady prace s inicializacnym systemom <em>SystemD</em>:](#zaklady-prace-s-inicializacnym-systemom-systemd)
-    * [Logovanie a diasgnostika user-space nastrojov:](#logovanie-a-diasgnostika-user-space-nastrojov)
+    * [Logovanie a diagnostika user-space nastrojov:](#logovanie-a-diagnostika-user-space-nastrojov)
   * [Tipy k praci s uzivatelskymi uctami:](#tipy-k-praci-s-uzivatelskymi-uctami)
   * [Cron a planovanie v kratkosti:](#cron-a-planovanie-v-kratkosti)
   * [Praca s monitorovanim procesov/programov:](#praca-s-monitorovanim-procesovprogramov)
@@ -396,7 +396,7 @@ Tip: Ako restartovat system: `$ sudo shutdown -r now`
 
 Tip: Ako zabezpecit, aby sa do systemu mohol prihlasit len superuser, vytvorime subor: `/etc/nologin`
 
-### Logovanie a diasgnostika user-space nastrojov:
+### Logovanie a diagnostika user-space nastrojov:
 
 Ako vypisat od zaciatku log z bootovania: `$ journalctl -b`
 
