@@ -2179,7 +2179,7 @@ Poznamka: ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
 
 #### Praca s *Cluster Resources*, teda zdroje, ktore dokaze cluster poskytovat:
  - mame k dispozicii tieto typy zdrojov: `Primitive`, `Clone`, `Multi State (Master/Slave)`, `Group`
-   - typ `Primitive` - singularny zdroj spravovany resource manazerom clustra, ma "bezat" iba raz
+   - typ `Primitive` - singularny zdroj spravovany resource manazerom clustra, ma *bezat iba raz*
    - typ `Clone` - zdroj, ktori spravuje cluster a bezi na viacerych uzloch viac-krat, napr. cLVM
    - typ `Multi State (Master/Slave)` - zdroje bezia v hierarchii, priklad je *DRBD*
    - typ `Group` - skupina zdrojov, teda skupina `Primitives` a `Clones`, napr. *HA Webserver*
@@ -2193,7 +2193,7 @@ Poznamka: ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
  - rozdelujeme na tri typy: `Location`, `Colocation` a `Order`:
    - typ `Location` - na ktorom uzle ma *bezat* dany zdroj/resource, preferencia uzla
    - typ `Colocation` - s ktorym dalsim zdrojom, ma/nema bezat dany zdroj
-   - typ `Order` - pred ktorym alebo za ktorym zdrojom ma dany zdroj *bezat*
+   - typ `Order` - pred ktorym, alebo, za ktorym zdrojom ma dany zdroj *bezat*
  - prikazy `$ sudo crm migrate` a `$ sudo crm resource move`, prikazu obmedzenia danemu zdroju
    - prikazmi `$ sudo crm unmigrate` resp. `$ sudo crm resource clear` tieto obmedzenia odstranime
  - pomocou nastroja `crm` mozeme vypisat stav riadenia obmedzeni: `$ sudo crm_simulate -sL`
@@ -2209,9 +2209,9 @@ Poznamka: ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
  - postup zaradovania zdrojov do skupiny pomocou nastroja `crm`:
  - otvorime konfiguraciu clustera s: `$ sudo crm configure edit`
  - pridame riadok, ktory dva (existujuce) IP zdroje `admin-ip` a `dalsiaIP` zaradi do group `IPgroup`
-
+```
     group IPgroup admin-ip dalsiaIP
-
+```
  - subor ulozime a overime, napr. prikazom: `$ sudo crm_mon`
 
 Poznamka: ako na *troubleshooting*, teda hladanie a riesenie problemov s *Resource Groups*:
