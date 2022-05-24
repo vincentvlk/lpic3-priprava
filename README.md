@@ -303,7 +303,7 @@ Nasledne mozeme pouzit: `lvm> help`
 - prikaz detailne vypise Logical Volumes: `lvdisplay`
 
 Na pracu s LVM vytvorime jednu alebo viac PV particii na realnych diskoch s nastrojmi `cfdisk`, `fdisk`, `parted`
-- nasledne particiu naformatujeme pozadovanym FS s `mkfs.XYZ` 
+- nasledne particiu naformatujeme pozadovanym FS napr. s: `$ sudo mkfs.XYZ` 
 
 Prikaz vytvori VG s nazvom `vg-nas` a pouzije prve PV (particiu): `# vgcreate vg-nas /dev/sdb1`
  - nasledne rozsirime tuto VG (pool) o dalsiu PV particiu: `$ sudo vgextend vg-nas /dev/sdc1`
