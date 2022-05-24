@@ -3387,7 +3387,7 @@ Tip: Ako zalohovat pomocou programu `rsync` vsetky *.dotfile* a *.dotdirectory*:
 
     https://www.server-world.info/en/
  
-- neviem do kedy bude online a chyba praca s protkolom IPv6 :-(
+- neviem do kedy bude online a chyba praca s protokolom IPv6 :(
 
 #### Ak system nepreklada DNS zaznami a hlasi: "Temporary failure in name resolution"
  - treba skontrolovat syntax suboru `/etc/resolv.conf`
