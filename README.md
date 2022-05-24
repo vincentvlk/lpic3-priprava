@@ -33,11 +33,11 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
   * [Praca s TCP/UDP aplikaciami, socketmi:](#praca-s-tcpudp-aplikaciami-socketmi)
 * [Praca s BASH skriptami, interpretom a dalsimi nastrojmi v prostredi GNU/Linux:](#praca-s-bash-skriptami-interpretom-a-dalsimi-nastrojmi-v-prostredi-gnulinux)
   * [Prikazovy interpret BASH ma specialne premenne pre argumenty, napr. skript ashow.sh:](#prikazovy-interpret-bash-ma-specialne-premenne-pre-argumenty-napr-skript-ashowsh)
-  * [Priklad na riadenie toku v BASH skripte s prikazom if:](#priklad-na-riadenie-toku-v-bash-skripte-s-prikazom-if)
+  * [Priklad na riadenie toku v BASH skripte s prikazom `if`:](#priklad-na-riadenie-toku-v-bash-skripte-s-prikazom-if)
   * [Dalsie poznamky k zakladom prace v BASH terminale/interprete a prostredi OS GNU/Linux:](#dalsie-poznamky-k-zakladom-prace-v-bash-terminaleinterprete-a-prostredi-os-gnulinux)
   * [Priklad na cvicny input error handling (osetrenie chybneho vstupu) v jazyku BASH:](#priklad-na-cvicny-input-error-handling-osetrenie-chybneho-vstupu-v-jazyku-bash)
   * [Priklad: BASH skript nacita vo for slucke hodnoty z `.txt` suboru do premennej `$ip`:](#priklad-bash-skript-nacita-vo-for-slucke-hodnoty-z-txt-suboru-do-premennej-ip)
-  * [Ako vytvorit skript s jednoduchym "select" menu v jazyku BASH:](#ako-vytvorit-skript-s-jednoduchym-select-menu-v-jazyku-bash)
+  * [Ako vytvorit skript s jednoduchym *select* menu v jazyku BASH:](#ako-vytvorit-skript-s-jednoduchym-select-menu-v-jazyku-bash)
   * [Jednoduchy priklad na hladanie substringu zo systemoveho vypisu:](#jednoduchy-priklad-na-hladanie-substringu-zo-systemoveho-vypisu)
   * [Dalsie zdroje k zakladom BASH skriptov:](#dalsie-zdroje-k-zakladom-bash-skriptov)
   * [Praca s prenosom suborov po sieti:](#praca-s-prenosom-suborov-po-sieti)
@@ -398,7 +398,7 @@ Tip: Ako prepnut `run-level` do `single-user` modu: `$ sudo telinit -s`
 Tip: Ako restartovat system: `$ sudo shutdown -r now`
  - pripadne za 10 min.: `$ sudo shutdown -r +10`
 
-Tip: Ako zabezpecit, aby sa do systemu mohol prihlasit len superuser, vytvorime subor: `/etc/nologin`
+Tip: Ako zabezpecit, aby sa do systemu mohol prihlasit len superuser, vytvorime subor: `$ sudo touch /etc/nologin`
 
 ### Logovanie a diagnostika user-space nastrojov:
 
@@ -498,7 +498,7 @@ Dalsie monitorovacie alternativy su: `atop`, `htop` alebo `btop`
 
 Ako mozeme vypisat otvorene subory, napr. pre 1 uzivatela: `$ lsof | grep student`
 
-- vhodne pozriet: `$ man 8 lsof`
+- vhodne pozriet: `$ man lsof`
 
 - napr. prikaz, ktory vypise otvorene subory, pre dany PID: `$ lsof -p 1234`
 
@@ -536,7 +536,7 @@ Ako zmenit CPU prioritu (Niceness, zhovievavost k inym procesom) daneho procesu:
 
  - default hodnota je `0`, rozsah je `-20` az `20`, ani hodnota `20` sa `NEDOPORUCUJE`.
 
- - top prioritu, teda najnizsiu zhovievavost (NEDOPORUCUJE SA) nastavime s:
+ - top prioritu, teda najnizsiu zhovievavost (NEDOPORUCUJE sa) nastavime s:
 
    - prikaz: `$ sudo renice -20 <PID>` 
 
@@ -613,7 +613,7 @@ Do suboru mozeme pisat riadky napr.:
 Aplikujeme zmeny tak, ze ak sa "odrezeme", konf. sa obnovi po 20 sek: `$ sudo iptables-apply -t 20`
 
 Je dobre si uvedomit, ze IPtables su nahradene komplexnym nastrojom `NFtables` (aj ked zlozitejsim) 
- - vid.: `www.netfilter.org/projects/nftables/index.html`
+ - dalsie informacie: `www.netfilter.org/projects/nftables/index.html`
 
 Ako vypisat IPv4 ARP tabulku a zaroven aj IPv6 ND tabulku: `$ ip neigh`
  - opat sa da skratit na: `$ ip n`
@@ -761,7 +761,7 @@ Ako nastavit velkost historie BASH interpretu (v RAM): `$ export HISTSIZE=2000`
 Ako nastavit do BASH historie, datum a cas: `$ export HISTTIMEFORMAT="%d/%m/%y %T "`
  - overime s prikazom: `$ history`
 
-Ako spustit prikaz, aby sa neulozil do historie, prefixujeme ho "medzerou": `$  prikaz`
+Ako spustit prikaz, aby sa neulozil do historie, prefixujeme ho *medzerou*: `$  prikaz`
  - napr. prikaz `$ ping linux.com` sa ulozi do historie, ale prikaz `$  ping linux.com` nie 
  - da sa nastavit premenna, aby hist. ignorovala duplicity a " ": `$ export HISTCONTROL=ignoreboth`
 
@@ -1041,7 +1041,7 @@ Testovanie BASH premennej s logickymi operatormi: `if [[ $vek -ge 0 ]] && [[ $ve
 
     # koniec skriptu
 ```
-#### Priklad: BASH skript nacita vo `for` slucke hodnoty z .txt suboru do premennej `$ip`:
+#### Priklad: BASH skript nacita vo `for` slucke hodnoty z `.txt` suboru do premennej `$ip`:
 ```bash
     #!/bin/bash
     for ip in $(cat /home/dev1/ip_adresy.txt)
@@ -1052,7 +1052,7 @@ Testovanie BASH premennej s logickymi operatormi: `if [[ $vek -ge 0 ]] && [[ $ve
 
     # koniec skriptu
 ```
-#### Ako vytvorit skript s jednoduchym "select" menu v jazyku BASH:
+#### Ako vytvorit skript s jednoduchym *select* menu v jazyku BASH:
 ```bash
     #!/bin/bash
     #
@@ -1237,7 +1237,7 @@ Vytvorime jednoduchy cvicny zdrojovy subor `pokus.java`:
     }
 ```
 
- - program skompilujeme do tzv. "byte code" formatu s priponou `.class`: `$ javac pokus.java`
+ - program skompilujeme do tzv. *byte code* formatu s priponou `.class`: `$ javac pokus.java`
  - vznikne bytecode subor `MyFirstProgram.class`, ktory spustime prikazom: `$ java MyFirstProgram`
 
 #### Ako kompilovat a instalovat distribuovane zdrojove baliky:
@@ -1245,14 +1245,14 @@ Vytvorime jednoduchy cvicny zdrojovy subor `pokus.java`:
  - do vytvoreneho adresara stiahneme zdrojovy balik:
    - prikaz: `$ wget https://ftp.gnu.org/gnu/coreutils/coreutils-9.0.tar.gz`
  - rozbalime zdrojovy archiv: `$ tar -xvzf coreutils-9.0.tar.gz`
- - v rozbalenom adresary `coreutils-9.0` spustime konfiguracny "GNU Autoconf" skript `configure`
+ - v rozbalenom adresary `coreutils-9.0` spustime konfiguracny *GNU Autoconf* skript `configure`
  - tento skript konfiguruje parametre kompilacie a naslednej instalacie
  - skript spustime s parametrom cieloveho adresara kompilacie a instalacie: 
    - prikaz: `$ ./configure --prefix=$HOME/test_coreutils`
  - nasledne po konfiguracii spustime v danom adresary kompilaciu: `$ make`
  - skompilovane programy a binarne objekty najdeme v adresary `coreutils-9.0/src/`
  - po kompilacii mozeme spustit rozsiahle overenie kompilacie: `$ make check`
- - po kompilacii mozeme "na sucho / dry run" spustit test instalacie: `$ make -n install`
+ - po kompilacii mozeme *na sucho/dry run* spustit test instalacie: `$ make -n install`
  - po overeni mozeme spustit samotnu instalaciu: `$ make install`
  - po instalacii v adresary `test_coreutils` vzniknu adresare `bin`, `libexec`, `share`
  - na Debian-based distr. je nastroj na nastavenie parametrov `.deb` balickov `checkinstall`:
