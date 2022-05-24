@@ -2194,7 +2194,7 @@ Poznamka: ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
    - typ `Location` - na ktorom uzle ma *bezat* dany zdroj/resource, preferencia uzla
    - typ `Colocation` - s ktorym dalsim zdrojom, ma/nema bezat dany zdroj
    - typ `Order` - pred ktorym, alebo, za ktorym zdrojom ma dany zdroj *bezat*
- - prikazy `$ sudo crm migrate` a `$ sudo crm resource move`, prikazu obmedzenia danemu zdroju
+ - prikazy `$ sudo crm migrate` a `$ sudo crm resource move`, zadefinuju obmedzenia danemu zdroju
    - prikazmi `$ sudo crm unmigrate` resp. `$ sudo crm resource clear` tieto obmedzenia odstranime
  - pomocou nastroja `crm` mozeme vypisat stav riadenia obmedzeni: `$ sudo crm_simulate -sL`
  - doporuceny dizaj je vsak pouzivat koncept *Resource Groups*
