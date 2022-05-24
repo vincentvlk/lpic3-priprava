@@ -1872,9 +1872,13 @@ Tip: Na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-
 - prepneme sa do rezimu *ACLs*, teda: `/iscsi/iqn.20...t01/tpg1> cd acls`
   - ACL : Access Control List, pravidla na riadenie pristupu *k LUNom*
 
-- zadefinujeme, ktore *Initiator-IQN (client)* ma prisup na dany LUN: `/iscsi/iqn.20...t01/tpg1/acls> create iqn.2022-03.lpic3.suse1:www.node01.init01`
+- zadefinujeme, ktory *Initiator-IQN (client)* ma prisup na dany LUN:
 
-- prepneme sa do rezimu *Initiator-IQN*, teda: `/iscsi/iqn.20...t01/tpg1/acls> cd iqn.2022-03.lpic3.suse1:www.node01.init01/`
+`/iscsi/iqn.20...t01/tpg1/acls> create iqn.2022-03.lpic3.suse1:www.node01.init01`
+
+- prepneme sa do rezimu *Initiator-IQN*, teda:
+
+`/iscsi/iqn.20...t01/tpg1/acls> cd iqn.2022-03.lpic3.suse1:www.node01.init01/`
 
 - nastavime meno uzivatela: `/iscsi/iqn.20...node01.init01> set auth userid=lpic3iscsi`
 
