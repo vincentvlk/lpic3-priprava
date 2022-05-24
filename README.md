@@ -10,8 +10,8 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
 ### Obsah:
 
 * [Poznamky na skusku LPIC3-304-200 - Virtualization &amp; High Availability](#poznamky-na-skusku-lpic3-304-200---virtualization--high-availability)
-  * [Obsah:](#obsah)
-  * [Moj skromny nazor na priority pri realizacii projektov na OS GNU/Linux:](#moj-skromny-nazor-na-priority-pri-realizacii-projektov-na-os-gnulinux)
+  * [Obsah](#obsah)
+  * [Moj skromny nazor na priority pri realizacii projektov na OS GNU/Linux](#moj-skromny-nazor-na-priority-pri-realizacii-projektov-na-os-gnulinux)
 * * *
 
 * [Zakladne tipy a triky pre operacny system GNU/Linux](#zakladne-tipy-a-triky-pre-operacny-system-gnulinux)
@@ -87,7 +87,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
   * [Dalsia praca s nastrojom crm:](#dalsia-praca-s-nastrojom-crm)
   * [Praca s RA - Resource Agents:](#praca-s-ra---resource-agents)
   * [Priklad instalacie Unicast clustra v systeme CentOS Stream 9 - nastroj pcs:](#priklad-instalacie-unicast-clustra-v-systeme-centos-stream-9---nastroj-pcs)
-  * [Dalsia praca s Cluster nastrojom pcs:](#dalsia-praca-s-cluster-nastrojom-pcs)
+  * [Dalsia praca s Cluster nastrojom `pcs`:](#dalsia-praca-s-cluster-nastrojom-pcs)
   * [Zjednoduseny priklad ako vytvorit WebServer cluster pomocou crm na OS OpenSUSE Leap 15.3:](#zjednoduseny-priklad-ako-vytvorit-webserver-cluster-pomocou-crm-na-os-opensuse-leap-153)
   * [Zjednoduseny priklad ako vytvorit WebServer cluster pomocou pcs na CentOS Stream 9:](#zjednoduseny-priklad-ako-vytvorit-webserver-cluster-pomocou-pcs-na-centos-stream-9)
   * [Pri zostavovani clustra nastrojom pcs:](#pri-zostavovani-clustra-nastrojom-pcs)
