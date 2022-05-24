@@ -3023,13 +3023,13 @@ Instalacia najznamejsieho nastroja Docker nie je zlozita, ale ani trivialna, jed
 
 `https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04`
 
-Ako otestovat instalaciu Docker-a a jeho pripojenie na Docker Hub: `$ docker run hello-world`
+Ako otestovat instalaciu Docker-a a jeho pripojenie na *Docker Hub*: `$ docker run hello-world`
 
-Na zakladne vytvorenie Docker kontajneru je potrebne definovat Docker file s nazvom `Dockerfile`
+Na prvotne vytvorenie Docker kontajneru je potrebne definovat *Docker file* s nazvom `Dockerfile`
 
 Tento Docker file je vhodne umiestnit do oddeleneho adresara.
 
-Obsah suboru moze byt podla jednoducheho prikladu, kedy definujeme kontajner systemu Alpine Linux:
+Obsah suboru moze byt podla jednoducheho prikladu, ktorym definujeme kontajner systemu Alpine Linux:
 
     FROM alpine:latest
     RUN apk add bash
@@ -3039,7 +3039,7 @@ Obsah suboru moze byt podla jednoducheho prikladu, kedy definujeme kontajner sys
 
 #### Zakladne prikazy pre nastroj Docker:
 
-Ako vypisat zakladne informacie o instalacii Docker a o systeme, na ktorom bezi: `$ docker info`
+Ako vypisat informacie o instalacii Docker a o systeme, na ktorom bezi: `$ docker info`
 
 Ako vypisat vytvorene Docker image: `$ docker images`
 
@@ -3065,7 +3065,7 @@ Ako zastavit kontajner: `$ docker stop <ID/nazov>`
 
 Ako spustit zastaveny kontajner: `$ docker start <ID/nazov>`
 
-Ako sa pripojit na "kozolu" kontajneru, ktory bezi: `$ docker attach <ID/nazov>`
+Ako sa pripojit na *konzolu* kontajneru, ktory bezi: `$ docker attach <ID/nazov>`
 
 Ako sa odpojit od konzoly kontajnera, v terminale za sebou stlacime skratky: `Ctrl+p` a `Ctrl+q`
 
