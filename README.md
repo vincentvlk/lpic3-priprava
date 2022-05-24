@@ -568,7 +568,7 @@ Ako overit konektivitu sietoveho zariadenia: `$ ping 9.9.9.9`
  - ekvivalent pre IPv6: `$ ping6 2620:fe::9`
 
 Ako vypisat vsetky TCP a UDP sockety: `$ sudo ss -tupa`
- - vhodne pozriet: `$ man 8 ss`
+ - vhodne pozriet: `$ man ss`
 
 Ako vypisat reverzny PTR zaznam pre danu IP adresu: `$ host 9.9.9.9`
  - pre IPv6: `$ host 2620:fe::9`
@@ -577,7 +577,7 @@ Ako vypisat reverzny PTR zaznam pre danu IP adresu: `$ host 9.9.9.9`
 Pozriet nastroje `NetworkManager` a `systemd.networkd(5)`
 
 Konf. subory, ktore zabezpecuju DNS preklad: `/etc/nsswitch.conf`, `/etc/hosts`, `/etc/resolv.conf`
- - zvycajne vsak konfigurovane s inymi nastrojmi ako `Networkmanager`, `Netplan`, alebo 'nmtui'
+ - zvycajne vsak konfigurovane s inymi nastrojmi ako su `NetworkManager`, `Netplan` alebo `nmtui`
 
 Ako overit, ze na DNS preklady sa pouziva Cache: `$ nslookup -debug quad9.net`
  - vo vypise vidime riadky: `Server: 127.0.0.53` a `Address: 127.0.0.53#53`
