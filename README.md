@@ -3,7 +3,7 @@ Poznamky na skusku LPIC3-304-200 - Virtualization & High Availability
 
 #### Uvod:
 
-Poznamky su rozdelene na dve hlavne casti:
+Poznamky su rozdelene na dve hlavne casti (v obsahu oddelene ciarou):
 1. Zaklady operacneho systemu GNU/Linux
 2. Poznamky k predmetnym temam certifikacnej skusky LPIC3 304-200
 
@@ -150,6 +150,7 @@ Poznamky su rozdelene na dve hlavne casti:
 
     + zvazit nasadenie IPv6, ak je to mozne (definitivne by uz malo byt)
 
+* * *
 Zakladne tipy a triky pre operacny system GNU/Linux
 ----------------------
 
