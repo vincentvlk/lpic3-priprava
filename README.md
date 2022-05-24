@@ -975,7 +975,8 @@ Ako overit obsah lokalnej *APT cache* (Deb/Ubu): `$ ls -l /var/cache/apt/archive
 Ako zistit, ake su v systeme nainstalovane baliky: `$ apt list --installed`
 
 Ako vypisat info. o HW pod nainstalovanym systemom: `$ sudo lshw > hw.txt`
- - mozeme vypisat JSON resp. HTML format: `$ sudo lshw -json > hw.json` resp. `$ sudo lshw -html > hw.html`
+ - mozeme vypisat JSON resp. HTML format: `$ sudo lshw -json > hw.json`
+   - resp. `$ sudo lshw -html > hw.html`
  - uspornejsi vypis ziskame s: `$ sudo lshw -short`
 
 Podrobne informacie o CPU ziskame s: `$ lscpu`
