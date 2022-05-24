@@ -11,7 +11,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
 
 * [Poznamky na skusku LPIC3-304-200 - Virtualization &amp; High Availability](#poznamky-na-skusku-lpic3-304-200---virtualization--high-availability)
   * [Obsah](#obsah)
-  * [Moj skromny nazor na priority pri realizacii projektov na OS GNU/Linux](#moj-skromny-nazor-na-priority-pri-realizacii-projektov-na-os-gnulinux)
+    * [Moj skromny nazor na priority pri realizacii projektov na OS GNU/Linux](#moj-skromny-nazor-na-priority-pri-realizacii-projektov-na-os-gnulinux)
 * * *
 
 * [Zakladne tipy a triky pre operacny system GNU/Linux](#zakladne-tipy-a-triky-pre-operacny-system-gnulinux)
@@ -131,7 +131,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
 * [Virtualizacny nastroj <em>VirtualBox</em>](#virtualizacny-nastroj-virtualbox)
 * [Nastroj <em>Packer</em> sluzi na automatizovanu tvorbu a konfiguraciu VM imagov](#nastroj-packer-sluzi-na-automatizovanu-tvorbu-a-konfiguraciu-vm-imagov)
 * [Nastroj <em>Vagrant</em> sa vyuziva](#nastroj-vagrant-sa-vyuziva)
-* [Praca s kniznicou/nastrojmi/API pod nazvom projektu libvirt](#praca-s-kniznicounastrojmiapi-pod-nazvom-projektu-libvirt)
+* [Praca s kniznicou/nastrojmi/API pod nazvom projektu `libvirt`](#praca-s-kniznicounastrojmiapi-pod-nazvom-projektu-libvirt)
 * [Praca s VM hosting stackom z komponentov <em>KVM,  QEMU, libvirt</em> na OS Rocky Linux 8.5](#praca-s-vm-hosting-stackom-z-komponentov-kvm--qemu-libvirt-na-os-rocky-linux-85)
 * [Praca so sadou virtualizacnych nastrojov pod nazvom projektu <em>oVirt</em>](#praca-so-sadou-virtualizacnych-nastrojov-pod-nazvom-projektu-ovirt)
   * [Zjednoduseny postup instalacie oVirt prostredia s NFS storage riesenim na OS Rocky Linux 8.5](#zjednoduseny-postup-instalacie-ovirt-prostredia-s-nfs-storage-riesenim-na-os-rocky-linux-85)
