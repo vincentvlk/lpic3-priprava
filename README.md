@@ -295,12 +295,12 @@ Prikaz na interaktivne CLI: `$ sudo lvm`
 
 Nasledne mozeme pouzit: `lvm> help`
 
-    Prikaz vypise Physical Volumes: pvs
-    Prikaz detailne vypise Physical Volumes: pvdisplay
-    Prikaz vypise Volume Groups: vgs
-    Prikaz detailne vypise Volume Groups: vgdispaly
-    Prikaz vipise Logical Volumes: lvs
-    Prikaz detailne vypise Logical Volumes: lvdisplay
+- prikaz vypise Physical Volumes: `pvs`
+- prikaz detailne vypise Physical Volumes: `pvdisplay`
+- prikaz vypise Volume Groups: `vgs`
+- prikaz detailne vypise Volume Groups: `vgdispaly`
+- prikaz vipise Logical Volumes: `lvs`
+- prikaz detailne vypise Logical Volumes: `lvdisplay`
 
 Na pracu s LVM vytvorime jednu alebo viac PV particii na realnych diskoch s nastrojmi `cfdisk`, `fdisk`, `parted`
 - nasledne particiu naformatujeme pozadovanym FS s `mkfs.XYZ` 
