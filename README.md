@@ -47,9 +47,6 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
   * [Jednoduchy priklad ako kompilovat zdrojove subory v jazyku <em>C</em>](#jednoduchy-priklad-ako-kompilovat-zdrojove-subory-v-jazyku-c)
   * [Jednoduchy priklad ako kompilovat zdrojove subory v jazyku <em>Java</em>](#jednoduchy-priklad-ako-kompilovat-zdrojove-subory-v-jazyku-java)
   * [Ako kompilovat a instalovat distribuovane zdrojove baliky](#ako-kompilovat-a-instalovat-distribuovane-zdrojove-baliky)
-* [Zaklady prace s virtualnymi kontajnermi, projekt Docker](#zaklady-prace-s-virtualnymi-kontajnermi-projekt-docker)
-  * [Zakladne prikazy pre nastroj Docker](#zakladne-prikazy-pre-nastroj-docker)
-  * [Dalsie poznamky k praci s Docker-om](#dalsie-poznamky-k-praci-s-docker-om)
 * [Zaklady prace s nastrojom Git a platformou GitHub](#zaklady-prace-s-nastrojom-git-a-platformou-github)
     * [Ako replikovat lokalny Git repozitar na vzdialeny server, napr. na GitHub](#ako-replikovat-lokalny-git-repozitar-na-vzdialeny-server-napr-na-github)
 * [Zaklady bezpecnosti v operacnom systeme GNU/Linux](#zaklady-bezpecnosti-v-operacnom-systeme-gnulinux)
@@ -84,7 +81,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
 * [Zaklady prace s HA - High Availability Cultermi v systeme GNU/Linux](#zaklady-prace-s-ha---high-availability-cultermi-v-systeme-gnulinux)
   * [Trocha teorie: *CIB* - Cluster Information Base, Stav Clustra v pamati systemu](#trocha-teorie-cib---cluster-information-base-stav-clustra-v-pamati-systemu)
   * [Priklad instalacie Multicast Clustra na systeme OpenSUSE Leap s nastrojom crm](#priklad-instalacie-multicast-clustra-na-systeme-opensuse-leap-s-nastrojom-crm)
-  * [Dalsia praca s nastrojom crm](#dalsia-praca-s-nastrojom-crm)
+  * [Dalsia praca s nastrojom `crm`](#dalsia-praca-s-nastrojom-crm)
   * [Praca s RA - Resource Agents](#praca-s-ra---resource-agents)
   * [Priklad instalacie Unicast Clustra v systeme CentOS Stream 9 - nastroj pcs](#priklad-instalacie-unicast-clustra-v-systeme-centos-stream-9---nastroj-pcs)
   * [Dalsia praca s Cluster nastrojom `pcs`](#dalsia-praca-s-cluster-nastrojom-pcs)
@@ -128,9 +125,12 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
   * [Zaklady prace s <em>OS-level virtualization</em> projektami <em>OpenVZ</em> a <em>LXC</em>](#zaklady-prace-s-os-level-virtualization-projektami-openvz-a-lxc)
     * [Praca s projektom <em>OpenVZ</em>, ktory pracuje s kontajnermi](#praca-s-projektom-openvz-ktory-pracuje-s-kontajnermi)
     * [Praca s virtualizacnou platformou <em>LXC - Linux Containers</em>](#praca-s-virtualizacnou-platformou-lxc---linux-containers)
-    * [Virtualizacny nastroj <em>VirtualBox</em>](#virtualizacny-nastroj-virtualbox)
-    * [Nastroj <em>Packer</em> sluzi na automatizovanu tvorbu a konfiguraciu VM imagov](#nastroj-packer-sluzi-na-automatizovanu-tvorbu-a-konfiguraciu-vm-imagov)
-    * [Nastroj <em>Vagrant</em> sa vyuziva](#nastroj-vagrant-sa-vyuziva)
+* [Zaklady prace s virtualnymi kontajnermi, projekt Docker](#zaklady-prace-s-virtualnymi-kontajnermi-projekt-docker)
+  * [Zakladne prikazy pre nastroj Docker](#zakladne-prikazy-pre-nastroj-docker)
+  * [Dalsie poznamky k praci s Docker-om](#dalsie-poznamky-k-praci-s-docker-om)
+* [Virtualizacny nastroj <em>VirtualBox</em>](#virtualizacny-nastroj-virtualbox)
+* [Nastroj <em>Packer</em> sluzi na automatizovanu tvorbu a konfiguraciu VM imagov](#nastroj-packer-sluzi-na-automatizovanu-tvorbu-a-konfiguraciu-vm-imagov)
+* [Nastroj <em>Vagrant</em> sa vyuziva](#nastroj-vagrant-sa-vyuziva)
 * [Praca s kniznicou/nastrojmi/API pod nazvom projektu libvirt](#praca-s-kniznicounastrojmiapi-pod-nazvom-projektu-libvirt)
 * [Praca s VM hosting stackom z komponentov <em>KVM,  QEMU, libvirt</em> na OS Rocky Linux 8.5](#praca-s-vm-hosting-stackom-z-komponentov-kvm--qemu-libvirt-na-os-rocky-linux-85)
 * [Praca so sadou virtualizacnych nastrojov pod nazvom projektu <em>oVirt</em>](#praca-so-sadou-virtualizacnych-nastrojov-pod-nazvom-projektu-ovirt)
@@ -195,7 +195,7 @@ Potom do suboru `/etc/network/interfaces` pridat `IPv6` riadky napr.:
 
 #### Nastavenie siete v systeme CentOS:
 
-Pouzil som nejake GNOME GUI, neviem preco sa to hned neaplikovalo.
+Pouzil som nejake GNOME GUI, neviem preco sa zmeny hned neaplikovali.
   - alternativne sa da pouzit nastroj `nmtui`, instalujeme: `$ sudo dnf -y in NetworkManager-tui`
   - nasledne uz len spustime: `$ sudo nmtui`
 
@@ -306,7 +306,7 @@ Nasledne mozeme pouzit: `lvm> help`
 Na pracu s LVM vytvorime jednu alebo viac PV particii na realnych diskoch s nastrojmi `cfdisk`, `fdisk`, `parted`
 - nasledne particiu naformatujeme pozadovanym FS napr. s: `$ sudo mkfs.XYZ` 
 
-Prikaz vytvori VG s nazvom `vg-nas` a pouzije prve PV (particiu): `# vgcreate vg-nas /dev/sdb1`
+Prikaz vytvori VG pool s nazvom `vg-nas` a pouzije prvu PV particiu: `$ sudo vgcreate vg-nas /dev/sdb1`
  - nasledne rozsirime tuto VG (pool) o dalsiu PV particiu: `$ sudo vgextend vg-nas /dev/sdc1`
 
 Prikaz vytvori LV particiu `lvnas1` z danej VG `vg-nas`: 
@@ -1261,123 +1261,7 @@ Vytvorime jednoduchy cvicny zdrojovy subor `pokus.java`:
  - *POZOR* na testovacej instalacii sa da spustit tvorba balicka: `$ sudo checkinstall make install`
  - hore uvedenym prikazom sa da rozbit system, tak si treba na test VM spravit *snapshot/backup*
 
-### Zaklady prace s virtualnymi kontajnermi, projekt Docker:
-
-Instalacia najznamejsieho nastroja Docker nie je zlozita, ale ani trivialna, jeden z postupov:
-
-`https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04`
-
-Ako otestovat instalaciu Docker-a a jeho pripojenie na Docker Hub: `$ docker run hello-world`
-
-Na zakladne vytvorenie Docker kontajneru je potrebne definovat Docker file s nazvom `Dockerfile`
-
-Tento Docker file je vhodne umiestnit do oddeleneho adresara.
-
-Obsah suboru moze byt podla jednoducheho prikladu, kedy definujeme kontajner systemu Alpine Linux:
-
-    FROM alpine:latest
-    RUN apk add bash
-    CMD ["/bin/bash"]
-
-- po ulozeni suboru mozeme zostavit image nasledovne: `$ docker build -t alpine_test1 .`
-
-#### Zakladne prikazy pre nastroj Docker:
-
-Ako vypisat zakladne informacie o instalacii Docker a o systeme, na ktorom bezi: `$ docker info`
-
-Ako vypisat vytvorene Docker image: `$ docker images`
-
-Ako spustit kontajner (z image) a pripojit sa na jeho "konzolu": `$ docker run -it alpine_test1`
-
-Ako sledovat aktualnu alokaciu zdrojov: `$ docker stats`
-
-Ako vypisat zoznam aktivnych kontajnerov: `$ docker ps`
-
-Ako vypisat aktivne aj neaktivne kontajnery: `$ docker ps -a`
-
-Ako vypisat posledny vytvoreny kontajner: `$ docker ps -l`
-
-Ako zmazat neaktivny kontajner: `$ docker rm <ID/nazov>`
-
-Ako zmazat Docker image: `$ docker rmi <ID/nazov image>`
-
-Ako hladat image na Docker Hub-e: `$ docker search ubuntu`
-
-Ako stiahnut image z Docker Hub-u: `$ docker pull ubuntu`
-
-Ako zastavit kontajner: `$ docker stop <ID/nazov>`
-
-Ako spustit zastaveny kontajner: `$ docker start <ID/nazov>`
-
-Ako sa pripojit na "kozolu" kontajneru, ktory bezi: `$ docker attach <ID/nazov>`
-
-Ako sa odpojit od konzoly kontajnera, v terminale za sebou stlacime skratky: `Ctrl+p` a `Ctrl+q`
-
-#### Dalsie poznamky k praci s Docker-om:
-
-Jednoduche web prostredie na ucenie/testovanie Docker-u: `https://labs.play-with-docker.com/`
- - dalsie informacie: `https://www.docker.com/play-with-docker`
-
-Priklad ako spustit v *sandboxe* prostredi web server `nginx`, zadame: `$ docker container run -d -it nginx`
-
-Pre pomoc s CLI, staci zadat prikaz bez parametrov, napr.: `$ docker container`
-
-Priklad ako vytvorit zmenu v Docker image a commitovat ju:
-- zadame : `$ docker commit -m "pridany nmap" -a "Jan Novak" <cont-ID> <hub-repoID>/moje-ubu:latest`
-
- - nasledne overime s: `$ docker image ls`
- - mozeme napr. z noveho image spustit container s: `$ docker container run -it ddnovak/moje-ubu`
-
-*POZOR*, prikaz vymaze *vsetky nebeziace* kontajnery: 
- - prikaz: `$ docker container rm $(docker container ls -a -q)`
- - pripadne na *VLASTNE RIZIKO* mozeme spustit s paramentrom: `rm -f`
-
-Ako spustit testovaci webserver v kontajnery s nazvom `moj_lab` (vonkajsi port je *TCP/8080*):
-
-prikaz: `$ docker container run -d -p 8080:80 --name=moj_lab nginx`
-
- - overime s: `$ docker ps`
- - nasledne otestujeme pripojenie s browserom, alebo napr. `$ curl localhost:8080`
- - dalsie informacie: `$ docker container run --help`
- - alternativne, image s web serverom Apache2, nazov image zmenime na: `httpd`
-
-Ako vypisat otvorene TCP porty kontajnera: `$ docker container port <contID/contNAME>`
-
-Ako vypisat logy z kontajnera (napr. server nginx): `$ docker container logs <contID/contNAME>`
- - sledovanie v realnom case, doplnime parameter: `logs -f`
-
-Ako sledovat zdroje konkretneho kontajnera: `$ docker container stats <contID/contNAME>`
-
-Ako vypisat detailne informacie o kontajnery: `$ docker container inspect <contID/contNAME>`
-
-Ako spustit kontajner, hned s prikazovym riadkom: 
-
-prikaz: `$ docker container run --name=ubu-con1 -it ubuntu`
- - alebo, spustime interaktivny BASH na uz vytvorenom kontajnery: `$ docker exec -it ubu-con1 bash`
- - alebo, spustime (zastaveny) kontajner v interaktivnom mode: `$ docker start -i ubu-con1`
-
-Ako vypisat kolko miesta na disku zaberaju kontajnery: `$ docker ps -as`
-
-Ako vytvorit perzistentne ulozisko pre kontajner *Docker Volume*: `$ docker volume create <nazov>`
- - overime s `$ docker volume ls`
- - dalsie informacie: `$ docker volume --help`
-
-Ako vytvorit *nginx* kontajner s namapovanyn uloziskom *volume*:
-
-prikaz: `$ docker run -d --name moja_web_app -p 80:80 -v <nazov_vol>:/usr/share/nginx/html nginx`
- 
-- mozeme manipulovat s obsahom *web root* adresara v: `/var/lib/docker/volumes/mojvol/_data/`
-- priklad: `$ sudo cp /etc/services /var/lib/docker/volumes/mojvol/_data/index.html`
-- overime napr. s: `$ curl localhost:80`
-
-Poznamka: ak chceme vymazat Docker image, treba najskor pomazat z neho vytvorene kontajnery.
-
-*POZOR*, automaticky nastroj na cistenie tzv. *dangling* Docker image-ov: `$ docker system prune`
- - dalsie informacie: `$ docker system prune --help`
- - celkom uzitocna diagnostika zabrateho miesta: `$ docker system df`
-
 ### Zaklady prace s nastrojom Git a platformou GitHub:
-
 Vytvorime adresar `git_ucenie`, v ktorom inicializujeme *lokalny* Git repozitar: `$ git init`
  - aktualny stav repozitara overime s: `$ git status`
  - nastavime identitu uzivatela na pridavanie zmien: `$ git config --global --edit`
@@ -1408,7 +1292,6 @@ Chceme napr. zmenit format zapisu poznamok, mozeme vytvorit novu "vetvu", tzv. *
  - overime s: `$ git status`
 
 #### Ako replikovat lokalny Git repozitar na vzdialeny server, napr. na GitHub:
-
 - na platforme `github.com` si vytvorime uzivatelsky ucet
 - je potrebne vytvorit si autentifikacny Token, tzv. *PAT - Personal Access Token*, podla odkazu:
 
@@ -3134,7 +3017,120 @@ lxc.idmap = g 0 165536 65536
    - kont. zastavime s: `$ lxc-stop -n lxctest1`
    - kont. vymazeme, ak je zastaveny, prikazom: `$ lxc-destroy lxctest1`
 
-Poznamka: praca s platformou Docker je uz vyssie popisana v tychto poznamkach
+### Zaklady prace s virtualnymi kontajnermi na plaforme Docker:
+
+Instalacia najznamejsieho nastroja Docker nie je zlozita, ale ani trivialna, jeden z postupov:
+
+`https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04`
+
+Ako otestovat instalaciu Docker-a a jeho pripojenie na Docker Hub: `$ docker run hello-world`
+
+Na zakladne vytvorenie Docker kontajneru je potrebne definovat Docker file s nazvom `Dockerfile`
+
+Tento Docker file je vhodne umiestnit do oddeleneho adresara.
+
+Obsah suboru moze byt podla jednoducheho prikladu, kedy definujeme kontajner systemu Alpine Linux:
+
+    FROM alpine:latest
+    RUN apk add bash
+    CMD ["/bin/bash"]
+
+- po ulozeni suboru mozeme zostavit image nasledovne: `$ docker build -t alpine_test1 .`
+
+#### Zakladne prikazy pre nastroj Docker:
+
+Ako vypisat zakladne informacie o instalacii Docker a o systeme, na ktorom bezi: `$ docker info`
+
+Ako vypisat vytvorene Docker image: `$ docker images`
+
+Ako spustit kontajner (z image) a pripojit sa na jeho "konzolu": `$ docker run -it alpine_test1`
+
+Ako sledovat aktualnu alokaciu zdrojov: `$ docker stats`
+
+Ako vypisat zoznam aktivnych kontajnerov: `$ docker ps`
+
+Ako vypisat aktivne aj neaktivne kontajnery: `$ docker ps -a`
+
+Ako vypisat posledny vytvoreny kontajner: `$ docker ps -l`
+
+Ako zmazat neaktivny kontajner: `$ docker rm <ID/nazov>`
+
+Ako zmazat Docker image: `$ docker rmi <ID/nazov image>`
+
+Ako hladat image na Docker Hub-e: `$ docker search ubuntu`
+
+Ako stiahnut image z Docker Hub-u: `$ docker pull ubuntu`
+
+Ako zastavit kontajner: `$ docker stop <ID/nazov>`
+
+Ako spustit zastaveny kontajner: `$ docker start <ID/nazov>`
+
+Ako sa pripojit na "kozolu" kontajneru, ktory bezi: `$ docker attach <ID/nazov>`
+
+Ako sa odpojit od konzoly kontajnera, v terminale za sebou stlacime skratky: `Ctrl+p` a `Ctrl+q`
+
+#### Dalsie poznamky k praci s Docker-om:
+
+Jednoduche web prostredie na ucenie/testovanie Docker-u: `https://labs.play-with-docker.com/`
+ - dalsie informacie: `https://www.docker.com/play-with-docker`
+
+Priklad ako spustit v *sandboxe* prostredi web server `nginx`, zadame: `$ docker container run -d -it nginx`
+
+Pre pomoc s CLI, staci zadat prikaz bez parametrov, napr.: `$ docker container`
+
+Priklad ako vytvorit zmenu v Docker image a commitovat ju:
+- zadame : `$ docker commit -m "pridany nmap" -a "Jan Novak" <cont-ID> <hub-repoID>/moje-ubu:latest`
+
+ - nasledne overime s: `$ docker image ls`
+ - mozeme napr. z noveho image spustit container s: `$ docker container run -it ddnovak/moje-ubu`
+
+*POZOR*, prikaz vymaze *vsetky nebeziace* kontajnery: 
+ - prikaz: `$ docker container rm $(docker container ls -a -q)`
+ - pripadne na *VLASTNE RIZIKO* mozeme spustit s paramentrom: `rm -f`
+
+Ako spustit testovaci webserver v kontajnery s nazvom `moj_lab` (vonkajsi port je *TCP/8080*):
+
+prikaz: `$ docker container run -d -p 8080:80 --name=moj_lab nginx`
+
+ - overime s: `$ docker ps`
+ - nasledne otestujeme pripojenie s browserom, alebo napr. `$ curl localhost:8080`
+ - dalsie informacie: `$ docker container run --help`
+ - alternativne, image s web serverom Apache2, nazov image zmenime na: `httpd`
+
+Ako vypisat otvorene TCP porty kontajnera: `$ docker container port <contID/contNAME>`
+
+Ako vypisat logy z kontajnera (napr. server nginx): `$ docker container logs <contID/contNAME>`
+ - sledovanie v realnom case, doplnime parameter: `logs -f`
+
+Ako sledovat zdroje konkretneho kontajnera: `$ docker container stats <contID/contNAME>`
+
+Ako vypisat detailne informacie o kontajnery: `$ docker container inspect <contID/contNAME>`
+
+Ako spustit kontajner, hned s prikazovym riadkom: 
+
+prikaz: `$ docker container run --name=ubu-con1 -it ubuntu`
+ - alebo, spustime interaktivny BASH na uz vytvorenom kontajnery: `$ docker exec -it ubu-con1 bash`
+ - alebo, spustime (zastaveny) kontajner v interaktivnom mode: `$ docker start -i ubu-con1`
+
+Ako vypisat kolko miesta na disku zaberaju kontajnery: `$ docker ps -as`
+
+Ako vytvorit perzistentne ulozisko pre kontajner *Docker Volume*: `$ docker volume create <nazov>`
+ - overime s `$ docker volume ls`
+ - dalsie informacie: `$ docker volume --help`
+
+Ako vytvorit *nginx* kontajner s namapovanyn uloziskom *volume*:
+
+prikaz: `$ docker run -d --name moja_web_app -p 80:80 -v <nazov_vol>:/usr/share/nginx/html nginx`
+ 
+- mozeme manipulovat s obsahom *web root* adresara v: `/var/lib/docker/volumes/mojvol/_data/`
+- priklad: `$ sudo cp /etc/services /var/lib/docker/volumes/mojvol/_data/index.html`
+- overime napr. s: `$ curl localhost:80`
+
+Poznamka: ak chceme vymazat Docker image, treba najskor pomazat z neho vytvorene kontajnery.
+
+*POZOR*, automaticky nastroj na cistenie tzv. *dangling* Docker image-ov: `$ docker system prune`
+ - dalsie informacie: `$ docker system prune --help`
+ - celkom uzitocna diagnostika zabrateho miesta: `$ docker system df`
 
 #### Virtualizacny nastroj *VirtualBox*:
  - je to tzv. *hosted hypervisor/Type-2 hypervisor*, ktory sa instaluje ako Aplikacia na OS
