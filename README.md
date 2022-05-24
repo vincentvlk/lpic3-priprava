@@ -1662,11 +1662,12 @@ Dalsi nastroj na *Rootkit* detekciu je `chkrootkit`
 - instalujeme: `$ sudo apt install bind9 bind9-utils bind9-doc`
 - dalsie implementacie autoritativnych DNS serverov: `Knot DNS`, `DNSmasq`, `PowerDNS`, ...
 - standardna `bind9` Ubu/Deb instalacia spusti *Cache-only* server, pocuva na IPv4 aj IPv6
-- ak to chceme zmenit, upravime `/etc/default/named`, do riadku `OPTIONS="-u bind"`, pridame parameter `-4` alebo `-6`, vzajomne sa vylucuju
+- ak to chceme zmenit, upravime konf. subor `/etc/default/named`
+  - do riadku `OPTIONS="-u bind"` pridame parameter `-4` alebo `-6`, vzajomne sa *vylucuju*
 - hlavna konfiguracia DNS servera *BIND9* je v subore `/etc/bind/named.conf`
 - ked chceme pridat tzv. *forwarder* servery, pridame do `/etc/bind/named.conf.options` riadky:
 
-```bind
+```named
     forwarders {
                     193.17.47.1;
                     185.43.135.1;
@@ -1971,7 +1972,7 @@ Zaklady prace s HA - High Availability Cultermi v systeme GNU/Linux
 -----------------
 Hlavne stavebne kamene HA Clustrov postavenych na systeme GNU/Linux: `Pacemaker` a `Corosync`.
 
-Na pracu s HA-lusterom je vhodne mat *DNS zaznami typu A/PTR uzlov*, pripadne zaznami v `/etc/hosts`
+Na pracu s HA-Clusterom je vhodne mat *DNS zaznami typu A/PTR uzlov*, pripadne zaznami v `/etc/hosts`
 
 #### Trocha teorie: *CIB* - Cluster Information Base
  - je aktualny stav Clustra v pamati systemu
