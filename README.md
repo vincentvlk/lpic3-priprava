@@ -72,7 +72,7 @@ Poznamky su rozdelene na dve hlavne casti (v obsahu oddelene ciarou):
   * [Ako nainstalovat podporu PHP na server Apache2:](#ako-nainstalovat-podporu-php-na-server-apache2)
   * [Ako zapnut v Apache2 modul na kompresiu posielaneho obsahu:](#ako-zapnut-v-apache2-modul-na-kompresiu-posielaneho-obsahu)
   * [Ako zapnut vstavane monitorovanie servera Apache2:](#ako-zapnut-vstavane-monitorovanie-servera-apache2)
-  * [Ako zablokovat na Apache2 indexovy vypis suborov, tzv. "file listing":](#ako-zablokovat-na-apache2-indexovy-vypis-suborov-tzv-file-listing)
+  * [Ako zablokovat na Apache2 indexovy vypis suborov, tzv. *file listing*:](#ako-zablokovat-na-apache2-indexovy-vypis-suborov-tzv-file-listing)
 * [Zaklady prace s automatizacnym nastrojom Ansible:](#zaklady-prace-s-automatizacnym-nastrojom-ansible)
 * [Zaklady prace s balickovacim systemom <em>Zypper</em> v systeme OpenSUSE Leap:](#zaklady-prace-s-balickovacim-systemom-zypper-v-systeme-opensuse-leap)
 * [Zaklady prace so SAN protokolom iSCSI:](#zaklady-prace-so-san-protokolom-iscsi)
@@ -1780,7 +1780,7 @@ Tip: Ako zistit, svoju verejnu IP, napr.: `$ curl ifconfig.me`, `$ curl -4 ident
    - prikaz vytvori `1000` poziadavok na server, s tym, ze sucasnych dovoli max. `100`
    - dalsie informacie: `$ man ab`
 
-#### Ako zablokovat na Apache2 indexovy vypis suborov, tzv. "file listing":
+#### Ako zablokovat na Apache2 indexovy vypis suborov, tzv. *file listing*:
 - do konf. suboru `vhost` alebo globalnej konfiguracie vlozime:
 ```apache
     <Directory /var/www/html>
