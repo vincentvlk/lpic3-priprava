@@ -626,7 +626,7 @@ Ako vytvorit testovaci TCP socket co pocuva na danom porte: `$ sudo nc -l 23`
  - na socket sa so vzdialenej stanice pripojime napr.: `$ telnet A.B.C.D 23`
  - pripadne opat s programom `nc` napr.: `$ nc A.B.C.D 23`
 
-Ako "stopovat" pripojenie programu `curl` k TCP HTTP socketu:
+Ako *stopovat* pripojenie programu `curl` k TCP HTTP socketu:
  - prikaz: `$ curl --trace-ascii tracelog.txt http://example.com`
  - nasledne si pozrieme zaznam v subore `tracelog.txt`
 
@@ -2528,7 +2528,7 @@ Tip: ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
    - overime napr. s: `$ sudo pcs status --full`
  
    - dalej instalujeme Apache2 Web Server : `$ sudo dnf -y in httpd`
-     - po instalacii si zatial nevsimame stav procesu, *chceme aby ho riadil Pacemaker*, nie "SystemD"
+     - po instalacii si zatial nevsimame stav procesu, *chceme aby ho riadil Pacemaker*, nie *SystemD*
    - na uzloch vytvorime *Server Status* konfig.: `$ sudo vim /etc/httpd/conf.d/server-status.conf`
      - vlozime konfiguraciu:
 ```apache
@@ -3043,7 +3043,7 @@ Ako vypisat informacie o instalacii Docker a o systeme, na ktorom bezi: `$ docke
 
 Ako vypisat vytvorene Docker image: `$ docker images`
 
-Ako spustit kontajner (z image) a pripojit sa na jeho "konzolu": `$ docker run -it alpine_test1`
+Ako spustit kontajner (z image) a pripojit sa na jeho *konzolu*: `$ docker run -it alpine_test1`
 
 Ako sledovat aktualnu alokaciu zdrojov: `$ docker stats`
 
