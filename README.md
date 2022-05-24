@@ -35,7 +35,7 @@ Poznamky su rozdelene na dve hlavne casti:
   * [Priklad na riadenie toku v BASH skripte s prikazom if:](#priklad-na-riadenie-toku-v-bash-skripte-s-prikazom-if)
   * [Dalsie poznamky k zakladom prace v BASH terminale/interprete a prostredi OS GNU/Linux:](#dalsie-poznamky-k-zakladom-prace-v-bash-terminaleinterprete-a-prostredi-os-gnulinux)
   * [Priklad na cvicny input error handling (osetrenie chybneho vstupu) v jazyku BASH:](#priklad-na-cvicny-input-error-handling-osetrenie-chybneho-vstupu-v-jazyku-bash)
-  * [Priklad: BASH skript nacita vo for slucke hodnoty z .txt suboru do premennej $ip:](#priklad-bash-skript-nacita-vo-for-slucke-hodnoty-z-txt-suboru-do-premennej-ip)
+  * [Priklad: BASH skript nacita vo for slucke hodnoty z `.txt` suboru do premennej `$ip`:](#priklad-bash-skript-nacita-vo-for-slucke-hodnoty-z-txt-suboru-do-premennej-ip)
   * [Ako vytvorit skript s jednoduchym "select" menu v jazyku BASH:](#ako-vytvorit-skript-s-jednoduchym-select-menu-v-jazyku-bash)
   * [Jednoduchy priklad na hladanie substringu zo systemoveho vypisu:](#jednoduchy-priklad-na-hladanie-substringu-zo-systemoveho-vypisu)
   * [Dalsie zdroje k zakladom BASH skriptov:](#dalsie-zdroje-k-zakladom-bash-skriptov)
