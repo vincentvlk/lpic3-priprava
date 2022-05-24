@@ -3,7 +3,7 @@ Poznamky na skusku LPIC3-304-200 - Virtualization & High Availability
 
 #### Uvod:
 
-Poznamky su rozdelene na 2 hlavne casti:
+Poznamky su rozdelene na dve hlavne casti:
 1. Zaklady operacneho systemu GNU/Linux
 2. Poznamky k predmetnym temam certifikacnej skusky LPIC3 304-200
 
@@ -12,6 +12,7 @@ Poznamky su rozdelene na 2 hlavne casti:
 * [Poznamky na skusku LPIC3-304-200 - Virtualization &amp; High Availability](#poznamky-na-skusku-lpic3-304-200---virtualization--high-availability)
   * [Obsah:](#obsah)
   * [Moj skromny nazor na priority pri realizacii projektov na OS GNU/Linux:](#moj-skromny-nazor-na-priority-pri-realizacii-projektov-na-os-gnulinux)
+* * *
 * [Zakladne tipy a triky pre operacny system GNU/Linux](#zakladne-tipy-a-triky-pre-operacny-system-gnulinux)
   * [Zakladne nastavenie siete v systeme Debian11:](#zakladne-nastavenie-siete-v-systeme-debian11)
   * [Dodatok k nastaveniu statickej IPv6 adrese v systeme Debian11:](#dodatok-k-nastaveniu-statickej-ipv6-adrese-v-systeme-debian11)
