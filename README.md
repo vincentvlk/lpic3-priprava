@@ -1115,9 +1115,9 @@ Testovanie BASH premennej s logickymi operatormi: `if [[ $vek -ge 0 ]] && [[ $ve
 
     if [[ "$vystup" == *"100% packet loss"*  ]]
     then
-            echo "Internetova konektiva na $1 je nedostupna."
+            echo "Internetova konektivita na $1 je nedostupna."
     else
-            echo "Konektiva (ako tak) funguje."
+            echo "Konektivita na $1 (ako tak) funguje."
     fi
 
     # koniec skpritu
