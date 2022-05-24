@@ -287,10 +287,10 @@ Ako vytvorit Swap subor, nie particiu:
     $ sudo swapon swap_file
     $ sudo swapoff swap_file	<< pozor treba mat nahradnu Swap kapacitu
  
-V kontexte Swap-u existuje v kerneli tzv. `OOM Killer`, ktory pri nedostatku pamate zabija procesy.
+V kontexte Swap-u existuje v kerneli tzv. *OOM Killer*, ktory pri nedostatku pamate zabija procesy.
+ - *OOM - Out Of Memory*
 
 #### Zaklady prace s LVM, aktualna verzia je LVM2:
-
 Prikaz na interaktivne CLI: `$ sudo lvm`
 
 Nasledne mozeme pouzit: `lvm> help`
