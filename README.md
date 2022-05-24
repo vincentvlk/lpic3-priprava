@@ -57,7 +57,7 @@ Poznamky su rozdelene na dve hlavne casti (v obsahu oddelene ciarou):
     * [Dalsie politiky hesla, napr. jeho zlozitost spravuju <em>PAM - Pluggable Authentification Modules</em>:](#dalsie-politiky-hesla-napr-jeho-zlozitost-spravuju-pam---pluggable-authentification-modules)
     * [Ako vytvorit sifrovanu particiu na HDD/SSD](#ako-vytvorit-sifrovanu-particiu-na-hddssd)
     * [Zaklady prace s nastrojom sudo:](#zaklady-prace-s-nastrojom-sudo)
-    * [V oblasti <em>Steganografie</em> sa pouziva nastroj steghide:](#v-oblasti-steganografie-sa-pouziva-nastroj-steghide)
+    * [V oblasti <em>Steganografie</em> sa pouziva nastroj `steghide`:](#v-oblasti-steganografie-sa-pouziva-nastroj-steghide)
     * [Dalsie priklady prace s uzivatelskymi uctami:](#dalsie-priklady-prace-s-uzivatelskymi-uctami)
     * [Zaklady prace s programom nmap:](#zaklady-prace-s-programom-nmap)
     * [Nastroje na detekciu tzv. <em>Rootkit-ov</em>:](#nastroje-na-detekciu-tzv-rootkit-ov)
