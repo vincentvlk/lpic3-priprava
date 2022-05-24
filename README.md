@@ -240,7 +240,7 @@ Nasledne overime config:
     $ sudo nmcli device show ens33
 
 #### Ako konfigurovat siet v systeme Ubuntu 20.04:
-Treba `presunut/zalohovat` povodny config file:
+Treba *presunut/zalohovat* povodny config file:
 
     $ sudo mv /etc/netplan/00-installer-config.yaml /etc/netplan/00-installer-config.yaml.disabled
 
