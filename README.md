@@ -56,7 +56,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
     * [Nastroj na ochranu/kontrolu integrity suborov a adresarov, projekt <em>AIDE</em>](#nastroj-na-ochranukontrolu-integrity-suborov-a-adresarov-projekt-aide)
     * [Na overovanie bezpecnosti hesla mozeme pouzit nastroj <em>John the Ripper</em>](#na-overovanie-bezpecnosti-hesla-mozeme-pouzit-nastroj-john-the-ripper)
     * [Dalsie politiky hesla, napr. jeho zlozitost spravuju <em>PAM - Pluggable Authentification Modules</em>](#dalsie-politiky-hesla-napr-jeho-zlozitost-spravuju-pam---pluggable-authentification-modules)
-    * [Ako vytvorit sifrovanu particiu na HDD/SSD](#ako-vytvorit-sifrovanu-particiu-na-hddssd)
+    * [Ako vytvorit *sifrovanu* particiu na HDD/SSD](#ako-vytvorit-sifrovanu-particiu-na-hddssd)
     * [Zaklady prace s nastrojom sudo](#zaklady-prace-s-nastrojom-sudo)
     * [V oblasti <em>Steganografie</em> sa pouziva nastroj `steghide`](#v-oblasti-steganografie-sa-pouziva-nastroj-steghide)
     * [Dalsie priklady prace s uzivatelskymi uctami](#dalsie-priklady-prace-s-uzivatelskymi-uctami)
@@ -385,8 +385,8 @@ Ako vyipsat, na com zavisi dany proces a co vyzaduje:
     $ sudo systemctl show -p Requires sshd.service
     $ sudo systemctl show -p Wants sshd.service
 
-Nastroj na spustanie viacerych programov/skriptov v jednom adresary: `run-parts(8)`
- 
+Nastroj na spustanie viacerych programov/skriptov v jednom adresary: `run-parts`
+- dalsie informacie napr.: `$ man run-parts`
 - v suvislosti so starsim Init-om podla `System V Init`
 
 Tip: ako zistit v akom run-level-y bezi system: `$ who -r`
@@ -395,7 +395,7 @@ Tip: v akom adresary sa nachadzaju `System V Init` skripty: `$ cd /etc/rc5.d/`
 
 Tip: ako prepnut `run-level` do `single-user` modu: `$ sudo telinit -s`
 
-Tip: Ako restartovat system: `$ sudo shutdown -r now`
+Tip: ako restartovat cely operacny system: `$ sudo shutdown -r now`
  - pripadne za 10 min.: `$ sudo shutdown -r +10`
 
 Tip: ako zabezpecit, aby sa do systemu mohol prihlasit len superuser:
@@ -1513,7 +1513,7 @@ Ako nastavit cas expiracie hesla na 30 dni: `$ sudo chage -M 30 <uzivatel>`
    - `ocredit=` atribut s `-1` vyzaduje aspon jeden specialny znak (special character)
    - na *RedHat-based* distribuciach sa pouziva konf. subor: `/etc/pam.d/system-auth`
 
-#### Ako vytvorit sifrovanu particiu na HDD/SSD
+#### Ako vytvorit *sifrovanu* particiu na HDD/SSD
 - je potrebne nainstalovat: `$ sudo apt install cryptsetup`
  - disk, ktory chceme sifrovat, musi byt v stave *unmounted*
  - dalej spustime sifrovanie a nastavime kluc/heslo: `$ sudo cryptsetup -y -v luksFormat /dev/sdX`
