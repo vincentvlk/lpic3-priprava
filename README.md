@@ -333,7 +333,7 @@ Ako zvacsit nejake LV z VG poolu (moze byt mounted): `$ sudo lvresize -r -L +5g 
 
 Overime s: `$ df -h /mnt/lvnas1`
 
-Tip: ako pridat uzivatela do dalsej group: `# usermod -a -G examplegroup exampleusername`
+Tip: ako pridat uzivatela do dalsej skupiny: `# usermod -a -G examplegroup exampleusername`
 
 Tip: ako zmenit vlastnikov na adresary alebo subore: `# chown -R root:vgnas /mnt/lvnas1`
 
