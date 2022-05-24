@@ -2306,7 +2306,7 @@ Tip: Ako vypisat/vlozit skrateny datum: `$ date +%H%h%Y` resp. v skripte: `$(dat
  - logovanie sa zapina v `/etc/corosync/corosync.conf`, direktiva `to_logfile: yes`
  - logovanie do `std::err`, ktore zachytava Systemd, teda `journalctl` zapneme s `to_stderr: yes`
  - zmenu mozeme replikovat s: `$ sudo pcs cluster sync`
- - nasledne restartujeme "Crosync": `$ sudo pcs cluster reload corosync`
+ - nasledne restartujeme *Corosync* s: `$ sudo pcs cluster reload corosync`
  - je vhodne zvazit strategiu a nastroje `logrotate`
  - logy nastroja *Pacemaker* najdeme v `/var/log/pacemaker/pacemaker.log`
  - mozeme pouzit spolocne logy Systemd: `$ sudo journalctl -lu pacemaker.service -u corosync.service`
