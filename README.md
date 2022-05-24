@@ -281,12 +281,13 @@ Ako vytvorit Swap subor, nie particiu:
 
 - prikaz vypise stav Swap-u: `$ sudo free -m`
 - dalej vytvorime File-IO image a pouzijeme ho ako SWAP pristor:
-
+```bash
     $ sudo dd if=/dev/zero of=swap_file bs=1024k count=pocet_MB
     $ sudo mkswap swap_file
     $ sudo swapon swap_file
     $ sudo swapoff swap_file	<< pozor treba mat nahradnu Swap kapacitu
- 
+```
+
 V kontexte Swap-u existuje v kerneli tzv. *OOM Killer*, ktory pri nedostatku pamate zabija procesy.
  - *OOM - Out Of Memory*
 
