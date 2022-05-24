@@ -3402,3 +3402,8 @@ Tip: Ako zalohovat pomocou programu `rsync` vsetky *.dotfile* a *.dotdirectory*:
     > zdroj: `https://unix.stackexchange.com/a/38380`
 
 - priklad: `$ ffmpeg -i input.mp4 -vcodec libx265 -crf 28 output.mp4`
+
+#### Obsah tejto stranky bol vygenerovany BASH skritpom:
+
+- na odkaze: `https://github.com/ekalinin/github-markdown-toc`
+  - bolo ho este potrebne dodatocne upravit
