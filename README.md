@@ -1,5 +1,12 @@
 Poznamky na skusku LPIC3-304-200 - Virtualization & High Availability
 -----------
+
+#### Uvod:
+
+Poznamky su rozdelene na 2 hlavne casti:
+1. Zaklady operacneho systemu GNU/Linux
+2. Poznamky k predmetnym temam certifikacnej skusky LPIC3 304-200
+
 ### Obsah:
 
 * [Poznamky na skusku LPIC3-304-200 - Virtualization &amp; High Availability](#poznamky-na-skusku-lpic3-304-200---virtualization--high-availability)
