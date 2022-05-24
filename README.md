@@ -1533,7 +1533,7 @@ Ako nastavit cas expiracie hesla na 30 dni: `$ sudo chage -M 30 <uzivatel>`
  - nasledne riadok `Defaults env_reset` upravime na: `Defaults env_reset, timestamp_timeout=10` 
  - mozeme nadefinovat povolene prikazy, dopiseme: `user1  ALL=(root)      /usr/bin/ls,/usr/bin/cat`
  - na zjednodusenie definujeme aliasy, priklad v subore `/etc/sudoers` moze cast vyzerat takto:
-   - vytvorime alias uzivatelov *ADMINS* v ktorom su 3 uziv., dalej alias na prikazy *FILE_OPER*
+   - vytvorime alias uzivatelov `ADMINS`, v ktorom su 3 uziv., dalej alias na prikazy `FILE_OPER`
 
 Aliasu `ADMINS` priradime povoleny prikaz `/user/bin/netstat` + alias prikazov `FILE_OPER`:
 
