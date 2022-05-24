@@ -398,7 +398,8 @@ Tip: Ako prepnut `run-level` do `single-user` modu: `$ sudo telinit -s`
 Tip: Ako restartovat system: `$ sudo shutdown -r now`
  - pripadne za 10 min.: `$ sudo shutdown -r +10`
 
-Tip: Ako zabezpecit, aby sa do systemu mohol prihlasit len superuser, vytvorime subor: `$ sudo touch /etc/nologin`
+Tip: Ako zabezpecit, aby sa do systemu mohol prihlasit len superuser:
+- vytvorime subor: `$ sudo touch /etc/nologin`
 
 ### Logovanie a diagnostika user-space nastrojov:
 
