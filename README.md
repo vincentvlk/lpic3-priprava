@@ -389,16 +389,16 @@ Nastroj na spustanie viacerych programov/skriptov v jednom adresary: `run-parts(
  
 - v suvislosti so starsim Init-om podla `System V Init`
 
-Tip: Ako zistit v akom run-level-y bezi system: `$ who -r`
+Tip: ako zistit v akom run-level-y bezi system: `$ who -r`
 
-Tip: V akom adresary sa nachadzaju `System V Init` skripty: `$ cd /etc/rc5.d/`
+Tip: v akom adresary sa nachadzaju `System V Init` skripty: `$ cd /etc/rc5.d/`
 
-Tip: Ako prepnut `run-level` do `single-user` modu: `$ sudo telinit -s`
+Tip: ako prepnut `run-level` do `single-user` modu: `$ sudo telinit -s`
 
 Tip: Ako restartovat system: `$ sudo shutdown -r now`
  - pripadne za 10 min.: `$ sudo shutdown -r +10`
 
-Tip: Ako zabezpecit, aby sa do systemu mohol prihlasit len superuser:
+Tip: ako zabezpecit, aby sa do systemu mohol prihlasit len superuser:
 - vytvorime subor: `$ sudo touch /etc/nologin`
 
 ### Logovanie a diagnostika user-space nastrojov:
@@ -949,7 +949,7 @@ Ako overit, ci sa proces/program spusti po restarte systemu: `$ sudo systemctl i
 
 Ako na jednoduchu zalohu adresara `/etc` pomocou `rsync` zadame: `$ sudo # rsync -av /etc/ /media/USBdisk1/zaloha/`
 
-Tip: Tri *divne* sposoby, ako generovat 16 znakove heslo (bez instalacie dalsich programov):
+Tip: tri *divne* sposoby, ako generovat 16 znakove heslo (bez instalacie dalsich programov):
 ```bash
     $ openssl rand -base64 12
     $ head /dev/urandom | base64 | cut -b 1-16
@@ -1133,7 +1133,7 @@ Testovanie BASH premennej s logickymi operatormi: `if [[ $vek -ge 0 ]] && [[ $ve
  - pokrocilejsie skriptovanie, napr. v knihe: `https://tldp.org/LDP/abs/abs-guide.pdf`
  - pripadne pozriet 11. kapitolu v knihe `How Linux Works by Brian Ward, ISBN-13: 9781718500402`
 
-Tip: Ako pomocou jazyka Awk vypisat deviaty stlpec z vypisu: `$ ls -l | awk '{print $9}'`
+Tip: ako pomocou jazyka *Awk* vypisat deviaty stlpec z vypisu: `$ ls -l | awk '{print $9}'`
 
 Pozriet dalsi program na spracovanie textu: `$ man sed`
 
@@ -1201,7 +1201,7 @@ Dolezite adresare na spustanie binarnych aplikacii a skriptov su ulozene v preme
 - zvycajne sa jedna o adresare: `/usr/local/bin`, `/usr/bin` a `/bin`
 - overime s prikazom: `$ echo $PATH`
 
-Tip: V definicii promptu, teda v premennej `$PS1` by sme sa mali vyhnut znakom: `{ } = & < >`
+Tip: v definicii promptu, teda v premennej `$PS1` by sme sa mali vyhnut znakom: `{ } = & < >`
  - dalsie detaily najdeme v manualy, v sekcii `PROMPTING` vid.: `$ man bash`
 
 ### Zaklady prace s vyvojarskymi nastrojmi:
@@ -1222,7 +1222,7 @@ Tip: V definicii promptu, teda v premennej `$PS1` by sme sa mali vyhnut znakom: 
 - vystupom bude spustitelny binarny subor `a.out`, spustime: `$ ./a.out`
 - pri kompilacii mozeme specifikovat nazov vystupneho suboru: `$ cc -o pokus pokus.c`
 
-Tip: Ako vypisat zdielane kniznice, ktore ma nalinkovane dany program: `$ sudo ldd /usr/bin/bash`
+Tip: ako vypisat zdielane kniznice, ktore ma nalinkovane dany program: `$ sudo ldd /usr/bin/bash`
 
 #### Jednoduchy priklad ako kompilovat zdrojove subory v jazyku *Java*:
 
@@ -1679,7 +1679,7 @@ Dalsi nastroj na *Rootkit* detekciu je `chkrootkit`
 - nasledne restartujeme proces/daemon servera: `$ sudo systemctl reload-or-restart bind9.service`
 - stav mozeme overit s: `$ sudo systemctl status bind9.service`
 
-Tip: Ako zistit, ake NS servery pouziva dana domena: `$ dig -t ns example.com`
+Tip: ako zistit, ake NS servery pouziva dana domena: `$ dig -t ns example.com`
 
 Ako pridat domenu/zonovy subor, tzv. *zone-file*, teda vytvorit autoritaivny DNS server pre domenu:
  - do suboru `/etc/bind/named.config.local` pridame riadky:
@@ -1719,7 +1719,7 @@ Ako pridat domenu/zonovy subor, tzv. *zone-file*, teda vytvorit autoritaivny DNS
  - po kontrole restartujeme DNS server: `$ sudo systemctl reload-or-restart bind9.service`
  - stav overime s: `$ sudo systemctl status bind9.service`
 
-Tip: Ako zistit, svoju verejnu IP, napr.: `$ curl ifconfig.me`, `$ curl -4 ident.me`, `$ curl -6 ident.me`
+Tip: ako zistit, svoju verejnu IP, napr.: `$ curl ifconfig.me`, `$ curl -4 ident.me`, `$ curl -6 ident.me`
  - priklad, pouzitie v skripte: `$ echo "Moja verejne IP je $(curl -s ident.me)"`
 
 ### Zaklady prace s webovym serverom Apache2:
@@ -1797,7 +1797,7 @@ Tip: Ako zistit, svoju verejnu IP, napr.: `$ curl ifconfig.me`, `$ curl -4 ident
 - *POZOR*, ak pouzijeme v konf. `+` alebo `-` vsetky moznosti `Options` *musia* obsahovat `+`/`-`
 - nasledne: `$ sudo systemctl reload apache2`
 
-Tip: Ako vypnut *podpis* servera, napr.: `Apache/2.4.41 (Ubuntu) Server at 192.168.1.244 Port 80`
+Tip: ako vypnut *podpis* servera, napr.: `Apache/2.4.41 (Ubuntu) Server at 192.168.1.244 Port 80`
  - upravime subor: `/etc/apache2/conf-available/security.conf` najdeme `ServerSignature On`
  - zmenime na: `ServerSignature Off` potom: `$ sudo systemctl reload-or-restart apache2`
  - je este vhodne zmenit `ServerTokens OS` na `ServerTokens Prod` a restartovat Apache2
@@ -1821,9 +1821,9 @@ Ako programom *Ansible* nainstalovat program `nmap` pomocou systemu *APT*:
    - ked chceme spustit *APT full-upgrade* zmenime nastavenie modulu: `upgrade=full`
    - ked chceme vycistit nepotrebne zavislosti: `autoremove=yes autoclean=yes`
 
-Tip: Ako vypisat dostupne ansible moduly: `$ ansible-doc -l`
+Tip: ako vypisat dostupne ansible moduly: `$ ansible-doc -l`
 
-Tip: Na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-w .ssh/id_rsa`
+Tip: na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-w .ssh/id_rsa`
  - pripadne sa mozu zvazit suborove *ACLka*
 
 ### Zaklady prace s balickovacim systemom *Zypper* v systeme OpenSUSE Leap:
@@ -1910,7 +1910,7 @@ Tip: Na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-
 
 Poznamka: iSCSI target sa da prevadzkovat v Cluster-y nad systemom DRBD.
 
-Tip: Ako v OS "Fedora Server 35" nainstalovat NetworkManager-TUI: `$ sudo dnf install NetworkManager-tui`
+Tip: ako v OS "Fedora Server 35" nainstalovat NetworkManager-TUI: `$ sudo dnf install NetworkManager-tui`
 
 #### Vytvorenie iSCSI initiatora *(SAN-klient)* na OS OpenSUSE Leap 15.3:
 
@@ -2019,7 +2019,7 @@ crm(live)configure# primitive newIP ocf:heartbeat:IPaddr2 params ip=192.168.255.
  - OCF ma *svoje* skripty, ako napr. *SystemD*
  - informacie o konkretnom RA ziskame s: `$ sudo crm ra info apache`
 
-Tip: Ako ulozit nastrojom `crm` konfiguraciu clustera do suboru s datumom v nazve:
+Tip: ako ulozit nastrojom `crm` konfiguraciu clustera do suboru s datumom v nazve:
  - napr. prikaz: `$ sudo crm configure save zaloha-clus-$(date +%d-%m-%Y).txt`
  - *POZOR* na testovanie v LAB prostredi mozeme zmazat CIB: `$ sudo cibadmin -E --force`
  - nasledne mozeme konfiguraciu obnovit: `$ sudo crm configure load push zaloha-clus-12-03-2022.txt`
@@ -2105,7 +2105,7 @@ Poznamka: zdroj je kvoli zjednoduseniu dostupny len na realnej IP adrese uzla, n
 Poznamka: web je kvoli zjednoduseniu dostupny len na real. IP uzla na ktorom bezi `service-apache`
  - zistime s: `$ sudo pcs resource status`
  
-Tip: Ako vypisat stav technologie *Quorum*, ktora zabranuje vzniku *split-brain* scenarov:
+Tip: ako vypisat stav technologie *Quorum*, ktora zabranuje vzniku *split-brain* scenarov:
  - prilaz: `$ sudo corosync-quorumtool`
  - obvzvlast nebezpecny je efekt *split-brain* pre uloziska, teda *storage resources*
  - ciastocne sa da stav kvora sledovat prikazom: `$ sudo crm_mon`
@@ -2293,21 +2293,21 @@ colocation web-not-ftp -10000: ftp-group apache-group
    - po upravach *zapneme*: `$ sudo crm node online <nazov-uzla>`
    - nazov uzla ziskame napr z: `$ sudo crm status`
 
-Tip: Ako dat uzol do tzv. *Maintenance Mode*:
+Tip: ako dat uzol do tzv. *Maintenance Mode*:
  - mod umoznuje udrzbu cluster software ale nema dosah na zdroje
  - prikaz nastavi *Maintenance* mod: `$ sudo crm node maintenance <nazov-uzla>`
  - nasledne po upravach: `$ sudo crm node ready <nazov-uzla>`
  - overime s: `$ sudo crm status`
 
-Tip: Ako na presuvanie zdrojov Clustra na definovane uzly:
+Tip: ako na presuvanie zdrojov Clustra na definovane uzly:
  - prikaz presunie resource group na iny uzol: `$ sudo crm resource move apache-group <nazov-uzla>`
  - ak chceme predoslemu uzlu vratit moznost bezat zdroj, tak: `$ sudo crm resource clear apache-group`
    - *POZOR*, spravanie tohto prikazu meni koncept *Resource Stickiness*
  - overime s: `$ sudo crm status`
 
-Tip: Ako na reset Failcount-erov: `$ sudo pcs resource cleanup` resp.: `$ sudo crm resource cleanup`
+Tip: ako na reset Failcount-erov: `$ sudo pcs resource cleanup` resp.: `$ sudo crm resource cleanup`
 
-Tip: Ako vypisat/vlozit skrateny datum: `$ date +%H%h%Y` resp. v skripte: `$(date +%H%h%Y)`
+Tip: ako vypisat/vlozit skrateny datum: `$ date +%H%h%Y` resp. v skripte: `$(date +%H%h%Y)`
 
 #### Praca s Cluter logmi projektov *Corosync* a *Pacemaker*:
  - loguje sa na 2 urovniach: *Corosync* a *Pacemaker*
@@ -2463,7 +2463,7 @@ resource drbd0 {
 
 Poznamka: prikazy na vypisanie informacii o diskoch a particiach: `lsblk`, `blkid`, `lsscsi`
 
-Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemctl enable --now <service>`
+Tip: ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemctl enable --now <service>`
 
 ### Zaklady prace s Cluster suborovym systemom GFS2 (Global File System):
 
@@ -2501,8 +2501,8 @@ Tip: Ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
 - zapneme repozitare: `$ sudo dnf config-manager --set-enabled ha,resilient-storage`
   - instalacia: `$ sudo dnf -y in fence-agents-scsi lvm2-lockd gfs2-utils dlm`
 
-- Tip: Prepisanie *zaciatku*, teda aj FS disku nulami: `$ sudo dd if=/dev/zero of=/dev/sda bs=1M count=100`
-- Tip: Ako v RedHat based OS zistit, ktory balik poskytuje dany *prikaz*, napr.: `$ dnf provides showmount`
+- Tip: prepisanie *zaciatku*, teda aj FS disku nulami: `$ sudo dd if=/dev/zero of=/dev/sda bs=1M count=100`
+- Tip: ako v RedHat based OS zistit, ktory balik poskytuje dany *prikaz*, napr.: `$ dnf provides showmount`
 
 ### Priklad na WebServer Cluster pomocou Pacemaker a GFS2 na OS Rocky Linux 8.5:
  - vytvorime DNS zaznamy jednotlivych uzlov, alebo v LABe definujeme `/etc/hosts`
@@ -3077,7 +3077,7 @@ Dolezity nastroj `qemu-kvm` je hlavny nastroj pre pracu s QEMU+KVM stackom:
  - v terminale spustime s: `$ sudo qemu-kvm -monitor stdio`
  - prva pomoc je prikaz `help`, dalej napr. ked zadame `info`, vypise nam moznosti prikazu
 
-Tip: Ako sledovat cinnost *sietoveho unit-u* v systemD: `$ sudo journalctl -f -u systemd-networkd`
+Tip: ako sledovat cinnost *sietoveho unit-u* v systemD: `$ sudo journalctl -f -u systemd-networkd`
 
 ### Zaklady prace s *OS-level virtualization* projektami *OpenVZ* a *LXC*:
  - tieto projekty pracuju s konceptom tzv. *kontajnerov*
@@ -3389,9 +3389,9 @@ $ brew install virt-viewer
 Nezaradene poznamky pre system GNU/Linux
 ---------------
 
-Tip: Ako vypisat vsetky *.dotfile* a *.dotdirectory*, prikaz: `$ ls -ld .??*`
+Tip: ako vypisat vsetky *.dotfile* a *.dotdirectory*, prikaz: `$ ls -ld .??*`
 
-Tip: Ako zalohovat pomocou programu `rsync` vsetky *.dotfile* a *.dotdirectory*:
+Tip: ako zalohovat pomocou programu `rsync` vsetky *.dotfile* a *.dotdirectory*:
 - prikaz: `$ rsync -av /zdrojova/cesta/.??* /cielova/cesta/`
 
 #### Ako v systeme GNU/Linux vypnut HW PC-speaker:
