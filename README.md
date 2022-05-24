@@ -3415,4 +3415,3 @@ Tip: Ako zalohovat pomocou programu `rsync` vsetky *.dotfile* a *.dotdirectory*:
 #### Obsah tejto stranky bol vygenerovany BASH skritpom:
 
 - na odkaze: `https://github.com/ekalinin/github-markdown-toc`
-  - bolo ho este potrebne dodatocne upravit
