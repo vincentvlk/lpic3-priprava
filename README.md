@@ -3,7 +3,7 @@ Poznamky na skusku LPIC3-304-200 - Virtualization & High Availability
 
 #### Uvod:
 
-Poznamky su rozdelene na dve hlavne casti (v obsahu oddelene ciarou):
+Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
 1. Zaklady operacneho systemu GNU/Linux
 2. Poznamky k predmetnym temam certifikacnej skusky LPIC3 304-200
 
@@ -79,6 +79,7 @@ Poznamky su rozdelene na dve hlavne casti (v obsahu oddelene ciarou):
   * [Vytvorenie iSCSI targetu <em>(SAN-server)</em> na OS Fedora Server 35:](#vytvorenie-iscsi-targetu-san-server-na-os-fedora-server-35)
   * [Vytvorenie iSCSI initiatora <em>(SAN-klient)</em> na OS OpenSUSE Leap 15.3:](#vytvorenie-iscsi-initiatora-san-klient-na-os-opensuse-leap-153)
 * * *
+
 * [Zaklady prace s HA - High Availability Cultermi v systeme GNU/Linux](#zaklady-prace-s-ha---high-availability-cultermi-v-systeme-gnulinux)
   * [Trocha teorie: CIB - Cluster Information Base, Stav Clustra v pamati systemu](#trocha-teorie-cib---cluster-information-base-stav-clustra-v-pamati-systemu)
   * [Priklad instalacie Multicast clustra na systeme OpenSUSE Leap s nastrojom crm:](#priklad-instalacie-multicast-clustra-na-systeme-opensuse-leap-s-nastrojom-crm)
