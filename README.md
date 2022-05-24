@@ -615,7 +615,7 @@ Ako vypisat IPv4 ARP tabulku a zaroven aj IPv6 ND tabulku: `$ ip neigh`
  - opat sa da skratit na: `$ ip n`
  - stary prikaz pre IPv4: `$ arp -an`
 
-#### Praca s TCP/UDP aplikaciami, socketmi:
+#### Praca s TCP/UDP aplikaciami a socketmi:
 
 Ako vytvorit testovaci TCP socket co pocuva na danom porte: `$ sudo nc -l 23`
  - na socket sa so vzdialenej stanice pripojime napr.: `$ telnet A.B.C.D 23`
