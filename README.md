@@ -649,7 +649,7 @@ Ako vypisat aktivne procesy pre konkretny TCP/UDP port: `$ sudo lsof -i:22`
  - ked chceme spcifikovat len TCP sockety: `$ sudo lsof -iTCP:22`
  - ked chceme este presnejsie specifikovat pre IPv6: `$ sudo lsof -i6TCP:22`
  - este napr. bez prekladu na PTR DNS: `$ sudo lsof -n -i6:22`
- - vypise aktivne a pocuvajuce UDP "streamy": `$ sudo lsof -n -iUDP`
+ - vypise aktivne a pocuvajuce *UDP streamy*: `$ sudo lsof -n -iUDP`
  - vypise stav pripojeni `protokol:port` na servery s IP `192.168.1.240` na TCP porte `22`
    - prikaz: `$ sudo lsof -iTCP@192.168.1.240:22`
 
@@ -834,7 +834,7 @@ Ako naist v kernel ring buffery `error` a vypisat 3 riadky pred a za nim: `$ sud
 Zaujimavost, ako vypisat citatelne znaky v aktualnom image RAM: `$ sudo strings /dev/mem`
  - dalsie informacie v `$ man mem` a v `$ man strings`
 
-Ako vo Vim-e spravit undo: `:e!` , alebo v "command-mode" stlacime "u"
+Ako vo Vim-e spravit undo: `:e!` , alebo v *command-mode* stlacime `u`
  - vo Vim-e vlozime novy riadok s: `o`
  - ak chceme rychlo ulozit subor a ukoncit Vim, stlacime: `Shift+zz`
  - cisla riadkov zapneme s: `:set nu`
@@ -1003,7 +1003,7 @@ Ako zistit kolko trvalo bootovanie pomocou *SystemD*, zadame: `$ systemd-analyze
  - da sa detailne vypisat, na com sa travilo najviac casu pri boot-e: `$ systemd-analyze blame`
 
 Ako vypisat *len EXT4-FS* mount-pointy: `$ mount -l -t ext4`
- - dalsi priklad pre VFAT-FS, ktory byva na USB "klucoch": `$ mount -l -t vfat`
+ - dalsi priklad pre VFAT-FS, ktory byva na *USB klucoch*: `$ mount -l -t vfat`
 
 Ako vytvorit bitovu kopiu USB disku: `$ sudo dd status=progress if=/dev/sdb of=/home/user1/usb-backup.img`
  - nasledne obnova z image-file: `$ sudo dd status=progress if=/home/user1/usb-backup.img of=/dev/sdb`
@@ -1451,7 +1451,7 @@ Ako docasne deaktivovat *password-auth* pre daneho uzivatela: `$ sudo passwd -l 
  - znova *aktivujeme* s: `$ sudo usermod --expiredate "" <uzivatel>`
 
 #### Zaklady prace s programom `nmap`:
-Ako s Nmap TCP skenovanim "odhadnut" verziu OS a programov: `$ sudo nmap -A -Pn -sV 192.168.1.100`
+Ako s Nmap TCP skenovanim *odhadnut* verziu OS a programov: `$ sudo nmap -A -Pn -sV 192.168.1.100`
  - parameter `-Pn` zabezpeci, ze sa nepouzije *ping-check*, nmap pokracuje aj ked sa ICMP pakety zahadzuju
  - *SEDA ZONA*, mozeme pouzit tzv. *Decoys*, napr.: `$ sudo nmap 192.168.1.2 -D A.B.C.D,E.F.G.H,I.J.K.L`
    - tieto Decoy hosty musia byt *UP*
@@ -2002,7 +2002,7 @@ Tip: ako vypisat stav technologie *Quorum*, ktora zabranuje vzniku *split-brain*
  - parameter `--auto_tie_breaker` - pri 50% *hlasov* sa vitaz urci ako uzol s najnizsim ID
  - parameter `--last_man_standing` - kvorum sa prepocitava kazdych 10s
    - treba skombinovat s `--wait_for_all` a nasledne umoznuje postupne *vypinanie* uzlov z clustra 
- - parameter `--two_node` umoznuje "bezat" cluster z 2 uzlov
+ - parameter `--two_node` umoznuje bezat cluster z *dvoch uzlov*
 
 #### V distribucii OpenSUSE je konfiguracia Cluster kvora:
  - dostupna v subore `/etc/corosync/corosync.conf`
@@ -2047,7 +2047,7 @@ Poznamka: ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
    - presnejsie informacie o agentoch ziskame s: `$ sudo stonith -h | less`
 
 #### Konfiguracia Fencing-u v systeme CentOS Stream 9:
- - da sa pouzit *Hypervisor* Fencing "device"/agent, instalujeme: `$ sudo dnf -y in fence-virtd`
+ - da sa pouzit *Hypervisor* Fencing *device/agent*, instalujeme: `$ sudo dnf -y in fence-virtd`
    - tento agent sa pouziva pri hypervizore *KVM*, kazdy hypervizor musi mat `fence-virtd`
    - hypervizory musia byt na spolocnom Multicast segmente a musia zdielat spolocny *PSK kluc*
  - *POZOR*, na TEST mozeme *odstavit* VM instanciu prikazom: `$ sudo echo c > /proc/sysrq-trigger`
@@ -2298,7 +2298,7 @@ Po ulozeni treba restartovat proces `multipathd` s: `$ sudo systemctl restart mu
  - rezim *Multi-master* umoznuje obom stroage uzlom read/write pristup, dvojcestna synchronizacia
  - specialny *Cluster filesystem* je nevyhnutny, napr. GlusterFS, OCFS2, GFS2
  - system DRBD pracuje s replikacnymi modmi:
-   - `Protocol A`: Asynchronne zapisovanie, vhodne na "long-distance" replikaciu, znizena spolahlivost
+   - `Protocol A`: Asynchronne zapisovanie, vhodne na *long-distance* replikaciu, znizena spolahlivost
    - `Protocol B`: Semi-synchronne zapisovanie
    - `Protocol C`: Synchronne zapisovanie, najvyssia uroven spolahlivost, zvycajne predvoleny rezim
 
@@ -2497,7 +2497,7 @@ Tip: ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
    - spolu start na 1 node: `$ sudo pcs constraint colocation add shared_vg-clone with locking-clone`
    - overime s: `$ sudo pcs status --full` a `$ sudo pcs constraint config`
 
-   - na oboch uzloch vytvorime adresar, kde si cluster "namountuje" GFS2: `$ sudo mkdir /mnt/gfs2disk1`
+   - na oboch uzloch vytvorime adresar, kde si cluster *namountuje* GFS2: `$ sudo mkdir /mnt/gfs2disk1`
    - vytvorime zdielany GFS2 zdroj, na ukladanie dat so synchronizaciou:
 ```bash
     $ sudo pcs resource create shared_fs ocf:heartbeat:Filesystem device="/dev/vg_gfs2/lv_gfs2" \
@@ -2505,7 +2505,7 @@ Tip: ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
     interval=10s on-fail=fence --group shared_vg
 ```
    - overime cluster stack: `$ sudo pcs status --full`
-   - ak je vsetko aktivne bez chyb, vsetky uzly budu mat dostupny GFS2 "mount": `$ sudo df -hT`
+   - ak je vsetko aktivne bez chyb, vsetky uzly budu mat dostupny *GFS2 mount*: `$ sudo df -hT`
    - da sa otestovat, ze napr. kazdy uzol zapise do `/mnt/gfs2disk1` napr. `$ sudo touch uzol1`
      - ostatne uzly uvidia subor `uzol1` v `/mnt/gfs2disk1`
 
@@ -2558,13 +2558,13 @@ Tip: ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
  - restart fwl. s: `$ sudo firewall-cmd --reload`
  - konfiguraciu firewallu overime s: `$ sudo firewall-cmd --list-all`
  - na jednom uzle vytvorime docasny adresar, napr.: `$ sudo mkdir mkdir /mnt/webdisk1/`
- - dalej na uzle docasne "namountujeme" GFS2 particiu na vytvoreny adresar: 
+ - dalej na uzle *docasne namountujeme* GFS2 particiu na vytvoreny adresar: 
  - prikaz: `$ sudo mount /dev/vg_web_clus/lv_web_clus /mnt/webdisk1/`
  - pokracujeme skopirovanim adresarovej struktury WebServera na zdielanu GFS2 particiu:
    - prikaz: `$ sudo cp -pR /var/www/* /mnt/webdisk1/`
  - pokracujeme vytvorenim jednoduchej testovacej HTTP stranky:
    - prikaz: `$ sudo echo "Testovaci Apache2 WebServer Cluster" > /mnt/webdisk1/html/index.html`
-   - dalej "odmountujeme" GFS2 particiu: `$ sudo umount /mnt/webdisk1/`
+   - dalej *odmountujeme* GFS2 particiu: `$ sudo umount /mnt/webdisk1/`
  - pokracujeme vytvorenim Cluster FS zdroja pre Apache2 WebServer v Pacemaker-y:
 ```bash
 $ sudo pcs resource create web_fs ocf:heartbeat:Filesystem device=/dev/vg_web_clus/lv_web_clus \
@@ -2607,7 +2607,7 @@ $ sudo pcs resource create apache2_srv ocf:heartbeat:apache configfile=/etc/http
 - z novej VG vytvorime nove LV `lv_ha_lvm` s: `$ sudo lvcreate -l 100%FREE -n lv_ha_lvm vg_ha_lvm`
 - na novom LV vytvorime particiu XFS s: `$ sudo mkfs.xfs /dev/vg_ha_lvm/lv_ha_lvm`
 - dalej deaktivujeme VG, aby ju mohol spravovat Pacemaker s: `$ sudo vgchange vg_ha_lvm -an`
-- na *ostatnych* uzloch "najdeme" nove PV: `$ sudo pvscan --cache --activate ay`
+- na *ostatnych* uzloch *najdeme* nove PV: `$ sudo pvscan --cache --activate ay`
 - dalej na uzle 1 vytvorime zdielany LVM zdroj prikazom:
 ```bash
 $ sudo pcs resource create lvm_shared ocf:heartbeat:LVM-activate vgname=vg_ha_lvm \
@@ -2694,7 +2694,7 @@ Zaklady konceptu *Load-Balancing* v Cluster prostredi OS GNU/Linux
    - *Lastconn*: nove pripojenie obsluzene app. serverom s najmensim poctom aktivnych pripojeni
    - *Source*: zdrojova IP klinta je hash-ovana, aby bol pouzity rovnaky app. server na dalsie requesty
  - *Keepalived*: implemetacia VRPP protokolu pre OS GNU/Linux, vytvori virtualnu IP adresu
-   - da sa nakonfigurovat "do kriza", s rozdielnymi subnetmi, na primitivny state-less Load Balancing 
+   - da sa nakonfigurovat *do kriza*, s rozdielnymi subnetmi, na primitivny state-less Load Balancing 
    - da sa vyuzit napr. ako redundancia pre *2xHAProxy* na virtualnej IP, alternativa je *Pacemaker*
 
 #### Zjednoduseny priklad instalacie load-balancera HAProxy na OS Rocky Linux 8.5:
@@ -2765,7 +2765,7 @@ backend backend_servers
 Zaklady prace s *virtualizacnymi nastrojmi* pre OS GNU/Linux
 ---------------
 - zakladne koncepty: virtualizacia vie *delit fyzicke vypoctove zdroje na viacero oddelenych casti*
-  - teda uzmonuje "bezat" *viacero virtualnych pocitacov na spolocnom zdielanom HW*
+  - teda uzmonuje bezat *viacero virtualnych pocitacov na spolocnom zdielanom HW*
   - tzv. *Hypervizor* alebo aj *VMM - Virtual Machine Monitor* spravuje a monitoruje virtualizaciu 
   - virtualizovane zdroje tvoria tzv.: *Core 4* skupinu: `procesor, pamat, ulozisko, siet`
 
@@ -2813,7 +2813,7 @@ dns-nameservers 193.17.47.1 185.43.135.1
   - podla vypisu `$ ip address` by mal byt povodny staticky IP conf. na novom `xenbr0` iface
 - instalujeme nastroje a kernel Hypervizora *Xen* s: `$ sudo apt install xen-system-amd64`
 - ak je instalcia uspesna, restartujeme Host-a a v Boot-menu vyberieme moznost *Xen Hyperisor*
-- dalej pouzivame nastroj `xl`, ktory je tzv. "tool stack" na pracu s Hypervizorom Xen:
+- dalej pouzivame nastroj `xl`, ktory je tzv. *tool stack* na pracu s Hypervizorom Xen:
   - vypiseme aktivne domeny: `$ sudo xl list`
   - informacia o Host-e ziskame s: `$ sudo xl info`
   - real-time sledovanie hypervizora: `$ sudo xl top`
@@ -2972,7 +2972,7 @@ Tip: ako sledovat cinnost *sietoveho unit-u* v systemD: `$ sudo journalctl -f -u
 #### Praca s projektom *OpenVZ*, ktory pracuje s kontajnermi:
  - kontajnery funguju ako standardny linuxovy VPS server, ktory je izolovany od ostatnych instancii
  - *OpenVZ* pouziva modifikovany Kernel, platforma podporuje tzv. *Checkpoit-y* a *Live migraciu*
-   - migracia zmrazi/Freeze stav kont. do suboru a na druhom hoste ho "rozmrazi/Unfreeze" a spusti 
+   - migracia zmrazi/Freeze stav kont. do suboru a na druhom hoste ho *rozmrazi/unfreeze* a spusti 
  - nova instalacia je riesena cez stiahnutelny ISO image specialnej Linux distribucie s OpenVZ 
  - po instalacii VZ-Linux mozeme vytvorit OS-level kontajner podla preddefinovanej sablony:
    - napr.: `$ sudo prlctl create ubuCT1 --vmtype ct --ostemplate ubuntu-20.04-x86_64`
