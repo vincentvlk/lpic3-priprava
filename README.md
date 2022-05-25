@@ -1297,9 +1297,9 @@ Chceme napr. zmenit format zapisu poznamok, mozeme vytvorit novu "vetvu", tzv. *
 #### Ako replikovat lokalny Git repozitar na vzdialeny server, napr. na GitHub:
 - na platforme `github.com` si vytvorime uzivatelsky ucet
 - je potrebne vytvorit si autentifikacny Token, tzv. *PAT - Personal Access Token*, podla odkazu:
-
-    https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
-
+```
+https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
+```
 - vytvoreny Token *nezabudame/nezatvarame*
 - dalej vytvorime repozitar s nazvom `git_ucenie`, portal *GitHub* nam vygeneruje zakladne prikazy
 - dalej si vytvorime vzdialeny pristup na repo., tzv. *Remote*: 
