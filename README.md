@@ -15,7 +15,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
 * * *
 
 * [Zakladne tipy a triky pre operacny system GNU/Linux](#zakladne-tipy-a-triky-pre-operacny-system-gnulinux)
-  * [Zakladne nastavenie siete v systeme Debian11](#zakladne-nastavenie-siete-v-systeme-debian11)
+  * [Nastavenie siete v systeme *Debian 11*](#nastavenie-siete-v-systeme-debian-11)
     * [Dodatok k nastaveniu statickej IPv6 adrese v systeme Debian11](#dodatok-k-nastaveniu-statickej-ipv6-adrese-v-systeme-debian11)
   * [Nastavenie siete v systeme CentOS](#nastavenie-siete-v-systeme-centos)
   * [Nastavenie siete v systeme Fedora 35 Server](#nastavenie-siete-v-systeme-fedora-35-server)
@@ -156,7 +156,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
 Zakladne tipy a triky pre operacny system GNU/Linux
 ----------------------
 
-#### Zakladne nastavenie siete v systeme Debian11:
+#### Nastavenie siete v systeme *Debian 11*:
 
 Editujeme konf. subor: `/etc/network/interfaces`, nasledne vlozime napr.:
 ```
