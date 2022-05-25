@@ -19,7 +19,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
     * [Dodatok k nastaveniu statickej IPv6 adresy v systeme *Debian 11*](#dodatok-k-nastaveniu-statickej-ipv6-adresy-v-systeme-debian-11)
   * [Nastavenie siete v systeme *CentOS 9 Stream*](#nastavenie-siete-v-systeme-centos)
   * [Nastavenie siete v systeme *Fedora 35 Server*](#nastavenie-siete-v-systeme-fedora-35-server)
-  * [Nastavenie siete v systeme *Ubuntu 20.04*](#ako-konfigurovat-siet-v-systeme-ubuntu-2004)
+  * [Nastavenie siete v systeme *Ubuntu 20.04*](#nastavenie-siete-v-systeme-ubuntu-2004)
   * [Zaklady spravy diskov, particii a SWAP priestoru](#zaklady-spravy-diskov-particii-a-swap-priestoru)
     * [Zaklady prace s LVM, aktualna verzia je LVM2](#zaklady-prace-s-lvm-aktualna-verzia-je-lvm2)
     * [Zaklady prace so suborovymi <em>inode-mi</em>](#zaklady-prace-so-suborovymi-inode-mi)
