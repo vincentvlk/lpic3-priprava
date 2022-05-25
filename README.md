@@ -60,7 +60,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
     * [Zaklady prace s programom nmap](#zaklady-prace-s-programom-nmap)
     * [Nastroje na detekciu tzv. <em>Rootkit-ov</em>](#nastroje-na-detekciu-tzv-rootkit-ov)
     * [Ako hladat/mazat virusy, pouzijeme projekt <em>Clam-AV</em>](#ako-hladatmazat-virusy-pouzijeme-projekt-clam-av)
-    * [Ako na zabezpecnie zavadzaca <em>GRUB2</em>](#ako-na-zabezpecnie-zavadzaca-grub2)
+    * [Ako na zabezpecenie zavadzaca <em>GRUB2</em>](#ako-na-zabezpecenie-zavadzaca-grub2)
     * [Zabezpecenie servera <em>OpenSSH</em>](#zabezpecenie-servera-openssh)
     * [Ako zabranit tzv. <em>Fork bomb-am</em>](#ako-zabranit-tzv-fork-bomb-am)
     * [Ako zasifrovat subor s citlivymi udajmi pomocou projektu <em>GNU-PG</em>](#ako-zasifrovat-subor-s-citlivymi-udajmi-pomocou-projektu-gnu-pg)
@@ -1497,7 +1497,7 @@ Dalsi nastroj na *Rootkit* detekciu je `chkrootkit`
    - *POZOR*, automaticke mazanie: `$ sudo clamscan --infected --remove --recursive /home`
    - pre Linux-ove distribucie existuje aj GUI rozhranie *ClamTk*, instalujeme: `$ sudo apt install clamtk`
 
-#### Ako na zabezpecnie zavadzaca *GRUB2*:
+#### Ako na zabezpecenie systemoveho zavadzaca *GRUB2*:
  - vytvorime heslo: `$ sudo grub-mkpasswd-pbkdf2`
  - dalej upravime subor `/etc/grub.d/40_custom` pridame riadky, vygenerovany HASH, od slova `grub`
 ```
