@@ -1022,7 +1022,7 @@ Ako v BASH skripte testujeme, ze premenna obsahuje substring: `if [[ "$str1" == 
 
 Testovanie BASH premennej s logickymi operatormi: `if [[ $vek -ge 0 ]] && [[ $vek -le 18 ]]`
 
-#### Priklad na cvicny input error handling (osetrenie chybneho vstupu) v jazyku BASH:
+#### Priklad na cvicny *input error handling* (osetrenie chybneho vstupu) v jazyku BASH:
 ```bash
     #!/bin/bash
     #
