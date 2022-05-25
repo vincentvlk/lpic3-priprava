@@ -20,10 +20,10 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
   * [Nastavenie siete v systeme *CentOS 9 Stream*](#nastavenie-siete-v-systeme-centos)
   * [Nastavenie siete v systeme *Fedora 35 Server*](#nastavenie-siete-v-systeme-fedora-35-server)
   * [Nastavenie siete v systeme *Ubuntu 20.04*](#nastavenie-siete-v-systeme-ubuntu-2004)
-  * [Zaklady spravy diskov, particii a SWAP priestoru](#zaklady-spravy-diskov-particii-a-swap-priestoru)
-    * [Zaklady prace s LVM, aktualna verzia je LVM2](#zaklady-prace-s-lvm-aktualna-verzia-je-lvm2)
+  * [Zaklady spravy diskov, particii a *Swap* priestoru](#zaklady-spravy-diskov-particii-a-swap-priestoru)
+    * [Zaklady prace s LVM, aktualna verzia je *LVM2*](#zaklady-prace-s-lvm-aktualna-verzia-je-lvm2)
     * [Zaklady prace so suborovymi <em>inode-mi</em>](#zaklady-prace-so-suborovymi-inode-mi)
-    * [Zaklady prace s boot-loaderom GRUB2](#zaklady-prace-s-boot-loaderom-grub2)
+    * [Zaklady prace s boot-loaderom *GRUB2*](#zaklady-prace-s-boot-loaderom-grub2)
   * [Zaklady prace s inicializacnym systemom <em>SystemD</em>](#zaklady-prace-s-inicializacnym-systemom-systemd)
     * [Logovanie a diagnostika user-space nastrojov](#logovanie-a-diagnostika-user-space-nastrojov)
   * [Tipy k praci s uzivatelskymi uctami](#tipy-k-praci-s-uzivatelskymi-uctami)
@@ -41,7 +41,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
   * [Jednoduchy priklad na hladanie substringu zo systemoveho vypisu](#jednoduchy-priklad-na-hladanie-substringu-zo-systemoveho-vypisu)
   * [Dalsie zdroje k zakladom BASH skriptov](#dalsie-zdroje-k-zakladom-bash-skriptov)
   * [Praca s prenosom suborov po sieti](#praca-s-prenosom-suborov-po-sieti)
-  * [Praca s projektom *SSHFS - SSH File System*](#praca-s-projektom-sshfs---ssh-file-system)
+    * [Praca s projektom *SSHFS - SSH File System*](#praca-s-projektom-sshfs---ssh-file-system)
   * [Praca s premennymi prostredia v interprete BASH](#praca-s-premennymi-prostredia-v-interprete-bash)
 * [Zaklady prace s vyvojarskymi nastrojmi](#zaklady-prace-s-vyvojarskymi-nastrojmi)
   * [Jednoduchy priklad ako kompilovat zdrojove subory v jazyku <em>C</em>](#jednoduchy-priklad-ako-kompilovat-zdrojove-subory-v-jazyku-c)
@@ -52,7 +52,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
 * [Zaklady bezpecnosti v operacnom systeme GNU/Linux](#zaklady-bezpecnosti-v-operacnom-systeme-gnulinux)
     * [Nastroj na ochranu/kontrolu integrity suborov a adresarov, projekt <em>AIDE</em>](#nastroj-na-ochranukontrolu-integrity-suborov-a-adresarov-projekt-aide)
     * [Na overovanie bezpecnosti hesla mozeme pouzit nastroj <em>John the Ripper</em>](#na-overovanie-bezpecnosti-hesla-mozeme-pouzit-nastroj-john-the-ripper)
-    * [Dalsie politiky hesla, napr. jeho zlozitost spravuju <em>PAM - Pluggable Authentification Modules</em>](#dalsie-politiky-hesla-napr-jeho-zlozitost-spravuju-pam---pluggable-authentification-modules)
+    * [Dalsie politiky hesla, napr. jeho zlozitost, spravuju <em>PAM - Pluggable Authentification Modules</em>](#dalsie-politiky-hesla-napr-jeho-zlozitost-spravuju-pam---pluggable-authentification-modules)
     * [Ako vytvorit *sifrovanu* particiu na HDD/SSD](#ako-vytvorit-sifrovanu-particiu-na-hddssd)
     * [Zaklady prace s nastrojom sudo](#zaklady-prace-s-nastrojom-sudo)
     * [V oblasti <em>Steganografie</em> sa pouziva nastroj `steghide`](#v-oblasti-steganografie-sa-pouziva-nastroj-steghide)
@@ -1379,7 +1379,7 @@ Politiku systemovyh hesiel najdeme v subore `/etc/login.defs`
 Ako nastavit cas expiracie hesla na 30 dni: `$ sudo chage -M 30 <uzivatel>`
  - overime s: `$ sudo chage -l <uzivatel>`
 
-#### Dalsie politiky hesla, napr. jeho zlozitost spravuju *PAM - Pluggable Authentification Modules*:
+#### Dalsie politiky hesla, napr. jeho zlozitost, spravuju *PAM - Pluggable Authentification Modules*:
  - treba instalovat balik: `$ sudo apt install libpam-pwquality`
  - konfiguracia v subore: `/etc/pam.d/common-password`
  - na upravu politiky pridame do riadku `password requisite pam_pwquality.so retry=3`
