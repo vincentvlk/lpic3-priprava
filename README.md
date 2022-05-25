@@ -14,7 +14,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
     * [Moj skromny nazor na priority pri realizacii projektov na OS GNU/Linux](#moj-skromny-nazor-na-priority-pri-realizacii-projektov-na-os-gnulinux)
 * * *
 
-* [Zakladne tipy a triky pre operacny system GNU/Linux](#zakladne-tipy-a-triky-pre-operacny-system-gnulinux)
+* [Zakladne tipy a triky pre operacny system *GNU/Linux*](#zakladne-tipy-a-triky-pre-operacny-system-gnulinux)
   * [Nastavenie siete v systeme *Debian 11*](#nastavenie-siete-v-systeme-debian-11)
     * [Dodatok k nastaveniu statickej IPv6 adresy v systeme *Debian 11*](#dodatok-k-nastaveniu-statickej-ipv6-adresy-v-systeme-debian-11)
   * [Nastavenie siete v systeme *CentOS 9 Stream*](#nastavenie-siete-v-systeme-centos)
@@ -31,7 +31,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
   * [Praca s monitorovanim procesov/programov](#praca-s-monitorovanim-procesovprogramov)
   * [Praca so sietovymi nastrojmi (IPv4, IPv6, DNS)](#praca-so-sietovymi-nastrojmi-ipv4-ipv6-dns)
   * [Praca s TCP/UDP aplikaciami, socketmi](#praca-s-tcpudp-aplikaciami-socketmi)
-* [Praca s BASH skriptami, interpretom a dalsimi nastrojmi v prostredi GNU/Linux](#praca-s-bash-skriptami-interpretom-a-dalsimi-nastrojmi-v-prostredi-gnulinux)
+* [Praca s BASH skriptami, interpretom a dalsimi nastrojmi v prostredi *GNU/Linux*](#praca-s-bash-skriptami-interpretom-a-dalsimi-nastrojmi-v-prostredi-gnulinux)
   * [Prikazovy interpret BASH ma specialne premenne pre argumenty, napr. skript `ashow.sh`](#prikazovy-interpret-bash-ma-specialne-premenne-pre-argumenty-napr-skript-ashowsh)
   * [Priklad na riadenie toku v BASH skripte s prikazom `if`](#priklad-na-riadenie-toku-v-bash-skripte-s-prikazom-if)
   * [Dalsie poznamky k zakladom prace v BASH terminale/interprete a prostredi OS GNU/Linux](#dalsie-poznamky-k-zakladom-prace-v-bash-terminaleinterprete-a-prostredi-os-gnulinux)
@@ -67,7 +67,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
 * [Zaklady prace s DNS serverom *BIND 9*](#zaklady-prace-s-dns-serverom-bind-9)
 * [Zaklady prace s webovym serverom *Apache2*](#zaklady-prace-s-webovym-serverom-apache2)
   * [Ako zadefinovat tzv. <em>Virtual Hosting</em> pre Web server Apache2](#ako-zadefinovat-tzv-virtual-hosting-pre-web-server-apache2)
-  * [Ako nainstalovat podporu PHP na server Apache2](#ako-nainstalovat-podporu-php-na-server-apache2)
+  * [Ako nainstalovat podporu *PHP* na server Apache2](#ako-nainstalovat-podporu-php-na-server-apache2)
   * [Ako zapnut v Apache2 modul na kompresiu posielaneho obsahu](#ako-zapnut-v-apache2-modul-na-kompresiu-posielaneho-obsahu)
   * [Ako zapnut vstavane monitorovanie servera Apache2](#ako-zapnut-vstavane-monitorovanie-servera-apache2)
   * [Ako zablokovat na Apache2 indexovy vypis suborov, tzv. *file listing*](#ako-zablokovat-na-apache2-indexovy-vypis-suborov-tzv-file-listing)
@@ -1637,7 +1637,7 @@ Tip: ako zistit, svoju verejnu IP, napr.: `$ curl ifconfig.me`, `$ curl -4 ident
  - napr. deaktivujeme predvolenu *Landing Page* pre Apache2 na Debiane: `$ sudo a2dissite 000-default`
  - je este potrebne znova nacitat konfigy: `$ sudo systemctl reload apache2`
 
-#### Ako nainstalovat podporu PHP na server Apache2:
+#### Ako nainstalovat podporu *PHP* na server Apache2:
  - instalujeme baliky: `$ apt install php php-mysql libapache2-mod-php`
  - instalaciu overime napr. s: `$ php -v`
  - na otestovanie vo Web prehliadaci mozeme vytvorit jednoduchu stranku
