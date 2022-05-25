@@ -686,11 +686,11 @@ Dalsi priklad rozvijania specialnych znakov v BASHi:
  - porovnat s prikazom: `$ echo 'Nemam ziadnu * v mojich cestach: $PATH'`
 
 #### Prikazovy interpret BASH ma specialne premenne pre argumenty, napr. skript `ashow.sh`:
-
+```bash
     #!/usr/bin/env bash
     #
     # jednoduchy BASH skript demonstruje specialne premenne
-    #
+
     echo Vypisujem prvy argument: $1
     echo Vypisujem druhy argument: $2
     echo Vypisujem treti argument: $3
@@ -698,10 +698,9 @@ Dalsi priklad rozvijania specialnych znakov v BASHi:
     echo Vypisujem process ID skriptu: $$
     echo Vypisujem pocet odovzdanych argumentov: $#
     echo Vypisujem vsetky argumenty: $@
-    #
-    # koniec skriptu
-    #
 
+    # koniec skriptu
+```
  - ulozime do suboru `ashow.sh` a nastavime prava, napr.: `$ chmod u+rx ashow.sh`
  - nasledne mozeme skript spustit: `$ ./ashow.sh raz dva tri`
 
