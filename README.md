@@ -64,21 +64,21 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
     * [Zabezpecenie servera <em>OpenSSH</em>](#zabezpecenie-servera-openssh)
     * [Ako zabranit tzv. <em>Fork bomb-am</em>](#ako-zabranit-tzv-fork-bomb-am)
     * [Ako zasifrovat subor s citlivymi udajmi pomocou projektu <em>GNU-PG</em>](#ako-zasifrovat-subor-s-citlivymi-udajmi-pomocou-projektu-gnu-pg)
-* [Zaklady prace s DNS serverom BIND 9](#zaklady-prace-s-dns-serverom-bind-9)
-* [Zaklady prace s webovym serverom Apache2](#zaklady-prace-s-webovym-serverom-apache2)
+* [Zaklady prace s DNS serverom *BIND 9*](#zaklady-prace-s-dns-serverom-bind-9)
+* [Zaklady prace s webovym serverom *Apache2*](#zaklady-prace-s-webovym-serverom-apache2)
   * [Ako zadefinovat tzv. <em>Virtual Hosting</em> pre Web server Apache2](#ako-zadefinovat-tzv-virtual-hosting-pre-web-server-apache2)
   * [Ako nainstalovat podporu PHP na server Apache2](#ako-nainstalovat-podporu-php-na-server-apache2)
   * [Ako zapnut v Apache2 modul na kompresiu posielaneho obsahu](#ako-zapnut-v-apache2-modul-na-kompresiu-posielaneho-obsahu)
   * [Ako zapnut vstavane monitorovanie servera Apache2](#ako-zapnut-vstavane-monitorovanie-servera-apache2)
   * [Ako zablokovat na Apache2 indexovy vypis suborov, tzv. *file listing*](#ako-zablokovat-na-apache2-indexovy-vypis-suborov-tzv-file-listing)
-* [Zaklady prace s automatizacnym nastrojom Ansible](#zaklady-prace-s-automatizacnym-nastrojom-ansible)
-* [Zaklady prace s balickovacim systemom <em>Zypper</em> v systeme OpenSUSE Leap](#zaklady-prace-s-balickovacim-systemom-zypper-v-systeme-opensuse-leap)
+* [Zaklady prace s automatizacnym nastrojom *Ansible*](#zaklady-prace-s-automatizacnym-nastrojom-ansible)
+* [Zaklady prace s balickovacim systemom <em>Zypper</em> v systeme *OpenSUSE Leap*](#zaklady-prace-s-balickovacim-systemom-zypper-v-systeme-opensuse-leap)
 * [Zaklady prace so SAN protokolom iSCSI](#zaklady-prace-so-san-protokolom-iscsi)
   * [Vytvorenie iSCSI targetu <em>(SAN-server)</em> v OS *Fedora Server 35*](#vytvorenie-iscsi-targetu-san-server-na-os-fedora-server-35)
   * [Vytvorenie iSCSI initiatora <em>(SAN-klient)</em> v OS *OpenSUSE Leap 15.3*](#vytvorenie-iscsi-initiatora-san-klient-na-os-opensuse-leap-153)
 * * *
 
-* [Zaklady prace s HA - High Availability Cultermi v systeme GNU/Linux](#zaklady-prace-s-ha---high-availability-cultermi-v-systeme-gnulinux)
+* [Zaklady prace s *HA - High Availability Cultermi* v systeme GNU/Linux](#zaklady-prace-s-ha---high-availability-cultermi-v-systeme-gnulinux)
   * [Trocha teorie: *CIB* - Cluster Information Base, Stav Clustra v pamati systemu](#trocha-teorie-cib---cluster-information-base-stav-clustra-v-pamati-systemu)
   * [Priklad instalacie Multicast Clustra na systeme OpenSUSE Leap s nastrojom crm](#priklad-instalacie-multicast-clustra-na-systeme-opensuse-leap-s-nastrojom-crm)
   * [Dalsia praca s nastrojom `crm`](#dalsia-praca-s-nastrojom-crm)
@@ -125,7 +125,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
   * [Zaklady prace s <em>OS-level virtualization</em> projektami <em>OpenVZ</em> a <em>LXC</em>](#zaklady-prace-s-os-level-virtualization-projektami-openvz-a-lxc)
     * [Praca s projektom <em>OpenVZ</em>, ktory pracuje s kontajnermi](#praca-s-projektom-openvz-ktory-pracuje-s-kontajnermi)
     * [Praca s virtualizacnou platformou <em>LXC - Linux Containers</em>](#praca-s-virtualizacnou-platformou-lxc---linux-containers)
-* [Zaklady prace s virtualnymi kontajnermi, projekt Docker](#zaklady-prace-s-virtualnymi-kontajnermi-projekt-docker)
+* [Zaklady prace s virtualnymi kontajnermi, projekt *Docker*](#zaklady-prace-s-virtualnymi-kontajnermi-projekt-docker)
   * [Zakladne prikazy pre nastroj Docker](#zakladne-prikazy-pre-nastroj-docker)
   * [Dalsie poznamky k praci s Docker-om](#dalsie-poznamky-k-praci-s-docker-om)
 * [Virtualizacny nastroj <em>VirtualBox</em>](#virtualizacny-nastroj-virtualbox)
@@ -135,10 +135,11 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
 * [Praca s VM hosting stackom z komponentov <em>KVM,  QEMU, libvirt</em> na OS Rocky Linux 8.5](#praca-s-vm-hosting-stackom-z-komponentov-kvm--qemu-libvirt-na-os-rocky-linux-85)
 * [Praca so sadou virtualizacnych nastrojov pod nazvom projektu <em>oVirt</em>](#praca-so-sadou-virtualizacnych-nastrojov-pod-nazvom-projektu-ovirt)
   * [Zjednoduseny postup instalacie oVirt prostredia s NFS storage riesenim na OS Rocky Linux 8.5](#zjednoduseny-postup-instalacie-ovirt-prostredia-s-nfs-storage-riesenim-na-os-rocky-linux-85)
-* [Poznamky k projektu OpenStack](#poznamky-k-projektu-openstack)
-* [Poznamky k projektu CloudStack](#poznamky-k-projektu-cloudstack)
-* [Projekt Eucalyptus](#projekt-eucalyptus)
-* [Projekt OpenNebula](#projekt-opennebula)
+* [Poznamky k projektu *OpenStack*](#poznamky-k-projektu-openstack)
+* [Poznamky k projektu *CloudStack*](#poznamky-k-projektu-cloudstack)
+* [Projekt *Eucalyptus*](#projekt-eucalyptus)
+* [Projekt *OpenNebula*](#projekt-opennebula)
+* * *
 * [Nezaradene poznamky pre system GNU/Linux](#nezaradene-poznamky-pre-system-gnulinux)
   * [Ako v systeme GNU/Linux vypnut HW PC-speaker](#ako-v-systeme-gnulinux-vypnut-hw-pc-speaker)
   * [Dobra stranka na zaciatocnu konfiguraciu znamych distribucii Linuxu](#dobra-stranka-na-zaciatocnu-konfiguraciu-znamych-distribucii-linuxu)
@@ -1543,7 +1544,7 @@ Dalsi nastroj na *Rootkit* detekciu je `chkrootkit`
 - v cieli sa subor desifruje: `$ gpg -o povodny.txt -d sprava.dat`
 - dalsie informacie napr. v: `$ man gpg` alebo `$ gpg --help`
 
-### Zaklady prace s DNS serverom BIND 9:
+### Zaklady prace s DNS serverom *BIND 9*:
 - instalujeme: `$ sudo apt install bind9 bind9-utils bind9-doc`
 - dalsie implementacie autoritativnych DNS serverov: `Knot DNS`, `DNSmasq`, `PowerDNS`, ...
 - standardna `bind9` Ubu/Deb instalacia spusti *Cache-only* server, pocuva na IPv4 aj IPv6
@@ -1607,7 +1608,7 @@ Ako pridat domenu/zonovy subor, tzv. *zone-file*, teda vytvorit autoritaivny DNS
 Tip: ako zistit, svoju verejnu IP, napr.: `$ curl ifconfig.me`, `$ curl -4 ident.me`, `$ curl -6 ident.me`
  - priklad, pouzitie v skripte: `$ echo "Moja verejne IP je $(curl -s ident.me)"`
 
-### Zaklady prace s webovym serverom Apache2:
+### Zaklady prace s webovym serverom *Apache2*:
 
 #### Ako zadefinovat tzv. *Virtual Hosting* pre Web server Apache2:
 
@@ -1687,7 +1688,7 @@ Tip: ako vypnut *podpis* servera, napr.: `Apache/2.4.41 (Ubuntu) Server at 192.1
  - zmenime na: `ServerSignature Off` potom: `$ sudo systemctl reload-or-restart apache2`
  - je este vhodne zmenit `ServerTokens OS` na `ServerTokens Prod` a restartovat Apache2
 
-### Zaklady prace s automatizacnym nastrojom Ansible:
+### Zaklady prace s automatizacnym nastrojom *Ansible*:
 Ako programom *Ansible* nainstalovat program `nmap` pomocou systemu *APT*:
  - instalujeme balik `ansible`, zadame: `$ sudo apt install ansible`
  - vytvorime si `inventar` zariadeni, napr. vytvorime subor `hosts`, kde napr. vlozime:
@@ -3328,7 +3329,7 @@ $ brew install virt-viewer
  - pripojenie je podobne ako VNC, text editorom sa da nahliadnut do suboru `console.vv`
  - je vidiet, ze subor `.vv` ma platnost 120 sekund, potom exspiruje vygenerovane heslo
 
-#### Poznamky k projektu OpenStack:
+#### Poznamky k projektu *OpenStack*:
  - definovany ako *Cloud Operating System*
  - *rozsiahly projekt*, urceny na manazment cloudovych *zdrojov compute, storage, network v datovom centre*
  - na manzment a provisioning zdrojov vyuziva webove dashboard rozhranie a API rozhranie
@@ -3348,7 +3349,7 @@ $ brew install virt-viewer
    - projekt *OpenStack* ma vela dalsich sluzieb a sub-projektov, ktore nie su predmetom tychto poznamok
  - dalsie informacie napr. na: `https://www.openstack.org/`
 
-#### Poznamky k projektu CloudStack:
+#### Poznamky k projektu *CloudStack*:
  - je definovany ako OSS produkt na nasadenia a spravu velkych VM prostredi
  - je to full-stack *Infrastructure as a Service (IaaS)* riesenie pre public/private/hybrid cloud
  - zakladne vlastnosti:
@@ -3370,13 +3371,13 @@ $ brew install virt-viewer
    - vyzaduje databazu, napr. *MySQL/MariaDB*, pripadne jej Cluster riresenie *Galera MariaDB Cluster*
  - dalsie informacie napr. na: `https://cloudstack.apache.org/`
 
-#### Projekt Eucalyptus:
+#### Projekt *Eucalyptus*:
  - je OSS riesenie pre IaaS platformi, ktore su kompatibilne s Amazon AWS
  - umoznuje vytvorit privatny aj public cloud
  - architektura postavena na GNU/Linux, ktora umoznuje vyuzit svoje vlastne zdroje kompati. s AWS
  - dalsie infomacie napr. na: `https://www.eucalyptus.cloud/`
 
-#### Projekt OpenNebula:
+#### Projekt *OpenNebula*:
  - kombinuje virtualizaciu a kontajnery na budovanie multi-tenant cloud rieseni
  - umoznuje vybudovat private/public/hybrid cloud riesenia + edge computing
  - komercny produkt s profesionalnou/garantovanou podporou
@@ -3384,6 +3385,7 @@ $ brew install virt-viewer
  - integruje viacero technologii, napr.: *VMware, KVM/QEMU, Firecracker, LXC, Docker, K8S, Terraform*
  - umoznuje nasadit *hybrid/edge* riesenie s vyuzitim externych zdrojov ako *AWS, Google, Equinix*
  - dalsie informacie napr. na: `https://opennebula.io`
+* * *
 
 Nezaradene poznamky pre system GNU/Linux
 ---------------
