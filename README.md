@@ -605,6 +605,7 @@ Ako overit, ci je v kerneli zapnuty packet routing: `$ sysctl net.ipv4.ip_forwar
 Ako vypisat pravidla firewallu *IPtables*: `$ sudo iptables -L`
 
 Ako si vytvorime pravidla firewallu, vytvorime subor `/etc/network/iptables.up.rules`
+
 Do suboru mozeme pisat riadky napr.:
 
     *filter
