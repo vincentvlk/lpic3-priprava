@@ -88,7 +88,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
   * [Zjednoduseny priklad ako vytvorit WebServer Cluster pomocou `crm` na OS OpenSUSE Leap 15.3](#zjednoduseny-priklad-ako-vytvorit-webserver-cluster-pomocou-crm-na-os-opensuse-leap-153)
   * [Zjednoduseny priklad ako vytvorit WebServer Cluster pomocou `pcs` na CentOS Stream 9](#zjednoduseny-priklad-ako-vytvorit-webserver-cluster-pomocou-pcs-na-centos-stream-9)
   * [Pri zostavovani Clustra nastrojom `pcs`](#pri-zostavovani-clustra-nastrojom-pcs)
-  * [V distribucii OpenSUSE je konfiguracia Cluster kvora](#v-distribucii-opensuse-je-konfiguracia-cluster-kvora)
+  * [V distribucii OpenSUSE je konfiguracia Cluster *kvora*](#v-distribucii-opensuse-je-konfiguracia-cluster-kvora)
   * [Zaklady konceptu Node Fencing/STONITH](#zaklady-konceptu-node-fencingstonith)
   * [Konfiguracia Fencing-u v systeme CentOS Stream 9](#konfiguracia-fencing-u-v-systeme-centos-stream-9)
   * [Ako pouzivat *SBD Fencing* na VM](#ako-pouzivat-sbd-fencing-na-vm)
@@ -2004,7 +2004,7 @@ Tip: ako vypisat stav technologie *Quorum*, ktora zabranuje vzniku *split-brain*
    - treba skombinovat s `--wait_for_all` a nasledne umoznuje postupne *vypinanie* uzlov z clustra 
  - parameter `--two_node` umoznuje bezat cluster z *dvoch uzlov*
 
-#### V distribucii OpenSUSE je konfiguracia Cluster kvora:
+#### V distribucii OpenSUSE je konfiguracia Cluster *kvora*:
  - dostupna v subore `/etc/corosync/corosync.conf`
  - zmeny samozrejme robime v LABe, inak treba robit *off-peak udrzbu* a mat pripravene zalohy konf.
  - priklad na konfiguraciu kvora v subore `corosync.conf`:
