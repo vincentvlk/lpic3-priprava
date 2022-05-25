@@ -1466,7 +1466,7 @@ Ako s Nmap TCP skenovanim *odhadnut* verziu OS a programov: `$ sudo nmap -A -Pn 
  - vysledok mozeme skontrolovat s: `$ sudo less /var/log/rkhunter.log`
  - mozeme spustit len *Warning* reportovanie: `$ sudo rkhunter --check --report-warnings-only`
    - log sa da stale sledovat, napr.: `$ sudo tail -f /var/log/rkhunter.log`
-   - mozeme naist `False-positives`, da sa pridat do `/etc/rkhunter.conf`, co chceme ignorovat:
+   - mozeme naist `False-positives`, da sa pridat do `/etc/rkhunter.conf`, co chceme *ignorovat*:
    - pridame napr. riadok: `SCRIPTWHITELIST=/usr/bin/lwp-request`
    - lepsie riesenie moze byt specifikovanie *Package* manazera, pridame: `PKGMGR=DPKG`
 
