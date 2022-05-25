@@ -129,7 +129,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
   * [Zakladne prikazy pre nastroj Docker](#zakladne-prikazy-pre-nastroj-docker)
   * [Dalsie poznamky k praci s Docker-om](#dalsie-poznamky-k-praci-s-docker-om)
 * [Virtualizacny nastroj <em>VirtualBox</em>](#virtualizacny-nastroj-virtualbox)
-* [Nastroj <em>Packer</em> sluzi na automatizovanu tvorbu a konfiguraciu VM imagov](#nastroj-packer-sluzi-na-automatizovanu-tvorbu-a-konfiguraciu-vm-imagov)
+* [Nastroj <em>Packer</em> sluzi](#nastroj-packer-sluzi)
 * [Nastroj <em>Vagrant</em> sa vyuziva](#nastroj-vagrant-sa-vyuziva)
 * [Praca s kniznicou/nastrojmi/API pod nazvom projektu `libvirt`](#praca-s-kniznicounastrojmiapi-pod-nazvom-projektu-libvirt)
 * [Praca s VM hosting stackom z komponentov <em>KVM,  QEMU, libvirt</em> na OS Rocky Linux 8.5](#praca-s-vm-hosting-stackom-z-komponentov-kvm--qemu-libvirt-na-os-rocky-linux-85)
@@ -3138,7 +3138,8 @@ Poznamka: ak chceme vymazat Docker image, treba najskor pomazat z neho vytvorene
  - je to tzv. *hosted hypervisor/Type-2 hypervisor*, ktory sa instaluje ako Aplikacia na OS
  - dalsie informacie: `https://www.virtualbox.org/`
 
-#### Nastroj *Packer* sluzi na automatizovanu tvorbu a konfiguraciu VM imagov:
+#### Nastroj *Packer* sluzi:
+ - na automatizovanu tvorbu a konfiguraciu VM imagov
  - nastroj dalej vyuziva automatizacne projekty *Puppet* a *Chef*
  - dalsie informacie napr.: `https://www.packer.io/`
 
