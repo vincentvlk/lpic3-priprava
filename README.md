@@ -27,7 +27,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
   * [Zaklady prace s inicializacnym systemom <em>SystemD</em>](#zaklady-prace-s-inicializacnym-systemom-systemd)
     * [Logovanie a diagnostika user-space nastrojov](#logovanie-a-diagnostika-user-space-nastrojov)
   * [Tipy k praci s uzivatelskymi uctami](#tipy-k-praci-s-uzivatelskymi-uctami)
-  * [Cron a planovanie v kratkosti](#cron-a-planovanie-v-kratkosti)
+  * [Nastroj *Cron* a planovanie v kratkosti](#nastroj-cron-a-planovanie-v-kratkosti)
   * [Praca s monitorovanim procesov/programov](#praca-s-monitorovanim-procesovprogramov)
   * [Praca so sietovymi nastrojmi (IPv4, IPv6, DNS)](#praca-so-sietovymi-nastrojmi-ipv4-ipv6-dns)
   * [Praca s TCP/UDP aplikaciami, socketmi](#praca-s-tcpudp-aplikaciami-socketmi)
@@ -454,7 +454,7 @@ Ako zmenit default shell uzivatela: `$ chsh vlkv -s /bin/bash`
 
 Ako zistit s akymi argumentami je spusteny program/daemon: `$ ps aux | grep getty`
 
-#### Cron a planovanie v kratkosti:
+#### Nastroj *Cron* a planovanie v kratkosti:
 
 Ako vytvorit cron job, aby sa vystup aj error presmerovali do `/dev/null`, vytvorime zaznam: 
 
