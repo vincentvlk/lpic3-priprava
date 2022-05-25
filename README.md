@@ -17,9 +17,9 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
 * [Zakladne tipy a triky pre operacny system GNU/Linux](#zakladne-tipy-a-triky-pre-operacny-system-gnulinux)
   * [Nastavenie siete v systeme *Debian 11*](#nastavenie-siete-v-systeme-debian-11)
     * [Dodatok k nastaveniu statickej IPv6 adresy v systeme *Debian 11*](#dodatok-k-nastaveniu-statickej-ipv6-adresy-v-systeme-debian-11)
-  * [Nastavenie siete v systeme CentOS](#nastavenie-siete-v-systeme-centos)
-  * [Nastavenie siete v systeme Fedora 35 Server](#nastavenie-siete-v-systeme-fedora-35-server)
-  * [Ako konfigurovat siet v systeme Ubuntu 20.04](#ako-konfigurovat-siet-v-systeme-ubuntu-2004)
+  * [Nastavenie siete v systeme *CentOS 9 Stream*](#nastavenie-siete-v-systeme-centos)
+  * [Nastavenie siete v systeme *Fedora 35 Server*](#nastavenie-siete-v-systeme-fedora-35-server)
+  * [Nastavenie siete v systeme *Ubuntu 20.04*](#ako-konfigurovat-siet-v-systeme-ubuntu-2004)
   * [Zaklady spravy diskov, particii a SWAP priestoru](#zaklady-spravy-diskov-particii-a-swap-priestoru)
     * [Zaklady prace s LVM, aktualna verzia je LVM2](#zaklady-prace-s-lvm-aktualna-verzia-je-lvm2)
     * [Zaklady prace so suborovymi <em>inode-mi</em>](#zaklady-prace-so-suborovymi-inode-mi)
@@ -74,8 +74,8 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
 * [Zaklady prace s automatizacnym nastrojom Ansible](#zaklady-prace-s-automatizacnym-nastrojom-ansible)
 * [Zaklady prace s balickovacim systemom <em>Zypper</em> v systeme OpenSUSE Leap](#zaklady-prace-s-balickovacim-systemom-zypper-v-systeme-opensuse-leap)
 * [Zaklady prace so SAN protokolom iSCSI](#zaklady-prace-so-san-protokolom-iscsi)
-  * [Vytvorenie iSCSI targetu <em>(SAN-server)</em> na OS Fedora Server 35](#vytvorenie-iscsi-targetu-san-server-na-os-fedora-server-35)
-  * [Vytvorenie iSCSI initiatora <em>(SAN-klient)</em> na OS OpenSUSE Leap 15.3](#vytvorenie-iscsi-initiatora-san-klient-na-os-opensuse-leap-153)
+  * [Vytvorenie iSCSI targetu <em>(SAN-server)</em> v OS *Fedora Server 35*](#vytvorenie-iscsi-targetu-san-server-na-os-fedora-server-35)
+  * [Vytvorenie iSCSI initiatora <em>(SAN-klient)</em> v OS *OpenSUSE Leap 15.3*](#vytvorenie-iscsi-initiatora-san-klient-na-os-opensuse-leap-153)
 * * *
 
 * [Zaklady prace s HA - High Availability Cultermi v systeme GNU/Linux](#zaklady-prace-s-ha---high-availability-cultermi-v-systeme-gnulinux)
@@ -106,7 +106,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
 * [Zaklady prace so <em>Storage</em> rieseniami v Cluster prostredi GNU/Linux](#zaklady-prace-so-storage-rieseniami-v-cluster-prostredi-gnulinux)
   * [Ako na instalaciu/nasadenie technologie <em>iSCSI Multipath</em>](#ako-na-instalaciunasadenie-technologie-iscsi-multipath)
   * [Priklad instalacie riesenia <em>Device Mapper Multipath</em> v OS CentOS Stream 9](#priklad-instalacie-riesenia-device-mapper-multipath-v-os-centos-stream-9)
-  * [Ako zabezpecit, aby sa system Ubuntu 20.04 neplnil log spravami multipathd](#ako-zabezpecit-aby-sa-system-ubuntu-2004-neplnil-log-spravami-multipathd)
+  * [Ako zabezpecit, aby sa system *Ubuntu 20.04* neplnil log spravami `multipathd`](#ako-zabezpecit-aby-sa-system-ubuntu-2004-neplnil-log-spravami-multipathd)
   * [Praca s Cluster Storage riesenim <em>DRBD - Distributed Replicated Block Device</em>](#praca-s-cluster-storage-riesenim-drbd---distributed-replicated-block-device)
   * [Instalacia technologie DRBD v systeme OpenSUSE 15.3](#instalacia-technologie-drbd-v-systeme-opensuse-153)
   * [Zaklady prace s Cluster suborovym systemom GFS2 (Global File System)](#zaklady-prace-s-cluster-suborovym-systemom-gfs2-global-file-system)
@@ -193,13 +193,13 @@ Potom do suboru `/etc/network/interfaces` pridat `IPv6` riadky napr.:
         gateway 2001:db8:cafe::1
         dns-nameservers 2001:148f:ffff::1 2001:148f:fffe::1
 
-#### Nastavenie siete v systeme CentOS:
+#### Nastavenie siete v systeme *CentOS 9 Stream*:
 
 Pouzil som nejake GNOME GUI, neviem preco sa zmeny hned neaplikovali.
   - alternativne sa da pouzit nastroj `nmtui`, instalujeme: `$ sudo dnf -y in NetworkManager-tui`
   - nasledne uz len spustime: `$ sudo nmtui`
 
-#### Nastavenie siete v systeme Fedora 35 Server:
+#### Nastavenie siete v systeme *Fedora 35 Server*:
 
 - pouzil som cli nastroj `nmcli` z balika `NetworkManager`
 
@@ -239,7 +239,7 @@ Nasledne overime config:
 
     $ sudo nmcli device show ens33
 
-#### Ako konfigurovat siet v systeme Ubuntu 20.04:
+#### Nastavenie siete v systeme *Ubuntu 20.04*:
 Treba *presunut/zalohovat* povodny konf. subor:
 
     $ sudo mv /etc/netplan/00-installer-config.yaml /etc/netplan/00-installer-config.yaml.disabled
@@ -1725,7 +1725,7 @@ Tip: na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-
 
 ### Zaklady prace so SAN protokolom iSCSI:
 
-#### Vytvorenie iSCSI targetu *(SAN-server)* na OS Fedora Server 35:
+#### Vytvorenie iSCSI targetu *(SAN-server)* na OS *Fedora Server 35*:
 
 - instalujeme *iSCSI Target* nastroj: `$ sudo dnf -y install targetcli`
 
@@ -1795,7 +1795,7 @@ Tip: na privatny SSH kluc mozeme nastavit prava `read-only`, zadame: `$ chmod u-
 
 Poznamka: iSCSI target sa da prevadzkovat v Clustry nad systemom DRBD.
 
-Tip: ako v OS "Fedora Server 35" nainstalovat NetworkManager-TUI: `$ sudo dnf install NetworkManager-tui`
+Tip: ako v OS *Fedora Server 35* nainstalovat NetworkManager-TUI: `$ sudo dnf install NetworkManager-tui`
 
 #### Vytvorenie iSCSI initiatora *(SAN-klient)* na OS OpenSUSE Leap 15.3:
 
