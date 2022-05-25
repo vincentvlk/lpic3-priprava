@@ -82,7 +82,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
   * [Trocha teorie: *CIB* - Cluster Information Base, Stav Clustra v pamati systemu](#trocha-teorie-cib---cluster-information-base-stav-clustra-v-pamati-systemu)
   * [Priklad instalacie Multicast Clustra na systeme OpenSUSE Leap s nastrojom crm](#priklad-instalacie-multicast-clustra-na-systeme-opensuse-leap-s-nastrojom-crm)
   * [Dalsia praca s nastrojom `crm`](#dalsia-praca-s-nastrojom-crm)
-  * [Praca s RA - Resource Agents](#praca-s-ra---resource-agents)
+  * [Praca s konceptom *RA - Resource Agents*](#praca-s-konceptom-ra---resource-agents)
   * [Priklad instalacie Unicast Clustra v systeme CentOS Stream 9 - nastroj pcs](#priklad-instalacie-unicast-clustra-v-systeme-centos-stream-9---nastroj-pcs)
   * [Dalsia praca s Cluster nastrojom `pcs`](#dalsia-praca-s-cluster-nastrojom-pcs)
   * [Zjednoduseny priklad ako vytvorit WebServer Cluster pomocou crm na OS OpenSUSE Leap 15.3](#zjednoduseny-priklad-ako-vytvorit-webserver-cluster-pomocou-crm-na-os-opensuse-leap-153)
@@ -97,8 +97,8 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
     * [Praca s Cluster obmedzeniami pomocou konceptu <em>Resource Groups</em>](#praca-s-cluster-obmedzeniami-pomocou-konceptu-resource-groups)
     * [Praca s konceptom <em>Cluster Resource Clones</em>](#praca-s-konceptom-cluster-resource-clones)
     * [Priklad ako vytvorit Cluster s <em>FTP server zdrojom</em> pomocou pcs](#priklad-ako-vytvorit-cluster-s-ftp-server-zdrojom-pomocou-pcs)
-    * [Priklad tvorby zdrojov Clustra s obmedzeniami/constraints pomocou nastroja crm](#priklad-tvorby-zdrojov-clustera-s-obmedzeniamiconstraints-pomocou-nastroja-crm)
-    * [Zaklady manazmentu zdrojov Clustra s nastrojmi `pcs` a `crm`](#zaklady-manazmentu-zdrojov-clustera-s-nastrojmi-pcs-a-crm)
+    * [Priklad tvorby zdrojov Clustra s obmedzeniami/constraints pomocou nastroja crm](#priklad-tvorby-zdrojov-clustra-s-obmedzeniamiconstraints-pomocou-nastroja-crm)
+    * [Zaklady manazmentu zdrojov Clustra s nastrojmi `pcs` a `crm`](#zaklady-manazmentu-zdrojov-clustra-s-nastrojmi-pcs-a-crm)
     * [Dalsie tipy a triky pre nastroje crm a pcs na spravu uzlov a zdrojov v Clustroch](#dalsie-tipy-a-triky-pre-nastroje-crm-a-pcs-na-spravu-uzlov-a-zdrojov-v-clustroch)
     * [Praca s Cluter logmi projektov <em>Corosync</em> a <em>Pacemaker</em>](#praca-s-cluter-logmi-projektov-corosync-a-pacemaker)
     * [Dalsie priklady na manazment Clustra s nastrojom `pcs`](#dalsie-priklady-na-manazment-clustra-s-nastrojom-pcs)
@@ -1890,23 +1890,22 @@ Na pracu s HA-Clusterom je vhodne mat *DNS zaznami typu A/PTR uzlov*, pripadne z
  - alebo sa da spustit v interaktivnom rezime s: `$ sudo crm`
  - vypisanie konfiguracie cluster-a: `$ sudo crm configure show`
    - mozeme vidiet ze pridelene zdroje v clustery sa definuje ako tzv. `primitive`
- - ak chceme upravit konfiguraciu clustera, pouzijeme: `$ sudo configure edit`
+ - ak chceme upravit konfiguraciu clustra, pouzijeme: `$ sudo configure edit`
  - dalsie zdroje pridelime v interaktivnom shelly: `$ sudo crm configure`
  - napr. v interaktivnom rezime pridame dalsiu *Virtual IP*, pouzijeme prikaz:
 ```
 crm(live)configure# primitive newIP ocf:heartbeat:IPaddr2 params ip=192.168.255.30 cidr_netmask=24
 ```
-
  - ak chceme po prikaze nieco upravit, pouzijeme prikaz `edit`, teda: `crm(live)configure# edit`
 
-#### Praca s RA - Resource Agents:
+#### Praca s konceptom *RA - Resource Agents*:
  - tito agenti spravuju zdroje, napr.: *OCF* - Open Cluster Framework
  - vypiseme triedy agentov pre zdroje: `$ sudo crm ra classes`
  - presnejsi vypis RA z triedy OCF: `$ sudo crm ra list ocf`
  - OCF ma *svoje* skripty, ako napr. *SystemD*
  - informacie o konkretnom RA ziskame s: `$ sudo crm ra info apache`
 
-Tip: ako ulozit nastrojom `crm` konfiguraciu clustera do suboru s datumom v nazve:
+Tip: ako ulozit nastrojom `crm` konfiguraciu clustra do suboru s datumom v nazve:
  - napr. prikaz: `$ sudo crm configure save zaloha-clus-$(date +%d-%m-%Y).txt`
  - *POZOR* na testovanie v LAB prostredi mozeme zmazat CIB: `$ sudo cibadmin -E --force`
  - nasledne mozeme konfiguraciu obnovit: `$ sudo crm configure load push zaloha-clus-12-03-2022.txt`
@@ -1936,7 +1935,7 @@ Tip: ako ulozit nastrojom `crm` konfiguraciu clustera do suboru s datumom v nazv
  - ako rucne upravit CIB konfiguraciu s `pcs`, prikaz: `$ sudo pcs cluster edit`
    - ak nemame definovanu premennu `$EDITOR`, tak: `$ sudo export EDITOR=$(which vim)`
    - dalsie editory: `emacs`, `nano`, `pico`, `joe`, `mcedit`, ...
- - ako vypisat dostupne zdroje clustera: `$ sudo pcs resource list | less`
+ - ako vypisat dostupne zdroje clustra: `$ sudo pcs resource list | less`
  - ako vypisat popis urciteho zdroja `IPaddr2` pre cluster: `$ sudo pcs resource describe IPaddr2`
  - ako vytvorit zdroj *Virtualna HA IP adresa* nastrojom `pcs`:
    - prikaz: `$ sudo pcs resource create mojaIP IPaddr2 ip=192.168.255.30 cidr_netmask=24`
@@ -1965,7 +1964,7 @@ primitive service-apache ocf:heartbeat:apache \
 ```
 
  - po ulozeni a zavreti editora sa zmeny aplikuju na *cely Cluster*
- - stav clustera overime s: `$ sudo crm_mon`
+ - stav clustra overime s: `$ sudo crm_mon`
  - pripadne aktualizujeme stav a pridelenie zdrojov: `$ sudo crm resource cleanup`
  - nasledne je potrebne na *vsetkych* uzloch povolit HTTP port na firewalle:
 ```bash
@@ -1981,7 +1980,7 @@ Poznamka: zdroj je kvoli zjednoduseniu dostupny len na realnej IP adrese uzla, n
  - *POZOR*, na TEST je potrebne vypnut STONITH/Fencing: `$ sudo pcs property set stonith-enabled=false`
  - vytvorine vIP: `$ sudo pcs resource create apache-ip IPaddr2 ip=192.168.255.29 cidr_netmask=24`
  - overime s: `$ sudo pcs resource status`
- - nasledne vytvorime Apache2 zdroj clustera: `$ sudo pcs resource create apache-service apache`
+ - nasledne vytvorime Apache2 zdroj clustra: `$ sudo pcs resource create apache-service apache`
  - overime s: `$ sudo pcs resource status`
  - otvorime konfiguraciu zdrojov cluster-a prikazom: `$ sudo crm configure edit`
  - nasledne je potrebne na *vsetkych* uzloch povolit HTTP port na firewalle:
@@ -2028,7 +2027,7 @@ Poznamka: ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
   - nasledne je potrebne znova spustit cluster: `$ sudo pcs cluster reload corosync`
 
 #### Zaklady konceptu Node Fencing/STONITH:
- - problematicky uzol treba *odrezat* z Clustera, fencing ma viacero druhov
+ - problematicky uzol treba *odrezat* z Clustra, fencing ma viacero druhov
  - druh *Power fencing*: ked mame pristup ku kontrolerom napajania, odrezeme napajenia uzla (UPS/PDU)
  - druh *Fabric fencing*: uzol odrezeme od storage konektivity, teda od iSCSI, resp. FibreChannel-u
  - samozrejme su k dispozicii dalsie moznosti Fencingu
@@ -2094,7 +2093,7 @@ Poznamka: ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
    - vzniknutu skupinu zdrojov overime prikazom: `$ sudo pcs status`
 
  - postup zaradovania zdrojov do skupiny pomocou nastroja `crm`:
- - otvorime konfiguraciu clustera s: `$ sudo crm configure edit`
+ - otvorime konfiguraciu clustra s: `$ sudo crm configure edit`
  - pridame riadok, ktory dva (existujuce) IP zdroje `admin-ip` a `dalsiaIP` zaradi do group `IPgroup`
 ```
     group IPgroup admin-ip dalsiaIP
@@ -2123,8 +2122,8 @@ Poznamka: ako na *troubleshooting*, teda hladanie a riesenie problemov s *Resour
    - prikaz: `$ sudo pcs constraint colocation add apache-group with ftp-group -10000`
  - upravime poradie startovania zdrojov: `$ sudo pcs constraint order apache-group then ftp-group`
 
-#### Priklad tvorby zdrojov clustera s obmedzeniami/constraints pomocou nastroja `crm`:
- - upravujeme konfiguraciu clustera pomocou: `$ sudo crm configure edit`
+#### Priklad tvorby zdrojov Clustra s obmedzeniami/constraints pomocou nastroja `crm`:
+ - upravujeme konfiguraciu clustra pomocou: `$ sudo crm configure edit`
  - ako priklad vytvorime podobne cluster *FTP server* v resource skupine `ftp-group`:
    - na uzloch instalujeme: `$ sudo zypper -n in vsftpd`
    - na uzloch aktivujeme server: `$ sudo systemctl enable vsftpd && sudo systemctl start vsftpd`
@@ -2148,7 +2147,7 @@ colocation web-not-ftp -10000: ftp-group apache-group
  - nasledne mozeme dostupnost FTP sluzby overit napr. prikazom: `$ nc 192.168.X.Y 21`
    - dalsie informacie o nastroji `netcat` napr. v: `$ man nc`
 
-#### Zaklady manazmentu zdrojov Clustera s nastrojmi `pcs` a `crm`:
+#### Zaklady manazmentu zdrojov Clustra s nastrojmi `pcs` a `crm`:
  - prikaz: `$ sudo pcs resource enable` zapne zdroj
  - prikaz: `$ sudo pcs resource disable` vypne zdroj
  - prikazmi restartujeme zdroje: `$ sudo pcs resource restart` a `$ sudo crm resource restart`
@@ -2164,7 +2163,7 @@ colocation web-not-ftp -10000: ftp-group apache-group
  - na udrzbu, mozeme vypnut cluster sluzby na uzle: `$ sudo pcs cluster stop <adresa-nodeX>`
  - po upravach/udrzbe, znova spustime: `$ sudo pcs cluster stop <adresa-nodeX>`
  - stav overime s: `$ sudo pcs status`
- - zapneme/vypneme prihlasovanie do clustera: `$ sudo pcs cluster {disable|enable} <adresa-nodeX>`
+ - zapneme/vypneme prihlasovanie do clustra: `$ sudo pcs cluster {disable|enable} <adresa-nodeX>`
  - pridavanie/odstranovanie uzlov: `$ sudo pcs cluster node {add|remove} <adresa-nodeX>`
    - nasledne je potrebne autentifikovat novy uzol: `$ sudo pcs host auth <adresa-nodeX>`
    - overime s: `$ sudo pcs status`
@@ -2366,7 +2365,7 @@ Tip: ako v Systemd *zapnut* sluzbu *po boote* a zaroven spustit: `$ sudo systemc
   - dalsou poziadavkou je *DLM - Distributed Lock Manager*, znamy aj pod nazvom `controld`
 - v cLVM su vsetky VG a LV na zdielanom storage, su *stale* dostupne *vsetkym* uzlom
   - vhodne na Cluster suborove systemy ako je napr. *GFS2*
-- v HALVM su VG a LV dostupne v danom case len *jednemu* uzlu z clustera, vhodne na `ext4`, `xfs` , `btrfs`
+- v HALVM su VG a LV dostupne v danom case len *jednemu* uzlu z clustra, vhodne na `ext4`, `xfs` , `btrfs`
   - na riadenie dostupnosti particii, pre dany uzol, sa vyuziva *Volume Tagging*, pre RedHat based distra
 - alternativa HALVM mimo RedHat systemov je *exclusive LVM*
 
