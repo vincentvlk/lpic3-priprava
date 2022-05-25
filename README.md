@@ -175,7 +175,7 @@ Editujeme konf. subor: `/etc/network/interfaces`, nasledne vlozime napr.:
 
 Po uprave aplikujeme config: `$ sudo systemctl restart ifup@ens33`
 
-#### Dodatok k nastaveniu statickej IPv6 adrese v systeme Debian11:
+#### Dodatok k nastaveniu statickej IPv6 adresy v systeme *Debian 11*:
 
 Bolo potrebne do suboru `/etc/sysctl.conf` vlozit riadky:
 
