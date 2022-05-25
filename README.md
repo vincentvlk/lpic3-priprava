@@ -154,7 +154,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
     + zvazit nasadenie IPv6, ak je to mozne (definitivne by uz malo byt)
 
 * * *
-Zakladne tipy a triky pre operacny system GNU/Linux
+Zakladne tipy a triky pre operacny system *GNU/Linux*
 ----------------------
 
 #### Nastavenie siete v systeme *Debian 11*:
