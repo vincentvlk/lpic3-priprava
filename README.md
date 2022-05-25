@@ -83,23 +83,23 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
   * [Priklad instalacie Multicast Clustra na systeme OpenSUSE Leap s nastrojom crm](#priklad-instalacie-multicast-clustra-na-systeme-opensuse-leap-s-nastrojom-crm)
   * [Dalsia praca s nastrojom `crm`](#dalsia-praca-s-nastrojom-crm)
   * [Praca s konceptom *RA - Resource Agents*](#praca-s-konceptom-ra---resource-agents)
-  * [Priklad instalacie Unicast Clustra v systeme CentOS Stream 9 - nastroj pcs](#priklad-instalacie-unicast-clustra-v-systeme-centos-stream-9---nastroj-pcs)
+  * [Priklad instalacie Unicast Clustra v systeme CentOS Stream 9 - nastroj `pcs`](#priklad-instalacie-unicast-clustra-v-systeme-centos-stream-9---nastroj-pcs)
   * [Dalsia praca s Cluster nastrojom `pcs`](#dalsia-praca-s-cluster-nastrojom-pcs)
-  * [Zjednoduseny priklad ako vytvorit WebServer Cluster pomocou crm na OS OpenSUSE Leap 15.3](#zjednoduseny-priklad-ako-vytvorit-webserver-cluster-pomocou-crm-na-os-opensuse-leap-153)
-  * [Zjednoduseny priklad ako vytvorit WebServer Cluster pomocou pcs na CentOS Stream 9](#zjednoduseny-priklad-ako-vytvorit-webserver-cluster-pomocou-pcs-na-centos-stream-9)
-  * [Pri zostavovani Clustra nastrojom pcs](#pri-zostavovani-clustra-nastrojom-pcs)
+  * [Zjednoduseny priklad ako vytvorit WebServer Cluster pomocou `crm` na OS OpenSUSE Leap 15.3](#zjednoduseny-priklad-ako-vytvorit-webserver-cluster-pomocou-crm-na-os-opensuse-leap-153)
+  * [Zjednoduseny priklad ako vytvorit WebServer Cluster pomocou `pcs` na CentOS Stream 9](#zjednoduseny-priklad-ako-vytvorit-webserver-cluster-pomocou-pcs-na-centos-stream-9)
+  * [Pri zostavovani Clustra nastrojom `pcs`](#pri-zostavovani-clustra-nastrojom-pcs)
   * [V distribucii OpenSUSE je konfiguracia Cluster kvora](#v-distribucii-opensuse-je-konfiguracia-cluster-kvora)
   * [Zaklady konceptu Node Fencing/STONITH](#zaklady-konceptu-node-fencingstonith)
   * [Konfiguracia Fencing-u v systeme CentOS Stream 9](#konfiguracia-fencing-u-v-systeme-centos-stream-9)
-  * [Ako pouzivat SBD Fencing na VM](#ako-pouzivat-sbd-fencing-na-vm)
+  * [Ako pouzivat *SBD Fencing* na VM](#ako-pouzivat-sbd-fencing-na-vm)
   * [Praca s <em>Cluster Resources</em>, teda zdroje, ktore dokaze Cluster poskytovat](#praca-s-cluster-resources-teda-zdroje-ktore-dokaze-cluster-poskytovat)
     * [Praca s obmedzeniami zdrojov <em>Resource constraints</em>](#praca-s-obmedzeniami-zdrojov-resource-constraints)
     * [Praca s Cluster obmedzeniami pomocou konceptu <em>Resource Groups</em>](#praca-s-cluster-obmedzeniami-pomocou-konceptu-resource-groups)
     * [Praca s konceptom <em>Cluster Resource Clones</em>](#praca-s-konceptom-cluster-resource-clones)
-    * [Priklad ako vytvorit Cluster s <em>FTP server zdrojom</em> pomocou pcs](#priklad-ako-vytvorit-cluster-s-ftp-server-zdrojom-pomocou-pcs)
+    * [Priklad ako vytvorit Cluster s <em>FTP server zdrojom</em> pomocou `pcs`](#priklad-ako-vytvorit-cluster-s-ftp-server-zdrojom-pomocou-pcs)
     * [Priklad tvorby zdrojov Clustra s obmedzeniami/constraints pomocou nastroja crm](#priklad-tvorby-zdrojov-clustra-s-obmedzeniamiconstraints-pomocou-nastroja-crm)
     * [Zaklady manazmentu zdrojov Clustra s nastrojmi `pcs` a `crm`](#zaklady-manazmentu-zdrojov-clustra-s-nastrojmi-pcs-a-crm)
-    * [Dalsie tipy a triky pre nastroje crm a pcs na spravu uzlov a zdrojov v Clustroch](#dalsie-tipy-a-triky-pre-nastroje-crm-a-pcs-na-spravu-uzlov-a-zdrojov-v-clustroch)
+    * [Dalsie tipy a triky pre nastroje `crm` a `pcs` na spravu uzlov a zdrojov v Clustroch](#dalsie-tipy-a-triky-pre-nastroje-crm-a-pcs-na-spravu-uzlov-a-zdrojov-v-clustroch)
     * [Praca s Cluter logmi projektov <em>Corosync</em> a <em>Pacemaker</em>](#praca-s-cluter-logmi-projektov-corosync-a-pacemaker)
     * [Dalsie priklady na manazment Clustra s nastrojom `pcs`](#dalsie-priklady-na-manazment-clustra-s-nastrojom-pcs)
     * [Dalsie priklady na manazment Clustra s nastrojom `crm`](#dalsie-priklady-na-manazment-clustra-s-nastrojom-crm)
@@ -2053,7 +2053,7 @@ Poznamka: ak by sme robili upravy v `corosync.conf` na OS s `pcs`, mozeme zmeny 
  - *POZOR*, na TEST mozeme *odstavit* VM instanciu prikazom: `$ sudo echo c > /proc/sysrq-trigger`
  - akciu *STONITH* mozeme rucne vykonat aj prikazom: `# sudo pcs stonith <hotname>`
 
-#### Ako pouzivat SBD Fencing na VM:
+#### Ako pouzivat *SBD Fencing* na VM:
  - je potrebne do kernelu nacitat modul `softdog`
  - *SBD* - STONITH Based on Disk
  - na rozdiel od fyz. HW, na VM chyba SCSI *Watchdog*, preto treba nacitat software verziu:
@@ -2174,8 +2174,8 @@ colocation web-not-ftp -10000: ftp-group apache-group
    - overime s: `$ sudo pcs status` alebo s: `$ sudo pcs status nodes`
 
 #### Dalsie tipy a triky pre nastroje `crm` a `pcs` na spravu uzlov a zdrojov v Clustroch:
- - prikaz: `$ sudo crm cluster add`
- - nastroj `crm` na uvedenie uzla do modu `standby`: `$ sudo crm node standby <nazov-uzla>`
+ - prikaz nastroja `crm` prida do Clustra dalsi uzol: `$ sudo crm cluster add`
+ - prikaz nastroja `crm` na uvedenie uzla do modu *standby* s: `$ sudo crm node standby <nazov-uzla>`
    - po upravach *zapneme*: `$ sudo crm node online <nazov-uzla>`
    - nazov uzla ziskame napr z: `$ sudo crm status`
 
