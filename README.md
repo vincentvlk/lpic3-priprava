@@ -30,7 +30,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
   * [Nastroj *Cron* a planovanie v kratkosti](#nastroj-cron-a-planovanie-v-kratkosti)
   * [Praca s monitorovanim procesov/programov](#praca-s-monitorovanim-procesovprogramov)
   * [Praca so sietovymi nastrojmi (IPv4, IPv6, DNS)](#praca-so-sietovymi-nastrojmi-ipv4-ipv6-dns)
-  * [Praca s TCP/UDP aplikaciami, socketmi](#praca-s-tcpudp-aplikaciami-socketmi)
+  * [Praca s *TCP/UDP* aplikaciami a socketmi](#praca-s-tcpudp-aplikaciami-a-socketmi)
 * [Praca s BASH skriptami, interpretom a dalsimi nastrojmi v prostredi *GNU/Linux*](#praca-s-bash-skriptami-interpretom-a-dalsimi-nastrojmi-v-prostredi-gnulinux)
   * [Prikazovy interpret BASH ma specialne premenne pre argumenty, napr. skript `ashow.sh`](#prikazovy-interpret-bash-ma-specialne-premenne-pre-argumenty-napr-skript-ashowsh)
   * [Priklad na riadenie toku v BASH skripte s prikazom `if`](#priklad-na-riadenie-toku-v-bash-skripte-s-prikazom-if)
@@ -54,10 +54,10 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
     * [Na overovanie bezpecnosti hesla mozeme pouzit nastroj <em>John the Ripper</em>](#na-overovanie-bezpecnosti-hesla-mozeme-pouzit-nastroj-john-the-ripper)
     * [Dalsie politiky hesla, napr. jeho zlozitost, spravuju <em>PAM - Pluggable Authentification Modules</em>](#dalsie-politiky-hesla-napr-jeho-zlozitost-spravuju-pam---pluggable-authentification-modules)
     * [Ako vytvorit *sifrovanu* particiu na HDD/SSD](#ako-vytvorit-sifrovanu-particiu-na-hddssd)
-    * [Zaklady prace s nastrojom sudo](#zaklady-prace-s-nastrojom-sudo)
+    * [Zaklady prace s nastrojom `sudo`](#zaklady-prace-s-nastrojom-sudo)
     * [V oblasti <em>Steganografie</em> sa pouziva nastroj `steghide`](#v-oblasti-steganografie-sa-pouziva-nastroj-steghide)
     * [Dalsie priklady prace s uzivatelskymi uctami](#dalsie-priklady-prace-s-uzivatelskymi-uctami)
-    * [Zaklady prace s programom nmap](#zaklady-prace-s-programom-nmap)
+    * [Zaklady prace s programom `nmap`](#zaklady-prace-s-programom-nmap)
     * [Nastroje na detekciu tzv. <em>Rootkit-ov</em>](#nastroje-na-detekciu-tzv-rootkit-ov)
     * [Ako hladat/mazat virusy, pouzijeme projekt <em>Clam-AV</em>](#ako-hladatmazat-virusy-pouzijeme-projekt-clam-av)
     * [Ako na zabezpecenie zavadzaca <em>GRUB2</em>](#ako-na-zabezpecenie-zavadzaca-grub2)
@@ -80,7 +80,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
 
 * [Zaklady prace s *HA - High Availability Cultermi* v systeme GNU/Linux](#zaklady-prace-s-ha---high-availability-cultermi-v-systeme-gnulinux)
   * [Trocha teorie: *CIB* - Cluster Information Base, Stav Clustra v pamati systemu](#trocha-teorie-cib---cluster-information-base-stav-clustra-v-pamati-systemu)
-  * [Priklad instalacie Multicast Clustra na systeme OpenSUSE Leap s nastrojom crm](#priklad-instalacie-multicast-clustra-na-systeme-opensuse-leap-s-nastrojom-crm)
+  * [Priklad instalacie Multicast Clustra na systeme OpenSUSE Leap s nastrojom `crm`](#priklad-instalacie-multicast-clustra-na-systeme-opensuse-leap-s-nastrojom-crm)
   * [Dalsia praca s nastrojom `crm`](#dalsia-praca-s-nastrojom-crm)
   * [Praca s konceptom *RA - Resource Agents*](#praca-s-konceptom-ra---resource-agents)
   * [Priklad instalacie Unicast Clustra v systeme CentOS Stream 9 - nastroj `pcs`](#priklad-instalacie-unicast-clustra-v-systeme-centos-stream-9---nastroj-pcs)
@@ -141,10 +141,10 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
 * [Projekt *OpenNebula*](#projekt-opennebula)
 * * *
 * [Nezaradene poznamky pre system GNU/Linux](#nezaradene-poznamky-pre-system-gnulinux)
-  * [Ako v systeme GNU/Linux vypnut HW PC-speaker](#ako-v-systeme-gnulinux-vypnut-hw-pc-speaker)
+  * [Ako v systeme GNU/Linux vypnut *HW PC-speaker*](#ako-v-systeme-gnulinux-vypnut-hw-pc-speaker)
   * [Dobra stranka na zaciatocnu konfiguraciu znamych distribucii Linuxu](#dobra-stranka-na-zaciatocnu-konfiguraciu-znamych-distribucii-linuxu)
   * [Ak system nepreklada DNS zaznami a hlasi: *Temporary failure in name resolution*](#ak-system-nepreklada-dns-zaznami-a-hlasi-temporary-failure-in-name-resolution)
-  * [Ako v Unix-like systemoch konvertovat video kodekom H.265](#ako-v-unix-like-systemoch-konvertovat-video-kodekom-h265)
+  * [Ako v Unix-like systemoch konvertovat video *kodekom H.265*](#ako-v-unix-like-systemoch-konvertovat-video-kodekom-h265)
   * [Obsah tejto stranky bol vygenerovany BASH skritpom](#obsah-tejto-stranky-bol-vygenerovany-bash-skritpom)
 * * * 
 #### Moj skromny nazor na priority pri realizacii projektov na OS GNU/Linux:
@@ -591,7 +591,7 @@ Ako overit nastavenia DNS v systeme: `$ resolvectl status`
 
 Ako vypisat vsetky sietove sockety v systeme: `$ sudo netstat -tunap`
 
-Cisla TCP/UDP portov sa daju zistit z referencneho .txt suboru `/etc/services`
+Tip: cisla TCP/UDP portov sa daju zistit z referencneho .txt suboru: `/etc/services`
 
 Ako rucne spustit DHCP klienta: `$ sudo dhclient ens33`
 
@@ -614,7 +614,7 @@ Do suboru mozeme pisat riadky napr.:
     -A INPUT -s 192.168.1.242/32 -j DROP
     COMMIT
 
-Aplikujeme zmeny tak, ze ak sa *odrezeme*, konf. sa obnovi po 20 sek: `$ sudo iptables-apply -t 20`
+Aplikujeme zmeny tak, ze ak sa *odrezeme*, konf. sa obnovi po *20 sek.*: `$ sudo iptables-apply -t 20`
 
 Je dobre si uvedomit, ze IPtables su nahradene komplexnym nastrojom *NFtables* (aj ked zlozitejsim) 
  - dalsie informacie: `www.netfilter.org/projects/nftables/index.html`
@@ -623,7 +623,7 @@ Ako vypisat IPv4 ARP tabulku a zaroven aj IPv6 ND tabulku: `$ ip neigh`
  - opat sa da skratit na: `$ ip n`
  - stary prikaz pre IPv4: `$ arp -an`
 
-#### Praca s TCP/UDP aplikaciami a socketmi:
+#### Praca s *TCP/UDP* aplikaciami a socketmi:
 
 Ako vytvorit testovaci TCP socket co pocuva na danom porte: `$ sudo nc -l 23`
  - na socket sa so vzdialenej stanice pripojime napr.: `$ telnet A.B.C.D 23`
@@ -3404,7 +3404,7 @@ Tip: ako zalohovat pomocou programu `rsync` vsetky *.dotfile* a *.dotdirectory*:
  
 - neviem do kedy bude online a chyba praca s protokolom IPv6 :(
 
-#### Ak system nepreklada DNS zaznami a hlasi: "Temporary failure in name resolution"
+#### Ak system nepreklada DNS zaznami a hlasi: *Temporary failure in name resolution*
  - treba skontrolovat syntax suboru `/etc/resolv.conf`
  - pripadne restartovat DNS resolver proces: `$ sudo systemctl restart systemd-resolved.service`
  - overime s: `$ sudo systemctl status systemd-resolved.service`
