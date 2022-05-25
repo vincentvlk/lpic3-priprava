@@ -143,7 +143,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
 * [Nezaradene poznamky pre system GNU/Linux](#nezaradene-poznamky-pre-system-gnulinux)
   * [Ako v systeme GNU/Linux vypnut *HW PC-speaker*](#ako-v-systeme-gnulinux-vypnut-hw-pc-speaker)
   * [Dobra stranka na zaciatocnu konfiguraciu znamych distribucii Linuxu](#dobra-stranka-na-zaciatocnu-konfiguraciu-znamych-distribucii-linuxu)
-  * [Ak system nepreklada DNS zaznami a hlasi: *Temporary failure in name resolution*](#ak-system-nepreklada-dns-zaznami-a-hlasi-temporary-failure-in-name-resolution)
+  * [Ak system nepreklada DNS zaznamy a hlasi: *Temporary failure in name resolution*](#ak-system-nepreklada-dns-zaznamy-a-hlasi-temporary-failure-in-name-resolution)
   * [Ako v Unix-like systemoch konvertovat video *kodekom H.265*](#ako-v-unix-like-systemoch-konvertovat-video-kodekom-h265)
   * [Obsah tejto stranky bol vygenerovany BASH skritpom](#obsah-tejto-stranky-bol-vygenerovany-bash-skritpom)
 * * * 
@@ -1858,7 +1858,7 @@ Zaklady prace s HA - High Availability Cultermi v systeme GNU/Linux
 -----------------
 Hlavne stavebne kamene HA Clustrov postavenych na systeme GNU/Linux: `Pacemaker` a `Corosync`.
 
-Na pracu s HA-Clusterom je vhodne mat *DNS zaznami typu A/PTR uzlov*, pripadne zaznami v `/etc/hosts`
+Na pracu s HA-Clusterom je vhodne mat *DNS zaznamy typu A/PTR uzlov*, pripadne zaznamy v `/etc/hosts`
 
 #### Trocha teorie: *CIB* - Cluster Information Base
  - je aktualny stav Clustra v pamati systemu
@@ -3300,7 +3300,7 @@ message_size_limit = 10240000
  - instalujeme potrebne baliky (cca. 230MB): `$ sudo dnf -y install ovirt-hosted-engine-setup`
  - po instalacii spustime instalacny skript: `$ sudo hosted-engine --deploy`
  - skript doporucuje spustit instlaciu v nastroji `tmux`, pripadne `screen`
- - v skripte je potrebne zadavat parametre podla poziadavky, je *treba mat DNS/hosts zaznami*
+ - v skripte je potrebne zadavat parametre podla poziadavky, je *treba mat DNS/hosts zaznamy*
  - na *Storage subsystem* som pouzil NFSv4 s adresou: `rock3.example.com:/var/lib/ovirt-share`
  - instalaciu overime s: `$ sudo hosted-engine --vm-status`
    - alebo: `$ sudo virsh -c qemu:///system?authfile=/etc/ovirt-hosted-engine/virsh_auth.conf list`
@@ -3314,7 +3314,7 @@ message_size_limit = 10240000
 
  - Dalsi vypoctovy uzol, teda *oVirt Node/Host* mozeme nainstalovat z pripraveneho .ISO:
    - upravene distro z: `https://resources.ovirt.org/pub/ovirt-4.4/iso/ovirt-node-ng-installer/`
-   - je potrebne mat spravne nadefinovane DNS zaznami jednotlivych uzlov, storage, ...
+   - je potrebne mat spravne nadefinovane DNS zaznamy jednotlivych uzlov, storage, ...
    - inak napisane, treba mat pripraveny aspon zakladny systemovy dizajn
    - na pridanie dalsieho Node/uzla je vhodne vyuzit PKI auth. v SSH, pomocou klucov
    - ked vytvorime VM instanciu a pripojime instalacne ISO, da sa pripojit protokolom *SPICE*
@@ -3405,7 +3405,7 @@ Tip: ako zalohovat pomocou programu `rsync` vsetky *.dotfile* a *.dotdirectory*:
  
 - neviem do kedy bude online a chyba praca s protokolom IPv6 :(
 
-#### Ak system nepreklada DNS zaznami a hlasi: *Temporary failure in name resolution*
+#### Ak system nepreklada DNS zaznamy a hlasi: *Temporary failure in name resolution*
  - treba skontrolovat syntax suboru `/etc/resolv.conf`
  - pripadne restartovat DNS resolver proces: `$ sudo systemctl restart systemd-resolved.service`
  - overime s: `$ sudo systemctl status systemd-resolved.service`
