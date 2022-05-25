@@ -1567,7 +1567,7 @@ Dalsi nastroj na *Rootkit* detekciu je `chkrootkit`
 
 Tip: ako zistit, ake NS servery pouziva dana domena: `$ dig -t ns example.com`
 
-Ako pridat domenu/zonovy subor, tzv. *zone-file*, teda vytvorit autoritaivny DNS server pre domenu:
+Ako pridat domenu/zonovy subor, tzv. *zone-file*, teda vytvorit autoritativny DNS server pre domenu:
  - do suboru `/etc/bind/named.config.local` pridame riadky:
 ```named
     zone "priklad.xyz" {
@@ -3354,8 +3354,8 @@ $ brew install virt-viewer
  - zakladne vlastnosti:
    - vysoka skalovatelnost, nasiel som Case Study s viac ako 30 tisic Host servermi
    - open-source vyvoj
-   - podpora Compute orchestration
-   - podpora NaaS: Network as a Service
+   - podpora *Compute orchestration*
+   - podpora *NaaS: Network as a Service*
    - storage manazment pre VM instancie ako aj pre image a sablony, snapshoty
    - manazment uzivatelov a uctov
    - podpora multi-tenancy
