@@ -47,7 +47,7 @@ Poznamky su rozdelene na dve hlavne casti (oddelene ciarou):
   * [Jednoduchy priklad ako kompilovat zdrojove subory v jazyku <em>C</em>](#jednoduchy-priklad-ako-kompilovat-zdrojove-subory-v-jazyku-c)
   * [Jednoduchy priklad ako kompilovat zdrojove subory v jazyku <em>Java</em>](#jednoduchy-priklad-ako-kompilovat-zdrojove-subory-v-jazyku-java)
   * [Ako kompilovat a instalovat distribuovane zdrojove baliky](#ako-kompilovat-a-instalovat-distribuovane-zdrojove-baliky)
-* [Zaklady prace s nastrojom Git a platformou GitHub](#zaklady-prace-s-nastrojom-git-a-platformou-github)
+* [Zaklady prace s nastrojom *Git* a platformou *GitHub*](#zaklady-prace-s-nastrojom-git-a-platformou-github)
     * [Ako replikovat lokalny Git repozitar na vzdialeny server, napr. na GitHub](#ako-replikovat-lokalny-git-repozitar-na-vzdialeny-server-napr-na-github)
 * [Zaklady bezpecnosti v operacnom systeme GNU/Linux](#zaklady-bezpecnosti-v-operacnom-systeme-gnulinux)
     * [Nastroj na ochranu/kontrolu integrity suborov a adresarov, projekt <em>AIDE</em>](#nastroj-na-ochranukontrolu-integrity-suborov-a-adresarov-projekt-aide)
@@ -270,7 +270,7 @@ Alebo:
 
     $ sudo netplan apply
 
-### Zaklady spravy diskov, particii a SWAP priestoru:
+### Zaklady spravy diskov, particii a *Swap* priestoru:
 
 Prikaz vypise blokove zariadenia: `$ sudo lsblk`
 
@@ -1264,7 +1264,7 @@ Vytvorime jednoduchy cvicny zdrojovy subor `pokus.java`:
  - *POZOR* na testovacej instalacii sa da spustit tvorba balicka: `$ sudo checkinstall make install`
  - hore uvedenym prikazom sa da rozbit system, tak si treba na test VM spravit *snapshot/backup*
 
-### Zaklady prace s nastrojom Git a platformou GitHub:
+### Zaklady prace s nastrojom *Git* a platformou *GitHub*:
 Vytvorime adresar `git_ucenie`, v ktorom inicializujeme *lokalny* Git repozitar: `$ git init`
  - aktualny stav repozitara overime s: `$ git status`
  - nastavime identitu uzivatela na pridavanie zmien: `$ git config --global --edit`
