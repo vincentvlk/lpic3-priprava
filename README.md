@@ -3333,8 +3333,8 @@ $ brew install virt-viewer
 
 #### Poznamky k projektu *OpenStack*:
  - definovany ako *Cloud Operating System*
- - *rozsiahly projekt*, urceny na manazment cloudovych *zdrojov compute, storage, network v datovom centre*
- - na manzment a provisioning zdrojov vyuziva webove dashboard rozhranie a API rozhranie
+ - *rozsiahly projekt*, urceny na manazment cloudovych zdrojov *compute, storage, network* v datovom centre
+ - na manazment a provisioning zdrojov vyuziva webove dashboard rozhranie a API rozhranie
  - zdroje typu *Compute* mozu byt: *bare metal HW, VMs, kontajnery*
  - zdroje typu *Storage* mozu byt: *Block Device, File Storage, Object Storage*
 
