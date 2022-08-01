@@ -1306,7 +1306,7 @@ https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/c
 - dalej vytvorime repozitar s nazvom `git_ucenie`, portal *GitHub* nam vygeneruje zakladne prikazy
 - dalej si vytvorime vzdialeny pristup na repo., tzv. *Remote*: 
   - prikaz: `$ git remote add origin https://github.com/<UZIVATEL>/git_ucenie.git`
-- nasledne zosynchronizujeme kolakny repo. so vzdialenym repo.: `$ git push -u origin main`
+- nasledne zosynchronizujeme lokalny repo. so vzdialenym repo.: `$ git push -u origin main`
 - na autentifikaciu zadame svoje uzivatelske meno, ale *namiesto hesla zadame vygenerovany PAT token*
 
 Na ulahcenie prace s Git-om mozeme pridat do svojho `$HOME` adresara, do suboru `.gitconfig` aliasy, napr.:
